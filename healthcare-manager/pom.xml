@@ -60,6 +60,27 @@
             <artifactId>mybatis</artifactId>
             <version>3.5.6</version>
         </dependency>
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.3.5</version>
+            <!--
+                minio 要求 okhttp 的版本 >= 4.8.1 ，但其自带的默认为 3.14.8
+                因为需要将原本的 okhttp 依赖排除，手动添加高于 4.8.1 的版本
+            -->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.squareup.okhttp3</groupId>
+                    <artifactId>okhttp</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 重新导入 okhttp 依赖 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.9.2</version>
+        </dependency>
     </dependencies>
 
     <build>
