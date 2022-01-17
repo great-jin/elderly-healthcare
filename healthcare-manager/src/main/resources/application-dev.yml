@@ -1,0 +1,41 @@
+# 配置端口
+server:
+  port: 9090
+  tomcat:
+    uri-encoding: utf-8
+
+# 数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.100.200.104:6565/elderly_healthcare?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: budai7417..
+    # 阿里连接池配置
+    druid:
+      initial-size: 5
+      max-active: 30
+      min-idle: 10
+      max-wait: 6000
+      # SQL防火墙
+      filters: stat, wall
+      # 配置监控选项，访问路径：http://localhost:9090/druid/
+      web-stat-filter.enabled: true
+      stat-view-servlet.enabled: true
+      stat-view-servlet.login-username: admin
+      stat-view-servlet.login-password: admin
+
+# 绑定mybatis
+mybatis:
+  mapper-locations: classpath:mysql/*.xml
+  type-aliases-package: xyz.greatinvincible.entity
+  # 控制台打印 sql 语句
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# pageHepler分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
