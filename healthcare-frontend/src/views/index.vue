@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h2 class="login-title">Elderly Healthcare</h2>
-    <a-form ref="form" :model="user" class="login-form">
+    <a-form class="login-form">
       <h2 class="title">登录</h2>
       <a-form-item>
         <a-input class="inputBox" v-model="user.accountID">
@@ -15,7 +15,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button class="submit" type="primary" @click="onSubmit">登录</a-button>
+        <a-button class="submit" type="primary" @click="onSubmit()">登录</a-button>
       </a-form-item>
     </a-form>
   </div>
