@@ -5,12 +5,12 @@
       <h2 class="title">登录</h2>
       <a-form-item>
         <a-input class="inputBox" v-model="user.accountID">
-          <img src="../assets/user.png" slot="prefix" alt="">
+          <img src="src/assets/man.png" slot="prefix" alt="">
         </a-input>
       </a-form-item>
       <a-form-item>
         <a-input-password class="inputBox" v-model="user.password">
-          <img src="../assets/mima.png" slot="prefix" alt="">
+          <img src="src/assets/lock.png" slot="prefix" alt="">
         </a-input-password>
       </a-form-item>
 
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Login } from '@api/user.js';
+import { Login } from '@/api/user.js';
 export default {
   data() {
     return {

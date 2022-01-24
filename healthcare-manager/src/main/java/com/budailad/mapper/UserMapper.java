@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> list();
+
+    User login(User user);
 }

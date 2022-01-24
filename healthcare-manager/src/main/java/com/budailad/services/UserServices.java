@@ -14,4 +14,6 @@ public interface UserServices {
      */
     List<User> list();
 
+    User login(User user);
+
 }
