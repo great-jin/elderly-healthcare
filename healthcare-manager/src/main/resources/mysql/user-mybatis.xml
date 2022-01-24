@@ -6,6 +6,7 @@
 
     <resultMap type="com.budailad.entity.User" id="userResult">
         <id property="ID" column="id" />
+        <result property="accountID" column="account_id"/>
         <result property="userName" column="user_name"/>
         <result property="password" column="password"/>
     </resultMap>

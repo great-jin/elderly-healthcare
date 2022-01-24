@@ -6,3 +6,12 @@ export function List(params) {
     method: 'get',
   })
 }
+
+
+export function Login(params) {
+  return request({
+    url: '/users/login',
+    method: 'post',
+    data: params
+  })
+}
