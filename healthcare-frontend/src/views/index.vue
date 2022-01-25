@@ -37,13 +37,13 @@ export default {
     onSubmit()  {
       const params = this.user
       console.log(params)
-      if (params.accountID !== '' && params.userName !== '' && params.password !== '') {
+      if (params.accountID !== '' && params.password !== '') {
         Login(params).then(res =>{
           console.log(res)
           if (res === 1){
-            this.backResult = 'OK'
+            this.$message.success('OK')
           } else {
-            this.backResult = 'Faild'
+            this.$message.error('Faild')
           }
         })
       } else {
