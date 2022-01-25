@@ -15,7 +15,7 @@
       </a-form-item>
 
       <a-form-item>
-        <a-button class="submit" type="primary" @click="onSubmit()">登录</a-button>
+        <a-button class="submit" type="primary" @click="Login()">登录</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -23,6 +23,8 @@
 
 <script>
 import { Login } from '@/api/user.js';
+import AES from '@/aes/aes.js';
+
 export default {
   data() {
     return {
@@ -34,7 +36,9 @@ export default {
     }
   },
   methods: {
-    onSubmit()  {
+    Login()  {
+      const _pwd = AES.encrypt(JSON.stringify(this.user));
+      console.log(_pwd)
       const params = this.user
       console.log(params)
       if (params.accountID !== '' && params.password !== '') {
