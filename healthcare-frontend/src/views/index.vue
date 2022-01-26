@@ -1,17 +1,32 @@
 <template>
   <div class="login-container">
     <h2 class="login-title">Elderly Healthcare</h2>
-    <a-form class="login-form">
+    <a-form class="login-form" :form="form">
       <h2 class="title">登录</h2>
       <a-form-item>
-        <a-input class="inputBox" v-model="user.accountID">
-          <img src="src/assets/man.png" slot="prefix" alt="">
+        <a-input
+          class="inputBox"
+          placeholder="请输入账号"
+          v-decorator="['user.accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
+        >
         </a-input>
       </a-form-item>
       <a-form-item>
-        <a-input-password class="inputBox" v-model="user.password">
-          <img src="src/assets/lock.png" slot="prefix" alt="">
+        <a-input-password
+          class="inputBox"
+          placeholder="请输入密码"
+          v-decorator="['user.password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+        >
         </a-input-password>
+      </a-form-item>
+
+      <a-form-item >
+        <a-input
+          style="width: 200px; margin-right: 20px;"
+          placeholder="请输入验证码"
+          v-decorator="['identifyInput', { rules: [{ required: true, message: '验证码不能为空!' }] }]"
+        ></a-input>
+        <s-identify :identifyCode="identifyCode" @click="refreshCode"></s-identify>
       </a-form-item>
 
       <a-form-item>
@@ -22,37 +37,168 @@
 </template>
 
 <script>
-import { Login } from '@/api/user.js';
 import AES from '@/aes/aes.js';
+import { Login } from '@/api/user.js';
+import SIdentify  from "./identify";
 
 export default {
+  components: {
+    's-identify': SIdentify
+  },
   data() {
     return {
-      user:{
+      makeCode: '',
+      identifyCode: '',
+      identifyInput: '',
+      user: {
         accountID: '',
         userName: '',
         password: ''
-      }
+      },
+      form: this.$form.createForm(this)
+      // rules: {
+      //   accountID: [{ required: true, message: '账号不能为空!', trigger: 'blur' }],
+      //   password: [{ required: true, message: '密码不能为空!', trigger: 'blur' }],
+      // }
     }
+  },
+  mounted () {
+    this.makeIdentifyCode({ randomTypeLen: true })
+    console.log(this.identifyCode)
   },
   methods: {
     Login()  {
-      const _pwd = AES.encrypt(JSON.stringify(this.user));
-      console.log(_pwd)
-      const params = this.user
-      console.log(params)
-      if (params.accountID !== '' && params.password !== '') {
-        Login(params).then(res =>{
-          console.log(res)
-          if (res === 1){
-            this.$message.success('OK')
+      const _this = this
+      _this.form.validateFields((errors, values) => {
+        if (!errors) {
+          const _identy = this.identifyInput
+          console.log('_identy: ' + _identy)
+          if (_identy.equals(this.identifyCode)){
+            const params = this.user
+            params.password = AES.encrypt(JSON.stringify(this.user));
+            console.log(params)
+            Login(params).then(res =>{
+              console.log(res)
+              if (res === 1){
+                this.$message.success('OK')
+              } else {
+                this.form.resetFields()
+                this.$message.error('Faild')
+              }
+            })
           } else {
-            this.$message.error('Faild')
+            this.identifyCode = ''
+            this.$message.error('验证码错误')
           }
-        })
+        }
+      })
+    },
+    randomNum () {
+      return Math.floor(Math.random() * 10)
+    },
+    randomAlphabet ({ isUupper = false } = {}) {
+      // a的Unicode值为97,z的Unicode值为123
+      const alphabet = String.fromCharCode(Math.floor(Math.random() * 25) + 97)
+      if (!isUupper) {
+        return alphabet
       } else {
-        this.$message.error('Please input the user info!')
+        return alphabet.toUpperCase()
       }
+    },
+    makeIdentifyCode ({ length = 4, typeMix = true, pureNumber = 'alphabet', randomTypeLen = false, capsLookMix = false, numLength = 2, uupperLength = 1 } = {}) {
+      this.makeCode = ''
+      // 数字和字母混合
+      if (typeMix) {
+        if (randomTypeLen) {
+          // 字母大小写混合
+          if (capsLookMix) {
+            const numLength = Math.floor(Math.random() * length) + 1
+            const uupperLength = numLength === length ? 0 : Math.floor(Math.random() * (length - numLength)) + 1
+            for (let i = 0; i < numLength; i++) {
+              this.makeCode += this.randomNum()
+            }
+            for (let i = 0; i < uupperLength; i++) {
+              this.makeCode += this.randomAlphabet({ isUupper: true })
+            }
+            if (numLength + uupperLength < length) {
+              for (let i = 0; i < length - numLength - uupperLength; i++) {
+                this.makeCode += this.randomAlphabet()
+              }
+            }
+          } else {
+            const numLength = Math.floor(Math.random() * length) + 1
+            for (let i = 0; i < numLength; i++) {
+              this.makeCode += this.randomNum()
+            }
+            if (numLength < length) {
+              for (let i = 0; i < length - numLength; i++) {
+                this.makeCode += this.randomAlphabet()
+              }
+            }
+          }
+        } else {
+          // 字母大小写混合
+          if (capsLookMix) {
+            const tempNumLength = numLength < 0 ? 2 : numLength > length ? 2 : numLength
+            const tempUupperLength = uupperLength < 0 ? 1 : uupperLength > length - tempNumLength ? 1 : uupperLength
+            for (let i = 0; i < tempNumLength; i++) {
+              this.makeCode += this.randomNum()
+            }
+            for (let i = 0; i < tempUupperLength; i++) {
+              this.makeCode += this.randomAlphabet({ isUupper: true })
+            }
+            if (tempNumLength + tempUupperLength < length) {
+              for (let i = 0; i < length - tempNumLength - tempUupperLength; i++) {
+                this.makeCode += this.randomAlphabet()
+              }
+            }
+          } else {
+            const tempNumLength = numLength < 0 ? 2 : numLength > length ? 2 : numLength
+            for (let i = 0; i < tempNumLength; i++) {
+              this.makeCode += this.randomNum()
+            }
+            if (tempNumLength < length) {
+              for (let i = 0; i < length - tempNumLength; i++) {
+                this.makeCode += this.randomAlphabet()
+              }
+            }
+          }
+        }
+      } else {
+        // 纯数字('number')
+        if (pureNumber === 'number') {
+          for (let i = 0; i < length; i++) {
+            this.makeCode += this.randomNum()
+          }
+        }
+        // 纯字母('alphabet')
+        if (pureNumber === 'alphabet') {
+          // 字母大小写混合
+          if (capsLookMix) {
+            const tempUupperLength = uupperLength < 0 ? 1 : uupperLength > length ? 1 : uupperLength
+            for (let i = 0; i < tempUupperLength; i++) {
+              this.makeCode += this.randomAlphabet({ isUupper: true })
+            }
+            if (tempUupperLength < length) {
+              for (let i = 0; i < length - tempUupperLength; i++) {
+                this.makeCode += this.randomAlphabet()
+              }
+            }
+          } else {
+            for (let i = 0; i < length; i++) {
+              this.makeCode += this.randomAlphabet()
+            }
+          }
+        }
+      }
+      this.shuffle(this.makeCode)
+    },
+    shuffle (str) {
+      this.identifyCode = [...str].sort(() => Math.random() - 0.5).join('')
+      console.log(this.identifyCode)
+    },
+    refreshCode () {
+      this.makeIdentifyCode({ randomTypeLen: true })
     }
   },
 }
@@ -66,7 +212,6 @@ export default {
     background: url("../assets/bg.png");
     padding: 40px 110px;
   }
-
   /* 背景 */
   .login-container {
     position: absolute;
@@ -74,7 +219,6 @@ export default {
     height: 100%;
     background: url("../assets/bg.png");
   }
-
   /* Log */
   .login-title {
     color: #fff;
@@ -83,14 +227,12 @@ export default {
     font-size: 48px;
     font-family: Microsoft Yahei;
   }
-
   /* 登陆按钮 */
   .submit{
     width: 100%;
     height: 45px;
     font-size: 16px;
   }
-
   /* 用户登陆标题 */
   .title{
     margin-bottom: 50px;
@@ -99,12 +241,10 @@ export default {
     font-size: 24px;
     font-family: Microsoft Yahei;
   }
-
   /* 输入框 */
   .inputBox{
     height: 35px;
   }
-
   /* 输入框内左边距50px */
   .ant-input-affix-wrapper .ant-input:not(:first-child) {
     padding-left: 50px;
