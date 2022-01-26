@@ -6,13 +6,15 @@
       ref="form"
       :rules="rules"
     >
-      <h2 class="title">登录</h2>
+      <h3 class="title">登录</h3>
       <a-form-item>
         <a-input
           class="inputBox"
           placeholder="请输入账号"
           v-model="Info.accountID"
-        ></a-input>
+        >
+          <img src="src/assets/man.png" slot="prefix" alt="">
+        </a-input>
       </a-form-item>
 
       <a-form-item>
@@ -20,7 +22,9 @@
           class="inputBox"
           placeholder="请输入密码"
           v-model="Info.password"
-        ></a-input-password>
+        >
+          <img src="src/assets/lock.png" slot="prefix" alt="">
+        </a-input-password>
       </a-form-item>
 
       <a-form-item >
@@ -208,7 +212,7 @@ export default {
 <style>
   .login-form {
     width: 565px;
-    height: 390px;
+    height: 380px;
     margin: 0 auto;
     background: url("../assets/bg.png");
     padding: 40px 110px;
@@ -236,7 +240,7 @@ export default {
   }
   /* 用户登陆标题 */
   .title{
-    margin-bottom: 50px;
+    margin-bottom: 35px;
     color: #fff;
     font-weight: 700;
     font-size: 24px;
