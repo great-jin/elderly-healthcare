@@ -1,27 +1,22 @@
 <template>
   <div class="login-container">
     <h2 class="login-title">Elderly Healthcare</h2>
-    <a-form
-      class="login-form"
-      ref="form"
-      :rules="rules"
-    >
-      <h3 class="title">登录</h3>
+    <a-form class="login-form" :form="form">
+      <h2 class="title">登录</h2>
       <a-form-item>
         <a-input
           class="inputBox"
           placeholder="请输入账号"
-          v-model="Info.accountID"
+          v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
         >
           <img src="src/assets/man.png" slot="prefix" alt="">
         </a-input>
       </a-form-item>
-
       <a-form-item>
         <a-input-password
           class="inputBox"
           placeholder="请输入密码"
-          v-model="Info.password"
+          v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
         >
           <img src="src/assets/lock.png" slot="prefix" alt="">
         </a-input-password>
@@ -31,7 +26,7 @@
         <a-input
           style="width: 200px; margin-right: 20px;"
           placeholder="请输入验证码"
-          v-model="identifyInput"
+          v-decorator="['identifyInput', { rules: [{ required: true, message: '验证码不能为空!' }] }]"
         ></a-input>
         <div @click="refreshCode()" style="display: inline-block">
           <s-identify :identifyCode="identifyCode" ></s-identify>
@@ -59,16 +54,12 @@ export default {
       makeCode: '',
       identifyCode: '',
       identifyInput: '',
-      Info: {
+      user: {
         accountID: '',
         userName: '',
         password: ''
       },
-      rules: {
-        accountID: [{ required: true, message: '不能输入为空' }],
-        password: [{ required: true, message: '不能输入为空' }],
-        identifyInput: [{ required: true, message: '不能输入为空' }]
-      },
+      form: this.$form.createForm(this)
     }
   },
   mounted () {
@@ -77,26 +68,30 @@ export default {
   },
   methods: {
     Login() {
-      const _identity = this.identifyInput
-      console.log('_identy: ' + _identity)
+      this.form.validateFields((errors, values) => {
+        if (!errors) {
+          const _identity = this.identifyInput
+          if (_identity === this.identifyCode) {
+            const params = this.user
+            params.password = AES.encrypt(JSON.stringify(this.user));
 
-      if (_identity === this.identifyCode){
-        const params = this.Info
-        params.password = AES.encrypt(JSON.stringify(this.Info));
-
-        Login(params).then(res =>{
-          if (res === 1){
-            this.$message.success('成功！')
+            Login(params).then(res =>{
+              if (res === 1){
+                this.$message.success('成功！')
+              } else {
+                this.$message.error('失败！')
+                this.identifyCode = ''
+                this.$refs.form.resetFields()
+              }
+            })
           } else {
+            console.log('_identity：' + _identity)
+            this.$message.error('验证码错误！')
             this.identifyCode = ''
-            this.$message.error('失败！')
+            this.refreshCode()
           }
-        })
-      } else {
-        this.identifyCode = ''
-        this.refreshCode()
-        this.$message.error('验证码错误！')
-      }
+        }
+      })
     },
     randomNum () {
       return Math.floor(Math.random() * 10)
