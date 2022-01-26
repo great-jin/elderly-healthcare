@@ -70,18 +70,19 @@ export default {
     Login() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          const _identity = this.identifyInput
+          const _identity = values.identifyInput
           if (_identity === this.identifyCode) {
-            const params = this.user
-            params.password = AES.encrypt(JSON.stringify(this.user));
+            const params = values
+            params.password = AES.encrypt(JSON.stringify(values.password));
 
             Login(params).then(res =>{
+              console.log('res：' + res)
               if (res === 1){
                 this.$message.success('成功！')
               } else {
                 this.$message.error('失败！')
                 this.identifyCode = ''
-                this.$refs.form.resetFields()
+                this.form.resetFields()
               }
             })
           } else {
