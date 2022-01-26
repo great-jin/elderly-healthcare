@@ -43,12 +43,12 @@ export default {
     // 干扰线颜色色值最小值，最小为0
     lineColorMin: {
       type: Number,
-      default: 150
+      default: 80
     },
     // 干扰线颜色色值最大值，最大为255
     lineColorMax: {
       type: Number,
-      default: 200
+      default: 150
     },
     // 干扰点颜色色值最小值，最小为0
     dotColorMin: {
@@ -58,7 +58,7 @@ export default {
     // 干扰点颜色色值最大值，最大为255
     dotColorMax: {
       type: Number,
-      default: 250
+      default: 200
     },
     // 画布宽度
     contentWidth: {
@@ -68,7 +68,7 @@ export default {
     // 画布高度
     contentHeight: {
       type: Number,
-      default: 40
+      default: 30
     }
   },
   mounted () {

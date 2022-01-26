@@ -16,8 +16,7 @@
           class="inputBox"
           placeholder="请输入密码"
           v-decorator="['user.password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
-        >
-        </a-input-password>
+        ></a-input-password>
       </a-form-item>
 
       <a-form-item >
@@ -26,7 +25,9 @@
           placeholder="请输入验证码"
           v-decorator="['identifyInput', { rules: [{ required: true, message: '验证码不能为空!' }] }]"
         ></a-input>
-        <s-identify :identifyCode="identifyCode" @click="refreshCode"></s-identify>
+        <div @click="refreshCode()" style="display: inline-block">
+          <s-identify :identifyCode="identifyCode" ></s-identify>
+        </div>
       </a-form-item>
 
       <a-form-item>
@@ -56,10 +57,6 @@ export default {
         password: ''
       },
       form: this.$form.createForm(this)
-      // rules: {
-      //   accountID: [{ required: true, message: '账号不能为空!', trigger: 'blur' }],
-      //   password: [{ required: true, message: '密码不能为空!', trigger: 'blur' }],
-      // }
     }
   },
   mounted () {
@@ -67,28 +64,28 @@ export default {
     console.log(this.identifyCode)
   },
   methods: {
-    Login()  {
-      const _this = this
-      _this.form.validateFields((errors, values) => {
+    Login() {
+      const _identity = this.identifyInput
+      console.log('_identy: ' + _identity)
+
+      this.form.validateFields((errors, values) => {
         if (!errors) {
-          const _identy = this.identifyInput
-          console.log('_identy: ' + _identy)
-          if (_identy.equals(this.identifyCode)){
+          if (_identity.equals(this.identifyCode)){
             const params = this.user
             params.password = AES.encrypt(JSON.stringify(this.user));
-            console.log(params)
+
             Login(params).then(res =>{
-              console.log(res)
               if (res === 1){
-                this.$message.success('OK')
+                this.$message.success('成功！')
               } else {
+                this.identifyCode = ''
                 this.form.resetFields()
-                this.$message.error('Faild')
+                this.$message.error('失败！')
               }
             })
           } else {
             this.identifyCode = ''
-            this.$message.error('验证码错误')
+            this.$message.error('验证码错误！')
           }
         }
       })
