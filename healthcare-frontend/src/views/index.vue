@@ -1,21 +1,25 @@
 <template>
   <div class="login-container">
     <h2 class="login-title">Elderly Healthcare</h2>
-    <a-form class="login-form" :form="form">
+    <a-form
+      class="login-form"
+      ref="form"
+      :rules="rules"
+    >
       <h2 class="title">登录</h2>
       <a-form-item>
         <a-input
           class="inputBox"
           placeholder="请输入账号"
-          v-decorator="['user.accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
-        >
-        </a-input>
+          v-model="Info.accountID"
+        ></a-input>
       </a-form-item>
+
       <a-form-item>
         <a-input-password
           class="inputBox"
           placeholder="请输入密码"
-          v-decorator="['user.password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+          v-model="Info.password"
         ></a-input-password>
       </a-form-item>
 
@@ -23,7 +27,7 @@
         <a-input
           style="width: 200px; margin-right: 20px;"
           placeholder="请输入验证码"
-          v-decorator="['identifyInput', { rules: [{ required: true, message: '验证码不能为空!' }] }]"
+          v-model="identifyInput"
         ></a-input>
         <div @click="refreshCode()" style="display: inline-block">
           <s-identify :identifyCode="identifyCode" ></s-identify>
@@ -38,7 +42,7 @@
 </template>
 
 <script>
-import AES from '@/aes/aes.js';
+import AES from '@/utils/AES.js';
 import { Login } from '@/api/user.js';
 import SIdentify  from "./identify";
 
@@ -51,12 +55,16 @@ export default {
       makeCode: '',
       identifyCode: '',
       identifyInput: '',
-      user: {
+      Info: {
         accountID: '',
         userName: '',
         password: ''
       },
-      form: this.$form.createForm(this)
+      rules: {
+        accountID: [{ required: true, message: '不能输入为空' }],
+        password: [{ required: true, message: '不能输入为空' }],
+        identifyInput: [{ required: true, message: '不能输入为空' }]
+      },
     }
   },
   mounted () {
@@ -68,27 +76,23 @@ export default {
       const _identity = this.identifyInput
       console.log('_identy: ' + _identity)
 
-      this.form.validateFields((errors, values) => {
-        if (!errors) {
-          if (_identity.equals(this.identifyCode)){
-            const params = this.user
-            params.password = AES.encrypt(JSON.stringify(this.user));
+      if (_identity === this.identifyCode){
+        const params = this.Info
+        params.password = AES.encrypt(JSON.stringify(this.Info));
 
-            Login(params).then(res =>{
-              if (res === 1){
-                this.$message.success('成功！')
-              } else {
-                this.identifyCode = ''
-                this.form.resetFields()
-                this.$message.error('失败！')
-              }
-            })
+        Login(params).then(res =>{
+          if (res === 1){
+            this.$message.success('成功！')
           } else {
             this.identifyCode = ''
-            this.$message.error('验证码错误！')
+            this.$message.error('失败！')
           }
-        }
-      })
+        })
+      } else {
+        this.identifyCode = ''
+        this.refreshCode()
+        this.$message.error('验证码错误！')
+      }
     },
     randomNum () {
       return Math.floor(Math.random() * 10)
@@ -204,7 +208,7 @@ export default {
 <style>
   .login-form {
     width: 565px;
-    height: 372px;
+    height: 390px;
     margin: 0 auto;
     background: url("../assets/bg.png");
     padding: 40px 110px;
