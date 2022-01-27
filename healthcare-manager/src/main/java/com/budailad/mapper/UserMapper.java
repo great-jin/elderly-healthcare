@@ -12,5 +12,7 @@ public interface UserMapper {
 
     User get(String id);
 
+    int add(User user);
+
     User login(User user);
 }

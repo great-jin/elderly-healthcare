@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import AES from '@/utils/AES.js';
+import {Encrypt,Decrypt} from '@/utils/AES.js';
 import { Login } from '@/api/user.js';
 import SIdentify  from "./identify";
 
@@ -73,7 +73,8 @@ export default {
           const _identity = values.identifyInput
           if (_identity === this.identifyCode) {
             const params = values
-            params.password = AES.encrypt(JSON.stringify(values.password));
+            params.password = Encrypt(values.password);
+            console.log(params)
 
             Login(params).then(res =>{
               console.log('res：' + res)
