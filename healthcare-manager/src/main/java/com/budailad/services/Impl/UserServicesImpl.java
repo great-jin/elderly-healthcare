@@ -20,6 +20,11 @@ public class UserServicesImpl implements UserServices {
     }
 
     @Override
+    public User get(String id) {
+        return userMapper.get(id);
+    }
+
+    @Override
     public User login(User user) {
         return userMapper.login(user);
     }

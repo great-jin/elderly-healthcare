@@ -15,6 +15,15 @@
         select * from tb_user
     </select>
 
+    <select id="get" resultMap="userResult" parameterType="String">
+        select * from tb_user
+        <where>
+            <if test="accountID != null">
+                and account_id = #{id}
+            </if>
+        </where>
+    </select>
+
     <select id="login" resultMap="userResult" parameterType="com.budailad.entity.User">
         select * from tb_user
         <where>

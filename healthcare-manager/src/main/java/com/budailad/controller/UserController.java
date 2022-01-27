@@ -20,10 +20,9 @@ public class UserController {
     @PostMapping("/login")
     public int login(@RequestBody User user) {
         User resultUser = userServices.login(user);
-        int i = 0;
         if (resultUser != null ) {
-            i = 1;
+            return 1;
         }
-        return i;
+        return 0;
     }
 }

@@ -10,5 +10,7 @@ public interface UserMapper {
 
     List<User> list();
 
+    User get(String id);
+
     User login(User user);
 }
