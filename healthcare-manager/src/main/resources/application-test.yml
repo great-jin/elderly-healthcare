@@ -1,4 +1,4 @@
-# Server Config
+# Local Config
 
 # 配置端口
 server:
@@ -10,9 +10,9 @@ spring:
   # MySQL 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.100.200.104:6565/elderly_healthcare?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/elderly_healthcare?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: budai7417..
+    password: 123456
     # 阿里连接池配置
     druid:
       initial-size: 5
@@ -28,9 +28,9 @@ spring:
       stat-view-servlet.login-password: admin
   # Redis 缓存
   redis:
-    host: 47.100.200.104
+    host: 127.0.0.1
     port: 6379
-    password: budai7417..
+    password: 123456
     timeout: 1800000
     lettuce:
       pool:
@@ -68,6 +68,6 @@ pagehelper:
 
 # Minio数据库
 minio:
-  endpoint: http://47.100.200.104:9000
-  accessKey: budai
-  secretKey: budai7417..
+  endpoint: http://127.0.0.1:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
