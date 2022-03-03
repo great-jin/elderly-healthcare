@@ -7,7 +7,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `organize_depart`;
 CREATE TABLE `organize_depart`  (
-  `depart_id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `depart_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY  COMMENT '编号',
   `depart_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门名'
   `man_number` int NULL DEFAULT NULL COMMENT '部门人数'
   PRIMARY KEY (`depart_id`) USING BTREE
@@ -15,12 +15,12 @@ CREATE TABLE `organize_depart`  (
 
 
 -- ----------------------------
--- COMMENT '医师表'
+-- COMMENT '主治医师'
 -- Table structure for employee_doctor
 -- ----------------------------
 DROP TABLE IF EXISTS `employee_doctor`;
 CREATE TABLE `employee_doctor`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `staff_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ID',
   `staff_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `depart_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门',
@@ -36,12 +36,12 @@ CREATE TABLE `employee_doctor`  (
 
 
 -- ----------------------------
--- COMMENT '护理员表'
+-- COMMENT '护理人员'
 -- Table structure for employee_nurse
 -- ----------------------------
 DROP TABLE IF EXISTS `employee_nurse`;
 CREATE TABLE `employee_nurse`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `staff_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ID',
   `staff_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `depart_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门',
@@ -57,12 +57,12 @@ CREATE TABLE `employee_nurse`  (
 
 
 -- ----------------------------
--- COMMENT '普通员工表'
+-- COMMENT '普通员工'
 -- Table structure for organize_staff
 -- ----------------------------
 DROP TABLE IF EXISTS `organize_staff`;
 CREATE TABLE `organize_staff`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `staff_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ID',
   `staff_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `depart_name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '部门',
@@ -82,7 +82,7 @@ CREATE TABLE `organize_staff`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `daily_mission`;
 CREATE TABLE `daily_mission`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `task_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务编号',
   `patient_id` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '负责病人',
   `task_content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工作内容',
@@ -97,7 +97,7 @@ CREATE TABLE `daily_mission`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `employee_salary`;
 CREATE TABLE `employee_salary`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `staff_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `depart_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `work_days` double NULL DEFAULT NULL COMMENT '工作天数',
@@ -117,7 +117,7 @@ CREATE TABLE `employee_salary`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `salary_detail_files`;
 CREATE TABLE `salary_detail_files`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `salary_id` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '工资编号',
   `file_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件类型',
   `in_time` datetime NULL DEFAULT NULL COMMENT '上传时间',
@@ -131,50 +131,19 @@ CREATE TABLE `salary_detail_files`  (
 
 
 -- ----------------------------
--- COMMENT '疾病目录'
--- Table structure for illness_catalog
+-- COMMENT '入住登记模板'
+-- Table structure for register_template
 -- ----------------------------
-DROP TABLE IF EXISTS `illness_catalog`;
-CREATE TABLE `illness_catalog`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `ill_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病编号',
-  `ill_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病类别',
-  `ill_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病名',
-  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注'
+DROP TABLE IF EXISTS `register_template`;
+CREATE TABLE `register_template`  (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `temp_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模板编号',
+  `temp_ill` varchar(30) COMMENT '疾病'，
+  `temp_time` datetime COMMENT '入住时长'，
+  `cost_level` int COMMENT '消费套餐选择'，
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注'
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-
--- ----------------------------
--- COMMENT '疾病预警'
--- Table structure for illness_warning
--- ----------------------------
-DROP TABLE IF EXISTS `illness_warning`;
-CREATE TABLE `illness_warning`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `ill_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病编号',
-  `ill_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病类别',
-  `ill_index` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病指标',
-  `warn_index` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '阈值',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
-
--- ----------------------------
--- 邮件信息表
--- Table structure for info_mail
--- ----------------------------
-DROP TABLE IF EXISTS `info_mail`;
-CREATE TABLE `info_mail`  (
-  `mail_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '邮件编号',
-  `sender_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发送人',
-  `mail_sender` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发送邮箱',
-  `receiver_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件人',
-  `mail_receiver` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件邮箱',
-  `send_time` datetime NOT NULL COMMENT '发件时间',
-  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物编号',
-  PRIMARY KEY (`mail_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 
 -- ----------------------------
@@ -183,7 +152,7 @@ CREATE TABLE `info_mail`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_user`;
 CREATE TABLE `patient_user`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `patient_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '编号',
   `patient_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '姓名',
   `gender` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '性别',
@@ -203,7 +172,7 @@ CREATE TABLE `patient_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_details`;
 CREATE TABLE `patient_details`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -214,7 +183,7 @@ CREATE TABLE `patient_details`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `paitent_cost_detail`;
 CREATE TABLE `paitent_cost_detail`  (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `patient_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '病人编号',
   `case_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '病例编号',
   `cost_list` text NOT NULL COMMENT '清单',
@@ -226,12 +195,12 @@ CREATE TABLE `paitent_cost_detail`  (
 
 
 -- ----------------------------
--- COMMENT '消费记录发票'
+-- COMMENT '消费文件'
 -- Table structure for patient_case_files
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_case_files`;
 CREATE TABLE `patient_cost_files`  (
-  `case_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '病例编号',
+  `case_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL PRIMARY KEY COMMENT '病例编号',
   `patient_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '病人编号',
   `file_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '病例名称',
   `file_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件类型',
@@ -246,28 +215,42 @@ CREATE TABLE `patient_cost_files`  (
 
 
 -- ----------------------------
--- COMMENT '入住登记模板'
--- Table structure for register_template
+-- COMMENT '疾病目录'
+-- Table structure for illness_catalog
 -- ----------------------------
-DROP TABLE IF EXISTS `register_template`;
-CREATE TABLE `register_template`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `temp_id` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '模板编号',
-  `temp_ill` varchar(30) COMMENT '疾病'，
-  `temp_time` datetime COMMENT '入住时长'，
-  `cost_level` int COMMENT '消费套餐选择'，
-  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '备注'
+DROP TABLE IF EXISTS `illness_catalog`;
+CREATE TABLE `illness_catalog`  (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ill_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病编号',
+  `ill_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病类别',
+  `ill_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病名',
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注'
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 
 -- ----------------------------
--- COMMENT '药品目录表'
+-- COMMENT '疾病预警'
+-- Table structure for illness_warning
+-- ----------------------------
+DROP TABLE IF EXISTS `illness_warning`;
+CREATE TABLE `illness_warning`  (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `ill_id` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病编号',
+  `ill_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病类别',
+  `ill_index` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '疾病指标',
+  `warn_index` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '阈值',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- COMMENT '药品目录'
 -- Table structure for medicine_catalog
 -- ----------------------------
 DROP TABLE IF EXISTS `medicine_catalog`;
 CREATE TABLE `medicine_catalog`  (
-  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物编号',
+  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL PRIMARY KEY COMMENT '货物编号',
   `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名',
   `goods_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品类别',
   `goods_price` double NOT NULL COMMENT '单价',
@@ -286,7 +269,7 @@ CREATE TABLE `medicine_catalog`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `warehose_storage`;
 CREATE TABLE `warehose_storage`  (
-  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物编号',
+  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL PRIMARY KEY COMMENT '货物编号',
   `goods_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物名',
   `goods_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物类别',
   `goods_price` double NOT NULL COMMENT '单价',
@@ -306,7 +289,7 @@ CREATE TABLE `warehose_storage`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `order_goods`;
 CREATE TABLE `order_goods`  (
-  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物编号',
+  `goods_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL PRIMARY KEY COMMENT '货物编号',
   `goods_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品名',
   `goods_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '商品类别',
   `goods_price` double NOT NULL COMMENT '单价',
@@ -324,25 +307,46 @@ CREATE TABLE `order_goods`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `staff_id` varchar(20) NOT NULL AUTO_INCREMENT COMMENT '账号',
-  `password` varchar(20) NOT NULL AUTO_INCREMENT COMMENT '密码',
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `staff_id` varchar(20) NOT NULL COMMENT '账号',
+  `password` varchar(20) NOT NULL COMMENT '密码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 
 -- ----------------------------
--- COMMENT '员工用户表'
+-- COMMENT '员工登录表'
 -- Table structure for staff_user
 -- ----------------------------
 DROP TABLE IF EXISTS `staff_user`;
 CREATE TABLE `staff_user`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `staff_id` varchar(20) NOT NULL AUTO_INCREMENT COMMENT '账号',
-  `password` varchar(20) NOT NULL AUTO_INCREMENT COMMENT '密码',
-  `user_authority` varchar(20) NOT NULL AUTO_INCREMENT COMMENT '账号',
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `staff_id` varchar(20) NOT NULL COMMENT '账号',
+  `user_name` varchar(30) NOT NULL COMMENT '用户名',
+  `user_pwd` varchar(50) NOT NULL COMMENT '密码',
+  `user_img` varchar(50) NOT NULL COMMENT '头像',
+  `user_power` int NOT NULL COMMENT '权限',
+  `register_time` datetime NOT NULL COMMENT '启动时间',
+  `is_disabled` int NOT NULL COMMENT '是否启用'
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ----------------------------
+-- COMMENT '邮件信息表'
+-- Table structure for info_mail
+-- ----------------------------
+DROP TABLE IF EXISTS `info_mail`;
+CREATE TABLE `info_mail`  (
+  `mail_id` varchar(32) PRIMARY KEY CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL PRIMARY KEY COMMENT '邮件编号',
+  `sender_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发送人',
+  `mail_sender` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '发送邮箱',
+  `receiver_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件人',
+  `mail_receiver` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '收件邮箱',
+  `send_time` datetime NOT NULL COMMENT '发件时间',
+  `comment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '货物编号',
+  PRIMARY KEY (`mail_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 
 -- ----------------------------
@@ -351,11 +355,12 @@ CREATE TABLE `staff_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logs`;
 CREATE TABLE `sys_logs`  (
-  `log_id` varchar(32) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `log_module` varchar(32) NOT NULL AUTO_INCREMENT COMMENT '来源模块',
-  `log_info` text NOT NULL AUTO_INCREMENT COMMENT '日志信息',
-  `in_time` datetime NOT NULL AUTO_INCREMENT COMMENT '登记时间',
+  `log_id` varchar(32) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '编号',
+  `log_module` varchar(32) NOT NULL COMMENT '来源模块',
+  `log_info` text NOT NULL COMMENT '日志信息',
+  `in_time` datetime NOT NULL COMMENT '登记时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
 
 SET FOREIGN_KEY_CHECKS = 1;
