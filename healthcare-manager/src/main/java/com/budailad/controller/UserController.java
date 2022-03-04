@@ -5,10 +5,8 @@ import com.budailad.services.UserServices;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-
-import static com.budailad.utils.AesEncryptUtil.desEncrypt;
-import static com.budailad.utils.AesEncryptUtil.encrypt;
+import static com.budailad.utils.AESUtil.desEncrypt;
+import static com.budailad.utils.AESUtil.encrypt;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -29,8 +27,6 @@ public class UserController {
     }
 
     /**
-     * Author:Budai 2022/1/27 14:09
-     *
      * @Description:  获取前端加密进行解密，获取后端加密进行解密
      */
     @PostMapping("/login")
@@ -53,8 +49,6 @@ public class UserController {
     }
 
     /**
-     * Author:Budai 2022/1/27 14:11
-     *
      * @Description:  获取前端加密进行解密，通过后端加密在存储
      */
     @PostMapping("/register")

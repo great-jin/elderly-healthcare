@@ -1,51 +1,51 @@
 <template>
   <div class="login-container">
-    <h2 class="login-title">Elderly Healthcare</h2>
+<!--    <h2 class="login-title">Elderly Healthcare</h2>-->
     <a-form class="login-form" :form="form">
       <h2 class="title">登录</h2>
-      <a-form-item>
+
+      <a-form-item class="form-item">
         <a-input
-          class="inputBox"
           placeholder="请输入账号"
           v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
         >
-          <img src="src/assets/man.png" slot="prefix" alt="">
+          <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
-      <a-form-item>
+      <a-form-item class="form-item">
         <a-input-password
-          class="inputBox"
           placeholder="请输入密码"
           v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
         >
-          <img src="src/assets/lock.png" slot="prefix" alt="">
+          <a-icon slot="prefix" type="lock" />
         </a-input-password>
       </a-form-item>
-
-      <a-form-item >
+      <a-form-item class="form-item">
         <a-input
-          style="width: 200px; margin-right: 20px;"
+          class="verify"
           placeholder="请输入验证码"
           v-decorator="['identifyInput', { rules: [{ required: true, message: '验证码不能为空!' }] }]"
-        ></a-input>
-        <div @click="refreshCode()" style="display: inline-block">
+        >
+          <a-icon slot="prefix" type="lock" />
+        </a-input>
+        <span @click="refreshCode()">
           <s-identify :identifyCode="identifyCode" ></s-identify>
-        </div>
+        </span>
       </a-form-item>
-
-      <a-form-item>
-        <a-button class="submit" type="primary" @click="Login()">登录</a-button>
+      <a-form-item class="form-item">
+        <a-button class="submit" type="primary" @click="submit">登录</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
 <script>
-import {Encrypt,Decrypt} from '@/utils/AES.js';
+import { Encrypt } from '@/utils/AES.js';
 import { Login } from '@/api/user.js';
-import SIdentify  from "./identify";
+import SIdentify  from "@/views/utils/identify";
 
 export default {
+  name: 'Login',
   components: {
     's-identify': SIdentify
   },
@@ -54,11 +54,6 @@ export default {
       makeCode: '',
       identifyCode: '',
       identifyInput: '',
-      user: {
-        accountID: '',
-        userName: '',
-        password: ''
-      },
       form: this.$form.createForm(this)
     }
   },
@@ -67,17 +62,14 @@ export default {
     console.log(this.identifyCode)
   },
   methods: {
-    Login() {
+    submit() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           const _identity = values.identifyInput
           if (_identity === this.identifyCode) {
             const params = values
             params.password = Encrypt(values.password);
-            console.log(params)
-
             Login(params).then(res =>{
-              console.log('res：' + res)
               if (res === 1){
                 this.$message.success('成功！')
               } else {
@@ -87,7 +79,6 @@ export default {
               }
             })
           } else {
-            console.log('_identity：' + _identity)
             this.$message.error('验证码错误！')
             this.identifyCode = ''
             this.refreshCode()
@@ -208,20 +199,20 @@ export default {
 
 <style>
   .login-form {
-    width: 565px;
-    height: 380px;
-    margin: 0 auto;
-    background: url("../assets/bg.png");
-    padding: 40px 110px;
+    width: 22%;
+    height: 40%;
+    margin: 10% auto;
+    border: aqua 1px solid;
+    /*background: url("../assets/bg.png");*/
   }
   /* 背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("../assets/bg.png");
+    /*background: url("../assets/bg.png");*/
   }
-  /* Log */
+  /* 标题 */
   .login-title {
     color: #fff;
     text-align: center;
@@ -243,13 +234,11 @@ export default {
     font-size: 24px;
     font-family: Microsoft Yahei;
   }
-  /* 输入框 */
-  .inputBox{
-    height: 35px;
+  .verify{
+    width: 62%;
   }
-  /* 输入框内左边距50px */
-  .ant-input-affix-wrapper .ant-input:not(:first-child) {
-    padding-left: 50px;
+  .form-item{
+    margin: 20px 10px
   }
 </style>
 

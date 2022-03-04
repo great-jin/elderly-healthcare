@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "minio")
-public class MinioProp {
+public class MiniO {
 
     private String endpoint;
 

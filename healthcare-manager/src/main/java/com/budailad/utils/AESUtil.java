@@ -9,7 +9,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AesEncryptUtil {
+public class AESUtil {
 
     private static String KEY = "1234567890123456";
     private static String IV = "1234567890123456";

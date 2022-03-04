@@ -1,8 +1,8 @@
 package com.budailad;
 
 import org.junit.jupiter.api.Test;
-import static com.budailad.utils.AesEncryptUtil.encrypt;
-import static com.budailad.utils.AesEncryptUtil.desEncrypt;
+import static com.budailad.utils.AESUtil.encrypt;
+import static com.budailad.utils.AESUtil.desEncrypt;
 
 class HealthcareApplicationTests {
 

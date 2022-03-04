@@ -5,14 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.budailad.entity.MinioProp;
+import com.budailad.entity.MiniO;
 
 @Configuration
-@EnableConfigurationProperties(MinioProp.class)
+@EnableConfigurationProperties(MiniO.class)
 public class MinioConfig {
 
     @Autowired
-    private MinioProp minioProp;
+    private MiniO miniO;
 
     /**
      * 初始化 Minio 对象
@@ -20,8 +20,8 @@ public class MinioConfig {
     @Bean
     public MinioClient minioClient() {
         return io.minio.MinioClient.builder()
-                .endpoint(minioProp.getEndpoint())
-                .credentials(minioProp.getAccessKey(), minioProp.getSecretKey())
+                .endpoint(miniO.getEndpoint())
+                .credentials(miniO.getAccessKey(), miniO.getSecretKey())
                 .build();
     }
 

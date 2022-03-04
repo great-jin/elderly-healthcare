@@ -1,5 +1,10 @@
 <template>
-  <canvas id="s-canvas" :width="contentWidth" :height="contentHeight"></canvas>
+  <canvas
+    id="s-canvas"
+    :width="contentWidth"
+    :height="contentHeight"
+    style="float: right; margin-right: 10px"
+  ></canvas>
 </template>
 <script>
 export default {
@@ -9,6 +14,16 @@ export default {
     identifyCode: {
       type: String,
       default: '1234'
+    },
+    // 画布宽度
+    contentWidth: {
+      type: Number,
+      default: 120
+    },
+    // 画布高度
+    contentHeight: {
+      type: Number,
+      default: 36
     },
     // 字体最小值
     fontSizeMin: {
@@ -59,16 +74,6 @@ export default {
     dotColorMax: {
       type: Number,
       default: 200
-    },
-    // 画布宽度
-    contentWidth: {
-      type: Number,
-      default: 100
-    },
-    // 画布高度
-    contentHeight: {
-      type: Number,
-      default: 30
     }
   },
   mounted () {
@@ -83,7 +88,6 @@ export default {
     randomNum (min, max) {
       return Math.floor(Math.random() * (max - min) + min)
     },
-
     /**
      * 生成一个随机的颜色
      * @param {number} min 随机数最小值
@@ -95,7 +99,6 @@ export default {
       const b = this.randomNum(min, max)
       return 'rgb(' + r + ',' + g + ',' + b + ')'
     },
-
     /**
      * 绘制图片验证码
      */
@@ -115,7 +118,6 @@ export default {
       // 绘制干扰线
       this.drawLine(ctx)
     },
-
     /**
      * 绘制文本单个验证码
      * @param {object} ctx canvas上下文对象
@@ -136,7 +138,6 @@ export default {
       ctx.rotate(-deg * Math.PI / 180)
       ctx.translate(-x, -y)
     },
-
     /**
      * 绘制干扰线
      * @param {object} ctx canvas上下文对象
@@ -150,7 +151,6 @@ export default {
         ctx.stroke()
       }
     },
-
     /**
      * 绘制干扰点
      * @param {object} ctx canvas上下文对象

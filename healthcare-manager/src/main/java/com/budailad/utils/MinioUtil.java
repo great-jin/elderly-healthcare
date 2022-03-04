@@ -1,6 +1,6 @@
 package com.budailad.utils;
 
-import com.budailad.entity.MinioRespond;
+import com.budailad.model.MinioRespond;
 import io.minio.*;
 import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
