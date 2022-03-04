@@ -1,10 +1,9 @@
 <template>
   <div class="login-container">
-<!--    <h2 class="login-title">Elderly Healthcare</h2>-->
+    <h2 class="login-title">Elderly Healthcare</h2>
     <a-form class="login-form" :form="form">
-      <h2 class="title">登录</h2>
-
-      <a-form-item class="form-item">
+      <h3 class="title">欢迎登录</h3>
+      <a-form-item style="margin: 20px 10px" >
         <a-input
           placeholder="请输入账号"
           v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
@@ -12,7 +11,8 @@
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
-      <a-form-item class="form-item">
+
+      <a-form-item style="margin: 20px 10px" >
         <a-input-password
           placeholder="请输入密码"
           v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
@@ -20,7 +20,8 @@
           <a-icon slot="prefix" type="lock" />
         </a-input-password>
       </a-form-item>
-      <a-form-item class="form-item">
+
+      <a-form-item style="margin: 20px 10px" >
         <a-input
           class="verify"
           placeholder="请输入验证码"
@@ -32,14 +33,30 @@
           <s-identify :identifyCode="identifyCode" ></s-identify>
         </span>
       </a-form-item>
-      <a-form-item class="form-item">
+
+      <a-form-item style="margin: 20px 10px 5px 10px" >
         <a-button class="submit" type="primary" @click="submit">登录</a-button>
       </a-form-item>
+
+      <a-form-item>
+        <a-button type="link"
+                  style="float: left; z-index: 1;"
+                  @click="register"
+        >注册</a-button>
+        <a-button type="link"
+                  style="float: right; z-index: 1;"
+                  @click="forgoten"
+        >忘记密码</a-button>
+      </a-form-item>
     </a-form>
+
+    <registerModal ref="registerModal"></registerModal>
+    <router-view />
   </div>
 </template>
 
 <script>
+import registerModal from "./login/registerModal";
 import { Encrypt } from '@/utils/AES.js';
 import { Login } from '@/api/user.js';
 import SIdentify  from "@/views/utils/identify";
@@ -47,7 +64,8 @@ import SIdentify  from "@/views/utils/identify";
 export default {
   name: 'Login',
   components: {
-    's-identify': SIdentify
+    's-identify': SIdentify,
+    registerModal
   },
   data() {
     return {
@@ -68,10 +86,13 @@ export default {
           const _identity = values.identifyInput
           if (_identity === this.identifyCode) {
             const params = values
-            params.password = Encrypt(values.password);
+            params.password = Encrypt(values.password)
+            console.log(params)
             Login(params).then(res =>{
               if (res === 1){
                 this.$message.success('成功！')
+                localStorage.setItem('token', 1);
+                this.$router.push('/test')
               } else {
                 this.$message.error('失败！')
                 this.identifyCode = ''
@@ -85,6 +106,12 @@ export default {
           }
         }
       })
+    },
+    register() {
+      this.$refs.registerModal.paramReceive()
+    },
+    forgoten() {
+      this.$refs.registerModal.paramReceive()
     },
     randomNum () {
       return Math.floor(Math.random() * 10)
@@ -197,27 +224,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  /* 页面背景 */
   .login-form {
-    width: 22%;
-    height: 40%;
-    margin: 10% auto;
-    border: aqua 1px solid;
-    /*background: url("../assets/bg.png");*/
+    width: 25%;
+    height: 50%;
+    margin: 5% auto;
+    border-radius: 25px;
+    background: url("../assets/log.png") no-repeat;
   }
-  /* 背景 */
+  /* 登录背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    /*background: url("../assets/bg.png");*/
+    background: url("../assets/back.png") no-repeat;
+    background-size: 100% 100%;
   }
   /* 标题 */
   .login-title {
     color: #fff;
+    margin-top: 5%;
     text-align: center;
-    margin: 150px 0;
-    font-size: 48px;
+    font-size: 40px;
     font-family: Microsoft Yahei;
   }
   /* 登陆按钮 */
@@ -226,9 +255,10 @@ export default {
     height: 45px;
     font-size: 16px;
   }
-  /* 用户登陆标题 */
+  /* 登陆标题 */
   .title{
-    margin-bottom: 35px;
+    width: 35%;
+    margin: 5px auto;
     color: #fff;
     font-weight: 700;
     font-size: 24px;
@@ -237,9 +267,4 @@ export default {
   .verify{
     width: 62%;
   }
-  .form-item{
-    margin: 20px 10px
-  }
 </style>
-
-

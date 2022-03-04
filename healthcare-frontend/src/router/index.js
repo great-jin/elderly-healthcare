@@ -30,7 +30,7 @@ router.beforeEach((to, from, next) => {
     // 不是登录页面
     // 2. 判断 是否登录过
     let token = localStorage.getItem('token')
-    token ? next() : next('/')
+    token === '1' ? next() : next('/')
   }
 })
 

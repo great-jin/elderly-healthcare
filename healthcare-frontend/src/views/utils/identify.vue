@@ -18,7 +18,7 @@ export default {
     // 画布宽度
     contentWidth: {
       type: Number,
-      default: 120
+      default: 100
     },
     // 画布高度
     contentHeight: {
