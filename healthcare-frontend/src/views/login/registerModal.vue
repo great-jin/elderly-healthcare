@@ -10,7 +10,6 @@
       <a-button
         key="submit"
         type="primary"
-        :loading="confirmLoading"
         @click="ok()"
       >确定</a-button>
     </template>
@@ -23,30 +22,38 @@
           :wrapper-col="formItemLayout.wrapperCol"
         >
           <a-input
-            placeholder="Account Code"
+            placeholder="请输入账号"
             v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
           />
         </a-form-item>
-
         <a-form-item
           label="用户名"
           :label-col="formItemLayout.labelCol"
           :wrapper-col="formItemLayout.wrapperCol"
         >
           <a-input
-            placeholder="UserName"
+            placeholder="请输入用户名"
             v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
           />
         </a-form-item>
-
         <a-form-item
-          label="密码"
+          label="用户密码"
           :label-col="formItemLayout.labelCol"
           :wrapper-col="formItemLayout.wrapperCol"
         >
-          <a-input
-            placeholder="Password"
+          <a-input-password
+            placeholder="请输入密码"
             v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+          />
+        </a-form-item>
+        <a-form-item
+          label="确认密码"
+          :label-col="formItemLayout.labelCol"
+          :wrapper-col="formItemLayout.wrapperCol"
+        >
+          <a-input-password
+            placeholder="请再次输入密码"
+            v-decorator="['re_pwd', { rules: [{ required: true, message: '密码不能为空!' }] }]"
           />
         </a-form-item>
       </a-form>
@@ -58,17 +65,16 @@
 import { addUser } from '@/api/user.js';
 import { Encrypt } from '@/utils/AES.js';
 export default {
-  name: "UserModal",
+  name: "RegisterModal",
   data() {
     return {
       visible: false,
-      confirmLoading: false,
       loading: false,
-      form: this.$form.createForm(this),
       formItemLayout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 14 }
-      }
+      },
+      form: this.$form.createForm(this)
     }
   },
   methods: {
@@ -83,17 +89,27 @@ export default {
     ok() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          const params = values
-          params.password = Encrypt(values.password)
-          addUser(params).then(res =>{
-            console.log(res)
-            if(res === 1) {
-              this.$message.success('注册成功')
-            } else {
-              this.$message.error('注册失败')
-            }
-            this.cancel()
-          })
+          console.log(values)
+          if(values.password === values.re_pwd){
+            const params = values
+            params.password = Encrypt(values.password)
+
+            addUser(params).then(res =>{
+              if(res === 1) {
+                this.$message.success('注册成功')
+                this.cancel()
+              } else {
+                this.$message.error('注册失败')
+                this.form.resetField()
+              }
+            })
+          } else {
+            this.$message.error('两次密码不一致')
+            this.form.setFieldsValue({
+              password: '',
+              re_pwd: ''
+            })
+          }
         }
       })
     }
