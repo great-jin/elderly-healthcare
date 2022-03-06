@@ -62,16 +62,17 @@ export default {
       collapsed: false
     }
   },
-  created() {
+  mounted() {
     this.id = this.$route.query.id
+    window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
   },
   methods:{
     exit(){
       this.$router.push('/')
       localStorage.setItem('token', '0')
     },
-    handleMenuClick(e) {
-      console.log('click', e);
+    beforeunloadHandler(e) {
+      localStorage.setItem('token', '0')
     }
   }
 }
