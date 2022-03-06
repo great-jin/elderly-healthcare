@@ -59,7 +59,6 @@
 
     <registerModal ref="registerModal"></registerModal>
     <forgetModal ref="forgetModal"></forgetModal>
-    <router-view />
   </div>
 </template>
 

@@ -89,18 +89,24 @@ export default {
     ok() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          console.log(values)
           if(values.password === values.re_pwd){
             const params = values
             params.password = Encrypt(values.password)
 
             addUser(params).then(res =>{
-              if(res === 1) {
-                this.$message.success('注册成功')
-                this.cancel()
-              } else {
-                this.$message.error('注册失败')
-                this.form.resetField()
+              console.log(res)
+              switch (res) {
+                case 1 :
+                  this.$message.success('注册成功')
+                  this.cancel()
+                  break
+                case 2 :
+                  this.$message.error('账号已存在')
+                  break
+                case 0 :
+                  this.$message.error('注册失败')
+                  this.form.resetFields()
+                  break
               }
             })
           } else {

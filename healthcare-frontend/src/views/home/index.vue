@@ -1,112 +1,65 @@
 <template>
-  <div>
-    <div style="width: 20%; margin: 10px auto;">
-      <a-input v-model="id" disabled="true" />
-      <a-button @click="exit">退出登录</a-button>
-    </div>
-
-    <div>
-      <a-menu v-model="current" mode="horizontal">
-        <a-menu-item key="mail"> <a-icon type="mail" />Navigation One </a-menu-item>
-        <a-menu-item key="app" disabled> <a-icon type="appstore" />Navigation Two </a-menu-item>
-        <a-sub-menu>
-        <span slot="title" class="submenu-title-wrapper"
-        ><a-icon type="setting" />Navigation Three - Submenu</span
-        >
-          <a-menu-item-group title="Item 1">
-            <a-menu-item key="setting:1">
-              Option 1
-            </a-menu-item>
-            <a-menu-item key="setting:2">
-              Option 2
-            </a-menu-item>
-          </a-menu-item-group>
-          <a-menu-item-group title="Item 2">
-            <a-menu-item key="setting:3">
-              Option 3
-            </a-menu-item>
-            <a-menu-item key="setting:4">
-              Option 4
-            </a-menu-item>
-          </a-menu-item-group>
-        </a-sub-menu>
-        <a-menu-item key="alipay">
-          <a href="#" target="_blank" rel="noopener noreferrer"
-          >Navigation Four - Link</a
+  <div id="home">
+    <a-layout class="sideBar">
+      <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
+        <div class="logo" />
+        <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
+          <a-menu-item key="1">
+            <a-icon type="user" />
+            <span>nav 1</span>
+          </a-menu-item>
+          <a-menu-item key="2">
+            <a-icon type="video-camera" />
+            <span>nav 2</span>
+          </a-menu-item>
+          <a-menu-item key="3">
+            <a-icon type="upload" />
+            <span>nav 3</span>
+          </a-menu-item>
+        </a-menu>
+      </a-layout-sider>
+      <a-layout>
+        <a-layout-header style="background: #fff; padding: 0">
+          <a-icon
+            class="trigger"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="() => (collapsed = !collapsed)"
+          />
+          <a-dropdown
+            type="primary"
+            style="float: right; z-index: 1; margin: 15px"
           >
-        </a-menu-item>
-      </a-menu>
-    </div>
-
-    <div style="width: 20%;">
-      <a-button type="primary" style="margin-bottom: 16px" @click="toggleCollapsed">
-        <a-icon :type="collapsed ? 'menu-unfold' : 'menu-fold'" />
-      </a-button>
-      <a-menu
-        :default-selected-keys="['1']"
-        :default-open-keys="['sub1']"
-        mode="inline"
-        theme="dark"
-        :inline-collapsed="collapsed"
-      >
-        <a-menu-item key="1">
-          <a-icon type="pie-chart" />
-          <span>Option 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="desktop" />
-          <span>Option 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="inbox" />
-          <span>Option 3</span>
-        </a-menu-item>
-        <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
-          <a-menu-item key="5">
-            Option 5
-          </a-menu-item>
-          <a-menu-item key="6">
-            Option 6
-          </a-menu-item>
-          <a-menu-item key="7">
-            Option 7
-          </a-menu-item>
-          <a-menu-item key="8">
-            Option 8
-          </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
-          <a-menu-item key="9">
-            Option 9
-          </a-menu-item>
-          <a-menu-item key="10">
-            Option 10
-          </a-menu-item>
-          <a-sub-menu key="sub3" title="Submenu">
-            <a-menu-item key="11">
-              Option 11
-            </a-menu-item>
-            <a-menu-item key="12">
-              Option 12
-            </a-menu-item>
-          </a-sub-menu>
-        </a-sub-menu>
-      </a-menu>
-    </div>
+            <a-button type="primary" style="margin-left: 8px"><a-icon type="setting"/>设置</a-button>
+            <a-menu slot="overlay">
+              <a-menu-item key="1">
+                <a-icon type="disconnect" />1st
+              </a-menu-item>
+              <a-menu-item key="2">
+                <a-icon type="disconnect" />2nd
+              </a-menu-item>
+              <a-menu-item key="3" @click="exit">
+                <a-icon type="disconnect" />退出
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
+        </a-layout-header>
+        <a-layout-content
+          :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
+        >
+        </a-layout-content>
+      </a-layout>
+    </a-layout>
   </div>
 </template>
 
 <script>
 export default {
-  name: "index",
+  name: "Home",
   inject: ['reload'],
   data() {
     return{
       id: '',
-      collapsed: false,
-      current: ['mail']
+      collapsed: false
     }
   },
   created() {
@@ -117,12 +70,39 @@ export default {
       this.$router.push('/')
       localStorage.setItem('token', '0')
     },
-    toggleCollapsed() {
-      this.collapsed = !this.collapsed;
+    handleMenuClick(e) {
+      console.log('click', e);
     }
   }
 }
 </script>
 
 <style scoped>
+  #home{
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+  }
+  .sideBar{
+    height: 100%;
+  }
+  .sideBar .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .sideBar .trigger:hover {
+    color: #1890ff;
+  }
+
+  .sideBar .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
 </style>
