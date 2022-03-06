@@ -2,8 +2,11 @@ package com.budailad.controller;
 
 import com.budailad.entity.User;
 import com.budailad.services.UserServices;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static com.budailad.utils.AESUtil.desEncrypt;
 import static com.budailad.utils.AESUtil.encrypt;
@@ -22,8 +25,17 @@ public class UserController {
     private UserServices userServices;
 
     @GetMapping("/list")
-    public String list(){
-        return userServices.list().toString();
+    public List<User> list(){
+        return userServices.list();
+    }
+
+    @GetMapping("/get")
+    public User get(@Param("code") String code){
+        User user = userServices.get(code);
+        if (user == null) {
+            return new User();
+        }
+        return user;
     }
 
     /**

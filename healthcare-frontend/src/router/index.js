@@ -4,6 +4,12 @@ import Router from 'vue-router'
 import Login from '@/views/login/index'
 import Home from '@/views/home/index'
 
+import User from '@/views/patientManage/index'
+import Staff from '@/views/staffManage/index'
+import Store from '@/views/storeManage/index'
+import Monitor from '@/views/dataMonitor/index'
+import WareHouse from '@/views/wareHouse/index'
+
 Vue.use(Router)
 
 const router =  new Router({
@@ -16,7 +22,25 @@ const router =  new Router({
     }, {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: '/home/user',
+          component: User
+        },{
+          path: '/home/staff',
+          component: Staff
+        },{
+          path: '/home/monitor',
+          component: Monitor
+        },{
+          path: '/home/store',
+          component: Store
+        },{
+          path: '/home/warehouse',
+          component: WareHouse
+        }
+      ]
     }
   ]
 })
@@ -31,6 +55,11 @@ router.beforeEach((to, from, next) => {
     token === '1' ? next() : next('/')
   }
 })
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router
 

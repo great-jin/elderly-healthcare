@@ -7,6 +7,13 @@ export function List(params) {
   })
 }
 
+export function getUser(params) {
+  return request({
+    url: `/users/get?code=${params}`,
+    method: 'get'
+  })
+}
+
 export function Login(params) {
   return request({
     url: '/users/login',

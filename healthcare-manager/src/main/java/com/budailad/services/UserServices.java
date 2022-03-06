@@ -1,11 +1,9 @@
 package com.budailad.services;
 
-import org.springframework.cache.annotation.CacheConfig;
 import com.budailad.entity.User;
 
 import java.util.List;
 
-@CacheConfig(cacheNames = "users")
 public interface UserServices {
 
     /**

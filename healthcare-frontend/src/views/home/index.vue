@@ -4,17 +4,25 @@
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" />
         <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1">
-            <a-icon type="user" />
-            <span>nav 1</span>
+          <a-menu-item key="1" @click="routePage('monitor')">
+            <a-icon type="area-chart" />
+            <span>数据监控</span>
           </a-menu-item>
-          <a-menu-item key="2">
-            <a-icon type="video-camera" />
-            <span>nav 2</span>
+          <a-menu-item key="2" @click="routePage('user')">
+            <a-icon type="form" />
+            <span>病人管理</span>
           </a-menu-item>
-          <a-menu-item key="3">
-            <a-icon type="upload" />
-            <span>nav 3</span>
+          <a-menu-item key="3" @click="routePage('staff')">
+            <a-icon type="team" />
+            <span>员工管理</span>
+          </a-menu-item>
+          <a-menu-item key="4" @click="routePage('store')">
+            <a-icon type="shop" />
+            <span>仓库管理</span>
+          </a-menu-item>
+          <a-menu-item key="5">
+            <a-icon type="file-protect" />
+            <span @click="routePage('warehouse')">后勤管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -25,27 +33,28 @@
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
           />
-          <a-dropdown
-            type="primary"
-            style="float: right; z-index: 1; margin: 15px"
-          >
-            <a-button type="primary" style="margin-left: 8px"><a-icon type="setting"/>设置</a-button>
+          <a-dropdown type="primary" style="float: right; z-index: 1; margin: 15px" >
+            <a-button type="primary" style="margin-left: 8px">
+              <a-icon type="setting"/>
+            </a-button>
             <a-menu slot="overlay">
               <a-menu-item key="1">
-                <a-icon type="disconnect" />1st
+                <a-icon type="smile" />
+                <span @click="openSetting('self')">个人中心</span>
               </a-menu-item>
               <a-menu-item key="2">
-                <a-icon type="disconnect" />2nd
+                <a-icon type="question-circle" />
+                <span @click="openSetting('question')">问题反馈</span>
               </a-menu-item>
-              <a-menu-item key="3" @click="exit">
-                <a-icon type="disconnect" />退出
+              <a-menu-item key="3">
+                <a-icon type="disconnect" />
+                <span @click="openSetting('exit')">退出登录</span>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
         </a-layout-header>
-        <a-layout-content
-          :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
-        >
+        <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
+          <router-view />
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -67,12 +76,45 @@ export default {
     window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
   },
   methods:{
-    exit(){
-      this.$router.push('/')
-      localStorage.setItem('token', '0')
-    },
     beforeunloadHandler(e) {
-      localStorage.setItem('token', '0')
+      // 监控页面关闭
+      // localStorage.setItem('token', '0')
+    },
+    routePage(data) {
+      switch (data){
+        case 'user':
+          this.$router.push('/home/user')
+          break
+        case 'staff':
+          this.$router.push('/home/staff')
+          break
+        case 'patient':
+          this.$router.push('/home/user')
+          break
+        case 'store':
+          this.$router.push('/home/store')
+          break
+        case 'monitor':
+          this.$router.push('/home/monitor')
+          break
+        case 'warehouse':
+          this.$router.push('/home/warehouse')
+          break
+      }
+    },
+    openSetting(data){
+      switch (data) {
+        case 'self':
+          this.$router.push('/')
+          break
+        case 'question':
+          this.$router.push('/')
+          break
+        case 'exit':
+          this.$router.push('/')
+          localStorage.setItem('token', '0')
+          break
+      }
     }
   }
 }
@@ -96,11 +138,9 @@ export default {
     cursor: pointer;
     transition: color 0.3s;
   }
-
   .sideBar .trigger:hover {
     color: #1890ff;
   }
-
   .sideBar .logo {
     height: 32px;
     background: rgba(255, 255, 255, 0.2);
