@@ -1,4 +1,4 @@
-package com.budailad.entity;
+package com.budailad.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

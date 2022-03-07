@@ -1,4 +1,4 @@
-package com.budailad.mapper;
+package com.budailad.dao;
 
 import com.budailad.entity.User;
 import org.apache.ibatis.annotations.*;
@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface UserDao {
 
     List<User> list();
 

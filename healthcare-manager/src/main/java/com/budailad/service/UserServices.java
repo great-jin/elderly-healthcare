@@ -1,4 +1,4 @@
-package com.budailad.services;
+package com.budailad.service;
 
 import com.budailad.entity.User;
 

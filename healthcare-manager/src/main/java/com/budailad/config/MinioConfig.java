@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.budailad.entity.MiniO;
+import com.budailad.model.MiniO;
 
 @Configuration
 @EnableConfigurationProperties(MiniO.class)

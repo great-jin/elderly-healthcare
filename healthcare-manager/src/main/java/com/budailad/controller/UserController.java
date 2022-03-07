@@ -1,7 +1,7 @@
 package com.budailad.controller;
 
 import com.budailad.entity.User;
-import com.budailad.services.UserServices;
+import com.budailad.service.UserServices;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;

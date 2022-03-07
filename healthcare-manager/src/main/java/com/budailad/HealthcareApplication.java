@@ -11,7 +11,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 @SpringBootApplication
-@MapperScan("com.budailad.mapper")
+@MapperScan("com.budailad.dao")
 public class HealthcareApplication {
 
     public static void main(String[] args) {

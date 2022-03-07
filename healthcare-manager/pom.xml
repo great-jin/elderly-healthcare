@@ -27,11 +27,8 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+
+        <!-- 生成配置元数据 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -67,12 +64,6 @@
             <artifactId>persistence-api</artifactId>
             <version>1.0</version>
         </dependency>
-        <!-- 单元测试 -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!-- Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,7 +83,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
-        <!-- minio数据库 -->
+        <!-- Minio数据库 -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
@@ -113,6 +104,19 @@
             <groupId>org.apache.directory.studio</groupId>
             <artifactId>org.apache.commons.codec</artifactId>
             <version>1.8</version>
+        </dependency>
+
+        <!-- 单元测试 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- SpringBoot测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

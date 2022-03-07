@@ -1,12 +1,12 @@
-package com.budailad.services.Impl;
+package com.budailad.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.budailad.entity.User;
-import com.budailad.mapper.UserMapper;
-import com.budailad.services.UserServices;
+import com.budailad.dao.UserDao;
+import com.budailad.service.UserServices;
 
 import java.util.List;
 
@@ -15,28 +15,28 @@ import java.util.List;
 public class UserServicesImpl implements UserServices {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Override
     @Cacheable(key = "'list'")
     public List<User> list() {
-        return userMapper.list();
+        return userDao.list();
     }
 
     @Override
     @Cacheable(key = "#id")
     public User get(String id) {
-        return userMapper.get(id);
+        return userDao.get(id);
     }
 
     @Override
     @Cacheable(key = "#user.accountID")
     public int add(User user) {
-        return userMapper.add(user);
+        return userDao.add(user);
     }
 
     @Override
     public User login(User user) {
-        return userMapper.login(user);
+        return userDao.login(user);
     }
 }
