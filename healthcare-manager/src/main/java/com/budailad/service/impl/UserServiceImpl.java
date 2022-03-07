@@ -6,13 +6,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import com.budailad.entity.User;
 import com.budailad.dao.UserDao;
-import com.budailad.service.UserServices;
+import com.budailad.service.UserService;
 
 import java.util.List;
 
 @Service
 @CacheConfig(cacheNames = "users")
-public class UserServicesImpl implements UserServices {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;

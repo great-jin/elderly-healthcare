@@ -4,7 +4,7 @@ import com.budailad.entity.User;
 
 import java.util.List;
 
-public interface UserServices {
+public interface UserService {
 
     /**
      * Author:Budai 2022/1/6 19:15

@@ -1,7 +1,7 @@
 package com.budailad.controller;
 
 import com.budailad.entity.User;
-import com.budailad.service.UserServices;
+import com.budailad.service.UserService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,16 +22,16 @@ public class UserController {
     private final static String IV_BACK = "dyouthinvincible";
 
     @Autowired
-    private UserServices userServices;
+    private UserService userService;
 
     @GetMapping("/list")
     public List<User> list(){
-        return userServices.list();
+        return userService.list();
     }
 
     @GetMapping("/get")
     public User get(@Param("code") String code){
-        User user = userServices.get(code);
+        User user = userService.get(code);
         if (user == null) {
             return new User();
         }
@@ -47,7 +47,7 @@ public class UserController {
         String frontEnPwd = user.getPassword();
         String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
 
-        User resultUser = userServices.get(user.getAccountID());
+        User resultUser = userService.get(user.getAccountID());
         if (resultUser != null) {
             // 后端解密
             String backEnPwd = new String(resultUser.getPassword().getBytes(),"UTF-8");
@@ -65,7 +65,7 @@ public class UserController {
      */
     @PostMapping("/register")
     public int register(@RequestBody User user) throws Exception {
-        User userResult = userServices.get(user.getAccountID());
+        User userResult = userService.get(user.getAccountID());
         if (userResult == null) {
             String frontEnPwd = user.getPassword();
             String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
@@ -74,7 +74,7 @@ public class UserController {
             String backEnPwd = encrypt(backByte, KEY_BACK, IV_BACK);
             user.setPassword(backEnPwd);
 
-            return userServices.add(user);
+            return userService.add(user);
         } else {
             return 2;
         }
