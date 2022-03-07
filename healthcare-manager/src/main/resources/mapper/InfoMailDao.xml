@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.InfoMailDao">
+
+    <resultMap type="com.budailad.entity.InfoMail" id="InfoMailMap">
+        <result property="mailId" column="mail_id" jdbcType="VARCHAR"/>
+        <result property="senderName" column="sender_name" jdbcType="VARCHAR"/>
+        <result property="senderMail" column="sender_mail" jdbcType="VARCHAR"/>
+        <result property="receiverName" column="receiver_name" jdbcType="VARCHAR"/>
+        <result property="receiverMail" column="receiver_mail" jdbcType="VARCHAR"/>
+        <result property="isSended" column="is_sended" jdbcType="INTEGER"/>
+        <result property="sendTime" column="send_time" jdbcType="TIMESTAMP"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="InfoMailMap">
+        select mail_id,
+               sender_name,
+               sender_mail,
+               receiver_name,
+               receiver_mail,
+               is_sended,
+               send_time,
+               comment
+        from info_mail
+        where mail_id = #{mailId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="InfoMailMap">
+        select
+        mail_id, sender_name, sender_mail, receiver_name, receiver_mail, is_sended, send_time, comment
+        from info_mail
+        <where>
+            <if test="mailId != null and mailId != ''">
+                and mail_id = #{mailId}
+            </if>
+            <if test="senderName != null and senderName != ''">
+                and sender_name = #{senderName}
+            </if>
+            <if test="senderMail != null and senderMail != ''">
+                and sender_mail = #{senderMail}
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                and receiver_name = #{receiverName}
+            </if>
+            <if test="receiverMail != null and receiverMail != ''">
+                and receiver_mail = #{receiverMail}
+            </if>
+            <if test="isSended != null">
+                and is_sended = #{isSended}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from info_mail
+        <where>
+            <if test="mailId != null and mailId != ''">
+                and mail_id = #{mailId}
+            </if>
+            <if test="senderName != null and senderName != ''">
+                and sender_name = #{senderName}
+            </if>
+            <if test="senderMail != null and senderMail != ''">
+                and sender_mail = #{senderMail}
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                and receiver_name = #{receiverName}
+            </if>
+            <if test="receiverMail != null and receiverMail != ''">
+                and receiver_mail = #{receiverMail}
+            </if>
+            <if test="isSended != null">
+                and is_sended = #{isSended}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="mailId" useGeneratedKeys="true">
+        insert into info_mail(sender_name, sender_mail, receiver_name, receiver_mail, is_sended, send_time, comment)
+        values (#{senderName}, #{senderMail}, #{receiverName}, #{receiverMail}, #{isSended}, #{sendTime}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="mailId" useGeneratedKeys="true">
+        insert into info_mail(sender_name, sender_mail, receiver_name, receiver_mail, is_sended, send_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.senderName}, #{entity.senderMail}, #{entity.receiverName}, #{entity.receiverMail},
+            #{entity.isSended}, #{entity.sendTime}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="mailId" useGeneratedKeys="true">
+        insert into info_mail(sender_name, sender_mail, receiver_name, receiver_mail, is_sended, send_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.senderName}, #{entity.senderMail}, #{entity.receiverName}, #{entity.receiverMail},
+            #{entity.isSended}, #{entity.sendTime}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        sender_name = values(sender_name),
+        sender_mail = values(sender_mail),
+        receiver_name = values(receiver_name),
+        receiver_mail = values(receiver_mail),
+        is_sended = values(is_sended),
+        send_time = values(send_time),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update info_mail
+        <set>
+            <if test="senderName != null and senderName != ''">
+                sender_name = #{senderName},
+            </if>
+            <if test="senderMail != null and senderMail != ''">
+                sender_mail = #{senderMail},
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                receiver_name = #{receiverName},
+            </if>
+            <if test="receiverMail != null and receiverMail != ''">
+                receiver_mail = #{receiverMail},
+            </if>
+            <if test="isSended != null">
+                is_sended = #{isSended},
+            </if>
+            <if test="sendTime != null">
+                send_time = #{sendTime},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where mail_id = #{mailId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from info_mail
+        where mail_id = #{mailId}
+    </delete>
+
+</mapper>
+

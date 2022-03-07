@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.OrganizeDepartDao">
+
+    <resultMap type="com.budailad.entity.OrganizeDepart" id="OrganizeDepartMap">
+        <result property="departId" column="depart_id" jdbcType="VARCHAR"/>
+        <result property="departName" column="depart_name" jdbcType="VARCHAR"/>
+        <result property="manCount" column="man_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrganizeDepartMap">
+        select depart_id,
+               depart_name,
+               man_count
+        from organize_depart
+        where depart_id = #{departId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrganizeDepartMap">
+        select
+        depart_id, depart_name, man_count
+        from organize_depart
+        <where>
+            <if test="departId != null and departId != ''">
+                and depart_id = #{departId}
+            </if>
+            <if test="departName != null and departName != ''">
+                and depart_name = #{departName}
+            </if>
+            <if test="manCount != null">
+                and man_count = #{manCount}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from organize_depart
+        <where>
+            <if test="departId != null and departId != ''">
+                and depart_id = #{departId}
+            </if>
+            <if test="departName != null and departName != ''">
+                and depart_name = #{departName}
+            </if>
+            <if test="manCount != null">
+                and man_count = #{manCount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="departId" useGeneratedKeys="true">
+        insert into organize_depart(depart_name, man_count)
+        values (#{departName}, #{manCount})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="departId" useGeneratedKeys="true">
+        insert into organize_depart(depart_name, man_count)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.departName}, #{entity.manCount})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="departId" useGeneratedKeys="true">
+        insert into organize_depart(depart_name, man_count)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.departName}, #{entity.manCount})
+        </foreach>
+        on duplicate key update
+        depart_name = values(depart_name),
+        man_count = values(man_count)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update organize_depart
+        <set>
+            <if test="departName != null and departName != ''">
+                depart_name = #{departName},
+            </if>
+            <if test="manCount != null">
+                man_count = #{manCount},
+            </if>
+        </set>
+        where depart_id = #{departId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from organize_depart
+        where depart_id = #{departId}
+    </delete>
+
+</mapper>
+

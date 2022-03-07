@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.PaitentCostDetailDao">
+
+    <resultMap type="com.budailad.entity.PaitentCostDetail" id="PaitentCostDetailMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="caseId" column="case_id" jdbcType="VARCHAR"/>
+        <result property="costList" column="cost_list" jdbcType="VARCHAR"/>
+        <result property="costCount" column="cost_count" jdbcType="NUMERIC"/>
+        <result property="inTime" column="in_time" jdbcType="TIMESTAMP"/>
+        <result property="outTime" column="out_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PaitentCostDetailMap">
+        select id,
+               patient_id,
+               case_id,
+               cost_list,
+               cost_count,
+               in_time,
+               out_time
+        from paitent_cost_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PaitentCostDetailMap">
+        select
+        id, patient_id, case_id, cost_list, cost_count, in_time, out_time
+        from paitent_cost_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="caseId != null and caseId != ''">
+                and case_id = #{caseId}
+            </if>
+            <if test="costList != null and costList != ''">
+                and cost_list = #{costList}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from paitent_cost_detail
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="caseId != null and caseId != ''">
+                and case_id = #{caseId}
+            </if>
+            <if test="costList != null and costList != ''">
+                and cost_list = #{costList}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into paitent_cost_detail(patient_id, case_id, cost_list, cost_count, in_time, out_time)
+        values (#{patientId}, #{caseId}, #{costList}, #{costCount}, #{inTime}, #{outTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paitent_cost_detail(patient_id, case_id, cost_list, cost_count, in_time, out_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.caseId}, #{entity.costList}, #{entity.costCount}, #{entity.inTime},
+            #{entity.outTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into paitent_cost_detail(patient_id, case_id, cost_list, cost_count, in_time, out_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.caseId}, #{entity.costList}, #{entity.costCount}, #{entity.inTime},
+            #{entity.outTime})
+        </foreach>
+        on duplicate key update
+        patient_id = values(patient_id),
+        case_id = values(case_id),
+        cost_list = values(cost_list),
+        cost_count = values(cost_count),
+        in_time = values(in_time),
+        out_time = values(out_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update paitent_cost_detail
+        <set>
+            <if test="patientId != null and patientId != ''">
+                patient_id = #{patientId},
+            </if>
+            <if test="caseId != null and caseId != ''">
+                case_id = #{caseId},
+            </if>
+            <if test="costList != null and costList != ''">
+                cost_list = #{costList},
+            </if>
+            <if test="costCount != null">
+                cost_count = #{costCount},
+            </if>
+            <if test="inTime != null">
+                in_time = #{inTime},
+            </if>
+            <if test="outTime != null">
+                out_time = #{outTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from paitent_cost_detail
+        where id = #{id}
+    </delete>
+
+</mapper>
+
