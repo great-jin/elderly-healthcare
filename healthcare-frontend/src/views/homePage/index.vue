@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <a-layout id="components-layout-demo-top-side">
+    <a-layout id="topBanner">
       <a-layout-header class="header">
         <div class="logo" />
         <a-menu
@@ -15,27 +15,24 @@
           <a-menu-item key="2" @click="routePage('menu')">
             考勤管理
           </a-menu-item>
-          <a-menu-item key="3" style="float: right;">
-            <a-dropdown type="primary"  >
-              <a-button><a-icon type="setting" /></a-button>
-              <a-menu slot="overlay">
-                <a-menu-item key="1">
-                  <a-icon type="smile" />
-                  <span @click="openSetting('self')">个人中心</span>
-                </a-menu-item>
-                <a-menu-item key="2">
-                  <a-icon type="question-circle" />
-                  <span @click="openSetting('question')">问题反馈</span>
-                </a-menu-item>
-                <a-menu-item key="3">
-                  <a-icon type="disconnect" />
-                  <span @click="openSetting('exit')">退出登录</span>
-                </a-menu-item>
-              </a-menu>
-            </a-dropdown>
-          </a-menu-item>
+          <a-dropdown type="primary" class="settingMenu">
+            <a-button><a-icon type="setting" /></a-button>
+            <a-menu slot="overlay">
+              <a-menu-item key="1">
+                <a-icon type="smile" />
+                <span @click="openSetting('self')">个人中心</span>
+              </a-menu-item>
+              <a-menu-item key="2">
+                <a-icon type="question-circle" />
+                <span @click="openSetting('question')">问题反馈</span>
+              </a-menu-item>
+              <a-menu-item key="3">
+                <a-icon type="disconnect" />
+                <span @click="openSetting('exit')">退出登录</span>
+              </a-menu-item>
+            </a-menu>
+          </a-dropdown>
         </a-menu>
-
       </a-layout-header>
     </a-layout>
 
@@ -74,7 +71,8 @@
         </a-menu>
       </a-layout-sider>
 
-      <a-layout>
+      <a-layout style="height: 94%">
+        <!--
         <a-layout-header style="background: #fff; padding: 0">
           <a-tabs type="editable-card" hide-add style="margin: 10px 25px 10px 25px">
             <a-tab-pane
@@ -85,8 +83,10 @@
             />
           </a-tabs>
         </a-layout-header>
+        -->
         <a-layout-content
-          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }"
+          :style="{ margin: '16px 24px', padding: '24px', background: '#fff'}"
+          style="overflow: auto;"
         >
           <router-view />
         </a-layout-content>
@@ -172,19 +172,22 @@ export default {
 
 <style scoped>
   #home{
+    width: 100%;
     height: 100%;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    background: white;
+    overflow: hidden;
   }
-  #components-layout-demo-top-side .logo {
+  #topBanner .logo {
     width: 120px;
     height: 31px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;
     float: left;
+  }
+  .settingMenu{
+    float: right;
+    z-index: 1;
+    margin: 17px 0px;
   }
   .sideBar{
     height: 100%;
