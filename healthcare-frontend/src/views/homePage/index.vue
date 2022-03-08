@@ -1,10 +1,17 @@
 <template>
   <div id="home">
+    <div style="height: 60px; width: 100%; background: blueviolet">
+      <span>上标题</span>
+    </div>
+    <div style="height: 100%; width: 60px; background: #14C6CC; float: left">
+      <span>左标题</span>
+    </div>
+
     <a-layout class="sideBar">
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" />
         <a-menu theme="dark" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('monitor')">
+          <a-menu-item key="1" @click="routePage('chart')">
             <a-icon type="area-chart" />
             <span>数据监控</span>
           </a-menu-item>
@@ -20,9 +27,9 @@
             <a-icon type="shop" />
             <span>仓库管理</span>
           </a-menu-item>
-          <a-menu-item key="5">
+          <a-menu-item key="5" @click="routePage('warehouse')">
             <a-icon type="file-protect" />
-            <span @click="routePage('warehouse')">后勤管理</span>
+            <span>后勤管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -34,8 +41,8 @@
             @click="() => (collapsed = !collapsed)"
           />
           <a-dropdown type="primary" style="float: right; z-index: 1; margin: 15px" >
-            <a-button type="primary" style="margin-left: 8px">
-              <a-icon type="setting"/>
+            <a-button  style="margin-left: 8px">
+              <a-icon type="setting" />
             </a-button>
             <a-menu slot="overlay">
               <a-menu-item key="1">
@@ -72,6 +79,7 @@ export default {
     }
   },
   mounted() {
+    this.routePage('chart')
     this.id = this.$route.query.id
     window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
   },
@@ -82,6 +90,9 @@ export default {
     },
     routePage(data) {
       switch (data){
+        case 'chart':
+          this.$router.push('/home/chart')
+          break
         case 'user':
           this.$router.push('/home/user')
           break
@@ -93,9 +104,6 @@ export default {
           break
         case 'store':
           this.$router.push('/home/store')
-          break
-        case 'monitor':
-          this.$router.push('/home/monitor')
           break
         case 'warehouse':
           this.$router.push('/home/warehouse')

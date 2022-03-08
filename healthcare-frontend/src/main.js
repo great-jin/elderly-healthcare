@@ -4,10 +4,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-// 引入ant design
+// 引入antd
 import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 Vue.use(Antd);
+
+// 引入echarts
+// import echarts from 'echarts'
+import * as echarts from 'echarts'
+//需要挂载到Vue原型上
+Vue.prototype.$echarts = echarts
 
 Vue.config.productionTip = false
 
