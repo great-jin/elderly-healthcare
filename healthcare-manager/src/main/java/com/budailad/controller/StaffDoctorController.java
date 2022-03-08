@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (StaffDoctor)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:26:34
+ * @Author Budai
+ * @Since 2022-03-07 16:26:34
  */
 @RestController
-@RequestMapping("staffDoctor")
+@RequestMapping("/api/healthcare/staffDoctor")
 public class StaffDoctorController {
     /**
      * 服务对象

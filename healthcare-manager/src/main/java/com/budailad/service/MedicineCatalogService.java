@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (MedicineCatalog)表服务接口
  *
- * @author makejava
- * @since 2022-03-07 16:25:13
+ * @Author Budai
+ * @Since 2022-03-07 16:25:13
  */
 public interface MedicineCatalogService {
 

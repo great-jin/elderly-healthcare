@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (SysUser)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:28:12
+ * @Author Budai
+ * @Since 2022-03-07 16:28:12
  */
 @Mapper
 public interface SysUserDao {

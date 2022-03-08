@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/files")
+@RequestMapping(value = "/api/healthcare/files")
 public class FilesController {
 
     @Autowired

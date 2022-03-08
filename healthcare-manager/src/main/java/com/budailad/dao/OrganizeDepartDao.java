@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (OrganizeDepart)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:25:34
+ * @Author Budai
+ * @Since 2022-03-07 16:25:34
  */
 @Mapper
 public interface OrganizeDepartDao {

@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (WarehoseStorage)表服务接口
  *
- * @author makejava
- * @since 2022-03-07 16:28:54
+ * @Author Budai
+ * @Since 2022-03-07 16:28:54
  */
 public interface WarehoseStorageService {
 

@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (RegisterTemplate)表服务接口
  *
- * @author makejava
- * @since 2022-03-07 16:26:22
+ * @Author Budai
+ * @Since 2022-03-07 16:26:22
  */
 public interface RegisterTemplateService {
 

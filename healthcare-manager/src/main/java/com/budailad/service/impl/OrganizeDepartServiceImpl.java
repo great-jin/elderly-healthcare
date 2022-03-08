@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (OrganizeDepart)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:25:34
+ * @Author Budai
+ * @Since 2022-03-07 16:25:34
  */
 @Service("organizeDepartService")
 public class OrganizeDepartServiceImpl implements OrganizeDepartService {

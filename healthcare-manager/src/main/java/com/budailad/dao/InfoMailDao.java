@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (InfoMail)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:25:00
+ * @Author Budai
+ * @Since 2022-03-07 16:25:00
  */
 @Mapper
 public interface InfoMailDao {

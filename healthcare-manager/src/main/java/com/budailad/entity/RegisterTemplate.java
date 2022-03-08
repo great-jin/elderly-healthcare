@@ -9,8 +9,8 @@ import java.io.Serializable;
 /**
  * (RegisterTemplate)实体类
  *
- * @author makejava
- * @since 2022-03-07 16:26:22
+ * @Author Budai
+ * @Since 2022-03-07 16:26:22
  */
 @Data
 @AllArgsConstructor

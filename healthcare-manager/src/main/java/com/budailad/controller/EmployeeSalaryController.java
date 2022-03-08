@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (EmployeeSalary)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:24:02
+ * @Author Budai
+ * @Since 2022-03-07 16:24:02
  */
 @RestController
-@RequestMapping("employeeSalary")
+@RequestMapping("/api/healthcare/employeeSalary")
 public class EmployeeSalaryController {
     /**
      * 服务对象

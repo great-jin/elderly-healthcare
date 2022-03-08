@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (SysUser)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:28:12
+ * @Author Budai
+ * @Since 2022-03-07 16:28:12
  */
 @Service("sysUserService")
 public class SysUserServiceImpl implements SysUserService {

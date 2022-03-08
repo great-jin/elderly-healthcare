@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (SysLogs)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:28:01
+ * @Author Budai
+ * @Since 2022-03-07 16:28:01
  */
 @Service("sysLogsService")
 public class SysLogsServiceImpl implements SysLogsService {

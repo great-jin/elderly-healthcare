@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.budailad.model.Mail;
 
 @RestController
-@RequestMapping(value = "/mail")
+@RequestMapping(value = "/api/healthcare/mail")
 public class MailController {
 
     @Autowired

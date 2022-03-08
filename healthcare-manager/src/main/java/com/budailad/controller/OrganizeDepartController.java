@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (OrganizeDepart)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:25:34
+ * @Author Budai
+ * @Since 2022-03-07 16:25:34
  */
 @RestController
-@RequestMapping("organizeDepart")
+@RequestMapping("/api/healthcare/organizeDepart")
 public class OrganizeDepartController {
     /**
      * 服务对象

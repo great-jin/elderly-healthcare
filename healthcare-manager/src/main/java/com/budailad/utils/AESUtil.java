@@ -2,7 +2,7 @@ package com.budailad.utils;
 
 /**
  * AES 128bit 加密解密工具类
- * @author dufy
+ * @Author dufy
  */
 import org.apache.commons.codec.binary.Base64;
 import javax.crypto.Cipher;

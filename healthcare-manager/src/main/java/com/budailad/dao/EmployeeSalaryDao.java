@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (EmployeeSalary)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:24:02
+ * @Author Budai
+ * @Since 2022-03-07 16:24:02
  */
 @Mapper
 public interface EmployeeSalaryDao {

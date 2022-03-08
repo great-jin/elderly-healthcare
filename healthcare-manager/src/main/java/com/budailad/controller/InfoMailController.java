@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (InfoMail)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:25:00
+ * @Author Budai
+ * @Since 2022-03-07 16:25:00
  */
 @RestController
-@RequestMapping("infoMail")
+@RequestMapping("/api/healthcare/infoMail")
 public class InfoMailController {
     /**
      * 服务对象

@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (PatientDetails)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:26:11
+ * @Author Budai
+ * @Since 2022-03-07 16:26:11
  */
 @Service("patientDetailsService")
 public class PatientDetailsServiceImpl implements PatientDetailsService {

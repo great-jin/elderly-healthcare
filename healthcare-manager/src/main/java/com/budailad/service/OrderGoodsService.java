@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (OrderGoods)表服务接口
  *
- * @author makejava
- * @since 2022-03-07 16:25:24
+ * @Author Budai
+ * @Since 2022-03-07 16:25:24
  */
 public interface OrderGoodsService {
 

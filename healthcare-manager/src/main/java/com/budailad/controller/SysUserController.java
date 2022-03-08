@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (SysUser)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:28:12
+ * @Author Budai
+ * @Since 2022-03-07 16:28:12
  */
 @RestController
-@RequestMapping("sysUser")
+@RequestMapping("/api/healthcare/sysUser")
 public class SysUserController {
     /**
      * 服务对象

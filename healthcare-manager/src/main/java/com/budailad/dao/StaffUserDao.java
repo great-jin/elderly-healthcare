@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (StaffUser)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:27:51
+ * @Author Budai
+ * @Since 2022-03-07 16:27:51
  */
 @Mapper
 public interface StaffUserDao {

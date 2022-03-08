@@ -7,8 +7,8 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (StaffUser)表服务接口
  *
- * @author makejava
- * @since 2022-03-07 16:27:51
+ * @Author Budai
+ * @Since 2022-03-07 16:27:51
  */
 public interface StaffUserService {
 

@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (OrderGoods)表数据库访问层
  *
- * @author makejava
- * @since 2022-03-07 16:25:24
+ * @Author Budai
+ * @Since 2022-03-07 16:25:24
  */
 @Mapper
 public interface OrderGoodsDao {

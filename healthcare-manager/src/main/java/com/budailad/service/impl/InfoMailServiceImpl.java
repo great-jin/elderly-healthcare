@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (InfoMail)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:25:01
+ * @Author Budai
+ * @Since 2022-03-07 16:25:01
  */
 @Service("infoMailService")
 public class InfoMailServiceImpl implements InfoMailService {

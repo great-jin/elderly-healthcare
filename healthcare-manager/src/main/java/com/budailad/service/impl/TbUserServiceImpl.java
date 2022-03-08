@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (TbUser)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:28:27
+ * @Author Budai
+ * @Since 2022-03-07 16:28:27
  */
 @Service("tbUserService")
 public class TbUserServiceImpl implements TbUserService {

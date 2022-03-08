@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (TbUser)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:28:27
+ * @Author Budai
+ * @Since 2022-03-07 16:28:27
  */
 @RestController
-@RequestMapping("tbUser")
+@RequestMapping("/api/healthcare/tbUser")
 public class TbUserController {
     /**
      * 服务对象

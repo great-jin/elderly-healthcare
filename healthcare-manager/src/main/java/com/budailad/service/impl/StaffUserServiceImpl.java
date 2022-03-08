@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (StaffUser)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:27:51
+ * @Author Budai
+ * @Since 2022-03-07 16:27:51
  */
 @Service("staffUserService")
 public class StaffUserServiceImpl implements StaffUserService {

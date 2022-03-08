@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (RegisterTemplate)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:26:22
+ * @Author Budai
+ * @Since 2022-03-07 16:26:22
  */
 @RestController
-@RequestMapping("registerTemplate")
+@RequestMapping("/api/healthcare/registerTemplate")
 public class RegisterTemplateController {
     /**
      * 服务对象

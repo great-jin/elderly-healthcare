@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (PaitentCostDetail)表服务实现类
  *
- * @author makejava
- * @since 2022-03-07 16:25:59
+ * @Author Budai
+ * @Since 2022-03-07 16:25:59
  */
 @Service("paitentCostDetailService")
 public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {

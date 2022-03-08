@@ -10,8 +10,8 @@ import java.io.Serializable;
 /**
  * (StaffUser)实体类
  *
- * @author makejava
- * @since 2022-03-07 16:27:51
+ * @Author Budai
+ * @Since 2022-03-07 16:27:51
  */
 @Data
 @AllArgsConstructor

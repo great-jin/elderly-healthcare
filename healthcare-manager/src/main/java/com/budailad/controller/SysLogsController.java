@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (SysLogs)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:28:01
+ * @Author Budai
+ * @Since 2022-03-07 16:28:01
  */
 @RestController
-@RequestMapping("sysLogs")
+@RequestMapping("/api/healthcare/sysLogs")
 public class SysLogsController {
     /**
      * 服务对象

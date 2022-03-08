@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (WarehoseStorage)表控制层
  *
- * @author makejava
- * @since 2022-03-07 16:28:48
+ * @Author Budai
+ * @Since 2022-03-07 16:28:48
  */
 @RestController
-@RequestMapping("warehoseStorage")
+@RequestMapping("/api/healthcare/warehoseStorage")
 public class WarehoseStorageController {
     /**
      * 服务对象
