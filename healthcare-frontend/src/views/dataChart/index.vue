@@ -1,6 +1,6 @@
 <template>
-  <div class="Echarts">
-    <div id="main" style="width: 100%; height: 100%;"></div>
+  <div class="chart">
+    <div id="pie" style="width: 50%; height: 50%; margin: auto auto;"></div>
   </div>
 </template>
 
@@ -19,16 +19,18 @@ export default {
     }
   },
   mounted() {
-    this.myEcharts()
+    this.pieChart()
   },
   methods: {
-    myEcharts(){
+    pieChart(){
       // 通过 this.$echarts 来使用
-      var myChart = this.$echarts.init(document.getElementById('main'));
+      // document.getElementById()
+      // document.getElementsByClassName() 不可用
+      var pieGraph = this.$echarts.init(document.getElementById('pie'));
       // 配置图表信息
       var option = {
         title: {
-          text: 'echarts入门示例',
+          text: 'Echarts Demo',
         },
         tooltip: {},
         legend: {
@@ -44,14 +46,14 @@ export default {
           data: [5,20,36,10,10,20]
         }]
       };
-      myChart.setOption(option);
+      pieGraph.setOption(option);
     }
   }
 }
 </script>
 
 <style scoped>
-  .Echarts{
+  .chart{
     width: 100%;
     height: 100%;
   }

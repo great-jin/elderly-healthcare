@@ -9,6 +9,7 @@ import Staff from '@/views/staffManage/index'
 import Store from '@/views/storeManage/index'
 import WareHouse from '@/views/wareHouse/index'
 import DataChart from '@/views/dataChart/index'
+import Menu from '@/views/menuPage/index'
 
 Vue.use(Router)
 
@@ -41,6 +42,10 @@ const router =  new Router({
           component: WareHouse
         }
       ]
+    },{
+      path: '/home/menu',
+      name: 'Menu',
+      component: Menu
     }
   ]
 })
