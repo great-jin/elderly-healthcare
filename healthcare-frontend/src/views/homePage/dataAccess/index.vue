@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is Store</h1>
+    <h1>病人登记</h1>
   </div>
 </template>
 

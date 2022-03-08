@@ -99,9 +99,9 @@ export default {
               if (res === 1){
                 this.$message.success('成功！')
                 // 设置登录状态为 true
-                localStorage.setItem('token', '1')
+                localStorage.setItem('token', values.accountID)
                 this.$router.push({
-                  path:'/home',
+                  path:'/service',
                   query: {
                     id: values.accountID
                   }

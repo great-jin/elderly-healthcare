@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>This is WareHouse</h1>
+    <h1>个人中心</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "index"
+  name: "Personal Center"
 }
 </script>
 

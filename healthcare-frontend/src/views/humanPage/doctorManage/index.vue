@@ -1,6 +1,7 @@
 <template>
+
   <div>
-    <h1>This is Monitor</h1>
+    <h1>医生管理</h1>
   </div>
 </template>
 

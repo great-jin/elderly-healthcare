@@ -6,7 +6,7 @@
         <a-menu
           theme="dark"
           mode="horizontal"
-          :default-selected-keys="['1']"
+          :default-selected-keys="['2']"
           :style="{ lineHeight: '64px' }"
         >
           <a-menu-item key="1" @click="routeMenu('service')">
@@ -55,25 +55,21 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('monitor')">
+          <a-menu-item key="1" @click="routePage('staff')">
             <a-icon type="area-chart" />
-            <span>数据监控</span>
+            <span>员工管理</span>
           </a-menu-item>
-          <a-menu-item key="2" @click="routePage('chart')">
+          <a-menu-item key="2" @click="routePage('doctor')">
             <a-icon type="form" />
-            <span>数据展示</span>
+            <span>医师信息</span>
           </a-menu-item>
-          <a-menu-item key="3" @click="routePage('access')">
+          <a-menu-item key="3" @click="routePage('vacate')">
             <a-icon type="team" />
-            <span>入住登记</span>
+            <span>请假审批</span>
           </a-menu-item>
-          <a-menu-item key="4" @click="routePage('patient')">
+          <a-menu-item key="4" @click="routePage('vacate')">
             <a-icon type="shop" />
-            <span>病人管理</span>
-          </a-menu-item>
-          <a-menu-item key="5" @click="routePage('logs')">
-            <a-icon type="file-protect" />
-            <span>任务分配</span>
+            <span>人员调度</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -142,24 +138,17 @@ export default {
     routePage(data) {
       const activeKey = this.tabIndex++;
       switch (data){
-        case 'chart':
-          this.$router.push('/service/chart')
+        case 'staff':
+          this.$router.push('/humansouce/staff')
           break
-        case 'monitor':
-          this.tabData.push({
-            title: `数据监控`,
-            key: activeKey
-          })
-          this.$router.push('/service/monitor')
+        case 'doctor':
+          this.$router.push('/humansouce/doctor')
           break
-        case 'access':
-          this.$router.push('/service/access')
+        case 'vacate':
+          this.$router.push('/humansouce/vacate')
           break
-        case 'patient':
-          this.$router.push('/service/patient')
-          break
-        case 'logs':
-          this.$router.push('/service/logs')
+        case 'vacate':
+          this.$router.push('/humansouce/vacate')
           break
       }
     },
@@ -184,35 +173,35 @@ export default {
 </script>
 
 <style scoped>
-  #home{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    overflow: hidden;
-  }
-  #topBanner .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    float: left;
-  }
-  .settingMenu{
-    float: right;
-    z-index: 1;
-    margin: 17px 0px;
-  }
-  .sideBar{
-    height: 100%;
-  }
-  .sideBar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .sideBar .trigger:hover {
-    color: #1890ff;
-  }
+#home{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+#topBanner .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 28px 16px 0;
+  float: left;
+}
+.settingMenu{
+  float: right;
+  z-index: 1;
+  margin: 17px 0px;
+}
+.sideBar{
+  height: 100%;
+}
+.sideBar .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.sideBar .trigger:hover {
+  color: #1890ff;
+}
 </style>

@@ -6,7 +6,7 @@
         <a-menu
           theme="dark"
           mode="horizontal"
-          :default-selected-keys="['1']"
+          :default-selected-keys="['4']"
           :style="{ lineHeight: '64px' }"
         >
           <a-menu-item key="1" @click="routeMenu('service')">
@@ -55,25 +55,13 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('monitor')">
+          <a-menu-item key="1" @click="routePage('storage')">
             <a-icon type="area-chart" />
-            <span>数据监控</span>
+            <span>药品管理</span>
           </a-menu-item>
-          <a-menu-item key="2" @click="routePage('chart')">
+          <a-menu-item key="2" @click="routePage('warehouse')">
             <a-icon type="form" />
-            <span>数据展示</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('access')">
-            <a-icon type="team" />
-            <span>入住登记</span>
-          </a-menu-item>
-          <a-menu-item key="4" @click="routePage('patient')">
-            <a-icon type="shop" />
-            <span>病人管理</span>
-          </a-menu-item>
-          <a-menu-item key="5" @click="routePage('logs')">
-            <a-icon type="file-protect" />
-            <span>任务分配</span>
+            <span>库存管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -142,24 +130,11 @@ export default {
     routePage(data) {
       const activeKey = this.tabIndex++;
       switch (data){
-        case 'chart':
-          this.$router.push('/service/chart')
+        case 'storage':
+          this.$router.push('/store/storage')
           break
-        case 'monitor':
-          this.tabData.push({
-            title: `数据监控`,
-            key: activeKey
-          })
-          this.$router.push('/service/monitor')
-          break
-        case 'access':
-          this.$router.push('/service/access')
-          break
-        case 'patient':
-          this.$router.push('/service/patient')
-          break
-        case 'logs':
-          this.$router.push('/service/logs')
+        case 'warehouse':
+          this.$router.push('/store/warehouse')
           break
       }
     },
@@ -184,35 +159,35 @@ export default {
 </script>
 
 <style scoped>
-  #home{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    overflow: hidden;
-  }
-  #topBanner .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    float: left;
-  }
-  .settingMenu{
-    float: right;
-    z-index: 1;
-    margin: 17px 0px;
-  }
-  .sideBar{
-    height: 100%;
-  }
-  .sideBar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .sideBar .trigger:hover {
-    color: #1890ff;
-  }
+#home{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+}
+#topBanner .logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 28px 16px 0;
+  float: left;
+}
+.settingMenu{
+  float: right;
+  z-index: 1;
+  margin: 17px 0px;
+}
+.sideBar{
+  height: 100%;
+}
+.sideBar .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.sideBar .trigger:hover {
+  color: #1890ff;
+}
 </style>
