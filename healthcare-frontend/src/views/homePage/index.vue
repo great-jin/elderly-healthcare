@@ -91,8 +91,7 @@
                       :tab="pane.title"
                       :closable="pane.closable"
                       @click="tabChange(pane.key)"
-          >
-          </a-tab-pane>
+          />
         </a-tabs>
         <a-layout-content
           :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
@@ -224,7 +223,6 @@ export default {
         const panes = this.panes
         panes.push({
           title: data,
-          content: `${<router-view />}`,
           key: data
         })
         this.panes = panes

@@ -24,6 +24,7 @@ import Vacate from '@/views/humanPage/vacateManage/index'
 
 // 订单管理
 import Order from '@/views/orderPage/index'
+import Medicine from '@/views/orderPage/orderManage/index'
 
 // 仓储管理
 import Store from '@/views/storePage/index'
@@ -87,7 +88,13 @@ const router =  new Router({
     }, {
       path: '/order',
       name: 'Order',
-      component: Order
+      component: Order,
+      children: [
+        {
+          path: '/order/medicine',
+          component: Medicine
+        }
+      ]
     }, {
       path: '/store',
       name: 'Store',

@@ -75,8 +75,22 @@
       </a-layout-sider>
 
       <a-layout style="height: 94%">
+        <a-tabs v-model="activeKey"
+                type="editable-card"
+                @edit="onEdit"
+                style="margin: 10px 10px 0px 15px"
+                @change="tabChange"
+                hide-add
+        >
+          <a-tab-pane v-for="pane in panes"
+                      :key="pane.key"
+                      :tab="pane.title"
+                      :closable="pane.closable"
+                      @click="tabChange(pane.key)"
+          />
+        </a-tabs>
         <a-layout-content
-          :style="{ margin: '16px 24px', padding: '24px', background: '#fff'}"
+          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
           style="overflow: auto;"
         >
           <router-view />
@@ -88,15 +102,18 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "HumanResource",
   data() {
+    const panes = [{ title: '人员管理', key: '人员管理', closable: false }]
     return{
       id: '',
-      collapsed: false
+      collapsed: false,
+      newTabIndex: 0,
+      panes,
+      activeKey: panes[0].key,
     }
   },
   mounted() {
-    this.id = this.$route.query.id
     this.routePage('staff')
   },
   methods:{
@@ -114,22 +131,6 @@ export default {
           break
       }
     },
-    routePage(data) {
-      switch (data){
-        case 'staff':
-          this.$router.push('/humansouce/staff')
-          break
-        case 'doctor':
-          this.$router.push('/humansouce/doctor')
-          break
-        case 'vacate':
-          this.$router.push('/humansouce/vacate')
-          break
-        case 'dispatch':
-          this.$router.push('/humansouce/vacate')
-          break
-      }
-    },
     routeMenu(data){
       switch (data) {
         case 'service':
@@ -143,6 +144,90 @@ export default {
           break
         case 'store':
           this.$router.push('/store')
+          break
+      }
+    },
+    routePage(data) {
+      switch (data){
+        case 'staff':
+          this.tabEstimate('人员管理')
+          this.$router.push('/humansouce/staff')
+          break
+        case 'doctor':
+          this.tabEstimate('医师信息')
+          this.$router.push('/humansouce/doctor')
+          break
+        case 'vacate':
+          this.tabEstimate('请假审批')
+          this.$router.push('/humansouce/vacate')
+          break
+        case 'dispatch':
+          this.tabEstimate('人员调度')
+          this.$router.push('/humansouce/vacate')
+          break
+      }
+    },
+    onEdit(targetKey, action) {
+      this[action](targetKey)
+    },
+    remove(targetKey) {
+      // 删除自身回到第一个标签
+      if(targetKey === this.activeKey){
+        this.routePage('staff')
+      }
+      let activeKey = this.activeKey
+      let lastIndex
+      this.panes.forEach((pane, i) => {
+        if (pane.key === targetKey) {
+          lastIndex = i - 1
+        }
+      });
+      const panes = this.panes.filter(pane => pane.key !== targetKey)
+      if (panes.length && activeKey === targetKey) {
+        if (lastIndex >= 0) {
+          activeKey = panes[lastIndex].key
+        } else {
+          activeKey = panes[0].key
+        }
+      }
+      this.panes = panes
+      this.activeKey = activeKey
+    },
+    tabEstimate(data) {
+      let flag = false
+      // 遍历标签，重复不添加
+      this.panes.forEach((pane) => {
+        if (pane.key === data) {
+          flag = true
+          // 重新定位到对应的已添加标签
+          this.activeKey = data
+          return;
+        }
+      })
+      if(flag === false) {
+        const panes = this.panes
+        panes.push({
+          title: data,
+          key: data
+        })
+        this.panes = panes
+        this.activeKey = data
+        this.flag = false
+      }
+    },
+    tabChange(data) {
+      switch (data){
+        case '人员管理':
+          this.$router.push('/humansouce/staff')
+          break
+        case '医师信息':
+          this.$router.push('/humansouce/doctor')
+          break
+        case '请假审批':
+          this.$router.push('/humansouce/vacate')
+          break
+        case '人员调度':
+          this.$router.push('/humansouce/vacate')
           break
       }
     }
