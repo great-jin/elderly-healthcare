@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div>
+    <div style="margin: 10px">
       <a-button
         type="primary"
-        style="float: left; position: absolute; z-index: 1;"
         @click="operationClick('add', null)"
       >新增</a-button>
 

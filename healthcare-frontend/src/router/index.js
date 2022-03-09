@@ -34,7 +34,6 @@ import WareHouse from '@/views/storePage/wareHouse/index'
 // 设置
 import Personal from '@/views/settingPage/personalSetting/index'
 import Question from '@/views/settingPage/questionSetting/index'
-import ServerError from "ant-design-vue/lib/result/serverError";
 import Unauthorized from "ant-design-vue/lib/result/unauthorized";
 
 Vue.use(Router)

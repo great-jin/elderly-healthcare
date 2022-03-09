@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-<!--    <h2 class="login-title">Elderly Healthcare</h2>-->
+    <h2 class="login-title">Elderly Healthcare</h2>
 
     <a-form class="login-form" :form="form">
-<!--      <h3 class="title">欢迎登录</h3>-->
+      <h3 class="title">欢迎登录</h3>
 
       <a-form-item style="margin: 15px 10px" >
         <a-input
@@ -97,7 +97,6 @@ export default {
 
             Login(values).then(res =>{
               if (res === 1){
-                this.$message.success('成功！')
                 // 设置登录状态为 true
                 localStorage.setItem('token', values.accountID)
                 this.$router.push({
@@ -244,15 +243,15 @@ export default {
     width: 25%;
     margin: 5% auto;
     border-radius: 25px;
-    /*background: url("../../assets/log.png") no-repeat;*/
+    background: url("../../assets/log.png") no-repeat;
   }
   /* 登录背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    /*background: url("../../assets/back.png") no-repeat;*/
-    /*background-size: 100% 100%;*/
+    background: url("../../assets/back.png") no-repeat;
+    background-size: 100% 100%;
   }
   /* 标题 */
   .login-title {

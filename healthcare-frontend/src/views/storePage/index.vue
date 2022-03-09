@@ -67,20 +67,22 @@
       </a-layout-sider>
 
       <a-layout style="height: 94%">
-        <a-tabs v-model="activeKey"
-                type="editable-card"
-                @edit="onEdit"
-                style="margin: 10px 10px 0px 15px"
-                @change="tabChange"
-                hide-add
-        >
-          <a-tab-pane v-for="pane in panes"
-                      :key="pane.key"
-                      :tab="pane.title"
-                      :closable="pane.closable"
-                      @click="tabChange(pane.key)"
-          />
-        </a-tabs>
+        <div>
+          <a-tabs v-model="activeKey"
+                  type="editable-card"
+                  @edit="onEdit"
+                  style="margin: 10px 10px 0px 15px"
+                  @change="tabChange"
+                  hide-add
+          >
+            <a-tab-pane v-for="pane in panes"
+                        :key="pane.key"
+                        :tab="pane.title"
+                        :closable="pane.closable"
+                        @click="tabChange(pane.key)"
+            />
+          </a-tabs>
+        </div>
         <a-layout-content
           :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
           style="overflow: auto;"
@@ -102,7 +104,7 @@ export default {
       collapsed: false,
       newTabIndex: 0,
       panes,
-      activeKey: panes[0].key,
+      activeKey: panes[0].key
     }
   },
   mounted() {
@@ -157,7 +159,7 @@ export default {
     remove(targetKey) {
       // 删除自身回到第一个标签
       if(targetKey === this.activeKey){
-        this.routePage('monitor')
+        this.routePage('storage')
       }
       let activeKey = this.activeKey
       let lastIndex

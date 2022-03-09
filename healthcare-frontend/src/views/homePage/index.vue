@@ -22,7 +22,10 @@
             仓储管理
           </a-menu-item>
           <a-dropdown class="settingMenu">
-            <a-button type="primary"><a-icon type="setting" /></a-button>
+            <a-avatar
+              size="large"
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            />
             <a-menu slot="overlay">
               <a-menu-item key="1">
                 <a-icon type="smile" />
@@ -79,25 +82,27 @@
       </a-layout-sider>
 
       <a-layout style="height: 94%">
-        <a-tabs v-model="activeKey"
-                type="editable-card"
-                @edit="onEdit"
-                style="margin: 10px 10px 0px 15px"
-                @change="tabChange"
-                hide-add
-        >
-          <a-tab-pane v-for="pane in panes"
-                      :key="pane.key"
-                      :tab="pane.title"
-                      :closable="pane.closable"
-                      @click="tabChange(pane.key)"
-          />
-        </a-tabs>
+        <div>
+          <a-tabs v-model="activeKey"
+                  type="editable-card"
+                  @edit="onEdit"
+                  style="margin: 10px 10px 0px 15px"
+                  @change="tabChange"
+                  hide-add
+          >
+            <a-tab-pane v-for="pane in panes"
+                        :key="pane.key"
+                        :tab="pane.title"
+                        :closable="pane.closable"
+                        @click="tabChange(pane.key)"
+            />
+          </a-tabs>
+        </div>
         <a-layout-content
           :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
           style="overflow: auto;"
         >
-          <router-view />
+          <router-view v-if="isRouterAlive"/>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -115,6 +120,12 @@ export default {
       newTabIndex: 0,
       panes,
       activeKey: panes[0].key,
+      isRouterAlive: true
+    }
+  },
+  provide() {
+    return {
+      reload: this.reload
     }
   },
   mounted() {
@@ -124,6 +135,12 @@ export default {
     // window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
   },
   methods:{
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    },
     beforeunloadHandler(e) {
       // 监控页面关闭
       // localStorage.setItem('token', '0')
@@ -270,7 +287,7 @@ export default {
   .settingMenu{
     float: right;
     z-index: 1;
-    margin: 17px 0px;
+    margin: 12px 0px;
   }
   .sideBar{
     height: 100%;

@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div id="pie" style="width: 50%; height: 50%; margin: auto auto;"></div>
+    <div id="pie" style="width: 70%; height: 100%; margin: 0 auto;"></div>
   </div>
 </template>
 
@@ -29,23 +29,34 @@ export default {
       var pieGraph = this.$echarts.init(document.getElementById('pie'));
       // 配置图表信息
       var option = {
-        title: {
-          text: 'Echarts Demo',
-        },
+        legend: {},
         tooltip: {},
-        legend: {
-          data: ['销量']
+        dataset: {
+          source: [
+            ['product', '2012', '2013', '2014', '2015'],
+            ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+            ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
+            ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]
+          ]
         },
-        xAxis: {
-          data: ['衬衫','羊毛衫','雪纺衫','裤子','高跟鞋','袜子']
-        },
-        yAxis: {},
-        series: [{
-          name: '销量',
-          type: 'bar',
-          data: [5,20,36,10,10,20]
-        }]
-      };
+        xAxis: [
+          { type: 'category', gridIndex: 0 },
+          { type: 'category', gridIndex: 1 }
+        ],
+        yAxis: [{ gridIndex: 0 }, { gridIndex: 1 }],
+        grid: [{ bottom: '55%' }, { top: '55%' }],
+        series: [
+          // These series are in the first grid.
+          { type: 'bar', seriesLayoutBy: 'row' },
+          { type: 'bar', seriesLayoutBy: 'row' },
+          { type: 'bar', seriesLayoutBy: 'row' },
+          // These series are in the second grid.
+          { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+          { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+          { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 },
+          { type: 'bar', xAxisIndex: 1, yAxisIndex: 1 }
+        ]
+      }
       pieGraph.setOption(option);
     }
   }
