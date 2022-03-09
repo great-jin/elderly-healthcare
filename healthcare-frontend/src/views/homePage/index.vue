@@ -128,8 +128,8 @@ export default {
     openSetting(data){
       switch (data) {
         case 'quit':
-          this.$router.push('/')
           localStorage.setItem('token', '0')
+          this.$router.push('/')
           break
         case 'personal':
           this.$router.push('/setting/personal')

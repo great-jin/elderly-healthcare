@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// 异常页面
+import NotFound from '@/views/errorPage/404'
+
 import Login from '@/views/loginPage/index'
 
 // 公共服务
@@ -29,12 +32,22 @@ import WareHouse from '@/views/storePage/wareHouse/index'
 import Personal from '@/views/settingPage/personalSetting/index'
 import Question from '@/views/settingPage/questionSetting/index'
 
+
 Vue.use(Router)
 
+// 页面注册
 const router =  new Router({
   mode: 'history',
   routes: [
     {
+      // 未定义页面重定向到 404
+      path: '*',
+      redirect: '/404'
+    }, {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
+    }, {
       path: '/',
       name: 'Login',
       component: Login
@@ -106,17 +119,20 @@ const router =  new Router({
   ]
 })
 
+// 登录过滤
 router.beforeEach((to, from, next) => {
-  // 1. 判断是是否为登录页面
+  let token = localStorage.getItem('token')
+  // 1. 是否为登录页
   if(to.path === '/') {
-    next()
+    // 2. 已登录则直接回首页，未登录则转登录页
+    token === '0' || token.length == 0 ? next() : next('/service')
   } else {
-    // 2. 判断是否登录过
-    let token = localStorage.getItem('token')
+    // 3. 未登录转登录页，已登录则放行
     token === '0' ? next('/') : next()
   }
 })
 
+// 路由重复处理
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)

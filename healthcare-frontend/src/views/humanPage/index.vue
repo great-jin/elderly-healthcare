@@ -67,7 +67,7 @@
             <a-icon type="team" />
             <span>请假审批</span>
           </a-menu-item>
-          <a-menu-item key="4" @click="routePage('vacate')">
+          <a-menu-item key="4" @click="routePage('dispatch')">
             <a-icon type="shop" />
             <span>人员调度</span>
           </a-menu-item>
@@ -75,18 +75,6 @@
       </a-layout-sider>
 
       <a-layout style="height: 94%">
-        <!--
-        <a-layout-header style="background: #fff; padding: 0">
-          <a-tabs type="editable-card" hide-add style="margin: 10px 25px 10px 25px">
-            <a-tab-pane
-              v-for="pane in tabData"
-              :key="pane.key"
-              :tab="pane.title"
-              :closable="pane.closable"
-            />
-          </a-tabs>
-        </a-layout-header>
-        -->
         <a-layout-content
           :style="{ margin: '16px 24px', padding: '24px', background: '#fff'}"
           style="overflow: auto;"
@@ -105,10 +93,7 @@ export default {
   data() {
     return{
       id: '',
-      collapsed: false,
-      tabTitle: '',
-      tabData: [],
-      tabIndex: 0
+      collapsed: false
     }
   },
   mounted() {
@@ -124,8 +109,8 @@ export default {
     openSetting(data){
       switch (data) {
         case 'quit':
-          this.$router.push('/')
           localStorage.setItem('token', '0')
+          this.$router.push('/')
           break
         case 'personal':
           this.$router.push('/setting/personal')
@@ -136,7 +121,6 @@ export default {
       }
     },
     routePage(data) {
-      const activeKey = this.tabIndex++;
       switch (data){
         case 'staff':
           this.$router.push('/humansouce/staff')
@@ -147,7 +131,7 @@ export default {
         case 'vacate':
           this.$router.push('/humansouce/vacate')
           break
-        case 'vacate':
+        case 'dispatch':
           this.$router.push('/humansouce/vacate')
           break
       }
