@@ -1,5 +1,5 @@
 <template>
-  <a-result status="404" :title="title" :sub-title="message">
+  <a-result status="403" :title="title" :sub-title="message">
     <template #extra>
       <a-button type="primary" @click="back">
         Back Home
@@ -9,11 +9,11 @@
 </template>
 <script>
 export default {
-  name: '404',
+  name: '403',
   data() {
     return {
-      title: 'Not Found',
-      message: 'Sorry, the page you visited does not exist.'
+      title: 'Authorized Reject',
+      message: 'Sorry, you are not authorized to access this page.'
     }
   },
   methods: {

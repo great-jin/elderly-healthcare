@@ -81,7 +81,6 @@
 <script>
 export default {
   name: "Home",
-  inject: ['reload'],
   data() {
     return{
       id: '',
@@ -91,13 +90,8 @@ export default {
   mounted() {
     this.id = this.$route.query.id
     this.routePage('staff')
-    window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
   },
   methods:{
-    beforeunloadHandler(e) {
-      // 监控页面关闭
-      // localStorage.setItem('token', '0')
-    },
     openSetting(data){
       switch (data) {
         case 'quit':

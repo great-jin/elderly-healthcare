@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 异常页面
+import UnAuth from '@/views/errorPage/403'
 import NotFound from '@/views/errorPage/404'
+import ServerFaild from '@/views/errorPage/500'
 
 import Login from '@/views/loginPage/index'
 
@@ -31,7 +33,8 @@ import WareHouse from '@/views/storePage/wareHouse/index'
 // 设置
 import Personal from '@/views/settingPage/personalSetting/index'
 import Question from '@/views/settingPage/questionSetting/index'
-
+import ServerError from "ant-design-vue/lib/result/serverError";
+import Unauthorized from "ant-design-vue/lib/result/unauthorized";
 
 Vue.use(Router)
 
@@ -40,14 +43,6 @@ const router =  new Router({
   mode: 'history',
   routes: [
     {
-      // 未定义页面重定向到 404
-      path: '*',
-      redirect: '/404'
-    }, {
-      path: '/404',
-      name: 'NotFound',
-      component: NotFound
-    }, {
       path: '/',
       name: 'Login',
       component: Login
@@ -114,8 +109,23 @@ const router =  new Router({
       path: '/setting/question',
       name: 'Question',
       component: Question
+    }, {
+      // 未定义页面重定向到 404
+      path: '*',
+      redirect: '/404'
+    }, {
+      path: '/403',
+      name: 'Unauthorized',
+      component: UnAuth
+    }, {
+      path: '/404',
+      name: 'NotFound',
+      component: NotFound
+    }, {
+      path: '/500',
+      name: 'ServerReject',
+      component: ServerFaild
     }
-
   ]
 })
 
