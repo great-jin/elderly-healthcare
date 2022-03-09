@@ -84,6 +84,7 @@
                   type="editable-card"
                   @edit="onEdit"
                   style="margin: 10px 10px 0px 10px"
+                  :defaultActiveKey="defaultsKey"
                   hide-add
           >
             <a-tab-pane v-for="pane in panes"
@@ -109,15 +110,14 @@
 export default {
   name: "Service",
   data() {
-    const panes = [
-      { title: '数据监控', content: 'Content of Tab 1', key: '1', closable: false }
-    ]
+    const panes = [{ title: '数据监控', content: 'Content of 数据监控', key: '数据监控', closable: false }]
     return{
       id: '',
       collapsed: false,
-      activeKey: panes[0].key,
+      newTabIndex: 0,
       panes,
-      newTabIndex: 0
+      activeKey: panes[0].key,
+      defaultsKey: '',
     }
   },
   mounted() {
@@ -145,68 +145,6 @@ export default {
           break
       }
     },
-    onEdit(targetKey, action) {
-      this[action](targetKey);
-    },
-    remove(targetKey) {
-      let activeKey = this.activeKey;
-      let lastIndex;
-      this.panes.forEach((pane, i) => {
-        if (pane.key === targetKey) {
-          lastIndex = i - 1;
-        }
-      });
-      const panes = this.panes.filter(pane => pane.key !== targetKey);
-      if (panes.length && activeKey === targetKey) {
-        if (lastIndex >= 0) {
-          activeKey = panes[lastIndex].key;
-        } else {
-          activeKey = panes[0].key;
-        }
-      }
-      this.panes = panes;
-      this.activeKey = activeKey;
-    },
-    tabJudge(data) {
-      this.panes.forEach((pane, i) => {
-        if (pane.title !== data) {
-          const panes = this.panes
-          this.panes = []
-          const activeKey = `tab${this.newTabIndex++}`
-          panes.push({
-            title: `${data}`,
-            content: 'Content of new Tab',
-            key: activeKey
-          });
-          this.panes = panes
-          this.activeKey = activeKey
-        }
-      })
-    },
-    routePage(data) {
-      switch (data){
-        case 'monitor':
-          this.tabJudge('数据监控')
-          this.$router.push('/service/monitor')
-          break
-        case 'chart':
-          this.tabJudge('数据展示')
-          this.$router.push('/service/chart')
-          break
-        case 'access':
-          this.tabJudge('入住登记')
-          this.$router.push('/service/access')
-          break
-        case 'patient':
-          this.tabJudge('病人管理')
-          this.$router.push('/service/patient')
-          break
-        case 'logs':
-          this.tabJudge('系统日志')
-          this.$router.push('/service/logs')
-          break
-      }
-    },
     routeMenu(data){
       switch (data) {
         case 'service':
@@ -221,6 +159,74 @@ export default {
         case 'store':
           this.$router.push('/store')
           break
+      }
+    },
+    routePage(data) {
+      switch (data){
+        case 'monitor':
+          this.tabEstimate('数据监控')
+          this.$router.push('/service/monitor')
+          break
+        case 'chart':
+          this.tabEstimate('数据展示')
+          this.$router.push('/service/chart')
+          break
+        case 'access':
+          this.tabEstimate('入住登记')
+          this.$router.push('/service/access')
+          break
+        case 'patient':
+          this.tabEstimate('病人管理')
+          this.$router.push('/service/patient')
+          break
+        case 'logs':
+          this.tabEstimate('系统日志')
+          this.$router.push('/service/logs')
+          break
+      }
+    },
+    onEdit(targetKey, action) {
+      this[action](targetKey)
+    },
+    remove(targetKey) {
+      let activeKey = this.activeKey
+      let lastIndex
+      this.panes.forEach((pane, i) => {
+        if (pane.key === targetKey) {
+          lastIndex = i - 1
+        }
+      });
+      const panes = this.panes.filter(pane => pane.key !== targetKey)
+      if (panes.length && activeKey === targetKey) {
+        if (lastIndex >= 0) {
+          activeKey = panes[lastIndex].key
+        } else {
+          activeKey = panes[0].key
+        }
+      }
+      this.panes = panes
+      this.activeKey = activeKey
+    },
+    tabEstimate(data) {
+      let flag = false
+      // 遍历标签，重复不添加
+      this.panes.forEach((pane) => {
+        if (pane.key === data) {
+          flag = true
+          this.defaultsKey = data
+          return;
+        }
+      })
+      if(flag === false) {
+        const panes = this.panes
+        panes.push({
+          title: data,
+          content: data,
+          key: data
+        })
+        this.panes = panes
+        this.activeKey = data
+        this.flag = false
       }
     }
   }
