@@ -79,24 +79,21 @@
       </a-layout-sider>
 
       <a-layout style="height: 94%">
-        <a-layout-header style="background: #fff; padding: 0">
-          <a-tabs v-model="activeKey"
-                  type="editable-card"
-                  @edit="onEdit"
-                  style="margin: 10px 10px 0px 10px"
-                  :defaultActiveKey="defaultsKey"
-                  hide-add
-          >
-            <a-tab-pane v-for="pane in panes"
-                        :key="pane.key"
-                        :tab="pane.title"
-                        :closable="pane.closable"
-            >
-            </a-tab-pane>
-          </a-tabs>
-        </a-layout-header>
+        <a-tabs v-model="activeKey"
+                type="editable-card"
+                @edit="onEdit"
+                style="margin: 10px 10px 0px 15px"
+                :defaultActiveKey="defaultsKey"
+                hide-add
+        >
+          <a-tab-pane v-for="pane in panes"
+                      :key="pane.key"
+                      :tab="pane.title"
+                      :closable="pane.closable"
+          />
+        </a-tabs>
         <a-layout-content
-          :style="{ margin: '16px 24px', padding: '24px', background: '#fff'}"
+          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
           style="overflow: auto;"
         >
           <router-view />
@@ -191,12 +188,15 @@ export default {
     remove(targetKey) {
       let activeKey = this.activeKey
       let lastIndex
+      let tab
       this.panes.forEach((pane, i) => {
         if (pane.key === targetKey) {
           lastIndex = i - 1
+          tab = pane.key
         }
       });
       const panes = this.panes.filter(pane => pane.key !== targetKey)
+      this.tabEstimate(tab)
       if (panes.length && activeKey === targetKey) {
         if (lastIndex >= 0) {
           activeKey = panes[lastIndex].key
@@ -221,7 +221,7 @@ export default {
         const panes = this.panes
         panes.push({
           title: data,
-          content: data,
+          content: `<router-view />`,
           key: data
         })
         this.panes = panes
