@@ -83,14 +83,16 @@
                 type="editable-card"
                 @edit="onEdit"
                 style="margin: 10px 10px 0px 15px"
-                :defaultActiveKey="defaultsKey"
+                @change="tabChange"
                 hide-add
         >
           <a-tab-pane v-for="pane in panes"
                       :key="pane.key"
                       :tab="pane.title"
                       :closable="pane.closable"
-          />
+                      @click="tabChange(pane.key)"
+          >
+          </a-tab-pane>
         </a-tabs>
         <a-layout-content
           :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
@@ -114,7 +116,6 @@ export default {
       newTabIndex: 0,
       panes,
       activeKey: panes[0].key,
-      defaultsKey: '',
     }
   },
   mounted() {
@@ -186,17 +187,18 @@ export default {
       this[action](targetKey)
     },
     remove(targetKey) {
+      // 删除自身回到第一个标签
+      if(targetKey === this.activeKey){
+        this.routePage('monitor')
+      }
       let activeKey = this.activeKey
       let lastIndex
-      let tab
       this.panes.forEach((pane, i) => {
         if (pane.key === targetKey) {
           lastIndex = i - 1
-          tab = pane.key
         }
       });
       const panes = this.panes.filter(pane => pane.key !== targetKey)
-      this.tabEstimate(tab)
       if (panes.length && activeKey === targetKey) {
         if (lastIndex >= 0) {
           activeKey = panes[lastIndex].key
@@ -213,7 +215,8 @@ export default {
       this.panes.forEach((pane) => {
         if (pane.key === data) {
           flag = true
-          this.defaultsKey = data
+          // 重新定位到对应的已添加标签
+          this.activeKey = data
           return;
         }
       })
@@ -221,12 +224,31 @@ export default {
         const panes = this.panes
         panes.push({
           title: data,
-          content: `<router-view />`,
+          content: `${<router-view />}`,
           key: data
         })
         this.panes = panes
         this.activeKey = data
         this.flag = false
+      }
+    },
+    tabChange(data) {
+      switch (data){
+        case '数据监控':
+          this.$router.push('/service/monitor')
+          break
+        case '数据展示':
+          this.$router.push('/service/chart')
+          break
+        case '入住登记':
+          this.$router.push('/service/access')
+          break
+        case '病人管理':
+          this.$router.push('/service/patient')
+          break
+        case '系统日志':
+          this.$router.push('/service/logs')
+          break
       }
     }
   }
