@@ -50,8 +50,7 @@ export default {
   },
   mounted() {
     List().then(res =>{
-      console.log(res)
-      for(let i in res){
+      for(let i in res.data){
         this.data.push({
           key: res[i].accountID,
           id: res[i].id,
@@ -69,7 +68,7 @@ export default {
       const code = this.accountCode
       if (code !== ''){
         getUser(code).then(res =>{
-          if(res.id != null){
+          if(res.data.id != null){
             this.data.push(res)
           } else {
             this.$message.error('未查询到结果')

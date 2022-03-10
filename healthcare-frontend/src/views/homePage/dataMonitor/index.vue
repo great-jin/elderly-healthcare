@@ -1,12 +1,19 @@
 <template>
   <div>
-    <h1>数据监控</h1>
+    <a-button @click="download">下载</a-button>
   </div>
 </template>
 
 <script>
+import {download} from '@/api/files'
+
 export default {
-  name: "index"
+  name: "index",
+  methods: {
+    download() {
+      download()
+    }
+  }
 }
 </script>
 
