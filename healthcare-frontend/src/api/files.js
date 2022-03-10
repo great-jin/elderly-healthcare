@@ -4,12 +4,14 @@ const prefix = '/api/healthcare/files'
 
 export function download(params) {
   return request({
-    method: 'get',
+    method: 'post',
     url: `${prefix}/download`,
+    data: params,
     responseType: 'blob'
   }).then((res) => {
     // 获取文件名
     let fileName = res.headers["content-disposition"]
+    fileName = decodeURI(fileName)
     fileName = fileName.substring(fileName.lastIndexOf("="))
     fileName = fileName.slice(1)
 
