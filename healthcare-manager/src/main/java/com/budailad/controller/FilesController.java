@@ -51,45 +51,36 @@ public class FilesController {
         return tag;
     }
 
-    @GetMapping("/download")
-    public ResponseEntity<byte[]> Download(HttpServletResponse response) throws Exception {
-        String fileName = "generator.txt";
-        String bucketName = "webtest";
-
+    @PostMapping("/download")
+    public ResponseEntity<byte[]> Download(@RequestParam(name = "fileName") String fileName,
+                                           @RequestParam(name = "bucketName") String bucketName) throws Exception {
         ResponseEntity<byte[]> responseEntity = null;
-        InputStream stream = null;
-        ByteArrayOutputStream output = null;
-        try {
-            stream = minioUtil.getObject(bucketName, fileName);
-            if (stream == null) {
-                System.out.println("文件不存在");
+
+        try(InputStream in = minioUtil.getObject(bucketName, fileName);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+            if (in == null) {
+                throw new PrinterException("文件不存在");
             }
-            output = new ByteArrayOutputStream();
+
             byte[] buffer = new byte[4096];
             int n = 0;
-            while (-1 != (n = stream.read(buffer))) {
-                output.write(buffer, 0, n);
+            while (-1 != (n = in.read(buffer))) {
+                out.write(buffer, 0, n);
             }
-            byte[] bytes = output.toByteArray();
+            byte[] bytes = out.toByteArray();
 
             //设置header
             HttpHeaders httpHeaders = new HttpHeaders();
             httpHeaders.add("Accept-Ranges", "bytes");
             httpHeaders.add("Content-Length", bytes.length + "");
-            httpHeaders.add("Content-disposition", "attachment; filename=" + fileName);
+            httpHeaders.add("Content-disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
             httpHeaders.add("Content-Type", "text/plain;charset=utf-8");
 
             responseEntity = new ResponseEntity<byte[]>(bytes, httpHeaders, HttpStatus.CREATED);
         } catch (MinioException e) {
             e.printStackTrace();
-        } finally {
-            if (stream != null) {
-                stream.close();
-            }
-            if (output != null) {
-                output.close();
-            }
         }
+
         return responseEntity;
     }
 
