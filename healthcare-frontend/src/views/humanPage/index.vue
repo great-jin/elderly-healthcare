@@ -126,26 +126,26 @@ export default {
           this.$router.push('/')
           break
         case 'personal':
-          this.$router.push('/setting/personal')
+          this.$router.push('/elderlyHealthcare/setting/personal')
           break
         case 'question':
-          this.$router.push('/setting/question')
+          this.$router.push('/elderlyHealthcare/setting/question')
           break
       }
     },
     routeMenu(data){
       switch (data) {
         case 'service':
-          this.$router.push('/service')
+          this.$router.push('/elderlyHealthcare/service')
           break
         case 'human':
-          this.$router.push('/humansouce')
+          this.$router.push('/elderlyHealthcare/humansouce')
           break
         case 'order':
-          this.$router.push('/order')
+          this.$router.push('/elderlyHealthcare/order')
           break
         case 'store':
-          this.$router.push('/store')
+          this.$router.push('/elderlyHealthcare/store')
           break
       }
     },
@@ -153,19 +153,19 @@ export default {
       switch (data){
         case 'staff':
           this.tabEstimate('人员管理')
-          this.$router.push('/humansouce/staff')
+          this.$router.push('/elderlyHealthcare/humansouce/staff')
           break
         case 'doctor':
           this.tabEstimate('医师信息')
-          this.$router.push('/humansouce/doctor')
+          this.$router.push('/elderlyHealthcare/humansouce/doctor')
           break
         case 'vacate':
           this.tabEstimate('请假审批')
-          this.$router.push('/humansouce/vacate')
+          this.$router.push('/elderlyHealthcare/humansouce/vacate')
           break
         case 'dispatch':
           this.tabEstimate('人员调度')
-          this.$router.push('/humansouce/vacate')
+          this.$router.push('/elderlyHealthcare/humansouce/vacate')
           break
       }
     },
@@ -220,16 +220,16 @@ export default {
     tabChange(data) {
       switch (data){
         case '人员管理':
-          this.$router.push('/humansouce/staff')
+          this.$router.push('/elderlyHealthcare/humansouce/staff')
           break
         case '医师信息':
-          this.$router.push('/humansouce/doctor')
+          this.$router.push('/elderlyHealthcare/humansouce/doctor')
           break
         case '请假审批':
-          this.$router.push('/humansouce/vacate')
+          this.$router.push('/elderlyHealthcare/humansouce/vacate')
           break
         case '人员调度':
-          this.$router.push('/humansouce/vacate')
+          this.$router.push('/elderlyHealthcare/humansouce/vacate')
           break
       }
     }

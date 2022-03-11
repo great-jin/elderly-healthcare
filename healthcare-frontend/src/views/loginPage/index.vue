@@ -100,7 +100,7 @@ export default {
                 // 设置登录状态为 true
                 localStorage.setItem('token', values.accountID)
                 this.$router.push({
-                  path:'/service',
+                  path:'/elderlyHealthcare/service',
                   query: {
                     id: values.accountID
                   }

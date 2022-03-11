@@ -114,33 +114,33 @@ export default {
           this.$router.push('/')
           break
         case 'personal':
-          this.$router.push('/setting/personal')
+          this.$router.push('/elderlyHealthcare/setting/personal')
           break
         case 'question':
-          this.$router.push('/setting/question')
+          this.$router.push('/elderlyHealthcare/setting/question')
           break
       }
     },
     routeMenu(data){
       switch (data) {
         case 'service':
-          this.$router.push('/service')
+          this.$router.push('/elderlyHealthcare/service')
           break
         case 'human':
-          this.$router.push('/humansouce')
+          this.$router.push('/elderlyHealthcare/humansouce')
           break
         case 'order':
-          this.$router.push('/order')
+          this.$router.push('/elderlyHealthcare/order')
           break
         case 'store':
-          this.$router.push('/store')
+          this.$router.push('/elderlyHealthcare/store')
           break
       }
     },
     routePage(data) {
       switch (data){
         case 'medicine':
-          this.$router.push('/order/medicine')
+          this.$router.push('/elderlyHealthcare/order/medicine')
           break
       }
     },
@@ -195,7 +195,7 @@ export default {
     tabChange(data) {
       switch (data){
         case '药品采购':
-          this.$router.push('/order/medicine')
+          this.$router.push('/elderlyHealthcare/order/medicine')
           break
       }
     }

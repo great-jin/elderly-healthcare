@@ -152,26 +152,26 @@ export default {
           this.$router.push('/')
           break
         case 'personal':
-          this.$router.push('/setting/personal')
+          this.$router.push('/elderlyHealthcare/setting/personal')
           break
         case 'question':
-          this.$router.push('/setting/question')
+          this.$router.push('/elderlyHealthcare/setting/question')
           break
       }
     },
     routeMenu(data){
       switch (data) {
         case 'service':
-          this.$router.push('/service')
+          this.$router.push('/elderlyHealthcare/service')
           break
         case 'human':
-          this.$router.push('/humansouce')
+          this.$router.push('/elderlyHealthcare/humansouce')
           break
         case 'order':
-          this.$router.push('/order')
+          this.$router.push('/elderlyHealthcare/order')
           break
         case 'store':
-          this.$router.push('/store')
+          this.$router.push('/elderlyHealthcare/store')
           break
       }
     },
@@ -179,23 +179,23 @@ export default {
       switch (data){
         case 'monitor':
           this.tabEstimate('数据监控')
-          this.$router.push('/service/monitor')
+          this.$router.push('/elderlyHealthcare/service/monitor')
           break
         case 'chart':
           this.tabEstimate('数据展示')
-          this.$router.push('/service/chart')
+          this.$router.push('/elderlyHealthcare/service/chart')
           break
         case 'access':
           this.tabEstimate('入住登记')
-          this.$router.push('/service/access')
+          this.$router.push('/elderlyHealthcare/service/access')
           break
         case 'patient':
           this.tabEstimate('病人管理')
-          this.$router.push('/service/patient')
+          this.$router.push('/elderlyHealthcare/service/patient')
           break
         case 'logs':
           this.tabEstimate('系统日志')
-          this.$router.push('/service/logs')
+          this.$router.push('/elderlyHealthcare/service/logs')
           break
       }
     },
@@ -250,19 +250,19 @@ export default {
     tabChange(data) {
       switch (data){
         case '数据监控':
-          this.$router.push('/service/monitor')
+          this.$router.push('/elderlyHealthcare/service/monitor')
           break
         case '数据展示':
-          this.$router.push('/service/chart')
+          this.$router.push('/elderlyHealthcare/service/chart')
           break
         case '入住登记':
-          this.$router.push('/service/access')
+          this.$router.push('/elderlyHealthcare/service/access')
           break
         case '病人管理':
-          this.$router.push('/service/patient')
+          this.$router.push('/elderlyHealthcare/service/patient')
           break
         case '系统日志':
-          this.$router.push('/service/logs')
+          this.$router.push('/elderlyHealthcare/service/logs')
           break
       }
     }

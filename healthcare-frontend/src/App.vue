@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-link to="/" />
+    <router-link to="/elderlyHealthcare/login" />
     <router-view />
   </div>
 </template>

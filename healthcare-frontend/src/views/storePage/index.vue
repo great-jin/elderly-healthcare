@@ -118,26 +118,26 @@ export default {
           this.$router.push('/')
           break
         case 'personal':
-          this.$router.push('/setting/personal')
+          this.$router.push('/elderlyHealthcare/setting/personal')
           break
         case 'question':
-          this.$router.push('/setting/question')
+          this.$router.push('/elderlyHealthcare/setting/question')
           break
       }
     },
     routeMenu(data){
       switch (data) {
         case 'service':
-          this.$router.push('/service')
+          this.$router.push('/elderlyHealthcare/service')
           break
         case 'human':
-          this.$router.push('/humansouce')
+          this.$router.push('/elderlyHealthcare/humansouce')
           break
         case 'order':
-          this.$router.push('/order')
+          this.$router.push('/elderlyHealthcare/order')
           break
         case 'store':
-          this.$router.push('/store')
+          this.$router.push('/elderlyHealthcare/store')
           break
       }
     },
@@ -145,11 +145,11 @@ export default {
       switch (data){
         case 'storage':
           this.tabEstimate('药品管理')
-          this.$router.push('/store/storage')
+          this.$router.push('/elderlyHealthcare/store/storage')
           break
         case 'warehouse':
           this.tabEstimate('库存管理')
-          this.$router.push('/store/warehouse')
+          this.$router.push('/elderlyHealthcare/store/warehouse')
           break
       }
     },
@@ -204,10 +204,10 @@ export default {
     tabChange(data) {
       switch (data){
         case '药品管理':
-          this.$router.push('/store/storage')
+          this.$router.push('/elderlyHealthcare/store/storage')
           break
         case '库存管理':
-          this.$router.push('/store/warehouse')
+          this.$router.push('/elderlyHealthcare/store/warehouse')
           break
       }
     }

@@ -34,7 +34,6 @@ import WareHouse from '@/views/storePage/wareHouse/index'
 // 设置
 import Personal from '@/views/settingPage/personalSetting/index'
 import Question from '@/views/settingPage/questionSetting/index'
-import Unauthorized from "ant-design-vue/lib/result/unauthorized";
 
 Vue.use(Router)
 
@@ -43,76 +42,76 @@ const router =  new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/elderlyHealthcare/login',
       name: 'Login',
       component: Login
     }, {
-      path: '/service',
+      path: '/elderlyHealthcare/service',
       name: 'Service',
       component: Service,
       children: [
         {
-          path: '/service/chart',
+          path: '/elderlyHealthcare/service/chart',
           component: DataChart
         }, {
-          path: '/service/monitor',
+          path: '/elderlyHealthcare/service/monitor',
           component: DataMonitor
         }, {
-          path: '/service/access',
+          path: '/elderlyHealthcare/service/access',
           component: DataAccess
         }, {
-          path: '/service/patient',
+          path: '/elderlyHealthcare/service/patient',
           component: Patient
         }, {
-          path: '/service/logs',
+          path: '/elderlyHealthcare/service/logs',
           component: SysLog
         }
       ]
     }, {
-      path: '/humansouce',
+      path: '/elderlyHealthcare/humansouce',
       name: 'Human',
       component: Human,
       children: [
         {
-          path: '/humansouce/staff',
+          path: '/elderlyHealthcare/humansouce/staff',
           component: Staff
         }, {
-          path: '/humansouce/doctor',
+          path: '/elderlyHealthcare/humansouce/doctor',
           component: Doctor
         }, {
-          path: '/humansouce/vacate',
+          path: '/elderlyHealthcare/humansouce/vacate',
           component: Vacate
         }
       ]
     }, {
-      path: '/order',
+      path: '/elderlyHealthcare/order',
       name: 'Order',
       component: Order,
       children: [
         {
-          path: '/order/medicine',
+          path: '/elderlyHealthcare/order/medicine',
           component: Medicine
         }
       ]
     }, {
-      path: '/store',
+      path: '/elderlyHealthcare/store',
       name: 'Store',
       component: Store,
       children: [
         {
-          path: '/store/storage',
+          path: '/elderlyHealthcare/store/storage',
           component: Storage
         }, {
-          path: '/store/warehouse',
+          path: '/elderlyHealthcare/store/warehouse',
           component: WareHouse
         }
       ]
     }, {
-      path: '/setting/personal',
+      path: '/elderlyHealthcare/setting/personal',
       name: 'Personal',
       component: Personal
     }, {
-      path: '/setting/question',
+      path: '/elderlyHealthcare/setting/question',
       name: 'Question',
       component: Question
     }, {
@@ -139,12 +138,12 @@ const router =  new Router({
 router.beforeEach((to, from, next) => {
   let token = localStorage.getItem('token')
   // 1. 是否为登录页
-  if(to.path === '/') {
+  if(to.path === '/elderlyHealthcare/login') {
     // 2. 已登录则直接回首页，未登录则转登录页
-    token === '0' || token.length === 0 ? next() : next('/service')
+    token === '0' || token.length === 0 ? next() : next('/elderlyHealthcare/service')
   } else {
     // 3. 未登录转登录页，已登录则放行
-    token === '0' ? next('/') : next()
+    token === '0' ? next('/elderlyHealthcare/login') : next()
   }
 })
 

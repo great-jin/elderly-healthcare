@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     back(){
-      this.$router.push('/service')
+      this.$router.push('/elderlyHealthcare/service')
     }
   }
 }
