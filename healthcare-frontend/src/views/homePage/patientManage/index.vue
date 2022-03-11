@@ -50,13 +50,14 @@ export default {
   },
   mounted() {
     List().then(res =>{
-      for(let i in res.data){
+      const _res = res.data
+      for(let i in _res){
         this.data.push({
-          key: res[i].accountID,
-          id: res[i].id,
-          password: res[i].password,
-          accountID: res[i].accountID,
-          userName: res[i].userName,
+          key: _res[i].accountID,
+          id: _res[i].id,
+          password: _res[i].password,
+          accountID: _res[i].accountID,
+          userName: _res[i].userName,
         });
       }
     })

@@ -12,7 +12,7 @@ import static com.budailad.utils.AESUtil.desEncrypt;
 import static com.budailad.utils.AESUtil.encrypt;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value = "/api/healthcare/users")
 public class UserController {
 
     private final static String KEY_FRONT = "byouthinvincible";

@@ -2,21 +2,21 @@ import request from './axios';
 
 export function List(params) {
   return request({
-    url: '/users/list',
+    url: '/api/healthcare/users/list',
     method: 'get',
   })
 }
 
 export function getUser(params) {
   return request({
-    url: `/users/get?code=${params}`,
+    url: `/api/healthcare/users/get?code=${params}`,
     method: 'get'
   })
 }
 
 export function Login(params) {
   return request({
-    url: '/users/login',
+    url: '/api/healthcare/users/login',
     method: 'post',
     data: params
   })
@@ -24,7 +24,7 @@ export function Login(params) {
 
 export function addUser(params) {
   return request({
-    url: '/users/register',
+    url: '/api/healthcare/users/register',
     method: 'post',
     data: params
   })

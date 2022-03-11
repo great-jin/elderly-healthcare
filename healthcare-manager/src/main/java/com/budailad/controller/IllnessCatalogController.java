@@ -4,7 +4,6 @@ import com.budailad.entity.IllnessCatalog;
 import com.budailad.service.IllnessCatalogService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -140,7 +140,7 @@ router.beforeEach((to, from, next) => {
   // 1. 是否为登录页
   if(to.path === '/elderlyHealthcare/login') {
     // 2. 已登录则直接回首页，未登录则转登录页
-    token === '0' || token.length === 0 ? next() : next('/elderlyHealthcare/service')
+    token === '0' || token == null || token === "" || token === "undefined" ? next() : next('/elderlyHealthcare/service')
   } else {
     // 3. 未登录转登录页，已登录则放行
     token === '0' ? next('/elderlyHealthcare/login') : next()

@@ -22,7 +22,10 @@
             仓储管理
           </a-menu-item>
           <a-dropdown class="settingMenu">
-            <a-button type="primary"><a-icon type="setting" /></a-button>
+            <a-avatar
+              size="large"
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+            />
             <a-menu slot="overlay">
               <a-menu-item key="1">
                 <a-icon type="smile" />
@@ -232,7 +235,7 @@ export default {
 .settingMenu{
   float: right;
   z-index: 1;
-  margin: 17px 0px;
+  margin: 12px 0px;
 }
 .sideBar{
   height: 100%;
