@@ -137,13 +137,15 @@ const router =  new Router({
 // 登录过滤
 router.beforeEach((to, from, next) => {
   let token = localStorage.getItem('token')
+  const tag = token === '0' || token == null || token === "" || token === "undefined"
+
   // 1. 是否为登录页
   if(to.path === '/elderlyHealthcare/login') {
     // 2. 已登录则直接回首页，未登录则转登录页
-    token === '0' || token == null || token === "" || token === "undefined" ? next() : next('/elderlyHealthcare/service')
+    tag ? next() : next('/elderlyHealthcare/service')
   } else {
     // 3. 未登录转登录页，已登录则放行
-    token === '0' ? next('/elderlyHealthcare/login') : next()
+    tag ? next('/elderlyHealthcare/login') : next()
   }
 })
 
