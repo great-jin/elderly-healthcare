@@ -1,4 +1,4 @@
-package com.budailad.collect;
+package com.budailad.http;
 
 import com.budailad.entity.User;
 import com.budailad.service.UserService;

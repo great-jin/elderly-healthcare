@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.PatientInfoDao">
+
+    <resultMap type="com.budailad.entity.PatientInfo" id="PatientInfoMap">
+        <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
+        <result property="patientGender" column="patient_gender" jdbcType="VARCHAR"/>
+        <result property="patientAge" column="patient_age" jdbcType="INTEGER"/>
+        <result property="patientPhone" column="patient_phone" jdbcType="VARCHAR"/>
+        <result property="contactName" column="contact_name" jdbcType="VARCHAR"/>
+        <result property="contactPhone" column="contact_phone" jdbcType="VARCHAR"/>
+        <result property="inTime" column="in_time" jdbcType="TIMESTAMP"/>
+        <result property="isLeave" column="is_leave" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatientInfoMap">
+        select patient_id,
+               patient_name,
+               patient_gender,
+               patient_age,
+               patient_phone,
+               contact_name,
+               contact_phone,
+               in_time,
+               is_leave
+        from patient_info
+        where patient_id = #{patientId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientInfoMap">
+        select
+        patient_id, patient_name, patient_gender, patient_age, patient_phone, contact_name, contact_phone, in_time,
+        is_leave
+        from patient_info
+        <where>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="patientGender != null and patientGender != ''">
+                and patient_gender = #{patientGender}
+            </if>
+            <if test="patientAge != null">
+                and patient_age = #{patientAge}
+            </if>
+            <if test="patientPhone != null and patientPhone != ''">
+                and patient_phone = #{patientPhone}
+            </if>
+            <if test="contactName != null and contactName != ''">
+                and contact_name = #{contactName}
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                and contact_phone = #{contactPhone}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="isLeave != null">
+                and is_leave = #{isLeave}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient_info
+        <where>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="patientGender != null and patientGender != ''">
+                and patient_gender = #{patientGender}
+            </if>
+            <if test="patientAge != null">
+                and patient_age = #{patientAge}
+            </if>
+            <if test="patientPhone != null and patientPhone != ''">
+                and patient_phone = #{patientPhone}
+            </if>
+            <if test="contactName != null and contactName != ''">
+                and contact_name = #{contactName}
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                and contact_phone = #{contactPhone}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="isLeave != null">
+                and is_leave = #{isLeave}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="patientId" useGeneratedKeys="true">
+        insert into patient_info(patient_name, patient_gender, patient_age, patient_phone, contact_name, contact_phone,
+                                 in_time, is_leave)
+        values (#{patientName}, #{patientGender}, #{patientAge}, #{patientPhone}, #{contactName}, #{contactPhone},
+                #{inTime}, #{isLeave})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="patientId" useGeneratedKeys="true">
+        insert into patient_info(patient_name, patient_gender, patient_age, patient_phone, contact_name, contact_phone,
+        in_time, is_leave)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientName}, #{entity.patientGender}, #{entity.patientAge}, #{entity.patientPhone},
+            #{entity.contactName}, #{entity.contactPhone}, #{entity.inTime}, #{entity.isLeave})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="patientId" useGeneratedKeys="true">
+        insert into patient_info(patient_name, patient_gender, patient_age, patient_phone, contact_name, contact_phone,
+        in_time, is_leave)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientName}, #{entity.patientGender}, #{entity.patientAge}, #{entity.patientPhone},
+            #{entity.contactName}, #{entity.contactPhone}, #{entity.inTime}, #{entity.isLeave})
+        </foreach>
+        on duplicate key update
+        patient_name = values(patient_name),
+        patient_gender = values(patient_gender),
+        patient_age = values(patient_age),
+        patient_phone = values(patient_phone),
+        contact_name = values(contact_name),
+        contact_phone = values(contact_phone),
+        in_time = values(in_time),
+        is_leave = values(is_leave)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update patient_info
+        <set>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
+            </if>
+            <if test="patientGender != null and patientGender != ''">
+                patient_gender = #{patientGender},
+            </if>
+            <if test="patientAge != null">
+                patient_age = #{patientAge},
+            </if>
+            <if test="patientPhone != null and patientPhone != ''">
+                patient_phone = #{patientPhone},
+            </if>
+            <if test="contactName != null and contactName != ''">
+                contact_name = #{contactName},
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                contact_phone = #{contactPhone},
+            </if>
+            <if test="inTime != null">
+                in_time = #{inTime},
+            </if>
+            <if test="isLeave != null">
+                is_leave = #{isLeave},
+            </if>
+        </set>
+        where patient_id = #{patientId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from patient_info
+        where patient_id = #{patientId}
+    </delete>
+
+</mapper>
+

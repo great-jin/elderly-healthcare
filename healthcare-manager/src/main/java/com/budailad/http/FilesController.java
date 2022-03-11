@@ -1,8 +1,9 @@
-package com.budailad.collect;
+package com.budailad.http;
 
 import com.budailad.model.MinioRespond;
 import io.minio.errors.MinioException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.OrderGoodsDao">
+
+    <resultMap type="com.budailad.entity.OrderGoods" id="OrderGoodsMap">
+        <result property="orderId" column="order_id" jdbcType="VARCHAR"/>
+        <result property="orderName" column="order_name" jdbcType="VARCHAR"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="goodsType" column="goods_type" jdbcType="VARCHAR"/>
+        <result property="goodsPrice" column="goods_price" jdbcType="NUMERIC"/>
+        <result property="orderCount" column="order_count" jdbcType="INTEGER"/>
+        <result property="costCount" column="cost_count" jdbcType="NUMERIC"/>
+        <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
+        <result property="staffId" column="staff_id" jdbcType="VARCHAR"/>
+        <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderGoodsMap">
+        select order_id,
+               order_name,
+               goods_name,
+               goods_type,
+               goods_price,
+               order_count,
+               cost_count,
+               order_time,
+               staff_id,
+               delivery_time,
+               comment
+        from order_goods
+        where order_id = #{orderId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderGoodsMap">
+        select
+        order_id, order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time, staff_id,
+        delivery_time, comment
+        from order_goods
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderName != null and orderName != ''">
+                and order_name = #{orderName}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="orderCount != null">
+                and order_count = #{orderCount}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="orderTime != null">
+                and order_time = #{orderTime}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="deliveryTime != null">
+                and delivery_time = #{deliveryTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from order_goods
+        <where>
+            <if test="orderId != null and orderId != ''">
+                and order_id = #{orderId}
+            </if>
+            <if test="orderName != null and orderName != ''">
+                and order_name = #{orderName}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="orderCount != null">
+                and order_count = #{orderCount}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="orderTime != null">
+                and order_time = #{orderTime}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="deliveryTime != null">
+                and delivery_time = #{deliveryTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="orderId" useGeneratedKeys="true">
+        insert into order_goods(order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time,
+                                staff_id, delivery_time, comment)
+        values (#{orderName}, #{goodsName}, #{goodsType}, #{goodsPrice}, #{orderCount}, #{costCount}, #{orderTime},
+                #{staffId}, #{deliveryTime}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="orderId" useGeneratedKeys="true">
+        insert into order_goods(order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time,
+        staff_id, delivery_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.orderName}, #{entity.goodsName}, #{entity.goodsType}, #{entity.goodsPrice}, #{entity.orderCount},
+            #{entity.costCount}, #{entity.orderTime}, #{entity.staffId}, #{entity.deliveryTime}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="orderId" useGeneratedKeys="true">
+        insert into order_goods(order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time,
+        staff_id, delivery_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.orderName}, #{entity.goodsName}, #{entity.goodsType}, #{entity.goodsPrice}, #{entity.orderCount},
+            #{entity.costCount}, #{entity.orderTime}, #{entity.staffId}, #{entity.deliveryTime}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        order_name = values(order_name),
+        goods_name = values(goods_name),
+        goods_type = values(goods_type),
+        goods_price = values(goods_price),
+        order_count = values(order_count),
+        cost_count = values(cost_count),
+        order_time = values(order_time),
+        staff_id = values(staff_id),
+        delivery_time = values(delivery_time),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update order_goods
+        <set>
+            <if test="orderName != null and orderName != ''">
+                order_name = #{orderName},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                goods_type = #{goodsType},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice},
+            </if>
+            <if test="orderCount != null">
+                order_count = #{orderCount},
+            </if>
+            <if test="costCount != null">
+                cost_count = #{costCount},
+            </if>
+            <if test="orderTime != null">
+                order_time = #{orderTime},
+            </if>
+            <if test="staffId != null and staffId != ''">
+                staff_id = #{staffId},
+            </if>
+            <if test="deliveryTime != null">
+                delivery_time = #{deliveryTime},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where order_id = #{orderId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from order_goods
+        where order_id = #{orderId}
+    </delete>
+
+</mapper>
+
