@@ -1,4 +1,4 @@
-package com.budailad.controller;
+package com.budailad.collect;
 
 import com.budailad.model.MinioRespond;
 import io.minio.errors.MinioException;
@@ -11,17 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import com.budailad.utils.MinioUtil;
 
-import javax.servlet.http.HttpServletResponse;
 import java.awt.print.PrinterException;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
