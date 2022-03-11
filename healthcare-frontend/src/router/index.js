@@ -42,6 +42,13 @@ const router =  new Router({
   mode: 'history',
   routes: [
     {
+      // 未定义页面重定向到 404
+      path: '*',
+      redirect: '/404'
+    }, {
+      path: '/',
+      redirect: '/elderlyHealthcare/login'
+    }, {
       path: '/elderlyHealthcare/login',
       name: 'Login',
       component: Login
@@ -115,10 +122,6 @@ const router =  new Router({
       name: 'Question',
       component: Question
     }, {
-      // 未定义页面重定向到 404
-      path: '*',
-      redirect: '/404'
-    }, {
       path: '/403',
       name: 'Unauthorized',
       component: UnAuth
@@ -134,18 +137,34 @@ const router =  new Router({
   ]
 })
 
+// 过期时间为一天
+let ExpiresTime = 86400000
+
 // 登录过滤
 router.beforeEach((to, from, next) => {
-  let token = localStorage.getItem('token')
-  const tag = token === '0' || token == null || token === "" || token === "undefined"
+  let token, isLogin
+
+  // 状态判断
+  token = JSON.parse(localStorage.getItem('token'))
+  isLogin = !(token == null || token.flag == null || token.flag === '')
+
+  // 判断登录时长
+  if(isLogin){
+    let date = new Date().getTime();
+    if (date - token.startTime > ExpiresTime) {
+      // 登录时间超过一天需要重新登录
+      localStorage.removeItem('token')
+      isLogin = false
+    }
+  }
 
   // 1. 是否为登录页
   if(to.path === '/elderlyHealthcare/login') {
-    // 2. 已登录则直接回首页，未登录则转登录页
-    tag ? next() : next('/elderlyHealthcare/service')
+    // 2. 已登录则回首页，未登录放行
+    isLogin ? next('/elderlyHealthcare/service') : next()
   } else {
-    // 3. 未登录转登录页，已登录则放行
-    tag ? next('/elderlyHealthcare/login') : next()
+    // 3. 已登录则放行，未登录转登录页
+    isLogin ? next() : next('/elderlyHealthcare/login')
   }
 })
 

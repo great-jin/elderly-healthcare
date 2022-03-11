@@ -143,13 +143,13 @@ export default {
     },
     beforeunloadHandler(e) {
       // 监控页面关闭
-      // localStorage.setItem('token', '0')
+      // localStorage.removeItem('token')
     },
     openSetting(data){
       switch (data) {
         case 'quit':
-          localStorage.setItem('token', '0')
-          this.$router.push('/')
+          localStorage.removeItem('token')
+          this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':
           this.$router.push('/elderlyHealthcare/setting/personal')

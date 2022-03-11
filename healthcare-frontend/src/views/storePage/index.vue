@@ -117,8 +117,8 @@ export default {
     openSetting(data){
       switch (data) {
         case 'quit':
-          localStorage.setItem('token', '0')
-          this.$router.push('/')
+          localStorage.removeItem('token')
+          this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':
           this.$router.push('/elderlyHealthcare/setting/personal')

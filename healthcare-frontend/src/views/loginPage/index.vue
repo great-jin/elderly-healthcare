@@ -85,9 +85,19 @@ export default {
   },
   mounted () {
     this.makeIdentifyCode({ randomTypeLen: true })
-    console.log(this.generateCode)
+    window.addEventListener("keydown", this.keyDown);
+  },
+  destroyed() {
+    // 一定要销毁事件!!!
+    window.removeEventListener("keydown", this.keyDown, false);
   },
   methods: {
+    keyDown(e) {
+      // 回车则执行登录方法 enter键的ASCII是13
+      if (e.keyCode === 13) {
+        this.submit();
+      }
+    },
     submit() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
@@ -98,7 +108,11 @@ export default {
             Login(values).then(res =>{
               if (res.data === 1){
                 // 设置登录状态为 true
-                localStorage.setItem('token', values.accountID)
+                let items = {
+                  flag: values.accountID,
+                  startTime: new Date().getTime()
+                }
+                localStorage.setItem('token', JSON.stringify(items))
                 this.$router.push({
                   path:'/elderlyHealthcare/service',
                   query: {
