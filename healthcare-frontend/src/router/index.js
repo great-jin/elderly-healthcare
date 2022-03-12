@@ -1,20 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// 异常页面
-import UnAuth from '@/views/errorPage/403'
-import NotFound from '@/views/errorPage/404'
-import ServerFaild from '@/views/errorPage/500'
-
 import Login from '@/views/loginPage/index'
+import Home from '@/views/homePage/index'
+
 
 // 公共服务
-import Service from '@/views/homepage/index'
-import DataChart from '@/views/homepage/dataChart/index'
-import DataMonitor from '@/views/homepage/dataMonitor/index'
-import DataAccess from '@/views/homepage/dataAccess/index'
-import Patient from '@/views/homepage/patientManage/index'
-import SysLog from '@/views/homepage/SystemLog/index'
+import Service from '@/views/servicePage/index'
+import DataChart from '@/views/servicePage/dataChart/index'
+import DataMonitor from '@/views/servicePage/dataMonitor/index'
+import DataAccess from '@/views/servicePage/dataAccess/index'
+import Patient from '@/views/servicePage/patientManage/index'
+import SysLog from '@/views/servicePage/SystemLog/index'
 
 // 人力资源
 import Human from '@/views/humanPage/index'
@@ -35,6 +32,12 @@ import WareHouse from '@/views/storePage/wareHouse/index'
 import Personal from '@/views/settingPage/personalSetting/index'
 import Question from '@/views/settingPage/questionSetting/index'
 
+// 异常页面
+import UnAuth from '@/views/errorPage/403'
+import NotFound from '@/views/errorPage/404'
+import ServerFaild from '@/views/errorPage/500'
+
+
 Vue.use(Router)
 
 // 页面注册
@@ -52,6 +55,10 @@ const router =  new Router({
       path: '/elderlyHealthcare/login',
       name: 'Login',
       component: Login
+    }, {
+      path: '/elderlyHealthcare/home',
+      name: 'Home',
+      component: Home
     }, {
       path: '/elderlyHealthcare/service',
       name: 'Service',
@@ -155,13 +162,14 @@ router.beforeEach((to, from, next) => {
       // 登录时间超过一天需要重新登录
       localStorage.removeItem('token')
       isLogin = false
+      this.$message.info('登录过期，请重新登录')
     }
   }
 
   // 1. 是否为登录页
   if(to.path === '/elderlyHealthcare/login') {
     // 2. 已登录则回首页，未登录放行
-    isLogin ? next('/elderlyHealthcare/service') : next()
+    isLogin ? next('/elderlyHealthcare/home') : next()
   } else {
     // 3. 已登录则放行，未登录转登录页
     isLogin ? next() : next('/elderlyHealthcare/login')

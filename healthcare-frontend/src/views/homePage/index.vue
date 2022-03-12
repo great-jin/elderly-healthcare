@@ -1,305 +1,192 @@
 <template>
-  <div id="home">
-    <a-layout id="topBanner">
-      <a-layout-header>
-        <div class="logo" />
-        <a-menu
-          theme="dark"
-          mode="horizontal"
-          :default-selected-keys="['1']"
-          :style="{ lineHeight: '64px' }"
-        >
-          <a-menu-item key="1" @click="routeMenu('service')">
-            公共服务
-          </a-menu-item>
-          <a-menu-item key="2" @click="routeMenu('human')">
-            人力资源
-          </a-menu-item>
-          <a-menu-item key="3" @click="routeMenu('order')">
-            订单采购
-          </a-menu-item>
-          <a-menu-item key="4" @click="routeMenu('store')">
-            仓储管理
-          </a-menu-item>
-          <a-dropdown class="settingMenu">
-            <a-avatar
-              size="large"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            />
-            <a-menu slot="overlay">
-              <a-menu-item key="1">
-                <a-icon type="smile" />
-                <span @click="openSetting('personal')">个人中心</span>
-              </a-menu-item>
-              <a-menu-item key="2">
-                <a-icon type="question-circle" />
-                <span @click="openSetting('question')">问题反馈</span>
-              </a-menu-item>
-              <a-menu-item key="3">
-                <a-icon type="disconnect" />
-                <span @click="openSetting('quit')">退出登录</span>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-        </a-menu>
-      </a-layout-header>
-    </a-layout>
-
-    <a-layout class="sideBar">
-      <a-layout-sider
-        v-model="collapsed"
-        :trigger="null"
-        style="background-color: white"
-        collapsible
-      >
-        <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-icon
-            class="trigger"
-            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="() => (collapsed = !collapsed)"
+  <a-row id="home">
+    <a-col class="head" :span="7">
+      <a-card hoverable style="width: 300px">
+        <img
+          slot="cover"
+          alt="example"
+          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+        />
+        <template slot="actions" class="ant-card-actions">
+          <span key="setting" @click="operationClick('person')">我的信息</span>
+          <span key="edit" @click="operationClick('back')">进入后台</span>
+          <span key="ellipsis" @click="operationClick('quit')">退出登录</span>
+        </template>
+        <a-card-meta :title="data[0].name" description="欢迎登录系统">
+          <a-avatar
+            slot="avatar"
+            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
           />
-          <a-menu-item key="1" @click="routePage('monitor')">
-            <a-icon type="area-chart" />
-            <span>数据监控</span>
-          </a-menu-item>
-          <a-menu-item key="2" @click="routePage('chart')">
-            <a-icon type="form" />
-            <span>数据展示</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('access')">
-            <a-icon type="team" />
-            <span>入住登记</span>
-          </a-menu-item>
-          <a-menu-item key="4" @click="routePage('patient')">
-            <a-icon type="shop" />
-            <span>病人管理</span>
-          </a-menu-item>
-          <a-menu-item key="5" @click="routePage('logs')">
-            <a-icon type="file-protect" />
-            <span>系统日志</span>
-          </a-menu-item>
-        </a-menu>
-      </a-layout-sider>
+        </a-card-meta>
+      </a-card>
+    </a-col>
 
-      <a-layout style="height: 94%">
-        <div>
-          <a-tabs v-model="activeKey"
-                  type="editable-card"
-                  @edit="onEdit"
-                  style="margin: 10px 10px 0px 15px"
-                  @change="tabChange"
-                  hide-add
-          >
-            <a-tab-pane v-for="pane in panes"
-                        :key="pane.key"
-                        :tab="pane.title"
-                        :closable="pane.closable"
-                        @click="tabChange(pane.key)"
-            />
-          </a-tabs>
-        </div>
-        <a-layout-content
-          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
-          style="overflow: auto;"
+    <a-col class="task" :span="7">
+      <sapan style="font-weight: bold">代办任务</sapan>
+      <a-list
+        class="demo-loadmore-list"
+        :loading="loading"
+        item-layout="horizontal"
+        :data-source="data"
+      >
+        <div
+          v-if="showLoadingMore"
+          slot="loadMore"
+          :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
         >
-          <router-view v-if="isRouterAlive"/>
-        </a-layout-content>
-      </a-layout>
-    </a-layout>
-  </div>
-</template>
+          <a-spin v-if="loadingMore" />
+          <a-button v-else @click="onLoadMore">
+            loading more
+          </a-button>
+        </div>
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <a-list-item-meta
+            :description="item.describe"
+          >
+            <a slot="title" href="#">{{ item.name }}</a>
+          </a-list-item-meta>
+          <a slot="actions" @click="operationClick('edit')">编辑</a>
+          <a slot="actions" @click="operationClick('more')">详情</a>
+        </a-list-item>
+      </a-list>
+    </a-col>
 
+    <a-col class="calendar" :span="7">
+      <a-calendar >
+        <ul slot="dateCellRender" slot-scope="value" class="events">
+          <li v-for="item in getListData(value)" :key="item.content">
+            <a-badge :status="item.type" :text="item.content" />
+          </li>
+        </ul>
+        <template slot="monthCellRender" slot-scope="value">
+          <div v-if="getMonthData(value)" class="notes-month">
+            <section>{{ getMonthData(value) }}</section>
+            <span>Backlog number</span>
+          </div>
+        </template>
+      </a-calendar>
+    </a-col>
+  </a-row>
+</template>
 <script>
-export default {
-  name: "Service",
-  data() {
-    const panes = [{ title: '数据监控', content: 'Content of 数据监控', key: '数据监控', closable: false }]
-    return{
-      id: '',
-      collapsed: false,
-      newTabIndex: 0,
-      panes,
-      activeKey: panes[0].key,
-      isRouterAlive: true
-    }
-  },
-  provide() {
+export default {data() {
     return {
-      reload: this.reload
-    }
+      loading: true,
+      loadingMore: false,
+      showLoadingMore: true,
+      data: [{
+        'gender': 'female',
+        'name':'Clement',
+        'describe': 'This is a describe.',
+      }],
+    };
   },
   mounted() {
-    this.id = this.$route.query.id
-    this.routePage('monitor')
-    // 监控页面关闭
-    // window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
+    this.loading = false
   },
-  methods:{
-    reload() {
-      this.isRouterAlive = false
-      this.$nextTick(function () {
-        this.isRouterAlive = true
+  methods: {
+    getData() {
+      this.loadingMore = false
+    },
+    onLoadMore() {
+      this.loadingMore = true;
+      this.data = this.data.concat();
+      this.loadingMore = false;
+      this.$nextTick(() => {
+        window.dispatchEvent(new Event('resize'));
       })
     },
-    beforeunloadHandler(e) {
-      // 监控页面关闭
-      // localStorage.removeItem('token')
-    },
-    openSetting(data){
+    operationClick(data) {
       switch (data) {
+        case 'person':
+          this.$router.push('/elderlyHealthcare/setting/personal')
+          break;
+        case 'back':
+          this.$router.push('/elderlyHealthcare/service')
+          break;
         case 'quit':
           localStorage.removeItem('token')
           this.$router.push('/elderlyHealthcare/login')
-          break
-        case 'personal':
-          this.$router.push('/elderlyHealthcare/setting/personal')
-          break
-        case 'question':
-          this.$router.push('/elderlyHealthcare/setting/question')
-          break
+          break;
+        case 'edit':
+          this.$message.info('edit')
+          break;
+        case 'more':
+          this.$message.info('more')
+          break;
       }
     },
-    routeMenu(data){
-      switch (data) {
-        case 'service':
-          this.$router.push('/elderlyHealthcare/service')
+    getListData(value) {
+      let listData
+      switch (value.date()) {
+        case 8:
+          listData = [
+            { type: 'warning', content: 'This is warning event.' },
+            { type: 'success', content: 'This is usual event.' },
+          ]
           break
-        case 'human':
-          this.$router.push('/elderlyHealthcare/humansouce')
-          break
-        case 'order':
-          this.$router.push('/elderlyHealthcare/order')
-          break
-        case 'store':
-          this.$router.push('/elderlyHealthcare/store')
-          break
+        default:
       }
+      return listData || [];
     },
-    routePage(data) {
-      switch (data){
-        case 'monitor':
-          this.tabEstimate('数据监控')
-          this.$router.push('/elderlyHealthcare/service/monitor')
-          break
-        case 'chart':
-          this.tabEstimate('数据展示')
-          this.$router.push('/elderlyHealthcare/service/chart')
-          break
-        case 'access':
-          this.tabEstimate('入住登记')
-          this.$router.push('/elderlyHealthcare/service/access')
-          break
-        case 'patient':
-          this.tabEstimate('病人管理')
-          this.$router.push('/elderlyHealthcare/service/patient')
-          break
-        case 'logs':
-          this.tabEstimate('系统日志')
-          this.$router.push('/elderlyHealthcare/service/logs')
-          break
-      }
-    },
-    onEdit(targetKey, action) {
-      this[action](targetKey)
-    },
-    remove(targetKey) {
-      // 删除自身回到第一个标签
-      if(targetKey === this.activeKey){
-        this.routePage('monitor')
-      }
-      let activeKey = this.activeKey
-      let lastIndex
-      this.panes.forEach((pane, i) => {
-        if (pane.key === targetKey) {
-          lastIndex = i - 1
-        }
-      });
-      const panes = this.panes.filter(pane => pane.key !== targetKey)
-      if (panes.length && activeKey === targetKey) {
-        if (lastIndex >= 0) {
-          activeKey = panes[lastIndex].key
-        } else {
-          activeKey = panes[0].key
-        }
-      }
-      this.panes = panes
-      this.activeKey = activeKey
-    },
-    tabEstimate(data) {
-      let flag = false
-      // 遍历标签，重复不添加
-      this.panes.forEach((pane) => {
-        if (pane.key === data) {
-          flag = true
-          // 重新定位到对应的已添加标签
-          this.activeKey = data
-          return;
-        }
-      })
-      if(flag === false) {
-        const panes = this.panes
-        panes.push({
-          title: data,
-          key: data
-        })
-        this.panes = panes
-        this.activeKey = data
-        this.flag = false
-      }
-    },
-    tabChange(data) {
-      switch (data){
-        case '数据监控':
-          this.$router.push('/elderlyHealthcare/service/monitor')
-          break
-        case '数据展示':
-          this.$router.push('/elderlyHealthcare/service/chart')
-          break
-        case '入住登记':
-          this.$router.push('/elderlyHealthcare/service/access')
-          break
-        case '病人管理':
-          this.$router.push('/elderlyHealthcare/service/patient')
-          break
-        case '系统日志':
-          this.$router.push('/elderlyHealthcare/service/logs')
-          break
+    getMonthData(value) {
+      if (value.month() === 8) {
+        return 1394;
       }
     }
   }
 }
 </script>
-
 <style scoped>
+  ::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  ::-webkit-scrollbar {
+    width: 0 !important;height: 0;
+  }
   #home{
     width: 100%;
     height: 100%;
+    padding: 3% 1%;
     position: absolute;
     overflow: hidden;
   }
-  #topBanner .logo {
-    width: 120px;
-    height: 31px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    float: left;
+  .head{
+    margin: auto 20px;
   }
-  .settingMenu{
-    float: right;
-    z-index: 1;
-    margin: 12px 0px;
+  .task{
+    height: 70%;
+    margin: auto 20px;
+    padding: 10px;
+    overflow: auto;
+    border: brown 2px solid;
   }
-  .sideBar{
-    height: 100%;
+  .demo-loadmore-list {
+    min-height: 350px;
   }
-  .sideBar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
+  .calendar{
+    margin: auto 20px;
+    height: 70%;
+    overflow: auto;
+    border: #1890ff 2px solid;
   }
-  .sideBar .trigger:hover {
-    color: #1890ff;
+  .events {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  .notes-month {
+    text-align: center;
+    font-size: 28px;
+  }
+  .notes-month section {
+    font-size: 28px;
   }
 </style>
