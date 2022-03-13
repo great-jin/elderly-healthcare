@@ -2,6 +2,16 @@ import request from "./axios";
 
 const prefix = '/api/healthcare/files'
 
+export function GetUrl(params) {
+  return request({
+    url: `${prefix}/getUrl`,
+    method: 'post',
+    data: params
+  })
+}
+
+
+
 export function download(params) {
   return request({
     method: 'post',

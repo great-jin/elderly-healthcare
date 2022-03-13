@@ -5,7 +5,7 @@
         <img
           slot="cover"
           alt="example"
-          src="http://47.100.200.104:9000/webtest/1.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=budai%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220313T030754Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0a2b92181917d684e483931a46cc81547eae9261145eccb19ed02b2d329f6c3f"
+          :src="imgUrl"
         />
         <template slot="actions" class="ant-card-actions">
           <span key="setting" @click="operationClick('person')">我的信息</span>
@@ -68,12 +68,17 @@
     </a-col>
   </a-row>
 </template>
+
 <script>
-export default {data() {
+import {GetUrl} from "../../api/files";
+
+export default {
+  data() {
     return {
       loading: true,
       loadingMore: false,
       showLoadingMore: true,
+      imgUrl: '',
       data: [{
         'gender': 'female',
         'name':'Clement',
@@ -83,6 +88,12 @@ export default {data() {
   },
   mounted() {
     this.loading = false
+    const token = JSON.parse(localStorage.getItem('token'))
+    const formData = new FormData
+    formData.append('ID', token.flag)
+    GetUrl(formData).then(res =>{
+      this.imgUrl = res.data
+    })
   },
   methods: {
     getData() {

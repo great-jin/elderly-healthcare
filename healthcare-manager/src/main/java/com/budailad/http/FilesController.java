@@ -1,6 +1,10 @@
 package com.budailad.http;
 
+import com.budailad.entity.MinioFiles;
+import com.budailad.entity.User;
 import com.budailad.model.MinioRespond;
+import com.budailad.service.MinioFilesService;
+import com.budailad.service.UserService;
 import io.minio.errors.MinioException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +29,9 @@ public class FilesController {
 
     @Autowired
     private MinioUtil minioUtil;
+
+    @Autowired
+    private MinioFilesService minioFilesService;
 
     @PostMapping("/upload")
     public boolean Upload(@RequestParam(name = "files") MultipartFile file) {
@@ -84,11 +91,19 @@ public class FilesController {
 
     }
 
-    @PostMapping("/getUrl")
+    @PostMapping("/Url")
     public String GetUrl(@RequestParam(name = "bucketName") String bucketName,
                          @RequestParam(name = "fileName") String fileName,
                          @RequestParam(name = "expires") Integer expires) throws Exception {
         return minioUtil.getObjectURL(bucketName, fileName, expires);
+    }
+
+    @PostMapping("/getUrl")
+    public String GetUrlByID(@RequestParam(name = "ID") Integer ID)
+            throws Exception {
+        MinioFiles files = minioFilesService.queryById(ID);
+
+        return minioUtil.getObjectURL(files.getMinioBucket(), files.getFileName(), 7);
     }
 
 }
