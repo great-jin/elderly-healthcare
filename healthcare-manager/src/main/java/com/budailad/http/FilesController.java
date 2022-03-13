@@ -84,4 +84,11 @@ public class FilesController {
 
     }
 
+    @PostMapping("/getUrl")
+    public String GetUrl(@RequestParam(name = "bucketName") String bucketName,
+                         @RequestParam(name = "fileName") String fileName,
+                         @RequestParam(name = "expires") Integer expires) throws Exception {
+        return minioUtil.getObjectURL(bucketName, fileName, expires);
+    }
+
 }

@@ -12,7 +12,7 @@
           <a-menu-item key="1" @click="routeMenu('service')">
             公共服务
           </a-menu-item>
-          <a-menu-item key="2" @click="routeMenu('human')">
+          <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
           <a-menu-item key="3" @click="routeMenu('order')">
@@ -29,7 +29,7 @@
             <a-menu slot="overlay">
               <a-menu-item key="1">
                 <a-icon type="smile" />
-                <span @click="openSetting('personal')">个人中心</span>
+                <span @click="openSetting('personal')">我的首页</span>
               </a-menu-item>
               <a-menu-item key="2">
                 <a-icon type="question-circle" />
@@ -113,7 +113,7 @@
 export default {
   name: "Service",
   data() {
-    const panes = [{ title: '数据监控', content: 'Content of 数据监控', key: '数据监控', closable: false }]
+    const panes = [{ title: '数据监控', key: 'monitor', closable: false }]
     return{
       id: '',
       collapsed: false,
@@ -125,6 +125,7 @@ export default {
   },
   provide() {
     return {
+      // 路由刷新方法
       reload: this.reload
     }
   },
@@ -160,44 +161,55 @@ export default {
       }
     },
     routeMenu(data){
-      switch (data) {
-        case 'service':
-          this.$router.push('/elderlyHealthcare/service')
-          break
-        case 'human':
-          this.$router.push('/elderlyHealthcare/humansouce')
-          break
-        case 'order':
-          this.$router.push('/elderlyHealthcare/order')
-          break
-        case 'store':
-          this.$router.push('/elderlyHealthcare/store')
-          break
-      }
+      this.$router.push(`/elderlyHealthcare/${data}`)
     },
     routePage(data) {
-      switch (data){
-        case 'monitor':
-          this.tabEstimate('数据监控')
-          this.$router.push('/elderlyHealthcare/service/monitor')
-          break
-        case 'chart':
-          this.tabEstimate('数据展示')
-          this.$router.push('/elderlyHealthcare/service/chart')
-          break
-        case 'access':
-          this.tabEstimate('入住登记')
-          this.$router.push('/elderlyHealthcare/service/access')
-          break
-        case 'patient':
-          this.tabEstimate('病人管理')
-          this.$router.push('/elderlyHealthcare/service/patient')
-          break
-        case 'logs':
-          this.tabEstimate('系统日志')
-          this.$router.push('/elderlyHealthcare/service/logs')
-          break
+      this.addTabs(data)
+    },
+    tabChange(data) {
+      this.$router.push(`/elderlyHealthcare/service/${data}`)
+    },
+    addTabs(data) {
+      let flag = false
+      // 遍历标签，重复不添加
+      this.panes.forEach((pane) => {
+        if (pane.key === data) {
+          flag = true
+          // 重新定位到对应的已添加标签
+          this.activeKey = data
+          return;
+        }
+      })
+      if(flag === false) {
+        let tabTitle
+        // 判断 Tab 标题
+        switch (data){
+          case 'monitor':
+            tabTitle = '数据监控'
+            break
+          case 'chart':
+            tabTitle = '数据展示'
+            break
+          case 'access':
+            tabTitle = '入住登记'
+            break
+          case 'patient':
+            tabTitle = '病人管理'
+            break
+          case 'logs':
+            tabTitle = '系统日志'
+            break
+        }
+        const panes = this.panes
+        panes.push({
+          title: tabTitle,
+          key: data
+        })
+        this.panes = panes
+        this.activeKey = data
+        this.flag = false
       }
+      this.tabChange(data)
     },
     onEdit(targetKey, action) {
       this[action](targetKey)
@@ -224,47 +236,6 @@ export default {
       }
       this.panes = panes
       this.activeKey = activeKey
-    },
-    tabEstimate(data) {
-      let flag = false
-      // 遍历标签，重复不添加
-      this.panes.forEach((pane) => {
-        if (pane.key === data) {
-          flag = true
-          // 重新定位到对应的已添加标签
-          this.activeKey = data
-          return;
-        }
-      })
-      if(flag === false) {
-        const panes = this.panes
-        panes.push({
-          title: data,
-          key: data
-        })
-        this.panes = panes
-        this.activeKey = data
-        this.flag = false
-      }
-    },
-    tabChange(data) {
-      switch (data){
-        case '数据监控':
-          this.$router.push('/elderlyHealthcare/service/monitor')
-          break
-        case '数据展示':
-          this.$router.push('/elderlyHealthcare/service/chart')
-          break
-        case '入住登记':
-          this.$router.push('/elderlyHealthcare/service/access')
-          break
-        case '病人管理':
-          this.$router.push('/elderlyHealthcare/service/patient')
-          break
-        case '系统日志':
-          this.$router.push('/elderlyHealthcare/service/logs')
-          break
-      }
     }
   }
 }

@@ -5,7 +5,7 @@
         <img
           slot="cover"
           alt="example"
-          src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+          src="http://47.100.200.104:9000/webtest/1.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=budai%2F20220313%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220313T030754Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=0a2b92181917d684e483931a46cc81547eae9261145eccb19ed02b2d329f6c3f"
         />
         <template slot="actions" class="ant-card-actions">
           <span key="setting" @click="operationClick('person')">我的信息</span>
@@ -78,8 +78,8 @@ export default {data() {
         'gender': 'female',
         'name':'Clement',
         'describe': 'This is a describe.',
-      }],
-    };
+      }]
+    }
   },
   mounted() {
     this.loading = false

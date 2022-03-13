@@ -12,7 +12,7 @@
           <a-menu-item key="1" @click="routeMenu('service')">
             公共服务
           </a-menu-item>
-          <a-menu-item key="2" @click="routeMenu('human')">
+          <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
           <a-menu-item key="3" @click="routeMenu('order')">
@@ -29,7 +29,7 @@
             <a-menu slot="overlay">
               <a-menu-item key="1">
                 <a-icon type="smile" />
-                <span @click="openSetting('personal')">个人中心</span>
+                <span @click="openSetting('personal')">我的首页</span>
               </a-menu-item>
               <a-menu-item key="2">
                 <a-icon type="question-circle" />
@@ -70,7 +70,7 @@
             <a-icon type="team" />
             <span>请假审批</span>
           </a-menu-item>
-          <a-menu-item key="4" @click="routePage('dispatch')">
+          <a-menu-item key="4" @click="routePage('vacate')">
             <a-icon type="shop" />
             <span>人员调度</span>
           </a-menu-item>
@@ -109,7 +109,7 @@
 export default {
   name: "HumanResource",
   data() {
-    const panes = [{ title: '人员管理', key: '人员管理', closable: false }]
+    const panes = [{ title: '人员管理', key: 'staff', closable: false }]
     return{
       id: '',
       collapsed: false,
@@ -137,40 +137,48 @@ export default {
       }
     },
     routeMenu(data){
-      switch (data) {
-        case 'service':
-          this.$router.push('/elderlyHealthcare/service')
-          break
-        case 'human':
-          this.$router.push('/elderlyHealthcare/humansouce')
-          break
-        case 'order':
-          this.$router.push('/elderlyHealthcare/order')
-          break
-        case 'store':
-          this.$router.push('/elderlyHealthcare/store')
-          break
-      }
+      this.$router.push(`/elderlyHealthcare/${data}`)
     },
     routePage(data) {
-      switch (data){
-        case 'staff':
-          this.tabEstimate('人员管理')
-          this.$router.push('/elderlyHealthcare/humansouce/staff')
-          break
-        case 'doctor':
-          this.tabEstimate('医师信息')
-          this.$router.push('/elderlyHealthcare/humansouce/doctor')
-          break
-        case 'vacate':
-          this.tabEstimate('请假审批')
-          this.$router.push('/elderlyHealthcare/humansouce/vacate')
-          break
-        case 'dispatch':
-          this.tabEstimate('人员调度')
-          this.$router.push('/elderlyHealthcare/humansouce/vacate')
-          break
+      this.addTabs(data)
+    },
+    addTabs(data) {
+      let flag = false
+      // 遍历标签，重复不添加
+      this.panes.forEach((pane) => {
+        if (pane.key === data) {
+          flag = true
+          // 重新定位到对应的已添加标签
+          this.activeKey = data
+          return;
+        }
+      })
+      if(flag === false) {
+        let tabTitle
+        switch (data){
+          case 'staff':
+            tabTitle = '人员管理'
+            break
+          case 'doctor':
+            tabTitle = '医师信息'
+            break
+          case 'vacate':
+            tabTitle = '请假审批'
+            break
+        }
+        const panes = this.panes
+        panes.push({
+          title: tabTitle,
+          key: data
+        })
+        this.panes = panes
+        this.activeKey = data
+        this.flag = false
       }
+      this.tabChange(data)
+    },
+    tabChange(data) {
+      this.$router.push(`/elderlyHealthcare/humanResource/${data}`)
     },
     onEdit(targetKey, action) {
       this[action](targetKey)
@@ -198,44 +206,7 @@ export default {
       this.panes = panes
       this.activeKey = activeKey
     },
-    tabEstimate(data) {
-      let flag = false
-      // 遍历标签，重复不添加
-      this.panes.forEach((pane) => {
-        if (pane.key === data) {
-          flag = true
-          // 重新定位到对应的已添加标签
-          this.activeKey = data
-          return;
-        }
-      })
-      if(flag === false) {
-        const panes = this.panes
-        panes.push({
-          title: data,
-          key: data
-        })
-        this.panes = panes
-        this.activeKey = data
-        this.flag = false
-      }
-    },
-    tabChange(data) {
-      switch (data){
-        case '人员管理':
-          this.$router.push('/elderlyHealthcare/humansouce/staff')
-          break
-        case '医师信息':
-          this.$router.push('/elderlyHealthcare/humansouce/doctor')
-          break
-        case '请假审批':
-          this.$router.push('/elderlyHealthcare/humansouce/vacate')
-          break
-        case '人员调度':
-          this.$router.push('/elderlyHealthcare/humansouce/vacate')
-          break
-      }
-    }
+
   }
 }
 </script>

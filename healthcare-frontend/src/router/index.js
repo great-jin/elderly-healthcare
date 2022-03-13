@@ -60,6 +60,7 @@ const router =  new Router({
       name: 'Home',
       component: Home
     }, {
+      // 公共服务
       path: '/elderlyHealthcare/service',
       name: 'Service',
       component: Service,
@@ -82,22 +83,24 @@ const router =  new Router({
         }
       ]
     }, {
-      path: '/elderlyHealthcare/humansouce',
+      // 人力资源
+      path: '/elderlyHealthcare/humanResource',
       name: 'Human',
       component: Human,
       children: [
         {
-          path: '/elderlyHealthcare/humansouce/staff',
+          path: '/elderlyHealthcare/humanResource/staff',
           component: Staff
         }, {
-          path: '/elderlyHealthcare/humansouce/doctor',
+          path: '/elderlyHealthcare/humanResource/doctor',
           component: Doctor
         }, {
-          path: '/elderlyHealthcare/humansouce/vacate',
+          path: '/elderlyHealthcare/humanResource/vacate',
           component: Vacate
         }
       ]
     }, {
+      // 订单管理
       path: '/elderlyHealthcare/order',
       name: 'Order',
       component: Order,
@@ -108,6 +111,7 @@ const router =  new Router({
         }
       ]
     }, {
+      // 仓库管理
       path: '/elderlyHealthcare/store',
       name: 'Store',
       component: Store,

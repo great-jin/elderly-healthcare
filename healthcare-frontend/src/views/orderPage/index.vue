@@ -12,7 +12,7 @@
           <a-menu-item key="1" @click="routeMenu('service')">
             公共服务
           </a-menu-item>
-          <a-menu-item key="2" @click="routeMenu('human')">
+          <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
           <a-menu-item key="3" @click="routeMenu('order')">
@@ -29,7 +29,7 @@
             <a-menu slot="overlay">
               <a-menu-item key="1">
                 <a-icon type="smile" />
-                <span @click="openSetting('personal')">个人中心</span>
+                <span @click="openSetting('personal')">我的首页</span>
               </a-menu-item>
               <a-menu-item key="2">
                 <a-icon type="question-circle" />
@@ -97,7 +97,7 @@
 export default {
   name: "Service",
   data() {
-    const panes = [{ title: '药品采购', key: '药品采购', closable: false }]
+    const panes = [{ title: '药品采购', key: 'medicine', closable: false }]
     return{
       id: '',
       collapsed: false,
@@ -125,27 +125,42 @@ export default {
       }
     },
     routeMenu(data){
-      switch (data) {
-        case 'service':
-          this.$router.push('/elderlyHealthcare/service')
-          break
-        case 'human':
-          this.$router.push('/elderlyHealthcare/humansouce')
-          break
-        case 'order':
-          this.$router.push('/elderlyHealthcare/order')
-          break
-        case 'store':
-          this.$router.push('/elderlyHealthcare/store')
-          break
-      }
+      this.$router.push(`/elderlyHealthcare/${data}`)
     },
     routePage(data) {
-      switch (data){
-        case 'medicine':
-          this.$router.push('/elderlyHealthcare/order/medicine')
-          break
+
+    },
+    addTabs(data) {
+      let flag = false
+      // 遍历标签，重复不添加
+      this.panes.forEach((pane) => {
+        if (pane.key === data) {
+          flag = true
+          // 重新定位到对应的已添加标签
+          this.activeKey = data
+          return;
+        }
+      })
+      if(flag === false) {
+        let tabTitle
+        switch (data){
+          case 'medicine':
+            tabTitle = '药品采购'
+            break
+        }
+        const panes = this.panes
+        panes.push({
+          title: tabTitle,
+          key: data
+        })
+        this.panes = panes
+        this.activeKey = data
+        this.flag = false
       }
+      this.tabChange(data)
+    },
+    tabChange(data) {
+      this.$router.push(`/elderlyHealthcare/order/${data}`)
     },
     onEdit(targetKey, action) {
       this[action](targetKey)
@@ -172,35 +187,6 @@ export default {
       }
       this.panes = panes
       this.activeKey = activeKey
-    },
-    tabEstimate(data) {
-      let flag = false
-      // 遍历标签，重复不添加
-      this.panes.forEach((pane) => {
-        if (pane.key === data) {
-          flag = true
-          // 重新定位到对应的已添加标签
-          this.activeKey = data
-          return;
-        }
-      })
-      if(flag === false) {
-        const panes = this.panes
-        panes.push({
-          title: data,
-          key: data
-        })
-        this.panes = panes
-        this.activeKey = data
-        this.flag = false
-      }
-    },
-    tabChange(data) {
-      switch (data){
-        case '药品采购':
-          this.$router.push('/elderlyHealthcare/order/medicine')
-          break
-      }
     }
   }
 }

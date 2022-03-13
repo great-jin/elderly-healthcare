@@ -2,6 +2,7 @@ package com.budailad.utils;
 
 import com.budailad.model.MinioRespond;
 import io.minio.*;
+import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -187,9 +189,10 @@ public class MinioUtil {
      */
     public String getObjectURL(String bucketName, String objectName, Integer expires) throws Exception {
         return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+                .method(Method.GET)
                 .bucket(bucketName)
                 .object(objectName)
-                .expiry(expires)
+                .expiry(expires, TimeUnit.DAYS)
                 .build());
     }
 
