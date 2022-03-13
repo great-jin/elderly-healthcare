@@ -9,8 +9,11 @@
       <a-auto-complete
         v-model="accountCode"
         placeholder="输入查询账号"
+        :data-source="dataSource"
+        :allowClear="true"
         style="width: 200px; float: right; z-index: 1"
         @search="onSearch"
+        @select="onSelect"
       />
     </div>
 
@@ -45,6 +48,8 @@ export default {
       data: [],
       tableData: [],
       columns: [],
+      value: '',
+      dataSource: [],
       accountCode: ''
     }
   },
@@ -65,14 +70,23 @@ export default {
   },
   methods: {
     onSearch(searchText) {
+      this.dataSource = []
       this.data.forEach((user) => {
-        if(searchText === user.accountID ) {
-          this.data = [user]
+        if((user.accountID).includes(searchText)) {
+          this.dataSource.push(user.accountID)
         }
       })
-      if(searchText === '' )  {
+      if(searchText === '' ) {
         this.reload()
       }
+    },
+    onSelect(value) {
+      this.data.forEach((user) => {
+        if(value === user.accountID ) {
+          this.data = [user]
+          return;
+        }
+      })
     },
     async refresh () {
       await this.operationClick('reset')
