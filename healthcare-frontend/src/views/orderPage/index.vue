@@ -128,7 +128,7 @@ export default {
       this.$router.push(`/elderlyHealthcare/${data}`)
     },
     routePage(data) {
-
+      this.addTabs(data)
     },
     addTabs(data) {
       let flag = false
