@@ -80,6 +80,7 @@ export default {
       this.type = type
       this.visible = true
       this.loading = false
+      console.log('data', data)
       if (this.type === 'add') {
       }
       if (this.type === 'detail') {
@@ -120,10 +121,11 @@ export default {
       const code = data
       if(code !== '') {
         getUser(code).then(res =>{
+          console.log(res.data)
           this.form.setFieldsValue({
-            accountID: res.accountID,
-            userName: res.userName,
-            password: res.password
+            accountID: res.data.accountID,
+            userName: res.data.userName,
+            password: res.data.password
           })
         })
       }
