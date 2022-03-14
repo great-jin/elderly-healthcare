@@ -14,25 +14,22 @@
     </div>
 
     <div class="table">
-      <a-table :columns="columns" :data-source="data">
-        <a slot="name" slot-scope="text">{{ text }}</a>
-        <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
-        <span slot="tags" slot-scope="tags">
-          <a-tag
-            v-for="tag in tags"
-            :key="tag"
-            :color="tag === 'loser' ? 'volcano' : tag.length > 5 ? 'geekblue' : 'green'"
-          >
-            {{ tag.toUpperCase() }}
-          </a-tag>
-        </span>
-            <span slot="action" slot-scope="text, record">
-          <a>Invite 一 {{ record.name }}</a>
-          <a-divider type="vertical" />
-          <a>Delete</a>
-          <a-divider type="vertical" />
-          <a class="ant-dropdown-link"> More actions <a-icon type="down" /> </a>
-        </span>
+      <a-button
+        style="float: left; z-index: 1; margin: 10px"
+        type="primary"
+      >新增</a-button>
+      <a-auto-complete
+        placeholder="输入查询账号"
+        :allowClear="true"
+        style="width: 200px; float: right; z-index: 1; margin: 10px"
+      />
+
+      <a-table
+        :columns="columns"
+        :data-source="data"
+        :scroll="{ x: 1300 }"
+      >
+        <a slot="action" slot-scope="text" href="javascript:;">操作</a>
       </a-table>
     </div>
 
@@ -40,66 +37,18 @@
 </template>
 
 <script>
-const columns = [
-  {
-    dataIndex: 'name',
-    key: 'name',
-    slots: { title: 'customTitle' },
-    scopedSlots: { customRender: 'name' },
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' },
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    scopedSlots: { customRender: 'action' },
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+import { tableColumns, tableData } from "./const";
 
 export default {
   data() {
     return {
-      data,
-      columns,
-    };
+      data: [],
+      columns: []
+    }
+  },
+  mounted() {
+    this.data = tableData
+    this.columns = tableColumns
   },
   methods: {
     onSelect(keys, event) {
@@ -120,7 +69,7 @@ export default {
      border: #1890ff 2px solid
    }
    .table{
-     width: 83%;
+     width: 80%;
      float: right;
      z-index: 1;
      border: #1890ff 2px solid
