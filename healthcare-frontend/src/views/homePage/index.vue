@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow-x: hidden">
     <a-row>
       <a-col class="head" :span="24">
         <a-card
@@ -78,7 +78,7 @@
         </div>
       </a-col>
 
-      <a-col class="calendar" :span="7">
+      <a-col class="calendar" :span="8">
         <a-calendar >
           <ul slot="dateCellRender" slot-scope="value" class="events">
             <li v-for="item in getListData(value)" :key="item.content">
@@ -186,20 +186,19 @@ export default {
     margin: 0px 15px;
   }
   .task{
-    margin: 15px;
     padding: 15px;
     height: 40%;
     overflow: auto;
-    border: brown 2px solid;
+    /*border: brown 2px solid;*/
   }
   .task-list {
     min-height: 350px;
   }
   .calendar{
-    margin: 15px;
     overflow: auto;
+    padding: 15px;
     max-height: 700px;
-    border: #1890ff 2px solid;
+    /*border: #1890ff 2px solid;*/
   }
   .events {
     list-style: none;

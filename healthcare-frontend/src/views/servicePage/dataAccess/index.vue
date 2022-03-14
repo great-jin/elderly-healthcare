@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow-x: hidden">
     <a-divider orientation="center">
      基本信息
     </a-divider>

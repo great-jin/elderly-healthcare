@@ -15,8 +15,8 @@
           <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
-          <a-menu-item key="3" @click="routeMenu('order')">
-            订单采购
+          <a-menu-item key="3" @click="routeMenu('asset')">
+            资产中心
           </a-menu-item>
           <a-menu-item key="4" @click="routeMenu('store')">
             仓储管理
@@ -58,21 +58,21 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('staff')">
-            <a-icon type="area-chart" />
-            <span>员工管理</span>
-          </a-menu-item>
-          <a-menu-item key="2" @click="routePage('doctor')">
-            <a-icon type="form" />
-            <span>医师信息</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('vacate')">
+          <a-menu-item key="1" @click="routePage('vacate')">
             <a-icon type="team" />
             <span>请假审批</span>
           </a-menu-item>
-          <a-menu-item key="4" @click="routePage('vacate')">
+          <a-menu-item key="2" @click="routePage('vacate')">
             <a-icon type="shop" />
             <span>人员调度</span>
+          </a-menu-item>
+          <a-menu-item key="3" @click="routePage('doctor')">
+            <a-icon type="form" />
+            <span>医师信息</span>
+          </a-menu-item>
+          <a-menu-item key="4" @click="routePage('staff')">
+            <a-icon type="area-chart" />
+            <span>员工管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>

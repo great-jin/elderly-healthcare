@@ -49,11 +49,11 @@
         <a-button type="link"
                   style="float: left; z-index: 1;"
                   @click="register"
-        >注册</a-button>
+        >找回密码</a-button>
         <a-button type="link"
                   style="float: right; z-index: 1;"
                   @click="forget"
-        >忘记密码</a-button>
+        >修改密码</a-button>
       </a-form-item>
     </a-form>
 

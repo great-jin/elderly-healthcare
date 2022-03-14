@@ -15,8 +15,8 @@
           <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
-          <a-menu-item key="3" @click="routeMenu('order')">
-            订单采购
+          <a-menu-item key="3" @click="routeMenu('asset')">
+            资产中心
           </a-menu-item>
           <a-menu-item key="4" @click="routeMenu('store')">
             仓储管理
@@ -64,7 +64,7 @@
           </a-menu-item>
           <a-menu-item key="2" @click="routePage('chart')">
             <a-icon type="form" />
-            <span>数据展示</span>
+            <span>数据大屏</span>
           </a-menu-item>
           <a-menu-item key="3" @click="routePage('access')">
             <a-icon type="team" />
@@ -74,7 +74,11 @@
             <a-icon type="shop" />
             <span>病人管理</span>
           </a-menu-item>
-          <a-menu-item key="5" @click="routePage('logs')">
+          <a-menu-item key="5" @click="routePage('task')">
+            <a-icon type="shop" />
+            <span>任务发布</span>
+          </a-menu-item>
+          <a-menu-item key="6" @click="routePage('logs')">
             <a-icon type="file-protect" />
             <span>系统日志</span>
           </a-menu-item>
@@ -193,13 +197,16 @@ export default {
             tabTitle = '数据监控'
             break
           case 'chart':
-            tabTitle = '数据展示'
+            tabTitle = '数据大屏'
             break
           case 'access':
             tabTitle = '入住登记'
             break
           case 'patient':
             tabTitle = '病人管理'
+            break
+          case 'task':
+            tabTitle = '任务发布'
             break
           case 'logs':
             tabTitle = '系统日志'

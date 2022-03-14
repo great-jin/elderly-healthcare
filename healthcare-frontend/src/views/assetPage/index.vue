@@ -15,8 +15,8 @@
           <a-menu-item key="2" @click="routeMenu('humanResource')">
             人力资源
           </a-menu-item>
-          <a-menu-item key="3" @click="routeMenu('order')">
-            订单采购
+          <a-menu-item key="3" @click="routeMenu('asset')">
+            资产中心
           </a-menu-item>
           <a-menu-item key="4" @click="routeMenu('store')">
             仓储管理
@@ -58,9 +58,17 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('medicine')">
+          <a-menu-item key="1" @click="routePage('payment')">
             <a-icon type="area-chart" />
-            <span>药品采购</span>
+            <span>费用缴纳</span>
+          </a-menu-item>
+          <a-menu-item key="2" @click="routePage('apply')">
+            <a-icon type="area-chart" />
+            <span>物资申请</span>
+          </a-menu-item>
+          <a-menu-item key="3" @click="routePage('salary')">
+            <a-icon type="area-chart" />
+            <span>薪资管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -97,7 +105,7 @@
 export default {
   name: "Service",
   data() {
-    const panes = [{ title: '药品采购', key: 'medicine', closable: false }]
+    const panes = [{ title: '费用缴纳', key: 'payment', closable: false }]
     return{
       id: '',
       imgUrl: '',
@@ -108,7 +116,7 @@ export default {
     }
   },
   mounted() {
-    this.routePage('medicine')
+    this.routePage('payment')
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
@@ -149,8 +157,14 @@ export default {
       if(flag === false) {
         let tabTitle
         switch (data){
-          case 'medicine':
-            tabTitle = '药品采购'
+          case 'payment':
+            tabTitle = '费用缴纳'
+            break
+          case 'apply':
+            tabTitle = '物资申请'
+            break
+          case 'salary':
+            tabTitle = '薪资管理'
             break
         }
         const panes = this.panes
@@ -165,7 +179,7 @@ export default {
       this.tabChange(data)
     },
     tabChange(data) {
-      this.$router.push(`/elderlyHealthcare/order/${data}`)
+      this.$router.push(`/elderlyHealthcare/asset/${data}`)
     },
     onEdit(targetKey, action) {
       this[action](targetKey)
