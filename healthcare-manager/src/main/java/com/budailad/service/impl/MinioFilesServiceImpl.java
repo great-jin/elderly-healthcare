@@ -28,7 +28,7 @@ public class MinioFilesServiceImpl implements MinioFilesService {
      * @return 实例对象
      */
     @Override
-    public MinioFiles queryById(Integer id) {
+    public MinioFiles queryById(String id) {
         return this.minioFilesDao.queryById(id);
     }
 
@@ -66,7 +66,7 @@ public class MinioFilesServiceImpl implements MinioFilesService {
     @Override
     public MinioFiles update(MinioFiles minioFiles) {
         this.minioFilesDao.update(minioFiles);
-        return this.queryById(minioFiles.getId());
+        return this.queryById(minioFiles.getAccountCode());
     }
 
     /**

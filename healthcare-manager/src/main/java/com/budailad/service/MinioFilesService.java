@@ -18,7 +18,7 @@ public interface MinioFilesService {
      * @param id 主键
      * @return 实例对象
      */
-    MinioFiles queryById(Integer id);
+    MinioFiles queryById(String id);
 
     /**
      * 分页查询

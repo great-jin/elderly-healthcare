@@ -17,10 +17,6 @@
     </template>
 
     <a-spin :spinning="loading">
-      <a-input
-        v-model="userID"
-        placeholder="请输入用户编号"
-      />
       <a-upload
         :file-list="fileList"
         :remove="handleRemove"
@@ -32,7 +28,7 @@
 </template>
 
 <script>
-import { UploadFile } from '@/api/files.js';
+import { upload } from '@/api/files.js';
 export default {
   name: "UploadModal",
   data() {
@@ -64,29 +60,25 @@ export default {
       return false;
     },
     handleUpload() {
-      if (this.userID !== ''){
-        const { fileList } = this;
-        const formData = new FormData();
-        fileList.forEach(file => {
-          formData.append('files', file);
-        });
-        formData.append('ID', this.userID)
-        this.uploading = true;
+      const { fileList } = this;
+      const formData = new FormData();
+      fileList.forEach(file => {
+        formData.append('files', file);
+      });
+      const token = JSON.parse(localStorage.getItem('token'))
+      formData.append('ID', token.flag)
+      this.uploading = true;
 
-        /*UploadFile(formData).then(res => {
-          if (res) {
-            this.fileList = [];
-            this.uploading = false;
-            this.$message.success('上传成功');
-          } else {
-            this.uploading = false;
-            this.$message.error('上传失败');
-          }
-        })*/
-        this.cancel()
-      } else {
-        this.$message.error('ID 不能为空')
-      }
+      upload(formData).then(res => {
+        if (res) {
+          this.fileList = [];
+          this.uploading = false;
+          this.$message.success('上传成功');
+        } else {
+          this.uploading = false;
+          this.$message.error('上传失败');
+        }
+      })
     }
   }
 }

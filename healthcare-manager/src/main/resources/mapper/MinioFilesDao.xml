@@ -20,7 +20,7 @@
                minio_bucket,
                minio_path
         from minio_files
-        where id = #{id}
+        where account_code = #{accountCode}
     </select>
 
     <!--查询指定行数据-->

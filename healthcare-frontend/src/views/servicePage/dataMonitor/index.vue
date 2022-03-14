@@ -5,7 +5,7 @@
       <uploadModal ref="uploadModal"></uploadModal>
     </div>
 
-    <div style="margin-top: 50px">
+<!--    <div style="margin-top: 50px">
       <a-input
         v-model="fileBucket"
         style="width: 15%"
@@ -16,6 +16,10 @@
         style="width: 15%"
         placeholder="请输入文件名"
       />
+      <a-button @click="download()">下载</a-button>
+    </div>-->
+
+    <div style="margin-top: 20px">
       <a-button @click="download()">下载</a-button>
     </div>
 
@@ -42,14 +46,19 @@ export default {
       this.$refs.uploadModal.paramReceive()
     },
     download(){
-      if(this.fileName !== '' && this.fileBucket !== '') {
+      const formData = new FormData();
+      const token = JSON.parse(localStorage.getItem('token'))
+      formData.append('accountCode', token.flag)
+      download(formData)
+
+      /*if(this.fileName !== '' && this.fileBucket !== '') {
         const formData = new FormData()
         formData.append("fileName", this.fileName)
         formData.append("bucketName", this.fileBucket)
         download(formData)
       } else {
         this.$message.error('文件信息不能为空！')
-      }
+      }*/
     }
   }
 }

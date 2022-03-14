@@ -22,7 +22,7 @@ public interface MinioFilesDao {
      * @param id 主键
      * @return 实例对象
      */
-    MinioFiles queryById(Integer id);
+    MinioFiles queryById(String id);
 
     /**
      * 查询指定行数据

@@ -2,15 +2,16 @@ import request from "./axios";
 
 const prefix = '/api/healthcare/files'
 
-export function GetUrl(params) {
+export function upload(params) {
   return request({
-    url: `${prefix}/getUrl`,
+    url: `${prefix}/upload`,
     method: 'post',
-    data: params
+    data: params,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   })
 }
-
-
 
 export function download(params) {
   return request({
@@ -45,3 +46,20 @@ export function download(params) {
     console.log(error)
   })
 }
+
+export function GetUrl(params) {
+  return request({
+    url: `${prefix}/getUrl`,
+    method: 'post',
+    data: params
+  })
+}
+
+export function Delete(params) {
+  return request({
+    url: `${prefix}/delete`,
+    method: 'post',
+    data: params
+  })
+}
+

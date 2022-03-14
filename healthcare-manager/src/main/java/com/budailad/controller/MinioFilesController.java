@@ -44,7 +44,7 @@ public class MinioFilesController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<MinioFiles> queryById(@Param("id") Integer id) {
+    public ResponseEntity<MinioFiles> queryById(@Param("id") String id) {
         return ResponseEntity.ok(this.minioFilesService.queryById(id));
     }
 

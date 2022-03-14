@@ -90,7 +90,7 @@ export default {
     this.loading = false
     const token = JSON.parse(localStorage.getItem('token'))
     const formData = new FormData
-    formData.append('ID', token.flag)
+    formData.append('accountCode', token.flag)
     GetUrl(formData).then(res =>{
       this.imgUrl = res.data
     })
