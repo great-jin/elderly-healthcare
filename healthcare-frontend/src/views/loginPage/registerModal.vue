@@ -23,7 +23,7 @@
         >
           <a-input
             placeholder="请输入账号"
-            v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
+            v-decorator="['staffId', { rules: [{ required: true, message: '账号不能为空!' }] }]"
           />
         </a-form-item>
         <a-form-item
@@ -43,7 +43,7 @@
         >
           <a-input-password
             placeholder="请输入密码"
-            v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+            v-decorator="['userPwd', { rules: [{ required: true, message: '密码不能为空!' }] }]"
           />
         </a-form-item>
         <a-form-item
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { addUser } from '@/api/user.js';
+import { addUser } from '@/api/loginUser.js';
 import { Encrypt } from '@/utils/AES.js';
 export default {
   name: "RegisterModal",
@@ -89,9 +89,10 @@ export default {
     ok() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          if(values.password === values.re_pwd){
+          if(values.userPwd === values.re_pwd){
+            console.log(values)
             const params = values
-            params.password = Encrypt(values.password)
+            params.userPwd = Encrypt(values.userPwd)
 
             addUser(params).then(res =>{
               console.log(res)
@@ -112,7 +113,7 @@ export default {
           } else {
             this.$message.error('两次密码不一致')
             this.form.setFieldsValue({
-              password: '',
+              userPwd: '',
               re_pwd: ''
             })
           }

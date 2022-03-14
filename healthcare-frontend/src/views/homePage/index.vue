@@ -8,8 +8,9 @@
           :bordered="false"
           hoverable
         >
-          <a-card-meta :title="data[0].name" description="欢迎登录系统">
+          <a-card-meta :title="userName" description="欢迎登录系统">
             <a-avatar
+              size="large"
               slot="avatar"
               :src="imgUrl"
             />
@@ -98,8 +99,6 @@
 </template>
 
 <script>
-import {GetUrl} from "../../api/files";
-
 export default {
   name: 'Home',
   data() {
@@ -108,6 +107,7 @@ export default {
       loadingMore: false,
       showLoadingMore: true,
       imgUrl: '',
+      userName: '',
       data: [{
         'gender': 'female',
         'name':'Clement',
@@ -117,12 +117,9 @@ export default {
   },
   mounted() {
     this.loading = false
-    const token = JSON.parse(localStorage.getItem('token'))
-    const formData = new FormData
-    formData.append('accountCode', token.flag)
-    GetUrl(formData).then(res =>{
-      this.imgUrl = res.data
-    })
+    // 获取头像地址
+    this.imgUrl = localStorage.getItem('avatar')
+    this.userName = JSON.parse(localStorage.getItem('staffInfo')).userName
   },
   methods: {
     getData() {
@@ -200,7 +197,6 @@ export default {
   }
   .calendar{
     margin: 15px;
-    height: 70%;
     overflow: auto;
     max-height: 700px;
     border: #1890ff 2px solid;

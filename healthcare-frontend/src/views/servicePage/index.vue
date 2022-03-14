@@ -24,7 +24,7 @@
           <a-dropdown class="settingMenu">
             <a-avatar
               size="large"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              :src="imgUrl"
             />
             <a-menu slot="overlay">
               <a-menu-item key="1">
@@ -116,6 +116,7 @@ export default {
     const panes = [{ title: '数据监控', key: 'monitor', closable: false }]
     return{
       id: '',
+      imgUrl: '',
       collapsed: false,
       newTabIndex: 0,
       panes,
@@ -134,6 +135,8 @@ export default {
     this.routePage('monitor')
     // 监控页面关闭
     // window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
+    // 获取头像地址
+    this.imgUrl = localStorage.getItem('avatar')
   },
   methods:{
     reload() {
@@ -150,6 +153,8 @@ export default {
       switch (data) {
         case 'quit':
           localStorage.removeItem('token')
+          localStorage.removeItem('avatar')
+          localStorage.removeItem('staffInfo')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':

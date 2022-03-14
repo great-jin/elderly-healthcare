@@ -9,6 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.UUID;
+
+import static com.budailad.utils.AESUtil.desEncrypt;
+import static com.budailad.utils.AESUtil.encrypt;
 
 /**
  * (LoginUser)表控制层
@@ -19,6 +24,13 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping(value = "/api/healthcare/loginUser")
 public class LoginUserController {
+
+    private final static String KEY_FRONT = "byouthinvincible";
+    private final static String IV_FRONT = "byouthinvincible";
+
+    private final static String KEY_BACK = "dyouthinvincible";
+    private final static String IV_BACK = "dyouthinvincible";
+
     /**
      * 服务对象
      */
@@ -48,6 +60,26 @@ public class LoginUserController {
         return ResponseEntity.ok(this.loginUserService.queryById(id));
     }
 
+    @PostMapping("/login")
+    public int login(@RequestBody LoginUser user) throws Exception {
+        // 获取前端输入数据
+        String frontEnPwd = user.getUserPwd();
+        String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
+
+        // 获取后端存储数据
+        LoginUser resultUser = loginUserService.queryById(user.getStaffId());
+        if (resultUser != null) {
+            // 后端数据解密
+            String backEnPwd = new String(resultUser.getUserPwd().getBytes(),"UTF-8");
+            String backDePwd = desEncrypt(backEnPwd, KEY_BACK, IV_BACK).trim();
+
+            if (frontDePwd.equals(backDePwd)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
     /**
      * 新增数据
      *
@@ -55,8 +87,38 @@ public class LoginUserController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<LoginUser> add(LoginUser loginUser) {
-        return ResponseEntity.ok(this.loginUserService.insert(loginUser));
+    public int add(@RequestBody LoginUser loginUser) throws Exception {
+        LoginUser userResult = loginUserService.queryById(loginUser.getStaffId());
+        // 判断用户是否已存在
+        if (userResult == null) {
+            // 获取前端加密数据进行解密
+            String frontEnPwd = loginUser.getUserPwd();
+            String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
+
+            // 对解密数据二次加密
+            String backByte = new String(frontDePwd.getBytes(),"UTF-8");
+            String backEnPwd = encrypt(backByte, KEY_BACK, IV_BACK);
+            loginUser.setUserPwd(backEnPwd);
+
+            // 数据补充
+            loginUser.setId(UUID.randomUUID().toString());
+            loginUser.setOrganizeId("1");
+            loginUser.setUserAvatar("1.jpg");
+            loginUser.setUserPower(0);
+            loginUser.setIsDisabled(0);
+            loginUser.setRegisterTime(new Date());
+            loginUser.setUpdateTime(null);
+            loginUser.setDestroyTime(null);
+            loginUser.setComment(null);
+
+            LoginUser user = loginUserService.insert(loginUser);
+            if(user != null) {
+                return 1;
+            }
+        } else {
+            return 2;
+        }
+        return 0;
     }
 
     /**

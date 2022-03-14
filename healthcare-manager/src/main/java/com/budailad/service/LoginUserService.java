@@ -3,6 +3,7 @@ package com.budailad.service;
 import com.budailad.entity.LoginUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * (LoginUser)表服务接口

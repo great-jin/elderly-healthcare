@@ -24,7 +24,7 @@
           <a-dropdown class="settingMenu">
             <a-avatar
               size="large"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              :src="imgUrl"
             />
             <a-menu slot="overlay">
               <a-menu-item key="1">
@@ -104,6 +104,7 @@ export default {
     const panes = [{ title: '药品管理', key: 'storage', closable: false }]
     return{
       id: '',
+      imgUrl: '',
       collapsed: false,
       newTabIndex: 0,
       panes,
@@ -112,16 +113,20 @@ export default {
   },
   mounted() {
     this.routePage('storage')
+    // 获取头像地址
+    this.imgUrl = localStorage.getItem('avatar')
   },
   methods:{
     openSetting(data){
       switch (data) {
         case 'quit':
           localStorage.removeItem('token')
+          localStorage.removeItem('avatar')
+          localStorage.removeItem('staffInfo')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':
-          this.$router.push('/elderlyHealthcare/setting/personal')
+          this.$router.push('/elderlyHealthcare/home')
           break
         case 'question':
           this.$router.push('/elderlyHealthcare/setting/question')
@@ -200,35 +205,35 @@ export default {
 </script>
 
 <style scoped>
-#home{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  overflow: hidden;
-}
-#topBanner .logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 28px 16px 0;
-  float: left;
-}
-.settingMenu{
-  float: right;
-  z-index: 1;
-  margin: 12px 0px;
-}
-.sideBar{
-  height: 100%;
-}
-.sideBar .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 30px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-.sideBar .trigger:hover {
-  color: #1890ff;
-}
+  #home{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+  }
+  #topBanner .logo {
+    width: 120px;
+    height: 31px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px 28px 16px 0;
+    float: left;
+  }
+  .settingMenu{
+    float: right;
+    z-index: 1;
+    margin: 12px 0px;
+  }
+  .sideBar{
+    height: 100%;
+  }
+  .sideBar .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 30px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .sideBar .trigger:hover {
+    color: #1890ff;
+  }
 </style>

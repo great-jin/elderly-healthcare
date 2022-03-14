@@ -1,15 +1,15 @@
 <template>
   <div class="login-container">
-    <h2 class="login-title">Elderly Healthcare</h2>
+<!--    <h2 class="login-title">Elderly Healthcare</h2>-->
 
     <a-form class="login-form" :form="form">
-      <h3 class="title">欢迎登录</h3>
+<!--      <h3 class="title">欢迎登录</h3>-->
 
       <a-form-item style="margin: 15px 10px" >
         <a-input
           placeholder="请输入账号"
           v-decorator="[
-            'accountID',
+            'staffId',
             { rules: [{ required: true, message: '账号不能为空!' }] }
           ]"
         >
@@ -20,7 +20,7 @@
         <a-input-password
           placeholder="请输入密码"
           v-decorator="[
-            'password',
+            'userPwd',
             { rules: [{ required: true, message: '密码不能为空!' }] }
           ]"
         >
@@ -66,8 +66,9 @@
 import registerModal from "./registerModal";
 import forgetModal from "./forgetModal";
 import { Encrypt } from '@/utils/AES.js';
-import { Login } from '@/api/user.js';
+import { Login, getUser } from '@/api/loginUser.js';
 import SIdentify  from "@/views/utils/identify";
+import { GetUrl } from '@/api/files';
 
 export default {
   name: 'Login',
@@ -103,20 +104,32 @@ export default {
         if (!errors) {
           const _identity = values.authCode
           if (_identity === this.generateCode) {
-            values.password = Encrypt(values.password)
+            // 前端数据加密
+            values.userPwd = Encrypt(values.userPwd)
 
             Login(values).then(res =>{
               if (res.data === 1){
                 // 设置登录状态为 true
                 let items = {
-                  flag: values.accountID,
+                  flag: values.staffId,
                   startTime: new Date().getTime()
                 }
                 localStorage.setItem('token', JSON.stringify(items))
+                // 获取用户头像
+                const formData = new FormData
+                formData.append('accountCode', values.staffId)
+                GetUrl(formData).then(res =>{
+                  localStorage.setItem('avatar', res.data)
+                })
+                // 获取用户信息，用于后台展示
+                getUser(values.staffId).then(res =>{
+                  localStorage.setItem('staffInfo', JSON.stringify(res.data))
+                })
+                // 跳转首页
                 this.$router.push({
                   path:'/elderlyHealthcare/home',
                   query: {
-                    id: values.accountID
+                    id: values.staffId
                   }
                 })
               } else {
@@ -257,15 +270,15 @@ export default {
     width: 25%;
     margin: 5% auto;
     border-radius: 25px;
-    background: url("../../assets/log.png") no-repeat;
+    /*background: url("../../assets/log.png") no-repeat;*/
   }
   /* 登录背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("../../assets/back.png") no-repeat;
-    background-size: 100% 100%;
+    /*background: url("../../assets/back.png") no-repeat;*/
+    /*background-size: 100% 100%;*/
   }
   /* 标题 */
   .login-title {

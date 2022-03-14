@@ -32,7 +32,7 @@
                destroy_time,
                comment
         from login_user
-        where id = #{id}
+        where staff_id = #{staffId}
     </select>
 
     <!--查询指定行数据-->
@@ -128,9 +128,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
+        insert into login_user(id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
                                register_time, update_time, destroy_time, comment)
-        values (#{staffId}, #{userName}, #{userPwd}, #{organizeId}, #{userAvatar}, #{userPower}, #{isDisabled},
+        values (#{id}, #{staffId}, #{userName}, #{userPwd}, #{organizeId}, #{userAvatar}, #{userPower}, #{isDisabled},
                 #{registerTime}, #{updateTime}, #{destroyTime}, #{comment})
     </insert>
 

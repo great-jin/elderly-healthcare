@@ -63,7 +63,7 @@ public class FilesController {
     }
 
     @PostMapping("/download")
-    public ResponseEntity<byte[]> Download(@RequestParam(name = "accountCode") String ID) throws Exception {
+    public ResponseEntity<byte[]> Download(@RequestParam(name = "staffId") String ID) throws Exception {
         ResponseEntity<byte[]> responseEntity = null;
 
         MinioFiles files = minioFilesService.queryById(ID);
@@ -98,15 +98,17 @@ public class FilesController {
     }
 
     @PostMapping("/delete")
-    public void Delete(@RequestParam(name = "accountCode") String ID) throws Exception {
+    public void Delete(@RequestParam(name = "staffId") String ID) throws Exception {
         MinioFiles files = minioFilesService.queryById(ID);
         minioUtil.removeObject(files.getMinioBucket(), files.getFileName());
     }
 
     @PostMapping("/getUrl")
     public String GetUrl(@RequestParam(name = "accountCode") String ID) throws Exception {
+        // 查找用户关联文件信息
         MinioFiles files = minioFilesService.queryById(ID);
-        return minioUtil.getObjectURL(files.getMinioBucket(), files.getFileName(), 7);
+        // 获取文件外链
+        return minioUtil.getObjectURL(files.getMinioBucket(), files.getMinioPath(), 7);
     }
 
 }
