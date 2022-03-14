@@ -27,7 +27,7 @@
       <a-table
         :columns="columns"
         :data-source="data"
-        :scroll="{ x: 1300 }"
+        :scroll="{ x: 1300, y: 520}"
       >
         <a slot="action" slot-scope="text" href="javascript:;">操作</a>
       </a-table>

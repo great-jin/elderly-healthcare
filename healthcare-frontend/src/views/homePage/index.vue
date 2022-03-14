@@ -1,78 +1,107 @@
 <template>
-  <a-row id="home">
-    <a-col class="head" :span="7">
-      <a-card hoverable style="width: 300px">
-        <img
-          slot="cover"
-          alt="example"
-          :src="imgUrl"
-        />
-        <template slot="actions" class="ant-card-actions">
-          <span key="setting" @click="operationClick('person')">我的信息</span>
-          <span key="edit" @click="operationClick('back')">进入后台</span>
-          <span key="ellipsis" @click="operationClick('quit')">退出登录</span>
-        </template>
-        <a-card-meta :title="data[0].name" description="欢迎登录系统">
-          <a-avatar
-            slot="avatar"
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-          />
-        </a-card-meta>
-      </a-card>
-    </a-col>
-
-    <a-col class="task" :span="7">
-      <sapan style="font-weight: bold">代办任务</sapan>
-      <a-list
-        class="demo-loadmore-list"
-        :loading="loading"
-        item-layout="horizontal"
-        :data-source="data"
-      >
-        <div
-          v-if="showLoadingMore"
-          slot="loadMore"
-          :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
+  <div>
+    <a-row>
+      <a-col class="head" :span="24">
+        <a-card
+          title="工作台"
+          style="width: 100%"
+          :bordered="false"
+          hoverable
         >
-          <a-spin v-if="loadingMore" />
-          <a-button v-else @click="onLoadMore">
-            loading more
-          </a-button>
-        </div>
-        <a-list-item slot="renderItem" slot-scope="item, index">
-          <a-list-item-meta
-            :description="item.describe"
-          >
-            <a slot="title" href="#">{{ item.name }}</a>
-          </a-list-item-meta>
-          <a slot="actions" @click="operationClick('edit')">编辑</a>
-          <a slot="actions" @click="operationClick('more')">详情</a>
-        </a-list-item>
-      </a-list>
-    </a-col>
+          <a-card-meta :title="data[0].name" description="欢迎登录系统">
+            <a-avatar
+              slot="avatar"
+              :src="imgUrl"
+            />
+          </a-card-meta>
+          <template slot="actions" class="ant-card-actions">
+            <span key="setting" @click="operationClick('person')">个人信息</span>
+            <span key="edit" @click="operationClick('back')">系统后台</span>
+            <span key="ellipsis" @click="operationClick('quit')">退出登录</span>
+          </template>
+        </a-card>
+      </a-col>
+    </a-row>
 
-    <a-col class="calendar" :span="7">
-      <a-calendar >
-        <ul slot="dateCellRender" slot-scope="value" class="events">
-          <li v-for="item in getListData(value)" :key="item.content">
-            <a-badge :status="item.type" :text="item.content" />
-          </li>
-        </ul>
-        <template slot="monthCellRender" slot-scope="value">
-          <div v-if="getMonthData(value)" class="notes-month">
-            <section>{{ getMonthData(value) }}</section>
-            <span>Backlog number</span>
-          </div>
-        </template>
-      </a-calendar>
-    </a-col>
-  </a-row>
+    <a-row>
+      <a-col class="task" :span="16">
+        <div style="background-color: #ececec; padding: 20px;">
+          <a-row :gutter="16">
+            <a-col :span="8">
+              <a-card title="Card title" :bordered="false">
+                <p>card content</p>
+              </a-card>
+            </a-col>
+            <a-col :span="8">
+              <a-card title="Card title" :bordered="false">
+                <p>card content</p>
+              </a-card>
+            </a-col>
+            <a-col :span="8">
+              <a-card title="Card title" :bordered="false">
+                <p>card content</p>
+              </a-card>
+            </a-col>
+          </a-row>
+        </div>
+
+        <div style="margin: 10px 0px; padding: 5px">
+          <a-card title="代办任务" style="width: 100%">
+            <a-list
+              class="task-list"
+              :loading="loading"
+              item-layout="horizontal"
+              :data-source="data"
+            >
+              <div
+                v-if="showLoadingMore"
+                slot="loadMore"
+                :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
+              >
+                <a-spin v-if="loadingMore" />
+                <a-button v-else @click="onLoadMore">
+                  loading more
+                </a-button>
+              </div>
+              <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item-meta
+                  :description="item.describe"
+                >
+                  <a slot="title" href="#">{{ item.name }}</a>
+                </a-list-item-meta>
+                <a slot="actions" @click="operationClick('edit')">编辑</a>
+                <a slot="actions" @click="operationClick('more')">详情</a>
+              </a-list-item>
+            </a-list>
+          </a-card>
+        </div>
+      </a-col>
+
+      <a-col class="calendar" :span="7">
+        <a-calendar >
+          <ul slot="dateCellRender" slot-scope="value" class="events">
+            <li v-for="item in getListData(value)" :key="item.content">
+              <a-badge :status="item.type" :text="item.content" />
+            </li>
+          </ul>
+          <template slot="monthCellRender" slot-scope="value">
+            <div v-if="getMonthData(value)" class="notes-month">
+              <section>{{ getMonthData(value) }}</section>
+              <span>Backlog number</span>
+            </div>
+          </template>
+        </a-calendar>
+      </a-col>
+    </a-row>
+  </div>
+
 </template>
 
 <script>
 import {GetUrl} from "../../api/files";
 
 export default {
+  name: 'Home',
   data() {
     return {
       loading: true,
@@ -148,6 +177,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
   ::-webkit-scrollbar {
     width: 0 !important;
@@ -155,30 +185,24 @@ export default {
   ::-webkit-scrollbar {
     width: 0 !important;height: 0;
   }
-  #home{
-    width: 100%;
-    height: 100%;
-    padding: 3% 1%;
-    position: absolute;
-    overflow: hidden;
-  }
   .head{
-    margin: auto 20px;
+    margin: 0px 15px;
   }
   .task{
-    height: 70%;
-    margin: auto 20px;
-    padding: 10px;
+    margin: 15px;
+    padding: 15px;
+    height: 40%;
     overflow: auto;
     border: brown 2px solid;
   }
-  .demo-loadmore-list {
+  .task-list {
     min-height: 350px;
   }
   .calendar{
-    margin: auto 20px;
+    margin: 15px;
     height: 70%;
     overflow: auto;
+    max-height: 700px;
     border: #1890ff 2px solid;
   }
   .events {

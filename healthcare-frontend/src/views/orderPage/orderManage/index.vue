@@ -1,26 +1,21 @@
 <template>
   <div>
-    <a-steps :current="current">
-      <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-    </a-steps>
-    <div class="steps-content">
-      {{ steps[current].content }}
-    </div>
-    <div class="steps-action">
-      <a-button v-if="current < steps.length - 1" type="primary" @click="next">
-        Next
-      </a-button>
-      <a-button
-        v-if="current == steps.length - 1"
-        type="primary"
-        @click="$message.success('Processing complete!')"
-      >
-        Done
-      </a-button>
-      <a-button v-if="current > 0" style="margin-left: 8px" @click="prev">
-        Previous
-      </a-button>
-    </div>
+    <a-card title="流程" style="width: 100%; margin: 5px 10px; padding: 5px 10px">
+      <a-steps>
+        <a-step status="finish" title="Login">
+          <a-icon slot="icon" type="user" />
+        </a-step>
+        <a-step status="finish" title="Verification">
+          <a-icon slot="icon" type="solution" />
+        </a-step>
+        <a-step status="process" title="Pay">
+          <a-icon slot="icon" type="loading" />
+        </a-step>
+        <a-step status="wait" title="Done">
+          <a-icon slot="icon" type="smile-o" />
+        </a-step>
+      </a-steps>
+    </a-card>
   </div>
 </template>
 <script>
@@ -55,17 +50,17 @@ export default {
 };
 </script>
 <style scoped>
-.steps-content {
-  margin-top: 16px;
-  border: 1px dashed #e9e9e9;
-  border-radius: 6px;
-  background-color: #fafafa;
-  min-height: 200px;
-  text-align: center;
-  padding-top: 80px;
-}
+  .steps-content {
+    margin-top: 16px;
+    border: 1px dashed #e9e9e9;
+    border-radius: 6px;
+    background-color: #fafafa;
+    min-height: 200px;
+    text-align: center;
+    padding-top: 80px;
+  }
 
-.steps-action {
-  margin-top: 24px;
-}
+  .steps-action {
+    margin-top: 24px;
+  }
 </style>

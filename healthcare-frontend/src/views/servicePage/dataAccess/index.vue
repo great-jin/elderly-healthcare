@@ -45,7 +45,7 @@
                 'systemDesc',
                 {
                   rules: [
-                    { required: true, message: text+'不能为空' },
+                    { required: true, message: '不能为空' },
                     { min: 1, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
                   ]
                 }
