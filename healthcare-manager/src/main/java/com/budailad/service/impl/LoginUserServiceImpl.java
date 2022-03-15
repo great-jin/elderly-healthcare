@@ -4,6 +4,7 @@ import com.budailad.entity.LoginUser;
 import com.budailad.dao.LoginUserDao;
 import com.budailad.service.LoginUserService;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
@@ -68,6 +69,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "#loginUser.staffId")
     public LoginUser update(LoginUser loginUser) {
         this.loginUserDao.update(loginUser);
         return this.queryById(loginUser.getId());
@@ -80,6 +82,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "#loginUser.staffId")
     public boolean deleteById(String id) {
         return this.loginUserDao.deleteById(id) > 0;
     }

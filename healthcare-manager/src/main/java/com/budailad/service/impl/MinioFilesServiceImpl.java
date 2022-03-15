@@ -4,6 +4,7 @@ import com.budailad.entity.MinioFiles;
 import com.budailad.dao.MinioFilesDao;
 import com.budailad.service.MinioFilesService;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
