@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-03-11 16:21:07
  */
 @Service("loginUserService")
-//@CacheConfig(cacheNames = "login")
+@CacheConfig(cacheNames = "login")
 public class LoginUserServiceImpl implements LoginUserService {
     @Resource
     private LoginUserDao loginUserDao;
@@ -31,7 +31,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
-//    @Cacheable(key = "#id")
+    @Cacheable(key = "#id")
     public LoginUser queryById(String id) {
         return this.loginUserDao.queryById(id);
     }

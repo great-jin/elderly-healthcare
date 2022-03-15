@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-03-11 16:21:08
  */
 @Service("minioFilesService")
-//@CacheConfig(cacheNames = "minio")
+@CacheConfig(cacheNames = "minio")
 public class MinioFilesServiceImpl implements MinioFilesService {
     @Resource
     private MinioFilesDao minioFilesDao;
@@ -31,7 +31,7 @@ public class MinioFilesServiceImpl implements MinioFilesService {
      * @return 实例对象
      */
     @Override
-//    @Cacheable(key = "#id")
+    @Cacheable(key = "#id")
     public MinioFiles queryById(String id) {
         return this.minioFilesDao.queryById(id);
     }
