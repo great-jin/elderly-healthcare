@@ -172,7 +172,6 @@ router.beforeEach((to, from, next) => {
   let token, isLogin
   // 状态判断
   token = JSON.parse(localStorage.getItem('staffInfo'))
-  console.log(token)
   isLogin = !(token == null || token.staffId == null || token.staffId === '')
 
   // 判断登录时长

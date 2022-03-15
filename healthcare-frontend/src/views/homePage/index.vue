@@ -68,10 +68,10 @@
                 <a-list-item-meta
                   :description="item.describe"
                 >
-                  <a slot="title" href="#">{{ item.name }}</a>
+                  <a slot="title">{{ item.name }}</a>
                 </a-list-item-meta>
-                <a slot="actions" @click="operationClick('edit')">编辑</a>
                 <a slot="actions" @click="operationClick('more')">详情</a>
+                <a slot="actions" @click="operationClick('edit')">编辑</a>
               </a-list-item>
             </a-list>
           </a-card>
@@ -94,13 +94,21 @@
         </a-calendar>
       </a-col>
     </a-row>
+
+    <taskModal ref="taskModal"/>
   </div>
 
 </template>
 
 <script>
+import taskModal from './taskModal'
+
 export default {
   name: 'Home',
+  components: {
+    // 声明组件
+    taskModal
+  },
   data() {
     return {
       loading: true,
@@ -147,10 +155,10 @@ export default {
           this.$router.push('/elderlyHealthcare/login')
           break;
         case 'edit':
-          this.$message.info('edit')
+          this.$refs.taskModal.paramReceive('edit', '123')
           break;
         case 'more':
-          this.$message.info('more')
+          this.$refs.taskModal.paramReceive('more', '123')
           break;
       }
     },

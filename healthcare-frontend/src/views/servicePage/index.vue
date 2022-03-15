@@ -79,7 +79,7 @@
             <span>任务发布</span>
           </a-menu-item>
           <a-menu-item key="6" @click="routePage('logs')">
-            <a-icon type="file-protect" />
+            <a-icon type="warning" />
             <span>系统日志</span>
           </a-menu-item>
         </a-menu>
