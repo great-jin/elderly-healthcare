@@ -2,7 +2,7 @@
   <div id="home">
     <a-layout id="topBanner">
       <a-layout-header>
-        <div class="logo" />
+        <div class="logo">疗养治理平台</div>
         <a-menu
           theme="dark"
           mode="horizontal"
@@ -128,9 +128,8 @@ export default {
     openSetting(data){
       switch (data) {
         case 'quit':
-          localStorage.removeItem('token')
-          localStorage.removeItem('avatar')
           localStorage.removeItem('staffInfo')
+          localStorage.removeItem('avatar')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':
@@ -226,6 +225,10 @@ export default {
   #topBanner .logo {
     width: 120px;
     height: 31px;
+    line-height: 31px;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;
     float: left;

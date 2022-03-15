@@ -106,31 +106,34 @@ export default {
           if (_identity === this.generateCode) {
             // 前端数据加密
             values.userPwd = Encrypt(values.userPwd)
-
+            // 用户登录
             Login(values).then(res =>{
               if (res.data === 1){
+                /*
                 // 设置登录状态为 true
                 let items = {
                   flag: values.staffId,
                   startTime: new Date().getTime()
                 }
-                localStorage.setItem('token', JSON.stringify(items))
-                // 获取用户头像
-                const formData = new FormData
-                formData.append('accountCode', values.staffId)
-                GetUrl(formData).then(res =>{
-                  localStorage.setItem('avatar', res.data)
-                })
-                // 获取用户信息，用于后台展示
+                localStorage.setItem('token', JSON.stringify(values))
+                */
                 getUser(values.staffId).then(res =>{
+                  // 记录用登录信息
+                  res.data.startTime = new Date().getTime()
                   localStorage.setItem('staffInfo', JSON.stringify(res.data))
-                })
-                // 跳转首页
-                this.$router.push({
-                  path:'/elderlyHealthcare/home',
-                  query: {
-                    id: values.staffId
-                  }
+                  // 获取用户头像
+                  const formData = new FormData
+                  formData.append('accountCode', values.staffId)
+                  GetUrl(formData).then(res =>{
+                    localStorage.setItem('avatar', res.data)
+                    // 跳转首页
+                    this.$router.push({
+                      path:'/elderlyHealthcare/home',
+                      query: {
+                        id: values.staffId
+                      }
+                    })
+                  })
                 })
               } else {
                 this.$message.error('失败！')

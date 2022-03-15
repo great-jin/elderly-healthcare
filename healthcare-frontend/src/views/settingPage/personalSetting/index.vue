@@ -118,6 +118,7 @@ export default {
   name: "PersonalCenter",
   data() {
     return {
+      staffInfo: {},
       form: this.$form.createForm(this),
       labelCol: {
         xs: { span: 24 },
@@ -129,6 +130,9 @@ export default {
       },
       top: 10
     }
+  },
+  mounted() {
+    this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
   },
   methods: {
     backHome(){

@@ -3,11 +3,12 @@ package com.budailad.service.impl;
 import com.budailad.entity.LoginUser;
 import com.budailad.dao.LoginUserDao;
 import com.budailad.service.LoginUserService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-03-11 16:21:07
  */
 @Service("loginUserService")
+//@CacheConfig(cacheNames = "login")
 public class LoginUserServiceImpl implements LoginUserService {
     @Resource
     private LoginUserDao loginUserDao;
@@ -29,6 +31,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
+//    @Cacheable(key = "#id")
     public LoginUser queryById(String id) {
         return this.loginUserDao.queryById(id);
     }

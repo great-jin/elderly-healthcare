@@ -142,7 +142,8 @@ export default {
           this.$router.push('/elderlyHealthcare/service')
           break;
         case 'quit':
-          localStorage.removeItem('token')
+          localStorage.removeItem('staffInfo')
+          localStorage.removeItem('avatar')
           this.$router.push('/elderlyHealthcare/login')
           break;
         case 'edit':

@@ -3,6 +3,8 @@ package com.budailad.service.impl;
 import com.budailad.entity.MinioFiles;
 import com.budailad.dao.MinioFilesDao;
 import com.budailad.service.MinioFilesService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-03-11 16:21:08
  */
 @Service("minioFilesService")
+//@CacheConfig(cacheNames = "minio")
 public class MinioFilesServiceImpl implements MinioFilesService {
     @Resource
     private MinioFilesDao minioFilesDao;
@@ -28,6 +31,7 @@ public class MinioFilesServiceImpl implements MinioFilesService {
      * @return 实例对象
      */
     @Override
+//    @Cacheable(key = "#id")
     public MinioFiles queryById(String id) {
         return this.minioFilesDao.queryById(id);
     }
