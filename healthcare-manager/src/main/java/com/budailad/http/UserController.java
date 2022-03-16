@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/get")
-    public User get(@Param("code") String code){
-        User user = userService.get(code);
+    public User get(@Param("accountID") String accountID){
+        User user = userService.get(accountID);
         if (user == null) {
             return new User();
         }

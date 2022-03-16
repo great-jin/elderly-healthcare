@@ -19,7 +19,7 @@
         select * from tb_user
         <where>
             <if test="accountID != null">
-                and account_id = #{id}
+                and account_id = #{accountID}
             </if>
         </where>
     </select>

@@ -10,7 +10,7 @@ public interface UserDao {
 
     List<User> list();
 
-    User get(String id);
+    User get(String accountID);
 
     int add(User user);
 

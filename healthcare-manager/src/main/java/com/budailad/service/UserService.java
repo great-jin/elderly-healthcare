@@ -17,7 +17,7 @@ public interface UserService {
      * @param id
      * @return User
      */
-    User get(String id);
+    User get(String accountID);
 
     /**
      * Author:Budai 2022/1/27 14:25
