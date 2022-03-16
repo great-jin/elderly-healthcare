@@ -1,30 +1,14 @@
 <template>
-  <a-form :form="form">
-    <a-form-item
-      label="用户名3"
-      :label-col="formItemLayout.labelCol"
-      :wrapper-col="formItemLayout.wrapperCol"
-    >
-      <a-input
-        placeholder="请输入用户名"
-        v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
-      />
-    </a-form-item>
-    <a-form-item
-      label="用户密码3"
-      :label-col="formItemLayout.labelCol"
-      :wrapper-col="formItemLayout.wrapperCol"
-    >
-      <a-input-password
-        placeholder="请输入密码"
-        v-decorator="['userPwd', { rules: [{ required: true, message: '密码不能为空!' }] }]"
-      />
-    </a-form-item>
-    <a-form-item>
+  <a-result
+    status="success"
+    title="订单提交成功!"
+    sub-title="订单号: 2017182818828182881."
+  >
+    <template #extra>
       <a-button type="primary" @click="next(1)" style="margin-right: 10px">上一步</a-button>
-      <a-button type="primary">完成</a-button>
-    </a-form-item>
-  </a-form>
+      <a-button key="buy">完&nbsp;&nbsp;&nbsp;&nbsp;成</a-button>
+    </template>
+  </a-result>
 </template>
 
 <script>
@@ -32,13 +16,6 @@ export default {
   name: "form3",
   data() {
     return {
-      visible: false,
-      loading: false,
-      formItemLayout: {
-        labelCol: { span: 7 },
-        wrapperCol: { span: 14 }
-      },
-      form: this.$form.createForm(this)
     }
   },
   methods: {

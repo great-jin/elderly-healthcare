@@ -2,7 +2,7 @@
   <div>
     <a-tabs type="card">
       <a-tab-pane key="1" tab="信息填写">
-        <a-descriptions title="User Info" bordered>
+        <a-descriptions title="User Info" style="padding: 0px 10px" bordered>
           <a-descriptions-item label="Product">
             Cloud Database
           </a-descriptions-item>

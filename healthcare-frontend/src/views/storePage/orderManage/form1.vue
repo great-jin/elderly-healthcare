@@ -21,7 +21,7 @@
       />
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" @click="next">完成</a-button>
+      <a-button type="primary" @click="next">下一步</a-button>
     </a-form-item>
   </a-form>
 </template>

@@ -22,7 +22,7 @@
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="next(0)" style="margin-right: 10px">上一步</a-button>
-      <a-button type="primary" @click="next(2)">完成</a-button>
+      <a-button type="primary" @click="next(2)">下一步</a-button>
     </a-form-item>
   </a-form>
 </template>

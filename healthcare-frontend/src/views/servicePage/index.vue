@@ -268,6 +268,7 @@ export default {
     font-size: 18px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;
+    padding-left: 7px;
     float: left;
   }
   .settingMenu{

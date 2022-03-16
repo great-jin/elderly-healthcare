@@ -2,7 +2,7 @@
   <a-modal
     :title="type === 'edit' ? '编辑' : '详情'"
     :visible="visible"
-    width="40%"
+    width="70%"
     @cancel="cancel()"
   > <!-- 这里的取消时右上角关闭( X )-->
 
