@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-tabs type="card" :activeKey="tabActivity">
-      <a-tab-pane key="1" tab="任务大屏">
+      <a-tab-pane key="1" tab="任务大屏" style="padding: 10px 0px">
         <a-button type="primary" @click="changeTab('2')">发布任务</a-button>
         <a-table :columns="columns" :data-source="data">
           <a slot="name" slot-scope="text">{{ text }}</a>

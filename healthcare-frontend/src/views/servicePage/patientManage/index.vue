@@ -3,13 +3,13 @@
     <div>
       <a-row :gutter="16">
         <a-col :span="12">
-          <a-statistic title="Feedback" :value="1128" style="margin: 0 auto;">
+          <a-statistic title="Feedback" :value="1128" style="padding: 20px 50px">
             <template #suffix>
             </template>
           </a-statistic>
         </a-col>
         <a-col :span="12">
-          <a-statistic title="Unmerged" :value="93" style="margin: 0 auto;">
+          <a-statistic title="Unmerged" :value="93" style="padding: 20px 50px">
             <template #suffix>
               <span> / 100</span>
             </template>
@@ -17,7 +17,7 @@
         </a-col>
       </a-row>
     </div>
-    <div style="margin: 10px">
+    <div style="padding: 10px 25px">
       <a-button
         type="primary"
         @click="operationClick('add', null)"
@@ -39,6 +39,7 @@
       :data-source="data"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
+      style="padding: 10px 25px"
     >
       <template slot="operation" slot-scope="text, record, index">
         <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
