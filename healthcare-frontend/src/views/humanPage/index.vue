@@ -62,17 +62,13 @@
             <a-icon type="team" />
             <span>请假审批</span>
           </a-menu-item>
-          <a-menu-item key="2" @click="routePage('vacate')">
+          <a-menu-item key="2" @click="routePage('staff')">
+            <a-icon type="form" />
+            <span>员工管理</span>
+          </a-menu-item>
+          <a-menu-item key="3" @click="routePage('dispatch')">
             <a-icon type="shop" />
             <span>人员调度</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('doctor')">
-            <a-icon type="form" />
-            <span>医师信息</span>
-          </a-menu-item>
-          <a-menu-item key="4" @click="routePage('staff')">
-            <a-icon type="area-chart" />
-            <span>员工管理</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
@@ -120,7 +116,7 @@ export default {
     }
   },
   mounted() {
-    this.routePage('staff')
+    this.routePage('vacate')
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
@@ -163,8 +159,8 @@ export default {
           case 'staff':
             tabTitle = '人员管理'
             break
-          case 'doctor':
-            tabTitle = '医师信息'
+          case 'dispatch':
+            tabTitle = '人员调度'
             break
           case 'vacate':
             tabTitle = '请假审批'
@@ -209,8 +205,7 @@ export default {
       }
       this.panes = panes
       this.activeKey = activeKey
-    },
-
+    }
   }
 }
 </script>
@@ -227,7 +222,7 @@ export default {
     height: 31px;
     line-height: 31px;
     font-weight: bold;
-    color: white;
+    color: lightgray;
     font-size: 18px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;

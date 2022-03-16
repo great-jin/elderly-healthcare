@@ -105,7 +105,7 @@
 export default {
   name: "Storage",
   data() {
-    const panes = [{ title: '药品管理', key: 'storage', closable: false }]
+    const panes = [{ title: '物资采购', key: 'order', closable: false }]
     return{
       id: '',
       imgUrl: '',
@@ -116,7 +116,7 @@ export default {
     }
   },
   mounted() {
-    this.routePage('storage')
+    this.routePage('order')
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
@@ -222,7 +222,7 @@ export default {
     height: 31px;
     line-height: 31px;
     font-weight: bold;
-    color: white;
+    color: lightgray;
     font-size: 18px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;

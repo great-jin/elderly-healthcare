@@ -264,7 +264,7 @@ export default {
     height: 31px;
     line-height: 31px;
     font-weight: bold;
-    color: white;
+    color: lightgray;
     font-size: 18px;
     background: rgba(255, 255, 255, 0.2);
     margin: 16px 28px 16px 0;

@@ -17,7 +17,7 @@ import SysLog from '@/views/servicePage/SystemLog/index'
 // 人力资源
 import Human from '@/views/humanPage/index'
 import Staff from '@/views/humanPage/staffManage/index'
-import Doctor from '@/views/humanPage/DoctorManage/index'
+import Dispatch from '@/views/humanPage/dispatchManage/index'
 import Vacate from '@/views/humanPage/vacateManage/index'
 
 // 资产中心
@@ -98,8 +98,8 @@ const router = new Router({
           path: '/elderlyHealthcare/humanResource/staff',
           component: Staff
         }, {
-          path: '/elderlyHealthcare/humanResource/doctor',
-          component: Doctor
+          path: '/elderlyHealthcare/humanResource/dispatch',
+          component: Dispatch
         }, {
           path: '/elderlyHealthcare/humanResource/vacate',
           component: Vacate

@@ -1,7 +1,6 @@
 <template>
-
   <div>
-    <h1>医生管理</h1>
+    <h1>人员调度</h1>
   </div>
 </template>
 

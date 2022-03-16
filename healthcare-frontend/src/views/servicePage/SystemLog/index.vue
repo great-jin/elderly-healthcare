@@ -1,30 +1,56 @@
 <template>
   <div>
-    <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="Tab 1">
-        Content of Tab Pane 2
-      </a-tab-pane>
-      <a-tab-pane key="2" tab="Tab 2">
-        Content of Tab Pane 2
-      </a-tab-pane>
-      <a-tab-pane key="3" tab="Tab 3">
-        Content of Tab Pane 3
-      </a-tab-pane>
-    </a-tabs>
+    <div style="margin-bottom: 30px;">
+      <a-row :gutter="16">
+        <a-col :span="12" style="padding: 5px 30px">
+          <a-statistic-countdown
+            title="Million Seconds"
+            :value="deadline"
+            format="HH:mm:ss:SSS"
+            style="margin-right: 50px"
+          />
+        </a-col>
+        <a-col :span="12" style="padding: 5px 30px">
+          <a-statistic-countdown
+            title="Day Level"
+            :value="deadline"
+            format="D 天 H 时 m 分 s 秒"
+          />
+        </a-col>
+      </a-row>
+    </div>
+    <a-table :columns="columns" :data-source="data">
+      <a slot="action" slot-scope="text" href="javascript:;">Detail</a>
+      <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
+        {{ record.description }}
+      </p>
+    </a-table>
   </div>
 </template>
 
 <script>
+import {Data, Columns} from "./const";
+
 export default {
   name: "index",
   data() {
     return {
+      data: [],
+      columns: [],
+      deadline: Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
     }
+  },
+  mounted() {
+    this.data = Data
+    this.columns = Columns
   },
   methods: {
     callback(key) {
       console.log(key);
     },
+    onFinish() {
+      console.log('finished!');
+    }
   }
 }
 </script>

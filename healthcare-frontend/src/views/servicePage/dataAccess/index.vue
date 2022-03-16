@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="Tab 1">
+      <a-tab-pane key="1" tab="入住登记">
         <a-form :form="form">
           <a-divider orientation="center">
             基本信息
@@ -155,7 +155,7 @@
           </a-row>
         </a-form>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="Tab 2">
+      <a-tab-pane key="2" tab="登记信息">
         Content of Tab Pane 2
       </a-tab-pane>
     </a-tabs>

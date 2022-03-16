@@ -1,5 +1,22 @@
 <template>
   <div>
+    <div>
+      <a-row :gutter="16">
+        <a-col :span="12">
+          <a-statistic title="Feedback" :value="1128" style="margin: 0 auto;">
+            <template #suffix>
+            </template>
+          </a-statistic>
+        </a-col>
+        <a-col :span="12">
+          <a-statistic title="Unmerged" :value="93" style="margin: 0 auto;">
+            <template #suffix>
+              <span> / 100</span>
+            </template>
+          </a-statistic>
+        </a-col>
+      </a-row>
+    </div>
     <div style="margin: 10px">
       <a-button
         type="primary"

@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="tree">
-      <a-directory-tree multiple default-expand-all @select="onSelect" @expand="onExpand">
-        <a-tree-node key="0-0" title="parent 0">
-          <a-tree-node key="0-0-0" title="leaf 0-0" is-leaf />
-          <a-tree-node key="0-0-1" title="leaf 0-1" is-leaf />
+      <a-directory-tree @select="onSelect" multiple default-expand-all>
+        <a-tree-node key="0" title="医护人员">
+          <a-tree-node key="0-1" title="医师" is-leaf />
+          <a-tree-node key="0-2" title="护理员" is-leaf />
         </a-tree-node>
-        <a-tree-node key="0-1" title="parent 1">
-          <a-tree-node key="0-1-0" title="leaf 1-0" is-leaf />
-          <a-tree-node key="0-1-1" title="leaf 1-1" is-leaf />
+        <a-tree-node key="1" title="普通员工">
+          <a-tree-node key="1-1" title="员工" is-leaf />
         </a-tree-node>
       </a-directory-tree>
     </div>
@@ -51,14 +50,11 @@ export default {
     this.columns = tableColumns
   },
   methods: {
-    onSelect(keys, event) {
-      console.log('Trigger Select', keys, event);
-    },
-    onExpand() {
-      console.log('Trigger Expand');
-    },
-  },
-};
+    onSelect(keys) {
+      console.log(keys);
+    }
+  }
+}
 </script>
 
 <style>

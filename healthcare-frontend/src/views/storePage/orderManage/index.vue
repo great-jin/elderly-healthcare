@@ -1,54 +1,59 @@
 <template>
   <div>
-    <a-card title="流程" style="width: 100%; margin: 5px 10px; padding: 5px 10px">
-      <a-steps>
-        <a-step status="finish" title="Login">
-          <a-icon slot="icon" type="user" />
-        </a-step>
-        <a-step status="finish" title="Verification">
-          <a-icon slot="icon" type="solution" />
-        </a-step>
-        <a-step status="process" title="Pay">
-          <a-icon slot="icon" type="loading" />
-        </a-step>
-        <a-step status="wait" title="Done">
-          <a-icon slot="icon" type="smile-o" />
-        </a-step>
+    <a-card title="流程" style="width: 100%; margin: 10px; padding: 15px">
+      <a-steps :current="current">
+        <a-step v-for="item in steps" :key="item.title" :title="item.title" />
       </a-steps>
+      <div class="steps-content">
+        <template v-if="current === 0">
+          <form1 @changeData="nextStep"></form1>
+        </template>
+        <template v-if="current === 1">
+          <form2 @changeData="nextStep"></form2>
+        </template>
+        <template v-if="current === 2">
+          <form3 @changeData="nextStep"></form3>
+        </template>
+      </div>
     </a-card>
   </div>
 </template>
-<script>
+
+<script type="text/javascript">
+import form1 from "./form1";
+import form2 from "./form2";
+import form3 from "./form3";
+
 export default {
+  components: {
+    'form1': form1,
+    'form2': form2,
+    'form3': form3
+  },
   data() {
     return {
       current: 0,
       steps: [
         {
           title: 'First',
-          content: 'First-content',
         },
         {
           title: 'Second',
-          content: 'Second-content',
         },
         {
           title: 'Last',
-          content: 'Last-content',
-        },
-      ],
-    };
+        }
+      ]
+    }
   },
   methods: {
-    next() {
-      this.current++;
-    },
-    prev() {
-      this.current--;
-    },
-  },
-};
+    nextStep(params) {
+      this.current = params
+    }
+  }
+}
 </script>
+
 <style scoped>
   .steps-content {
     margin-top: 16px;
@@ -57,10 +62,6 @@ export default {
     background-color: #fafafa;
     min-height: 200px;
     text-align: center;
-    padding-top: 80px;
-  }
-
-  .steps-action {
-    margin-top: 24px;
+    padding-top: 20px;
   }
 </style>
