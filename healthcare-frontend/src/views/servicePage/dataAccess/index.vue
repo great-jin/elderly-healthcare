@@ -16,9 +16,9 @@
                 <a-input
                   placeholder="请输入账号"
                   v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
+                    'accountID',
+                    { rules: [{ required: true, message: '账号不能为空!' }] }
+                  ]"
                 />
               </a-form-item>
             </a-col>
@@ -44,14 +44,14 @@
                   type="text"
                   :rows="6"
                   v-decorator="[
-                'systemDesc',
-                {
-                  rules: [
-                    { required: true, message: '不能为空' },
-                    { min: 1, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
-                  ]
-                }
-              ]"
+                    'systemDesc',
+                    {
+                      rules: [
+                        { required: true, message: '不能为空' },
+                        { min: 1, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
+                      ]
+                    }
+                  ]"
                 />
               </a-form-item>
             </a-col>
@@ -69,9 +69,9 @@
                 <a-input
                   placeholder="请输入账号"
                   v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
+                    'accountID',
+                    { rules: [{ required: true, message: '账号不能为空!' }] }
+                  ]"
                 />
               </a-form-item>
             </a-col>
@@ -95,9 +95,9 @@
                 <a-input
                   placeholder="请输入账号"
                   v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
+                    'accountID',
+                    { rules: [{ required: true, message: '账号不能为空!' }] }
+                  ]"
                 />
               </a-form-item>
             </a-col>
@@ -121,9 +121,9 @@
                 <a-input
                   placeholder="请输入账号"
                   v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
+                    'accountID',
+                    { rules: [{ required: true, message: '账号不能为空!' }] }
+                  ]"
                 />
               </a-form-item>
             </a-col>

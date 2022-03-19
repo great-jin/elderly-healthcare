@@ -73,13 +73,17 @@
                 :prop="`dynamicInfo[${index}].orgList[]`"
                 class="required"
               >
-                <a-input
+                <a-tree-select
+                  :tree-data="treeData"
+                  class="tree"
                   v-decorator="[
-                    `${item}.orgName`,
+                    `${item}.orgList[]`,
                     { rules: [{ required: false, message: '上报单位不能为空' }] }
                   ]"
-                  style="width: 100%"
+                  style="width: 100%;"
                   tree-checkable
+                  :show-checked-strategy="SHOW_PARENT"
+                  search-placeholder="Please select"
                 />
               </a-form-item>
             </a-col>
@@ -96,6 +100,46 @@
 
 <script>
 import orgModal from './orgModal'
+import { TreeSelect } from 'ant-design-vue';
+const SHOW_PARENT = TreeSelect.SHOW_PARENT;
+
+const treeData = [
+  {
+    title: 'Node1',
+    value: '0-0',
+    key: '0-0',
+    children: [
+      {
+        title: 'Child Node1',
+        value: '0-0-0',
+        key: '0-0-0',
+      },
+    ],
+  },
+  {
+    title: 'Node2',
+    value: '0-1',
+    key: '0-1',
+    children: [
+      {
+        title: 'Child Node3',
+        value: '0-1-0',
+        key: '0-1-0',
+        disabled: true,
+      },
+      {
+        title: 'Child Node4',
+        value: '0-1-1',
+        key: '0-1-1',
+      },
+      {
+        title: 'Child Node5',
+        value: '0-1-2',
+        key: '0-1-2',
+      },
+    ],
+  },
+];
 
 export default {
   name: 'index',
@@ -104,11 +148,14 @@ export default {
   },
   data () {
     return {
+      value: ['0-0-0'],
+      treeData,
+      SHOW_PARENT,
       dynamicInfo: [
         {
           reportPeriod: '',
           reportDate: '',
-          orgName: ''
+          orgList: []
         }
       ],
       labelCol: { span: 4 },
@@ -170,5 +217,11 @@ export default {
     color: #f5222d;
     font-size: 14px;
     font-family: SimSun, sans-serif;
+  }
+  .tree .ant-select-selection__rendered{
+    height: 100px;
+  }
+  .ant-select-tree-dropdown{
+    display: none;
   }
 </style>
