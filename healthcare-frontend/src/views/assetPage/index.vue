@@ -59,15 +59,15 @@
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
           <a-menu-item key="1" @click="routePage('payment')">
-            <a-icon type="area-chart" />
+            <a-icon type="dollar" />
             <span>费用缴纳</span>
           </a-menu-item>
           <a-menu-item key="2" @click="routePage('apply')">
-            <a-icon type="area-chart" />
+            <a-icon type="form" />
             <span>物资申请</span>
           </a-menu-item>
           <a-menu-item key="3" @click="routePage('salary')">
-            <a-icon type="area-chart" />
+            <a-icon type="wallet" />
             <span>薪资管理</span>
           </a-menu-item>
         </a-menu>

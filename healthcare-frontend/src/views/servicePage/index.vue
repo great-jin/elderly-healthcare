@@ -59,23 +59,23 @@
             @click="() => (collapsed = !collapsed)"
           />
           <a-menu-item key="1" @click="routePage('monitor')">
-            <a-icon type="area-chart" />
+            <a-icon type="line-chart" />
             <span>数据监控</span>
           </a-menu-item>
           <a-menu-item key="2" @click="routePage('chart')">
-            <a-icon type="form" />
+            <a-icon type="dot-chart" />
             <span>数据大屏</span>
           </a-menu-item>
           <a-menu-item key="3" @click="routePage('access')">
-            <a-icon type="team" />
+            <a-icon type="user-add" />
             <span>入住登记</span>
           </a-menu-item>
           <a-menu-item key="4" @click="routePage('patient')">
-            <a-icon type="shop" />
+            <a-icon type="idcard" />
             <span>病人管理</span>
           </a-menu-item>
           <a-menu-item key="5" @click="routePage('task')">
-            <a-icon type="shop" />
+            <a-icon type="calendar" />
             <span>任务发布</span>
           </a-menu-item>
           <a-menu-item key="6" @click="routePage('logs')">

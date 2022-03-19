@@ -59,15 +59,15 @@
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
           <a-menu-item key="1" @click="routePage('vacate')">
-            <a-icon type="team" />
+            <a-icon type="form" />
             <span>请假审批</span>
           </a-menu-item>
           <a-menu-item key="2" @click="routePage('staff')">
-            <a-icon type="form" />
+            <a-icon type="team" />
             <span>员工管理</span>
           </a-menu-item>
           <a-menu-item key="3" @click="routePage('dispatch')">
-            <a-icon type="shop" />
+            <a-icon type="apartment" />
             <span>人员调度</span>
           </a-menu-item>
         </a-menu>

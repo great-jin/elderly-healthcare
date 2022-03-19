@@ -59,15 +59,15 @@
         />
         <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
           <a-menu-item key="1" @click="routePage('order')">
-            <a-icon type="area-chart" />
+            <a-icon type="shopping-cart" />
             <span>物资采购</span>
           </a-menu-item>
           <a-menu-item key="2" @click="routePage('storage')">
-            <a-icon type="area-chart" />
+            <a-icon type="profile" />
             <span>药品管理</span>
           </a-menu-item>
           <a-menu-item key="4" @click="routePage('warehouse')">
-            <a-icon type="form" />
+            <a-icon type="folder-open" />
             <span>库存管理</span>
           </a-menu-item>
         </a-menu>
