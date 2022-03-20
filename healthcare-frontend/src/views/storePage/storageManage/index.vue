@@ -28,7 +28,7 @@
                 <a-select
                   placeholder="请选择上报周期"
                   v-decorator="[
-                    `${item}.reportPeriod`,
+                    `${index}.reportPeriod`,
                     { rules: [{ required: false, message: '上报周期不能为空' }] }
                   ]"
                 >
@@ -49,7 +49,7 @@
                 <a-select
                   placeholder="请选择上报时间"
                   v-decorator="[
-                    `${item}.reportDate`,
+                    `${index}.reportDate`,
                     { rules: [{ required: false, message: '上报时间不能为空' }] }
                   ]"
                   class="required"
@@ -77,7 +77,7 @@
                   :tree-data="treeData"
                   class="tree"
                   v-decorator="[
-                    `${item}.orgList[]`,
+                    `${index}.orgList[]`,
                     { rules: [{ required: false, message: '上报单位不能为空' }] }
                   ]"
                   style="width: 100%;"
