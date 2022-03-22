@@ -81,12 +81,13 @@ export default {
     return {
       makeCode: '',
       generateCode: '',
+      loading: false,
       form: this.$form.createForm(this)
     }
   },
   mounted () {
-    this.makeIdentifyCode({ randomTypeLen: true })
     window.addEventListener("keydown", this.keyDown);
+    this.makeIdentifyCode({ randomTypeLen: true })
   },
   destroyed() {
     // 一定要销毁事件!!!
@@ -102,6 +103,7 @@ export default {
     submit() {
       this.form.validateFields((errors, values) => {
         if (!errors) {
+          this.loading = true
           const _identity = values.authCode
           if (_identity === this.generateCode) {
             // 前端数据加密
@@ -109,6 +111,7 @@ export default {
             // 用户登录
             Login(values).then(res =>{
               if (res.data === 1){
+                this.loading = false
                 /*
                 // 设置登录状态为 true
                 let items = {
@@ -141,6 +144,7 @@ export default {
               }
             })
           } else {
+            this.loading = false
             this.$message.error('验证码错误！')
             this.form.setFieldsValue({
               authCode: '',

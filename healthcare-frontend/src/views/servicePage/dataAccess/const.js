@@ -1,21 +1,11 @@
-<template>
-  <a-table :columns="columns" :data-source="data">
-    <a slot="action" slot-scope="text" href="javascript:;">Delete</a>
-    <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
-      {{ record.description }}
-    </p>
-  </a-table>
-</template>
-
-<script>
-const columns = [
+export const tableColumns = [
   { title: 'Name', dataIndex: 'name', key: 'name' },
   { title: 'Age', dataIndex: 'age', key: 'age' },
   { title: 'Address', dataIndex: 'address', key: 'address' },
   { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
 ];
 
-const data = [
+export const tableData = [
   {
     key: 1,
     name: 'John Brown',
@@ -38,13 +28,3 @@ const data = [
     description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.',
   },
 ];
-
-export default {
-  data() {
-    return {
-      data,
-      columns,
-    };
-  },
-};
-</script>

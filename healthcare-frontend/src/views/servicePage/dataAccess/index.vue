@@ -5,7 +5,12 @@
         <accessForm />
       </a-tab-pane>
       <a-tab-pane key="2" tab="登记信息">
-        <dataTable />
+        <a-table :columns="columns" :data-source="data">
+          <a slot="action" slot-scope="text" href="javascript:;">Delete</a>
+          <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
+            {{ record.description }}
+          </p>
+        </a-table>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -13,16 +18,22 @@
 
 <script>
 import accessForm from './accessForm'
-import dataTable from './dataTable'
+import {tableData, tableColumns} from "./const";
 
 export default {
   name: "index",
   components: {
     accessForm,
-    dataTable
   },
   data() {
-    return {}
+    return {
+      data: [],
+      columns: []
+    }
+  },
+  mounted() {
+    this.data = tableData
+    this.columns = tableColumns
   },
   methods: {
     callback(key) {
