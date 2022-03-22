@@ -41,10 +41,10 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       fileName: '',
-      fileBucket: '',
+      fileBucket: ''
     }
   },
   methods: {

@@ -61,7 +61,7 @@
                 <a-input placeholder="请输入数量" />
               </a-col>
               <a-col :span="5" style="padding: 0px 10px">
-                <a-input placeholder="备注" />
+                <a-input placeholder="备注"    />
               </a-col>
             </a-row>
           </a-descriptions-item>
@@ -99,11 +99,11 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from 'moment'
 
 export default {
-  name: "index",
-  data() {
+  name: 'index',
+  data () {
     return {
       data: [
         {
@@ -117,14 +117,14 @@ export default {
     }
   },
   methods: {
-    callback(key) {
-      console.log(key);
+    callback (key) {
+      console.log(key)
     },
-    onChange(date, dateString) {
-      console.log(date, dateString);
+    onChange (date, dateString) {
+      console.log(date, dateString)
     },
-    disabledDate(current) {
-      return current && current < moment().endOf('day');
+    disabledDate (current) {
+      return current && current < moment().endOf('day')
     }
   }
 }

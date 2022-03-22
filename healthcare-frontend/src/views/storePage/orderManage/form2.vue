@@ -29,8 +29,8 @@
 
 <script>
 export default {
-  name: "form2",
-  data() {
+  name: 'form2',
+  data () {
     return {
       visible: false,
       loading: false,
@@ -42,8 +42,8 @@ export default {
     }
   },
   methods: {
-    next(data) {
-      this.$emit("changeData", data)
+    next (data) {
+      this.$emit('changeData', data)
     }
   }
 }

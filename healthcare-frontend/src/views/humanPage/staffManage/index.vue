@@ -36,22 +36,22 @@
 </template>
 
 <script>
-import { tableColumns, tableData } from "./const";
+import { tableColumns, tableData } from './const'
 
 export default {
-  data() {
+  data () {
     return {
       data: [],
       columns: []
     }
   },
-  mounted() {
+  mounted () {
     this.data = tableData
     this.columns = tableColumns
   },
   methods: {
-    onSelect(keys) {
-      console.log(keys);
+    onSelect (keys) {
+      console.log(keys)
     }
   }
 }

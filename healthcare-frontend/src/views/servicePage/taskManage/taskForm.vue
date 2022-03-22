@@ -122,8 +122,8 @@
 
 <script>
 export default {
-  name: "accessForm",
-  data() {
+  name: 'accessForm',
+  data () {
     return {
       type: 'add',
       form: {
@@ -154,14 +154,14 @@ export default {
     }
   },
   methods: {
-    ok() {
+    ok () {
       this.$refs.registerForm.validate(valid => {
         if (valid) {
           console.log(this.form)
         }
       })
     },
-    cancel(){
+    cancel () {
       this.$refs.registerForm.resetFields()
     }
   }

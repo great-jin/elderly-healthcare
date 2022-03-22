@@ -29,27 +29,27 @@
 </template>
 
 <script>
-import {Data, Columns} from "./const";
+import { Data, Columns } from './const'
 
 export default {
-  name: "index",
-  data() {
+  name: 'index',
+  data () {
     return {
       data: [],
       columns: [],
       deadline: Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
     }
   },
-  mounted() {
+  mounted () {
     this.data = Data
     this.columns = Columns
   },
   methods: {
-    callback(key) {
-      console.log(key);
+    callback (key) {
+      console.log(key)
     },
-    onFinish() {
-      console.log('finished!');
+    onFinish () {
+      console.log('finished!')
     }
   }
 }

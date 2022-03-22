@@ -115,10 +115,10 @@
 
 <script>
 export default {
-  name: "Service",
-  data() {
+  name: 'Service',
+  data () {
     const panes = [{ title: '数据监控', key: 'monitor', closable: false }]
-    return{
+    return {
       id: '',
       imgUrl: '',
       collapsed: false,
@@ -128,13 +128,13 @@ export default {
       isRouterAlive: true
     }
   },
-  provide() {
+  provide () {
     return {
       // 路由刷新方法
       reload: this.reload
     }
   },
-  mounted() {
+  mounted () {
     this.id = this.$route.query.id
     this.routePage('monitor')
     // 监控页面关闭
@@ -142,18 +142,18 @@ export default {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
-  methods:{
-    reload() {
+  methods: {
+    reload () {
       this.isRouterAlive = false
       this.$nextTick(function () {
         this.isRouterAlive = true
       })
     },
-    beforeunloadHandler(e) {
+    beforeunloadHandler (e) {
       // 监控页面关闭
       // localStorage.removeItem('token')
     },
-    openSetting(data){
+    openSetting (data) {
       switch (data) {
         case 'quit':
           localStorage.removeItem('staffInfo')
@@ -168,16 +168,16 @@ export default {
           break
       }
     },
-    routeMenu(data){
+    routeMenu (data) {
       this.$router.push(`/elderlyHealthcare/${data}`)
     },
-    routePage(data) {
+    routePage (data) {
       this.addTabs(data)
     },
-    tabChange(data) {
+    tabChange (data) {
       this.$router.push(`/elderlyHealthcare/service/${data}`)
     },
-    addTabs(data) {
+    addTabs (data) {
       let flag = false
       // 遍历标签，重复不添加
       this.panes.forEach((pane) => {
@@ -185,13 +185,12 @@ export default {
           flag = true
           // 重新定位到对应的已添加标签
           this.activeKey = data
-          return;
         }
       })
-      if(flag === false) {
+      if (flag === false) {
         let tabTitle
         // 判断 Tab 标题
-        switch (data){
+        switch (data) {
           case 'monitor':
             tabTitle = '数据监控'
             break
@@ -222,12 +221,12 @@ export default {
       }
       this.tabChange(data)
     },
-    onEdit(targetKey, action) {
+    onEdit (targetKey, action) {
       this[action](targetKey)
     },
-    remove(targetKey) {
+    remove (targetKey) {
       // 删除自身回到第一个标签
-      if(targetKey === this.activeKey){
+      if (targetKey === this.activeKey) {
         this.routePage('monitor')
       }
       let activeKey = this.activeKey
@@ -236,7 +235,7 @@ export default {
         if (pane.key === targetKey) {
           lastIndex = i - 1
         }
-      });
+      })
       const panes = this.panes.filter(pane => pane.key !== targetKey)
       if (panes.length && activeKey === targetKey) {
         if (lastIndex >= 0) {

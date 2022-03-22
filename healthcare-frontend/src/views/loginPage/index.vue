@@ -63,12 +63,12 @@
 </template>
 
 <script>
-import registerModal from "./registerModal";
-import forgetModal from "./forgetModal";
-import { Encrypt } from '@/utils/AES.js';
-import { Login, getUser } from '@/api/loginUser.js';
-import SIdentify  from "@/views/utils/identify";
-import { GetUrl } from '@/api/files';
+import registerModal from './registerModal'
+import forgetModal from './forgetModal'
+import { Encrypt } from '@/utils/AES.js'
+import { Login, getUser } from '@/api/loginUser.js'
+import SIdentify from '@/views/utils/identify'
+import { GetUrl } from '@/api/files'
 
 export default {
   name: 'Login',
@@ -77,7 +77,7 @@ export default {
     registerModal,
     forgetModal
   },
-  data() {
+  data () {
     return {
       makeCode: '',
       generateCode: '',
@@ -86,21 +86,21 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener("keydown", this.keyDown);
+    window.addEventListener('keydown', this.keyDown)
     this.makeIdentifyCode({ randomTypeLen: true })
   },
-  destroyed() {
+  destroyed () {
     // 一定要销毁事件!!!
-    window.removeEventListener("keydown", this.keyDown, false);
+    window.removeEventListener('keydown', this.keyDown, false)
   },
   methods: {
-    keyDown(e) {
+    keyDown (e) {
       // 回车则执行登录方法 enter键的ASCII是13
       if (e.keyCode === 13) {
-        this.submit();
+        this.submit()
       }
     },
-    submit() {
+    submit () {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           this.loading = true
@@ -109,8 +109,8 @@ export default {
             // 前端数据加密
             values.userPwd = Encrypt(values.userPwd)
             // 用户登录
-            Login(values).then(res =>{
-              if (res.data === 1){
+            Login(values).then(res => {
+              if (res.data === 1) {
                 this.loading = false
                 /*
                 // 设置登录状态为 true
@@ -120,18 +120,18 @@ export default {
                 }
                 localStorage.setItem('token', JSON.stringify(values))
                 */
-                getUser(values.staffId).then(res =>{
+                getUser(values.staffId).then(res => {
                   // 记录用登录信息
                   res.data.startTime = new Date().getTime()
                   localStorage.setItem('staffInfo', JSON.stringify(res.data))
                   // 获取用户头像
-                  const formData = new FormData
+                  const formData = new FormData()
                   formData.append('accountCode', values.staffId)
-                  GetUrl(formData).then(res =>{
+                  GetUrl(formData).then(res => {
                     localStorage.setItem('avatar', res.data)
                     // 跳转首页
                     this.$router.push({
-                      path:'/elderlyHealthcare/home',
+                      path: '/elderlyHealthcare/home',
                       query: {
                         id: values.staffId
                       }
@@ -147,17 +147,17 @@ export default {
             this.loading = false
             this.$message.error('验证码错误！')
             this.form.setFieldsValue({
-              authCode: '',
+              authCode: ''
             })
             this.refreshCode()
           }
         }
       })
     },
-    register() {
+    register () {
       this.$refs.registerModal.paramReceive()
     },
-    forget() {
+    forget () {
       this.$refs.forgetModal.paramReceive()
     },
     randomNum () {
@@ -267,7 +267,7 @@ export default {
     refreshCode () {
       this.makeIdentifyCode({ randomTypeLen: true })
     }
-  },
+  }
 }
 </script>
 

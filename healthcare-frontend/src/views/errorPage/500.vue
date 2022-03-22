@@ -10,14 +10,14 @@
 <script>
 export default {
   name: '500',
-  data() {
+  data () {
     return {
       title: 'Server Error',
       message: 'Sorry, the server is wrong.'
     }
   },
   methods: {
-    back(){
+    back () {
       this.$router.push('/elderlyHealthcare/home')
     }
   }

@@ -22,8 +22,8 @@
 
 <script>
 export default {
-  name: "UserModal",
-  data() {
+  name: 'UserModal',
+  data () {
     return {
       visible: false,
       formItemLayout: {
@@ -37,11 +37,11 @@ export default {
     paramReceive () {
       this.visible = true
     },
-    cancel() {
+    cancel () {
       this.visible = false
       this.form.resetFields()
     },
-    ok() {
+    ok () {
       this.form.validateFields((errors, values) => {
         if (!errors) {
 

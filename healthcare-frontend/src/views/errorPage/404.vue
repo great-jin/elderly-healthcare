@@ -10,14 +10,14 @@
 <script>
 export default {
   name: '404',
-  data() {
+  data () {
     return {
       title: 'Not Found',
       message: 'Sorry, the page you visited does not exist.'
     }
   },
   methods: {
-    back(){
+    back () {
       this.$router.push('/elderlyHealthcare/home')
     }
   }

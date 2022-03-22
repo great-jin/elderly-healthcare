@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "DataChart",
+  name: 'DataChart',
   props: {
     // 设置容器的宽、高，解决外部设置无效问题
     width: {
@@ -18,17 +18,17 @@ export default {
       default: null
     }
   },
-  mounted() {
+  mounted () {
     this.pieChart()
   },
   methods: {
-    pieChart(){
+    pieChart () {
       // 通过 this.$echarts 来使用
       // document.getElementById()
       // document.getElementsByClassName() 不可用
-      var pieGraph = this.$echarts.init(document.getElementById('pie'));
+      const pieGraph = this.$echarts.init(document.getElementById('pie'))
       // 配置图表信息
-      var option = {
+      const option = {
         legend: {},
         tooltip: {},
         dataset: {
@@ -46,7 +46,7 @@ export default {
         // to a column of dataset.source by default.
         series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
       }
-      pieGraph.setOption(option);
+      pieGraph.setOption(option)
     }
   }
 }

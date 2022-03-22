@@ -58,10 +58,10 @@
 </template>
 
 <script>
-import { getUser } from '@/api/user.js';
+import { getUser } from '@/api/user.js'
 export default {
-  name: "UserModal",
-  data() {
+  name: 'UserModal',
+  data () {
     return {
       type: '',
       visible: false,
@@ -92,13 +92,13 @@ export default {
         this.setFormValue(data)
       }
     },
-    cancel() {
+    cancel () {
       this.visible = false
       this.isDetail = false
       this.isEdit = false
       this.form.resetFields()
     },
-    ok() {
+    ok () {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           const { type } = this
@@ -117,10 +117,10 @@ export default {
         }
       })
     },
-    setFormValue(data) {
+    setFormValue (data) {
       const code = data
-      if(code !== '') {
-        getUser(code).then(res =>{
+      if (code !== '') {
+        getUser(code).then(res => {
           console.log(res.data)
           this.form.setFieldsValue({
             accountID: res.data.accountID,

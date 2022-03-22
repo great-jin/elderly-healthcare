@@ -4,35 +4,35 @@ export const tableColumns = [
     width: '20%',
     dataIndex: 'name',
     slots: { title: 'customTitle' },
-    scopedSlots: { customRender: 'name' },
+    scopedSlots: { customRender: 'name' }
   },
   {
     key: 'age',
     width: '15%',
     title: 'Age',
-    dataIndex: 'age',
+    dataIndex: 'age'
   },
   {
     key: 'address',
     width: '20%',
     title: 'Address',
-    dataIndex: 'address',
+    dataIndex: 'address'
   },
   {
     key: 'tags',
     width: '15%',
     title: 'Tags',
     dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' },
+    scopedSlots: { customRender: 'tags' }
   },
   {
     key: 'action',
     width: '30%',
     title: 'Action',
     align: 'center',
-    scopedSlots: { customRender: 'action' },
-  },
-];
+    scopedSlots: { customRender: 'action' }
+  }
+]
 
 export const tableData = [
   {
@@ -40,20 +40,20 @@ export const tableData = [
     name: 'John Brown',
     age: 32,
     address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    tags: ['nice', 'developer']
   },
   {
     key: '2',
     name: 'Jim Green',
     age: 42,
     address: 'London No. 1 Lake Park',
-    tags: ['loser'],
+    tags: ['loser']
   },
   {
     key: '3',
     name: 'Joe Black',
     age: 32,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+    tags: ['cool', 'teacher']
+  }
+]

@@ -103,8 +103,8 @@ export default {
      * 绘制图片验证码
      */
     drawPic () {
-      let canvas = document.querySelector('#s-canvas')
-      let ctx = canvas.getContext('2d')
+      const canvas = document.querySelector('#s-canvas')
+      const ctx = canvas.getContext('2d')
       ctx.textBaseline = 'bottom'
       // 绘制背景
       ctx.fillStyle = this.randomColor(this.backgroundColorMin, this.backgroundColorMax)
@@ -127,9 +127,9 @@ export default {
     drawText (ctx, txt, i) {
       ctx.fillStyle = this.randomColor(this.colorMin, this.colorMax)
       ctx.font = this.randomNum(this.fontSizeMin, this.fontSizeMax) + 'px SimHei'
-      let x = (i + 1) * (this.contentWidth / (this.identifyCode.length + 1))
-      let y = this.randomNum(this.fontSizeMax, this.contentHeight - 5)
-      let deg = this.randomNum(-45, 45)
+      const x = (i + 1) * (this.contentWidth / (this.identifyCode.length + 1))
+      const y = this.randomNum(this.fontSizeMax, this.contentHeight - 5)
+      const deg = this.randomNum(-45, 45)
       // 修改坐标原点和旋转角度
       ctx.translate(x, y)
       ctx.rotate(deg * Math.PI / 180)

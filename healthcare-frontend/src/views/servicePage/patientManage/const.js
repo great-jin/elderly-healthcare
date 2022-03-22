@@ -4,14 +4,14 @@ export const tableColumns = [
     dataIndex: 'id',
     width: '15%',
     align: 'center',
-    scopedSlots: { customRender: 'ID' },
+    scopedSlots: { customRender: 'ID' }
   },
   {
     title: '账号',
     dataIndex: 'accountID',
     width: '20%',
     align: 'center',
-    scopedSlots: { customRender: 'accountID' },
+    scopedSlots: { customRender: 'accountID' }
   },
   {
     title: '用户名',
@@ -34,6 +34,6 @@ export const tableColumns = [
     width: '20%',
     align: 'center',
     dataIndex: 'operation',
-    scopedSlots: { customRender: 'operation' },
+    scopedSlots: { customRender: 'operation' }
   }
 ]

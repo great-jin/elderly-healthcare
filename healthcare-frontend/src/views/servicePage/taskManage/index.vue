@@ -30,28 +30,28 @@
 </template>
 
 <script>
-import taskForm from "./taskForm";
-import { tableColumns, tableData } from "./const"
+import taskForm from './taskForm'
+import { tableColumns, tableData } from './const'
 
 export default {
-  name: "index",
-  components:{
+  name: 'index',
+  components: {
     taskForm
   },
-  data() {
+  data () {
     return {
       type: 'add',
       data: [],
       columns: [],
-      tabActivity: '1',
+      tabActivity: '1'
     }
   },
-  mounted() {
+  mounted () {
     this.data = tableData
     this.columns = tableColumns
   },
   methods: {
-    changeTab(data) {
+    changeTab (data) {
       this.tabActivity = data
     }
   }

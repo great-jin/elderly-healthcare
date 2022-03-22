@@ -103,10 +103,10 @@
 
 <script>
 export default {
-  name: "Service",
-  data() {
+  name: 'Service',
+  data () {
     const panes = [{ title: '费用缴纳', key: 'payment', closable: false }]
-    return{
+    return {
       id: '',
       imgUrl: '',
       collapsed: false,
@@ -115,13 +115,13 @@ export default {
       activeKey: panes[0].key
     }
   },
-  mounted() {
+  mounted () {
     this.routePage('payment')
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
-  methods:{
-    openSetting(data){
+  methods: {
+    openSetting (data) {
       switch (data) {
         case 'quit':
           localStorage.removeItem('staffInfo')
@@ -136,13 +136,13 @@ export default {
           break
       }
     },
-    routeMenu(data){
+    routeMenu (data) {
       this.$router.push(`/elderlyHealthcare/${data}`)
     },
-    routePage(data) {
+    routePage (data) {
       this.addTabs(data)
     },
-    addTabs(data) {
+    addTabs (data) {
       let flag = false
       // 遍历标签，重复不添加
       this.panes.forEach((pane) => {
@@ -150,12 +150,11 @@ export default {
           flag = true
           // 重新定位到对应的已添加标签
           this.activeKey = data
-          return;
         }
       })
-      if(flag === false) {
+      if (flag === false) {
         let tabTitle
-        switch (data){
+        switch (data) {
           case 'payment':
             tabTitle = '费用缴纳'
             break
@@ -177,15 +176,15 @@ export default {
       }
       this.tabChange(data)
     },
-    tabChange(data) {
+    tabChange (data) {
       this.$router.push(`/elderlyHealthcare/asset/${data}`)
     },
-    onEdit(targetKey, action) {
+    onEdit (targetKey, action) {
       this[action](targetKey)
     },
-    remove(targetKey) {
+    remove (targetKey) {
       // 删除自身回到第一个标签
-      if(targetKey === this.activeKey){
+      if (targetKey === this.activeKey) {
         this.routePage('medicine')
       }
       let activeKey = this.activeKey
@@ -194,7 +193,7 @@ export default {
         if (pane.key === targetKey) {
           lastIndex = i - 1
         }
-      });
+      })
       const panes = this.panes.filter(pane => pane.key !== targetKey)
       if (panes.length && activeKey === targetKey) {
         if (lastIndex >= 0) {

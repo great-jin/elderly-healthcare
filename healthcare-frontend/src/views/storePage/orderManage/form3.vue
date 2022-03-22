@@ -13,14 +13,14 @@
 
 <script>
 export default {
-  name: "form3",
-  data() {
+  name: 'form3',
+  data () {
     return {
     }
   },
   methods: {
-    next(data) {
-      this.$emit("changeData", data)
+    next (data) {
+      this.$emit('changeData', data)
     }
   }
 }

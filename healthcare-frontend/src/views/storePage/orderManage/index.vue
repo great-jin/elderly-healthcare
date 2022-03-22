@@ -20,34 +20,34 @@
 </template>
 
 <script type="text/javascript">
-import form1 from "./form1";
-import form2 from "./form2";
-import form3 from "./form3";
+import form1 from './form1'
+import form2 from './form2'
+import form3 from './form3'
 
 export default {
   components: {
-    'form1': form1,
-    'form2': form2,
-    'form3': form3
+    form1: form1,
+    form2: form2,
+    form3: form3
   },
-  data() {
+  data () {
     return {
       current: 0,
       steps: [
         {
-          title: 'First',
+          title: 'First'
         },
         {
-          title: 'Second',
+          title: 'Second'
         },
         {
-          title: 'Last',
+          title: 'Last'
         }
       ]
     }
   },
   methods: {
-    nextStep(params) {
+    nextStep (params) {
       this.current = params
     }
   }

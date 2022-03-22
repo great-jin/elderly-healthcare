@@ -14,20 +14,20 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener("keydown", this.keyDown);
+    window.addEventListener('keydown', this.keyDown)
   },
-  destroyed() {
+  destroyed () {
     // 一定要销毁事件!!!
-    window.removeEventListener("keydown", this.keyDown, false);
+    window.removeEventListener('keydown', this.keyDown, false)
   },
   methods: {
-    keyDown(e) {
+    keyDown (e) {
       // 回车则执行登录方法 enter键的ASCII是13
       if (e.keyCode === 13) {
-        this.ok();
+        this.ok()
       }
     },
-    ok(){
+    ok () {
       this.$message.info('okkkkkk' + this.values)
     }
   }

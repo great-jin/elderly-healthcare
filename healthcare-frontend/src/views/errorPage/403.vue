@@ -10,14 +10,14 @@
 <script>
 export default {
   name: '403',
-  data() {
+  data () {
     return {
       title: 'Authorized Reject',
       message: 'Sorry, you are not authorized to access this page.'
     }
   },
   methods: {
-    back(){
+    back () {
       this.$router.push('/elderlyHealthcare/home')
     }
   }

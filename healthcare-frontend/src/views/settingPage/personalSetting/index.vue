@@ -115,8 +115,8 @@
 
 <script>
 export default {
-  name: "PersonalCenter",
-  data() {
+  name: 'PersonalCenter',
+  data () {
     return {
       staffInfo: {},
       form: this.$form.createForm(this),
@@ -131,11 +131,11 @@ export default {
       top: 10
     }
   },
-  mounted() {
+  mounted () {
     this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
   },
   methods: {
-    backHome(){
+    backHome () {
       this.$router.push('/elderlyHealthcare/home')
     }
   }

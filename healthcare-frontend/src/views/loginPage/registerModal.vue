@@ -62,11 +62,11 @@
 </template>
 
 <script>
-import { addUser } from '@/api/loginUser.js';
-import { Encrypt } from '@/utils/AES.js';
+import { addUser } from '@/api/loginUser.js'
+import { Encrypt } from '@/utils/AES.js'
 export default {
-  name: "RegisterModal",
-  data() {
+  name: 'RegisterModal',
+  data () {
     return {
       visible: false,
       loading: false,
@@ -82,19 +82,19 @@ export default {
       this.visible = true
       this.loading = false
     },
-    cancel() {
+    cancel () {
       this.visible = false
       this.form.resetFields()
     },
-    ok() {
+    ok () {
       this.form.validateFields((errors, values) => {
         if (!errors) {
-          if(values.userPwd === values.re_pwd){
+          if (values.userPwd === values.re_pwd) {
             console.log(values)
             const params = values
             params.userPwd = Encrypt(values.userPwd)
 
-            addUser(params).then(res =>{
+            addUser(params).then(res => {
               console.log(res)
               switch (res) {
                 case 1 :

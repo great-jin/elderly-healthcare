@@ -28,10 +28,10 @@
 </template>
 
 <script>
-import { upload } from '@/api/files.js';
+import { upload } from '@/api/files.js'
 export default {
-  name: "UploadModal",
-  data() {
+  name: 'UploadModal',
+  data () {
     return {
       visible: false,
       loading: false,
@@ -45,38 +45,38 @@ export default {
       this.visible = true
       this.loading = false
     },
-    cancel() {
+    cancel () {
       this.visible = false
       this.fileList = []
     },
-    handleRemove(file) {
-      const index = this.fileList.indexOf(file);
-      const newFileList = this.fileList.slice();
-      newFileList.splice(index, 1);
-      this.fileList = newFileList;
+    handleRemove (file) {
+      const index = this.fileList.indexOf(file)
+      const newFileList = this.fileList.slice()
+      newFileList.splice(index, 1)
+      this.fileList = newFileList
     },
-    beforeUpload(file) {
-      this.fileList = [...this.fileList, file];
-      return false;
+    beforeUpload (file) {
+      this.fileList = [...this.fileList, file]
+      return false
     },
-    handleUpload() {
-      const { fileList } = this;
-      const formData = new FormData();
+    handleUpload () {
+      const { fileList } = this
+      const formData = new FormData()
       fileList.forEach(file => {
-        formData.append('files', file);
-      });
+        formData.append('files', file)
+      })
       const token = JSON.parse(localStorage.getItem('token'))
       formData.append('ID', token.flag)
-      this.uploading = true;
+      this.uploading = true
 
       upload(formData).then(res => {
         if (res) {
-          this.fileList = [];
-          this.uploading = false;
-          this.$message.success('上传成功');
+          this.fileList = []
+          this.uploading = false
+          this.$message.success('上传成功')
         } else {
-          this.uploading = false;
-          this.$message.error('上传失败');
+          this.uploading = false
+          this.$message.error('上传失败')
         }
       })
     }

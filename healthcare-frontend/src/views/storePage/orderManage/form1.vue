@@ -28,8 +28,8 @@
 
 <script>
 export default {
-  name: "form1",
-  data() {
+  name: 'form1',
+  data () {
     return {
       formItemLayout: {
         labelCol: { span: 7 },
@@ -39,8 +39,8 @@ export default {
     }
   },
   methods: {
-    next() {
-      this.$emit("changeData", 1)
+    next () {
+      this.$emit('changeData', 1)
     }
   }
 }

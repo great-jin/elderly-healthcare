@@ -64,8 +64,8 @@
 
 <script>
 export default {
-  name: "UserModal",
-  data() {
+  name: 'UserModal',
+  data () {
     return {
       type: '',
       visible: false,
@@ -76,18 +76,18 @@ export default {
     }
   },
   methods: {
-    cancel() {
+    cancel () {
       this.visible = false
       this.isDetail = false
     },
-    ok() {
+    ok () {
 
     },
     paramReceive (type, data) {
       this.type = type
       this.visible = true
       this.loading = false
-      if(type === 'more'){
+      if (type === 'more') {
         this.editable = false
       }
     }

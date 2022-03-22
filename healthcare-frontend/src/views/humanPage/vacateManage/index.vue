@@ -63,11 +63,11 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from 'moment'
 
 export default {
-  name: "index",
-  data() {
+  name: 'index',
+  data () {
     return {
       data: [
         {
@@ -82,14 +82,14 @@ export default {
     }
   },
   methods: {
-    callback(key) {
-      console.log(key);
+    callback (key) {
+      console.log(key)
     },
-    onChange(date, dateString) {
-      console.log(date, dateString);
+    onChange (date, dateString) {
+      console.log(date, dateString)
     },
-    disabledDate(current) {
-      return current && current < moment().endOf('day');
+    disabledDate (current) {
+      return current && current < moment().endOf('day')
     }
   }
 }

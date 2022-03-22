@@ -23,72 +23,72 @@ export const tableData = [
     key: '1',
     name: 'John Brown',
     age: 32,
-    address: 'New York Park',
+    address: 'New York Park'
   },
   {
     key: '2',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '3',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '4',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '5',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '6',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '7',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '8',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '9',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '10',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '11',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   },
   {
     key: '12',
     name: 'Jim Green',
     age: 40,
-    address: 'London Park',
+    address: 'London Park'
   }
 ]

@@ -109,7 +109,7 @@ export default {
     // 声明组件
     taskModal
   },
-  data() {
+  data () {
     return {
       loading: true,
       loadingMore: false,
@@ -117,67 +117,67 @@ export default {
       imgUrl: '',
       userName: '',
       data: [{
-        'gender': 'female',
-        'name':'Clement',
-        'describe': 'This is a describe.',
+        gender: 'female',
+        name: 'Clement',
+        describe: 'This is a describe.'
       }]
     }
   },
-  mounted() {
+  mounted () {
     this.loading = false
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
     this.userName = JSON.parse(localStorage.getItem('staffInfo')).userName
   },
   methods: {
-    getData() {
+    getData () {
       this.loadingMore = false
     },
-    onLoadMore() {
-      this.loadingMore = true;
-      this.data = this.data.concat();
-      this.loadingMore = false;
+    onLoadMore () {
+      this.loadingMore = true
+      this.data = this.data.concat()
+      this.loadingMore = false
       this.$nextTick(() => {
-        window.dispatchEvent(new Event('resize'));
+        window.dispatchEvent(new Event('resize'))
       })
     },
-    operationClick(data) {
+    operationClick (data) {
       switch (data) {
         case 'person':
           this.$router.push('/elderlyHealthcare/setting/personal')
-          break;
+          break
         case 'back':
           this.$router.push('/elderlyHealthcare/service')
-          break;
+          break
         case 'quit':
           localStorage.removeItem('staffInfo')
           localStorage.removeItem('avatar')
           this.$router.push('/elderlyHealthcare/login')
-          break;
+          break
         case 'edit':
           this.$refs.taskModal.paramReceive('edit', '123')
-          break;
+          break
         case 'more':
           this.$refs.taskModal.paramReceive('more', '123')
-          break;
+          break
       }
     },
-    getListData(value) {
+    getListData (value) {
       let listData
       switch (value.date()) {
         case 8:
           listData = [
             { type: 'warning', content: 'This is warning event.' },
-            { type: 'success', content: 'This is usual event.' },
+            { type: 'success', content: 'This is usual event.' }
           ]
           break
         default:
       }
-      return listData || [];
+      return listData || []
     },
-    getMonthData(value) {
+    getMonthData (value) {
       if (value.month() === 8) {
-        return 1394;
+        return 1394
       }
     }
   }

@@ -18,26 +18,26 @@
 
 <script>
 import accessForm from './accessForm'
-import {tableData, tableColumns} from "./const";
+import { tableData, tableColumns } from './const'
 
 export default {
-  name: "index",
+  name: 'index',
   components: {
-    accessForm,
+    accessForm
   },
-  data() {
+  data () {
     return {
       data: [],
       columns: []
     }
   },
-  mounted() {
+  mounted () {
     this.data = tableData
     this.columns = tableColumns
   },
   methods: {
-    callback(key) {
-      console.log(key);
+    callback (key) {
+      console.log(key)
     }
   }
 }

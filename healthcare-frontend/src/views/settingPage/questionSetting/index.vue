@@ -115,8 +115,8 @@
 
 <script>
 export default {
-  name: "Question",
-  data() {
+  name: 'Question',
+  data () {
     return {
       form: this.$form.createForm(this),
       labelCol: {
@@ -131,7 +131,7 @@ export default {
     }
   },
   methods: {
-    backHome(){
+    backHome () {
       this.$router.push('/elderlyHealthcare/home')
     }
   }

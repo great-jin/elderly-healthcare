@@ -14,25 +14,25 @@
 
 <script>
 import uploadModal from './uploadModal'
-import { download } from '@/api/files.js';
+import { download } from '@/api/files.js'
 export default {
   components: {
     uploadModal
   },
-  data() {
+  data () {
     return {
       fileName: '',
       fileBucket: '',
       fileList: [],
-      uploading: false,
+      uploading: false
     }
   },
   methods: {
-    showUpload(){
+    showUpload () {
       this.$refs.uploadModal.paramReceive()
     },
-    download(){
-      const formData = new FormData();
+    download () {
+      const formData = new FormData()
       const token = JSON.parse(localStorage.getItem('staffInfo'))
       formData.append('staffId', token.staffId)
       download(formData)
