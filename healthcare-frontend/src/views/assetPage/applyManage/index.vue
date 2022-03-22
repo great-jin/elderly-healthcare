@@ -46,17 +46,17 @@
         </a-descriptions>
       </a-tab-pane>
       <a-tab-pane key="2" tab="流程日志">
-        <a-steps :current="1">
-          <a-popover slot="progressDot" slot-scope="{ index, status, prefixCls }">
-            <template slot="content">
-              <span>step {{ index }} status: {{ status }}</span>
-            </template>
-            <span :class="`${prefixCls}-icon-dot`" />
-          </a-popover>
-          <a-step title="Finished" description="You can hover on the dot." />
-          <a-step title="In Progress" description="You can hover on the dot." />
-          <a-step title="Waiting" description="You can hover on the dot." />
-          <a-step title="Waiting" description="You can hover on the dot." />
+        <a-steps
+          :current="1"
+          direction="vertical"
+          style="padding: 10px 20px"
+          progress-dot
+        >
+          <a-step title="Finished" description="This is a description. This is a description." />
+          <a-step title="Finished" description="This is a description. This is a description." />
+          <a-step title="In Progress" description="This is a description. This is a description." />
+          <a-step title="Waiting" description="This is a description." />
+          <a-step title="Waiting" description="This is a description." />
         </a-steps>
       </a-tab-pane>
     </a-tabs>

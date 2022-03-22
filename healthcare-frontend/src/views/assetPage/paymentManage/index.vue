@@ -1,64 +1,95 @@
 <template>
   <div>
-    <a-form
-      :form="form"
-      :label-col="labelCol"
-      :wrapper-col="wrapperCol"
+    <a-form-model
+      ref="unitForm"
+      :model="formDate"
     >
-      <a-form-item label="联系人" class="required">
-        <a-button type="link" style="margin-right: 30px" @click="addReport">新增</a-button>
-        <a-button type="link" style="margin-right: 30px" @click="ok">完成</a-button>
-      </a-form-item>
-      <div
-        v-for="(item, index) in dynamicInfo"
+      <a-row :gutter="2">
+        <a-col :span="12">
+          <a-form-model-item
+            label="用户名"
+            prop="userName"
+            :rules="[{ required: true, message: '用户名不能为空' }]"
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+          >
+            <a-input
+              v-model="formDate.userName"
+              placeholder="请输入联系人"
+            />
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-model-item
+            label="用户代理"
+            prop="userAgent"
+            :rules="[{ required: true, message: '用户代理不能为空' }]"
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+          >
+            <a-input
+              v-model="formDate.userAgent"
+              placeholder="请输入用户代理"
+            />
+          </a-form-model-item>
+        </a-col>
+      </a-row>
+
+      <a-row :gutter="2">
+        <a-col :span="12">
+          <a-form-model-item
+            label="联系人"
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+            class="required"
+          >
+            <a-button type="link" @click="addContact">新增</a-button>
+            <a-button type="link" @click="ok">完成</a-button>
+          </a-form-model-item>
+        </a-col>
+      </a-row>
+
+      <a-row
+        v-for="(item, index) in formDate.contactList"
         :key="index"
-        style="margin-bottom: 15px; margin-left: 50px"
+        style="margin-bottom: 15px"
       >
-        <a-row>
-          <a-col :span="2" />
-          <a-col :span="7">
-            <a-form-item
-              label="姓名"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-              :prop="`dynamicInfo.${index}.userName`"
-              class="required"
-            >
-              <a-input
-                placeholder="请输入姓名"
-                v-decorator="[
-                    `${index}.userName`,
-                    { rules: [{ required: false, message: '姓名不能为空' }] }
-                  ]"
-              />
-            </a-form-item>
-          </a-col>
-          <a-col :span="7">
-            <a-form-item
-              label="联系电话"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-              :prop="`dynamicInfo.${index}.telephone`"
-              class="required"
-            >
-              <a-input
-                placeholder="请输入电话"
-                v-decorator="[
-                    `${index}.telephone`,
-                    { rules: [{ required: false, message: '电话不能为空' }] }
-                  ]"
-                class="required"
-              />
-            </a-form-item>
-          </a-col>
-          <a-icon
-            class="dynamic-delete-button"
-            type="minus-circle-o"
-            @click="() => remove(item)"
-          />
-        </a-row>
-      </div>
-    </a-form>
+        <a-col :span="3" />
+        <a-col :span="7">
+          <a-form-model-item
+            label="姓名"
+            :prop="`contactList.${index}.contactName`"
+            :rules="[{ required: true, message: '姓名不能为空' }]"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              placeholder="请输入姓名"
+              v-model="item.contactName"
+            />
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="7">
+          <a-form-model-item
+            label="联系电话"
+            :prop="`contactList.${index}.telephone`"
+            :rules="[{ required: true, message: '联系电话不能为空' }]"
+            :label-col="formItemLayout.labelCol"
+            :wrapper-col="formItemLayout.wrapperCol"
+          >
+            <a-input
+              placeholder="请输入电话"
+              v-model="item.telephone"
+            />
+          </a-form-model-item>
+        </a-col>
+        <a-icon
+          type="minus-circle-o"
+          @click="() => remove(item)"
+          class="dynamic-delete-button"
+        />
+      </a-row>
+    </a-form-model>
   </div>
 </template>
 
@@ -67,32 +98,46 @@ export default {
   name: 'index',
   data () {
     return {
-      dynamicInfo: [
-        {
-          userName: '',
-          telephone: ''
-        }
-      ],
-      labelCol: { span: 4 },
-      wrapperCol: { span: 14 },
+      formDate: {
+        userName: '',
+        userAgent: '',
+        contactList: []
+      },
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 7 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 13 }
+      },
       formItemLayout: {
         labelCol: { span: 7 },
         wrapperCol: { span: 14 }
-      },
-      form: this.$form.createForm(this)
+      }
     }
   },
   methods: {
     ok () {
-      this.form.validateFields((errors, values) => {
-        if (!errors) {
-          console.log(values)
+      this.$refs.unitForm.validate(valid => {
+        if (valid) {
+          console.log(this.formDate)
         }
       })
     },
     cancel () {
-      this.dynamicInfo = []
-      this.form.resetFields()
+      this.formDate.contactList = []
+      this.$refs.unitForm.resetFields()
+    },
+    addContact () {
+      this.formDate.contactList.push({
+        uuid: this.guid(),
+        contactName: '',
+        telephone: ''
+      })
+    },
+    remove (item) {
+      this.formDate.contactList = this.formDate.contactList.filter(op => (op.uuid !== item.uuid))
     },
     guid () {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -100,30 +145,19 @@ export default {
         var v = c === 'x' ? r : (r & 0x3 | 0x8)
         return v.toString(16)
       })
-    },
-    addReport () {
-      this.dynamicInfo.push({
-        uuid: this.guid(),
-        userName: '',
-        telephone: ''
-      })
-    },
-    remove (item) {
-      console.log('item', item)
-      this.dynamicInfo = this.dynamicInfo.filter(op => (op.uuid !== item.uuid))
     }
   }
 }
 </script>
 
 <style>
-.required .ant-form-item-label label::before {
-  content: '*';
-  line-height: 1;
-  display: inline-block;
-  margin-right: 4px;
-  color: #f5222d;
-  font-size: 14px;
-  font-family: SimSun, sans-serif;
-}
+  .required .ant-form-item-label label::before {
+    content: '*';
+    line-height: 1;
+    display: inline-block;
+    margin-right: 4px;
+    color: #f5222d;
+    font-size: 14px;
+    font-family: SimSun, sans-serif;
+  }
 </style>

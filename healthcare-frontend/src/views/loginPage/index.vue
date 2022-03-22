@@ -43,7 +43,7 @@
         </span>
       </a-form-item>
       <a-form-item style="margin: 15px 10px 15px 10px" >
-        <a-button class="submit" type="primary" @click="submit">登录</a-button>
+        <a-button class="submit" type="primary" :loading="loading" @click="submit">登录</a-button>
       </a-form-item>
       <a-form-item>
         <a-button type="link"

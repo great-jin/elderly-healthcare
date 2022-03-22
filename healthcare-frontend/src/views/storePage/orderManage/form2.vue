@@ -7,7 +7,7 @@
     >
       <a-input
         placeholder="请输入用户名"
-        v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
+        v-decorator="['name', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
       />
     </a-form-item>
     <a-form-item
@@ -17,7 +17,7 @@
     >
       <a-input-password
         placeholder="请输入密码"
-        v-decorator="['userPwd', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+        v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
       />
     </a-form-item>
     <a-form-item>
