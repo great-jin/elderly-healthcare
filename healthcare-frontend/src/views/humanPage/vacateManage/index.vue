@@ -5,8 +5,8 @@
         <a-descriptions title="资产申请" style="padding: 0px 10px" bordered>
           <a-descriptions-item label="申请部门" :span="2">
             <a-select placeholder="请选择部门" style="width: 100%; min-width: 100px">
-              <a-select-option v-for="d in data" :key="d.value">
-                {{ d.text }}
+              <a-select-option v-for="org in organize" :key="org.organizeId" :value="org.organizeName">
+                {{ org.organizeName }}
               </a-select-option>
             </a-select>
           </a-descriptions-item>
@@ -39,7 +39,7 @@
               @change="onChange"
             />
             <span style="padding-left: 50px">
-            共&nbsp;&nbsp;&nbsp;&nbsp;{{countDay}}&nbsp;&nbsp;&nbsp;&nbsp;天
+            共&nbsp;&nbsp;&nbsp;&nbsp;{{dayCount}}&nbsp;&nbsp;&nbsp;&nbsp;天
           </span>
           </a-descriptions-item>
         </a-descriptions>
@@ -64,29 +64,31 @@
 
 <script>
 import moment from 'moment'
+import { listOrg } from '@/api/organizeInfo'
 
 export default {
   name: 'index',
   data () {
     return {
-      data: [
-        {
-          value: '1',
-          text: 'Alex'
-        }
-      ],
-      countDay: '2',
+      organize: [],
+      dayCount: '',
       applyInfo: {
 
       }
     }
   },
+  mounted () {
+    listOrg().then(res => {
+      this.organize = res.data
+      console.log(this.organize)
+    })
+  },
   methods: {
     callback (key) {
       console.log(key)
     },
-    onChange (date, dateString) {
-      console.log(date, dateString)
+    onChange (date) {
+      this.dayCount = (date[1]._d - date[0]._d) / 86400000
     },
     disabledDate (current) {
       return current && current < moment().endOf('day')
@@ -96,5 +98,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

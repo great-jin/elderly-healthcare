@@ -127,7 +127,7 @@ public class LoginUserController {
      * @param loginUser 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<LoginUser> edit(LoginUser loginUser) {
         return ResponseEntity.ok(this.loginUserService.update(loginUser));
     }

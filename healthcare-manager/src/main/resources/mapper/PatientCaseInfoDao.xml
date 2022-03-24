@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.PatientCaseInfoDao">
+
+    <resultMap type="com.budailad.entity.PatientCaseInfo" id="PatientCaseInfoMap">
+        <result property="castId" column="cast_id" jdbcType="VARCHAR"/>
+        <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
+        <result property="caseDescribe" column="case_describe" jdbcType="VARCHAR"/>
+        <result property="chargeDoctor" column="charge_doctor" jdbcType="VARCHAR"/>
+        <result property="chargeNurse" column="charge_nurse" jdbcType="VARCHAR"/>
+        <result property="inTime" column="in_time" jdbcType="TIMESTAMP"/>
+        <result property="isLeave" column="is_leave" jdbcType="INTEGER"/>
+        <result property="outTime" column="out_time" jdbcType="TIMESTAMP"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatientCaseInfoMap">
+        select cast_id,
+               patient_id,
+               patient_name,
+               case_describe,
+               charge_doctor,
+               charge_nurse,
+               in_time,
+               is_leave,
+               out_time,
+               comment
+        from patient_case_info
+        where cast_id = #{castId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientCaseInfoMap">
+        select
+        cast_id, patient_id, patient_name, case_describe, charge_doctor, charge_nurse, in_time, is_leave, out_time,
+        comment
+        from patient_case_info
+        <where>
+            <if test="castId != null and castId != ''">
+                and cast_id = #{castId}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="caseDescribe != null and caseDescribe != ''">
+                and case_describe = #{caseDescribe}
+            </if>
+            <if test="chargeDoctor != null and chargeDoctor != ''">
+                and charge_doctor = #{chargeDoctor}
+            </if>
+            <if test="chargeNurse != null and chargeNurse != ''">
+                and charge_nurse = #{chargeNurse}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="isLeave != null">
+                and is_leave = #{isLeave}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient_case_info
+        <where>
+            <if test="castId != null and castId != ''">
+                and cast_id = #{castId}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="caseDescribe != null and caseDescribe != ''">
+                and case_describe = #{caseDescribe}
+            </if>
+            <if test="chargeDoctor != null and chargeDoctor != ''">
+                and charge_doctor = #{chargeDoctor}
+            </if>
+            <if test="chargeNurse != null and chargeNurse != ''">
+                and charge_nurse = #{chargeNurse}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="isLeave != null">
+                and is_leave = #{isLeave}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="castId" useGeneratedKeys="true">
+        insert into patient_case_info(patient_id, patient_name, case_describe, charge_doctor, charge_nurse, in_time,
+                                      is_leave, out_time, comment)
+        values (#{patientId}, #{patientName}, #{caseDescribe}, #{chargeDoctor}, #{chargeNurse}, #{inTime}, #{isLeave},
+                #{outTime}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="castId" useGeneratedKeys="true">
+        insert into patient_case_info(patient_id, patient_name, case_describe, charge_doctor, charge_nurse, in_time,
+        is_leave, out_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.patientName}, #{entity.caseDescribe}, #{entity.chargeDoctor},
+            #{entity.chargeNurse}, #{entity.inTime}, #{entity.isLeave}, #{entity.outTime}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="castId" useGeneratedKeys="true">
+        insert into patient_case_info(patient_id, patient_name, case_describe, charge_doctor, charge_nurse, in_time,
+        is_leave, out_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.patientName}, #{entity.caseDescribe}, #{entity.chargeDoctor},
+            #{entity.chargeNurse}, #{entity.inTime}, #{entity.isLeave}, #{entity.outTime}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        patient_id = values(patient_id),
+        patient_name = values(patient_name),
+        case_describe = values(case_describe),
+        charge_doctor = values(charge_doctor),
+        charge_nurse = values(charge_nurse),
+        in_time = values(in_time),
+        is_leave = values(is_leave),
+        out_time = values(out_time),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update patient_case_info
+        <set>
+            <if test="patientId != null and patientId != ''">
+                patient_id = #{patientId},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
+            </if>
+            <if test="caseDescribe != null and caseDescribe != ''">
+                case_describe = #{caseDescribe},
+            </if>
+            <if test="chargeDoctor != null and chargeDoctor != ''">
+                charge_doctor = #{chargeDoctor},
+            </if>
+            <if test="chargeNurse != null and chargeNurse != ''">
+                charge_nurse = #{chargeNurse},
+            </if>
+            <if test="inTime != null">
+                in_time = #{inTime},
+            </if>
+            <if test="isLeave != null">
+                is_leave = #{isLeave},
+            </if>
+            <if test="outTime != null">
+                out_time = #{outTime},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where cast_id = #{castId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from patient_case_info
+        where cast_id = #{castId}
+    </delete>
+
+</mapper>
+

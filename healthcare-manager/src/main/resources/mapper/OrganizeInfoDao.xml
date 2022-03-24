@@ -27,6 +27,20 @@
         where organize_id = #{organizeId}
     </select>
 
+
+    <!--查询非分页对象-->
+    <select id="queryAll" resultMap="OrganizeInfoMap">
+        select organize_id,
+               organize_name,
+               organize_type,
+               create_time,
+               man_count,
+               staff_id,
+               organize_leader,
+               comment
+        from organize_info
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="OrganizeInfoMap">
         select

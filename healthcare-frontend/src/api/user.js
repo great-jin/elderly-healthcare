@@ -1,30 +1,32 @@
-import request from './axios';
+import request from './axios'
 
-export function List(params) {
-  return request({
-    url: '/api/healthcare/users/list',
-    method: 'get',
-  })
-}
+const prefix = '/api/healthcare/users'
 
-export function getUser(params) {
+export function List (params) {
   return request({
-    url: `/api/healthcare/users/get?code=${params}`,
+    url: `${prefix}/list`,
     method: 'get'
   })
 }
 
-export function Login(params) {
+export function getUser (params) {
   return request({
-    url: '/api/healthcare/users/login',
+    url: `${prefix}/get?code=${params}`,
+    method: 'get'
+  })
+}
+
+export function Login (params) {
+  return request({
+    url: `${prefix}/login`,
     method: 'post',
     data: params
   })
 }
 
-export function addUser(params) {
+export function addUser (params) {
   return request({
-    url: '/api/healthcare/users/register',
+    url: `${prefix}/register`,
     method: 'post',
     data: params
   })

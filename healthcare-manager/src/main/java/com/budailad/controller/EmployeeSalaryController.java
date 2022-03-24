@@ -65,7 +65,7 @@ public class EmployeeSalaryController {
      * @param employeeSalary 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<EmployeeSalary> edit(EmployeeSalary employeeSalary) {
         return ResponseEntity.ok(this.employeeSalaryService.update(employeeSalary));
     }

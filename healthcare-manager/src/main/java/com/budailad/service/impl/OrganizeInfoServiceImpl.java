@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (OrganizeInfo)表服务实现类
@@ -30,6 +31,11 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
     @Override
     public OrganizeInfo queryById(String organizeId) {
         return this.organizeInfoDao.queryById(organizeId);
+    }
+
+    @Override
+    public List<OrganizeInfo> queryAll() {
+        return this.organizeInfoDao.queryAll();
     }
 
     /**

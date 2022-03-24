@@ -4,8 +4,7 @@
     :visible="visible"
     width="70%"
     @cancel="cancel()"
-  > <!-- 这里的取消时右上角关闭( X )-->
-
+  >
     <template slot="footer">
       <a-button key="back" @click="cancel()">取消</a-button>
       <a-button

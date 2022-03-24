@@ -65,7 +65,7 @@ public class StaffDoctorController {
      * @param staffDoctor 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<StaffDoctor> edit(StaffDoctor staffDoctor) {
         return ResponseEntity.ok(this.staffDoctorService.update(staffDoctor));
     }

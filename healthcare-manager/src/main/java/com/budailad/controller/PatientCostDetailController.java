@@ -17,8 +17,8 @@ import javax.annotation.Resource;
  * @since 2022-03-11 16:21:06
  */
 @RestController
-@RequestMapping(value = "/api/healthcare/paitentCostDetail")
-public class PaitentCostDetailController {
+@RequestMapping(value = "/api/healthcare/patientCostDetail")
+public class PatientCostDetailController {
     /**
      * 服务对象
      */
@@ -65,7 +65,7 @@ public class PaitentCostDetailController {
      * @param paitentCostDetail 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<PaitentCostDetail> edit(PaitentCostDetail paitentCostDetail) {
         return ResponseEntity.ok(this.paitentCostDetailService.update(paitentCostDetail));
     }

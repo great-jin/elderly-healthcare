@@ -65,7 +65,7 @@ public class MinioFilesController {
      * @param minioFiles 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<MinioFiles> edit(MinioFiles minioFiles) {
         return ResponseEntity.ok(this.minioFilesService.update(minioFiles));
     }

@@ -57,15 +57,6 @@ export default {
   mounted() {
     List().then(res =>{
       this.data = res.data
-      /*res.data.forEach(user => {
-        this.data.push({
-          key: user.accountID,
-          id: user.id,
-          accountID: user.accountID,
-          userName: user.userName,
-          password: user.password
-        })
-      })*/
     })
     this.columns = tableColumns
   },

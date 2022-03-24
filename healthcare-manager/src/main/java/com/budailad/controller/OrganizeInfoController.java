@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (OrganizeInfo)表控制层
@@ -35,6 +36,16 @@ public class OrganizeInfoController {
     @GetMapping("/page")
     public ResponseEntity<Page<OrganizeInfo>> queryByPage(OrganizeInfo organizeInfo, PageRequest pageRequest) {
         return ResponseEntity.ok(this.organizeInfoService.queryByPage(organizeInfo, pageRequest));
+    }
+
+    /**
+     * 查询非分页数据
+     *
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<OrganizeInfo>> queryAll() {
+        return ResponseEntity.ok(this.organizeInfoService.queryAll());
     }
 
     /**
@@ -65,7 +76,7 @@ public class OrganizeInfoController {
      * @param organizeInfo 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<OrganizeInfo> edit(OrganizeInfo organizeInfo) {
         return ResponseEntity.ok(this.organizeInfoService.update(organizeInfo));
     }

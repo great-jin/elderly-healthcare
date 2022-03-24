@@ -1,6 +1,6 @@
 <template>
   <div>
-    库存管理
+    <h1>药品管理</h1>
   </div>
 </template>
 

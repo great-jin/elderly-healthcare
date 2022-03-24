@@ -33,6 +33,23 @@
         where goods_id = #{goodsId}
     </select>
 
+
+    <!--查询单个-->
+    <select id="queryAll" resultMap="WarehoseStorageMap">
+        select goods_id,
+               goods_name,
+               goods_type,
+               goods_price,
+               produce_time,
+               produce_vendor,
+               goods_count,
+               warn_line,
+               comment,
+               purchase_time,
+               purchase_staff
+        from warehose_storage
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WarehoseStorageMap">
         select

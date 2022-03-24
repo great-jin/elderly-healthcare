@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (WarehoseStorage)表服务实现类
@@ -44,6 +45,12 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
         long total = this.warehoseStorageDao.count(warehoseStorage);
         return new PageImpl<>(this.warehoseStorageDao.queryAllByLimit(warehoseStorage, pageRequest), pageRequest, total);
     }
+
+    @Override
+    public List<WarehoseStorage> queryAll() {
+        return this.warehoseStorageDao.queryAll();
+    }
+
 
     /**
      * 新增数据

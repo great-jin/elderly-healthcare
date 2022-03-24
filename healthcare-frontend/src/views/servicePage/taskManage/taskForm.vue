@@ -163,6 +163,7 @@ export default {
     },
     cancel () {
       this.$refs.registerForm.resetFields()
+      this.$emit('backTab', '1')
     }
   }
 }

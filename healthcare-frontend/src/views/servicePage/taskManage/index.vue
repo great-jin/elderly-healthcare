@@ -2,7 +2,13 @@
   <div>
     <a-tabs type="card" :activeKey="tabActivity">
       <a-tab-pane key="1" tab="任务大屏" style="padding: 10px 0px">
-        <a-button type="primary" @click="changeTab('2')">发布任务</a-button>
+        <a-button
+          type="primary"
+          @click="changeTab('2')"
+          style="margin-bottom: 20px"
+        >
+          发布任务
+        </a-button>
         <a-table :columns="columns" :data-source="data">
           <a slot="name" slot-scope="text">{{ text }}</a>
           <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
@@ -23,7 +29,7 @@
         </a-table>
       </a-tab-pane>
       <a-tab-pane key="2" tab="任务发布">
-        <taskForm />
+        <taskForm @backTab="changeTab" />
       </a-tab-pane>
     </a-tabs>
   </div>

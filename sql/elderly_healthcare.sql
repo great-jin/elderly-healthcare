@@ -100,7 +100,7 @@ CREATE TABLE `daily_task` (
   `patient_id` varchar(36) COMMENT '负责的病人',
   `task_content` text COMMENT '工作内容',
   `staff_id` varchar(20) COMMENT '负责人',
-  `created_time` datetime COMMENT '创建时间'
+  `created_time` datetime COMMENT '创建时间',
   `is_delay` int COMMENT '是否延期',
   `update_time` datetime COMMENT '更新时间',
   `is_finished` int COMMENT '是否完成',
@@ -139,12 +139,12 @@ CREATE TABLE `salary_detail_files` (
   `salary_id` varchar(36) COMMENT '工资编号',
   `staff_id` varchar(20) COMMENT '员工编号',
   `file_type` varchar(30) COMMENT '文件类型',
-  `file_name` varchar(100) '文件名',
+  `file_name` varchar(100) COMMENT '文件名',
   `minio_bucket` varchar(100) COMMENT '桶名',
-  `minio_path` varchar(100) '存储名称',
+  `minio_path` varchar(100) COMMENT '存储名称',
   `upload_time` datetime COMMENT '上传时间',
   `update_time` datetime COMMENT '更新时间',
-  `is_deleted` int '是否删除',
+  `is_deleted` int COMMENT '是否删除',
   `comment` varchar(500) COMMENT '备注'
 ) 
 
@@ -195,7 +195,7 @@ CREATE TABLE `patient_case_info` (
   `charge_nurse` varchar(20) COMMENT '护理员 ID',
   `in_time` datetime COMMENT '入住时间',
   `is_leave` int COMMENT '是否出院',
-  `out_time` datetime COMMENT '出院时间'
+  `out_time` datetime COMMENT '出院时间',
   `comment` varchar(500) COMMENT '备注'
 ) 
 
@@ -210,12 +210,12 @@ CREATE TABLE `patient_case_files` (
   `patient_id` varchar(36) COMMENT '病人编号',
   `cast_id` varchar(36) COMMENT '病历编号',
   `file_type` varchar(30) COMMENT '文件类型',
-  `file_name` varchar(100) '文件名',
+  `file_name` varchar(100) COMMENT '文件名',
   `minio_bucket` varchar(50) COMMENT '桶名',
-  `minio_path` varchar(100) '存储名称',
+  `minio_path` varchar(100) COMMENT '存储名称',
   `upload_time` datetime COMMENT '上传时间',
   `update_time` datetime COMMENT '更新时间',
-  `is_deleted` int '是否删除'
+  `is_deleted` int COMMENT '是否删除'
 ) 
 
 

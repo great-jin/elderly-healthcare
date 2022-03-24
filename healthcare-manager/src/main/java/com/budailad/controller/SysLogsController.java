@@ -65,7 +65,7 @@ public class SysLogsController {
      * @param sysLogs 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<SysLogs> edit(SysLogs sysLogs) {
         return ResponseEntity.ok(this.sysLogsService.update(sysLogs));
     }

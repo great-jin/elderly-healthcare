@@ -65,7 +65,7 @@ public class RegisterTemplateController {
      * @param registerTemplate 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<RegisterTemplate> edit(RegisterTemplate registerTemplate) {
         return ResponseEntity.ok(this.registerTemplateService.update(registerTemplate));
     }

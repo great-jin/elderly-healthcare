@@ -65,7 +65,7 @@ public class PatientInfoController {
      * @param patientInfo 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<PatientInfo> edit(PatientInfo patientInfo) {
         return ResponseEntity.ok(this.patientInfoService.update(patientInfo));
     }

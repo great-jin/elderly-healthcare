@@ -65,7 +65,7 @@ public class OrganizeStaffController {
      * @param organizeStaff 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<OrganizeStaff> edit(OrganizeStaff organizeStaff) {
         return ResponseEntity.ok(this.organizeStaffService.update(organizeStaff));
     }

@@ -65,7 +65,7 @@ public class IllnessCatalogController {
      * @param illnessCatalog 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<IllnessCatalog> edit(IllnessCatalog illnessCatalog) {
         return ResponseEntity.ok(this.illnessCatalogService.update(illnessCatalog));
     }

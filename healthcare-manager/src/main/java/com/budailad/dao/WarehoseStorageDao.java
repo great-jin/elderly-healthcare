@@ -24,6 +24,13 @@ public interface WarehoseStorageDao {
      */
     WarehoseStorage queryById(String goodsId);
 
+
+    /**
+     *
+     * @return
+     */
+    List<WarehoseStorage> queryAll();
+
     /**
      * 查询指定行数据
      *

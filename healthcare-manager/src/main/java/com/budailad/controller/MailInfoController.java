@@ -65,7 +65,7 @@ public class MailInfoController {
      * @param mailInfo 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<MailInfo> edit(MailInfo mailInfo) {
         return ResponseEntity.ok(this.mailInfoService.update(mailInfo));
     }

@@ -1,5 +1,6 @@
 package com.budailad.controller;
 
+import com.budailad.entity.OrganizeInfo;
 import com.budailad.entity.WarehoseStorage;
 import com.budailad.service.WarehoseStorageService;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (WarehoseStorage)表控制层
@@ -35,6 +37,16 @@ public class WarehoseStorageController {
     @GetMapping("/page")
     public ResponseEntity<Page<WarehoseStorage>> queryByPage(WarehoseStorage warehoseStorage, PageRequest pageRequest) {
         return ResponseEntity.ok(this.warehoseStorageService.queryByPage(warehoseStorage, pageRequest));
+    }
+
+    /**
+     * 查询非分页数据
+     *
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<WarehoseStorage>> queryAll() {
+        return ResponseEntity.ok(this.warehoseStorageService.queryAll());
     }
 
     /**
@@ -65,7 +77,7 @@ public class WarehoseStorageController {
      * @param warehoseStorage 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<WarehoseStorage> edit(WarehoseStorage warehoseStorage) {
         return ResponseEntity.ok(this.warehoseStorageService.update(warehoseStorage));
     }

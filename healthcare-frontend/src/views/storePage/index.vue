@@ -62,12 +62,12 @@
             <a-icon type="shopping-cart" />
             <span>物资采购</span>
           </a-menu-item>
-          <a-menu-item key="2" @click="routePage('storage')">
-            <a-icon type="profile" />
+          <a-menu-item key="2" @click="routePage('medicine')">
+            <a-icon type="folder-open" />
             <span>药品管理</span>
           </a-menu-item>
-          <a-menu-item key="4" @click="routePage('warehouse')">
-            <a-icon type="folder-open" />
+          <a-menu-item key="3" @click="routePage('storage')">
+            <a-icon type="profile" />
             <span>库存管理</span>
           </a-menu-item>
         </a-menu>
@@ -158,10 +158,10 @@ export default {
           case 'order':
             tabTitle = '物资采购'
             break
-          case 'storage':
+          case 'medicine':
             tabTitle = '药品管理'
             break
-          case 'warehouse':
+          case 'storage':
             tabTitle = '库存管理'
             break
         }

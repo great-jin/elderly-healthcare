@@ -25,6 +25,14 @@ public interface OrganizeInfoDao {
     OrganizeInfo queryById(String organizeId);
 
     /**
+     * 查询非分页数据
+     *
+     * @return
+     */
+    List<OrganizeInfo> queryAll();
+
+
+    /**
      * 查询指定行数据
      *
      * @param organizeInfo 查询条件

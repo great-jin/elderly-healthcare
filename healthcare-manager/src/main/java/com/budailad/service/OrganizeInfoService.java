@@ -4,6 +4,8 @@ import com.budailad.entity.OrganizeInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (OrganizeInfo)表服务接口
  *
@@ -19,6 +21,13 @@ public interface OrganizeInfoService {
      * @return 实例对象
      */
     OrganizeInfo queryById(String organizeId);
+
+    /**
+     * 查询非分页数据
+     *
+     * @return
+     */
+    List<OrganizeInfo> queryAll();
 
     /**
      * 分页查询

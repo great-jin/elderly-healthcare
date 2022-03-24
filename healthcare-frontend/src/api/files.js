@@ -1,8 +1,8 @@
-import request from "./axios";
+import request from './axios'
 
 const prefix = '/api/healthcare/files'
 
-export function upload(params) {
+export function upload (params) {
   return request({
     url: `${prefix}/upload`,
     method: 'post',
@@ -13,7 +13,7 @@ export function upload(params) {
   })
 }
 
-export function download(params) {
+export function download (params) {
   return request({
     method: 'post',
     url: `${prefix}/download`,
@@ -21,9 +21,9 @@ export function download(params) {
     responseType: 'blob'
   }).then((res) => {
     // 获取文件名
-    let fileName = res.headers["content-disposition"]
+    let fileName = res.headers['content-disposition']
     fileName = decodeURI(fileName)
-    fileName = fileName.substring(fileName.lastIndexOf("="))
+    fileName = fileName.substring(fileName.lastIndexOf('='))
     fileName = fileName.slice(1)
 
     const content = res.data
@@ -47,7 +47,7 @@ export function download(params) {
   })
 }
 
-export function GetUrl(params) {
+export function GetUrl (params) {
   return request({
     url: `${prefix}/getUrl`,
     method: 'post',
@@ -55,11 +55,10 @@ export function GetUrl(params) {
   })
 }
 
-export function Delete(params) {
+export function Delete (params) {
   return request({
     url: `${prefix}/delete`,
     method: 'post',
     data: params
   })
 }
-

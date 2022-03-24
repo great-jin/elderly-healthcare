@@ -65,7 +65,7 @@ public class OrderGoodsController {
      * @param orderGoods 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<OrderGoods> edit(OrderGoods orderGoods) {
         return ResponseEntity.ok(this.orderGoodsService.update(orderGoods));
     }

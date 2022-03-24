@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-//首页
+// 首页
 import Login from '@/views/loginPage/index'
 import Home from '@/views/homePage/index'
 
@@ -29,7 +29,7 @@ import Payment from '@/views/assetPage/paymentManage/index'
 // 仓储管理
 import Store from '@/views/storePage/index'
 import Storage from '@/views/storePage/storageManage/index'
-import WareHouse from '@/views/storePage/wareHouse/index'
+import Medicine from '@/views/storePage/medicineManage/index'
 import Order from '@/views/storePage/orderManage/index'
 
 // 设置
@@ -136,8 +136,8 @@ const router = new Router({
           path: '/elderlyHealthcare/store/storage',
           component: Storage
         }, {
-          path: '/elderlyHealthcare/store/warehouse',
-          component: WareHouse
+          path: '/elderlyHealthcare/store/medicine',
+          component: Medicine
         }
       ]
     }, {
@@ -165,18 +165,17 @@ const router = new Router({
 })
 
 // 过期时间为一天
-let ExpiresTime = 86400000
+const ExpiresTime = 86400000
 
 // 登录过滤
 router.beforeEach((to, from, next) => {
-  let token, isLogin
   // 状态判断
-  token = JSON.parse(localStorage.getItem('staffInfo'))
-  isLogin = !(token == null || token.staffId == null || token.staffId === '')
+  const token = JSON.parse(localStorage.getItem('staffInfo'))
+  let isLogin = !(token == null || token.staffId == null || token.staffId === '')
 
   // 判断登录时长
-  if(isLogin){
-    let date = new Date().getTime();
+  if (isLogin) {
+    const date = new Date().getTime()
     if (date - token.startTime > ExpiresTime) {
       // 登录时间超过一天需要重新登录
       localStorage.removeItem('staffInfo')
@@ -186,7 +185,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // 1. 是否为登录页
-  if(to.path === '/elderlyHealthcare/login') {
+  if (to.path === '/elderlyHealthcare/login') {
     // 2. 已登录则回首页，未登录放行
     isLogin ? next('/elderlyHealthcare/home') : next()
   } else {
@@ -197,10 +196,8 @@ router.beforeEach((to, from, next) => {
 
 // 路由重复处理
 const originalPush = Router.prototype.push
-Router.prototype.push = function push(location) {
+Router.prototype.push = function push (location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
 export default router
-
-

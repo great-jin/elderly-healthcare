@@ -4,6 +4,8 @@ import com.budailad.entity.WarehoseStorage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (WarehoseStorage)表服务接口
  *
@@ -28,6 +30,13 @@ public interface WarehoseStorageService {
      * @return 查询结果
      */
     Page<WarehoseStorage> queryByPage(WarehoseStorage warehoseStorage, PageRequest pageRequest);
+
+    /**
+     * 非分页查询
+     *
+     * @return
+     */
+    List<WarehoseStorage> queryAll();
 
     /**
      * 新增数据
