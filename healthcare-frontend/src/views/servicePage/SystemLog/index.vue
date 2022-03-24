@@ -35,14 +35,10 @@ export default {
   name: 'index',
   data () {
     return {
-      data: [],
-      columns: [],
+      data: Data,
+      columns: Columns,
       deadline: Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30
     }
-  },
-  mounted () {
-    this.data = Data
-    this.columns = Columns
   },
   methods: {
     callback (key) {

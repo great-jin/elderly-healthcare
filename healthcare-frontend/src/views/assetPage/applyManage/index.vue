@@ -44,7 +44,7 @@
 
           <a-descriptions-item label="设备信息" :span="24">
             <a-row>
-              <a-col :span="1" class="apply-title">序号</a-col>
+              <a-col :span="2" class="apply-title">序号</a-col>
               <a-col :span="4" class="apply-title">设备名称</a-col>
               <a-col :span="3" class="apply-title">设备规格</a-col>
               <a-col :span="3" class="apply-title">设备单价</a-col>
@@ -58,7 +58,7 @@
               :key="index"
               style="margin-bottom: 5px"
             >
-              <a-col :span="1" style="padding: 0px 5px">
+              <a-col :span="2" style="padding: 0px 5px">
                 <div class="apply-index">{{ index }}</div>
               </a-col>
               <a-col :span="4" style="padding: 0px 10px">

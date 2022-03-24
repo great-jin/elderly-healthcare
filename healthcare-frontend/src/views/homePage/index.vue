@@ -66,8 +66,15 @@
               </div>
               <a-list-item slot="renderItem" slot-scope="item, index">
                 <a-list-item-meta
-                  :description="item.taskContent"
+                  :description="item.taskContent.length>30 ? item.taskContent.substring(0,30).concat('...') : item.taskContent"
+                  :data-tips="item.taskContent"
                 >
+                  <a-tooltip>
+                    <template slot="title">
+                      prompt text
+                    </template>
+                    Tooltip will show when mouse enter.
+                  </a-tooltip>
                   <a slot="title">{{ item.taskName }}</a>
                 </a-list-item-meta>
                 <a slot="actions" @click="operationClick('more')">详情</a>
@@ -112,7 +119,7 @@ export default {
   },
   data () {
     return {
-      loading: true,
+      loading: false,
       loadingMore: false,
       showLoadingMore: true,
       imgUrl: '',
@@ -121,7 +128,6 @@ export default {
     }
   },
   mounted () {
-    this.loading = false
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
     this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
@@ -132,8 +138,8 @@ export default {
       this.loadingMore = false
       const id = this.staffInfo.staffId
       getStaffTask(id).then(res => {
-        console.log('res', res.date)
-        this.taskData = res.date
+        console.log('res.date', res.data)
+        this.taskData = res.data
       })
       console.log('taskData', this.taskData)
     },

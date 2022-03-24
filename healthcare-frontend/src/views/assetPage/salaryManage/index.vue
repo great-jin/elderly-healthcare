@@ -44,13 +44,9 @@ import { tableColumns, tableData } from "./const";
 export default {
   data() {
     return {
-      data: [],
-      columns: []
+      data: tableData,
+      columns: tableColumns
     }
-  },
-  mounted() {
-    this.data = tableData
-    this.columns = tableColumns
   },
   methods: {
     onSelect(keys) {

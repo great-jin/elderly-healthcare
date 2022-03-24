@@ -47,8 +47,7 @@ export default {
   data() {
     return {
       data: [],
-      tableData: [],
-      columns: [],
+      columns: tableColumns,
       value: '',
       dataSource: [],
       accountCode: ''
@@ -58,7 +57,6 @@ export default {
     List().then(res =>{
       this.data = res.data
     })
-    this.columns = tableColumns
   },
   methods: {
     onSearch(searchText) {

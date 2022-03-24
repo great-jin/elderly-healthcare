@@ -27,13 +27,9 @@ export default {
   },
   data () {
     return {
-      data: [],
-      columns: []
+      data: tableData,
+      columns: tableColumns
     }
-  },
-  mounted () {
-    this.data = tableData
-    this.columns = tableColumns
   },
   methods: {
     callback (key) {

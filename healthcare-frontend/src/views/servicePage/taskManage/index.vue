@@ -47,14 +47,10 @@ export default {
   data () {
     return {
       type: 'add',
-      data: [],
-      columns: [],
+      data: tableData,
+      columns: tableColumns,
       tabActivity: '1'
     }
-  },
-  mounted () {
-    this.data = tableData
-    this.columns = tableColumns
   },
   methods: {
     changeTab (data) {
