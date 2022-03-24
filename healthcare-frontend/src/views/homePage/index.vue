@@ -8,7 +8,7 @@
           :bordered="false"
           hoverable
         >
-          <a-card-meta :title="userName" description="欢迎登录系统">
+          <a-card-meta :title="staffInfo.userName" description="欢迎登录系统">
             <a-avatar
               size="large"
               slot="avatar"
@@ -52,7 +52,7 @@
               class="task-list"
               :loading="loading"
               item-layout="horizontal"
-              :data-source="data"
+              :data-source="taskData"
             >
               <div
                 v-if="showLoadingMore"
@@ -66,9 +66,9 @@
               </div>
               <a-list-item slot="renderItem" slot-scope="item, index">
                 <a-list-item-meta
-                  :description="item.describe"
+                  :description="item.taskContent"
                 >
-                  <a slot="title">{{ item.name }}</a>
+                  <a slot="title">{{ item.taskName }}</a>
                 </a-list-item-meta>
                 <a slot="actions" @click="operationClick('more')">详情</a>
                 <a slot="actions" @click="operationClick('edit')">编辑</a>
@@ -102,6 +102,7 @@
 
 <script>
 import taskModal from './taskModal'
+import { getStaffTask } from '@/api/dailyTask'
 
 export default {
   name: 'Home',
@@ -115,23 +116,26 @@ export default {
       loadingMore: false,
       showLoadingMore: true,
       imgUrl: '',
-      userName: '',
-      data: [{
-        gender: 'female',
-        name: 'Clement',
-        describe: 'This is a describe.'
-      }]
+      taskData: [],
+      staffInfo: {}
     }
   },
   mounted () {
     this.loading = false
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
-    this.userName = JSON.parse(localStorage.getItem('staffInfo')).userName
+    this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
+    this.getData()
   },
   methods: {
     getData () {
       this.loadingMore = false
+      const id = this.staffInfo.staffId
+      getStaffTask(id).then(res => {
+        console.log('res', res.date)
+        this.taskData = res.date
+      })
+      console.log('taskData', this.taskData)
     },
     onLoadMore () {
       this.loadingMore = true

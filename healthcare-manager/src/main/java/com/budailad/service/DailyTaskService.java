@@ -4,6 +4,8 @@ import com.budailad.entity.DailyTask;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (DailyTask)表服务接口
  *
@@ -28,6 +30,12 @@ public interface DailyTaskService {
      * @return 查询结果
      */
     Page<DailyTask> queryByPage(DailyTask dailyTask, PageRequest pageRequest);
+
+    /**
+     *
+     * @return
+     */
+    List<DailyTask> queryAll();
 
     /**
      * 新增数据

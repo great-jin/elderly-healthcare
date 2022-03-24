@@ -16,6 +16,13 @@ export function getTask (params) {
   })
 }
 
+export function getStaffTask (params) {
+  return request({
+    url: `${prefix}/getByID?id=${params}`,
+    method: 'get'
+  })
+}
+
 export function addTask (params) {
   return request({
     url: `${prefix}/add`,

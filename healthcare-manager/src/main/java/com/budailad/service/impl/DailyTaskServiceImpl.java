@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (DailyTask)表服务实现类
@@ -43,6 +44,15 @@ public class DailyTaskServiceImpl implements DailyTaskService {
     public Page<DailyTask> queryByPage(DailyTask dailyTask, PageRequest pageRequest) {
         long total = this.dailyTaskDao.count(dailyTask);
         return new PageImpl<>(this.dailyTaskDao.queryAllByLimit(dailyTask, pageRequest), pageRequest, total);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<DailyTask> queryAll() {
+        return this.dailyTaskDao.queryAll();
     }
 
     /**

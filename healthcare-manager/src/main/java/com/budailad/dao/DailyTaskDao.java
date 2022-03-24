@@ -31,6 +31,13 @@ public interface DailyTaskDao {
      */
     List<DailyTask> queryAllByLimit(DailyTask dailyTask, @Param("pageable") Pageable pageable);
 
+
+    /**
+     * 
+     * @return
+     */
+    List<DailyTask> queryAll();
+
     /**
      * 统计总行数
      *

@@ -33,6 +33,21 @@
         where task_id = #{taskId}
     </select>
 
+    <select id="queryAll" resultMap="DailyTaskMap">
+        select task_id,
+               task_name,
+               patient_id,
+               task_content,
+               staff_id,
+               created_time,
+               is_delay,
+               update_time,
+               is_finished,
+               finish_time,
+               comment
+        from daily_task
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DailyTaskMap">
         select

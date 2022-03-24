@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (DailyTask)表控制层
@@ -37,6 +39,15 @@ public class DailyTaskController {
     }
 
     /**
+     *
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<DailyTask>> queryAll() {
+        return ResponseEntity.ok(this.dailyTaskService.queryAll());
+    }
+
+    /**
      * 通过主键查询单条数据
      *
      * @param id 主键
@@ -45,6 +56,18 @@ public class DailyTaskController {
     @GetMapping("/get")
     public ResponseEntity<DailyTask> queryById(@RequestParam("id") String id) {
         return ResponseEntity.ok(this.dailyTaskService.queryById(id));
+    }
+
+    @GetMapping("/getByID")
+    public List<DailyTask> getByID(@RequestParam("id") String Id) {
+        List<DailyTask> allTask = this.dailyTaskService.queryAll();
+        List<DailyTask> resultList = new ArrayList<>();
+        for (DailyTask dailyTask: allTask) {
+            if(dailyTask.getStaffId().equals(Id)){
+                resultList.add(dailyTask);
+            }
+        }
+        return resultList;
     }
 
     /**
