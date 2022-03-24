@@ -14,4 +14,16 @@ public class MiniO {
     private String accessKey;
 
     private String secretKey;
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
 }
