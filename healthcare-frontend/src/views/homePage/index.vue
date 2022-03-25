@@ -51,6 +51,7 @@
             <a-radio-group
               default-value="代办"
               style="margin-bottom: 10px"
+              defaultValue="0"
             >
               <a-radio-button value="0" @click="taskState('0')">
                 代办({{ count.act }})
