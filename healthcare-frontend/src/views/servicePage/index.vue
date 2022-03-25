@@ -33,7 +33,7 @@
               </a-menu-item>
               <a-menu-item key="2">
                 <a-icon type="question-circle" />
-                <span @click="openSetting('question')">问题反馈</span>
+                <span @click="openSetting('question')">用户手册</span>
               </a-menu-item>
               <a-menu-item key="3">
                 <a-icon type="disconnect" />

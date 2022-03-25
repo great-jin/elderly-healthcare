@@ -48,11 +48,13 @@ public class RedisConfig {
         cacheNames.add("login");
         cacheNames.add("minio");
         cacheNames.add("patient");
+        cacheNames.add("task");
 
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
         redisCacheConfigurationMap.put("login", redisCacheConfiguration);
         redisCacheConfigurationMap.put("minio", redisCacheConfiguration);
         redisCacheConfigurationMap.put("patient", redisCacheConfiguration);
+        redisCacheConfigurationMap.put("task", redisCacheConfiguration);
 
         // 返回 Redis 缓存管理器
         return RedisCacheManager.builder(factory)

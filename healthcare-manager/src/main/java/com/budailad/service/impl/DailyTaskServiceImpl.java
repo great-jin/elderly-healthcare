@@ -3,6 +3,8 @@ package com.budailad.service.impl;
 import com.budailad.entity.DailyTask;
 import com.budailad.dao.DailyTaskDao;
 import com.budailad.service.DailyTaskService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +20,7 @@ import java.util.List;
  * @since 2022-03-24 15:54:00
  */
 @Service("dailyTaskService")
+@CacheConfig(cacheNames = "task")
 public class DailyTaskServiceImpl implements DailyTaskService {
     @Resource
     private DailyTaskDao dailyTaskDao;
@@ -29,6 +32,7 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#id")
     public DailyTask queryById(String taskId) {
         return this.dailyTaskDao.queryById(taskId);
     }
@@ -51,6 +55,7 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<DailyTask> queryAll() {
         return this.dailyTaskDao.queryAll();
     }

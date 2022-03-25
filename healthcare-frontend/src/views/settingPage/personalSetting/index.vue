@@ -11,104 +11,131 @@
       </a-button>
       <a-affix :offset-top="top">
         <a-anchor>
-          <a-anchor-link href="#components-anchor-demo-basic" title="Basic demo" />
-          <a-anchor-link href="#components-anchor-demo-static" title="Static demo" />
-          <a-anchor-link
-            href="#components-anchor-demo-basic"
-            title="Basic demo with Target"
-          />
-          <!-- target="_blank"-->
-          <a-anchor-link href="#API" title="API">
-            <a-anchor-link href="#Anchor-Props" title="Anchor Props" />
+          <a-anchor-link href="#1" title="1. 基本信息" />
+          <a-anchor-link href="#2" title="2. 账号安全">
           </a-anchor-link>
         </a-anchor>
       </a-affix>
     </a-col>
 
     <a-col :span="20" class="content">
-      <div style="overflow-x: hidden">
+      <a-form-model
+        ref="registerForm"
+        :model="form"
+        :rules="rules"
+      >
         <a-divider orientation="center">
           基本信息
         </a-divider>
-        <a-form :form="form">
-          <a-row :gutter="2">
-            <a-col :span="12">
-              <a-form-item
-                label="账号1"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input
-                  placeholder="请输入账号"
-                  v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item
-                label="账号2"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input placeholder="请输入账号"/>
-              </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row>
-            <a-col :span="24">
-              <a-form-item
-                style="width: 116%"
-                label="详情描述"
-                :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
-                :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
-              >
-                <a-textarea
-                  type="text"
-                  :rows="6"
-                  v-decorator="[
-                'systemDesc',
-                {
-                  rules: [
-                    { required: true, message: '不能为空' },
-                    { min: 1, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
-                  ]
-                }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row :gutter="2">
-            <a-col :span="12">
-              <a-form-item
-                label="账号1"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input
-                  placeholder="请输入账号"
-                  v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item
-                label="账号2"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input placeholder="请输入账号"/>
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </a-form>
-      </div>
+        <a-row :gutter="2">
+          <a-col :span="12">
+            <a-form-model-item
+              label="姓名"
+              prop="userName"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.userName"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-model-item
+              label="性别"
+              prop="gender"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.gender"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row>
+          <a-col :span="24">
+            <a-form-model-item
+              label="详情描述"
+              prop="description"
+              :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
+              :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
+              style="width: 116%"
+            >
+              <a-textarea
+                v-model="form.description"
+                type="text"
+                :rows="6"
+              />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+
+        <a-divider orientation="center">
+          身体状况
+        </a-divider>
+        <a-row :gutter="2">
+          <a-col :span="12">
+            <a-form-model-item
+              label="年龄"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.userName"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-model-item
+              label="入住时间"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.gender"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+        <a-row :gutter="2">
+          <a-col :span="12">
+            <a-form-model-item
+              label="姓名"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.userName"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+          <a-col :span="12">
+            <a-form-model-item
+              label="性别"
+              :labelCol="labelCol"
+              :wrapperCol="wrapperCol"
+            >
+              <a-input
+                v-model="form.gender"
+                placeholder="请输入账号"
+              />
+            </a-form-model-item>
+          </a-col>
+        </a-row>
+
+        <a-row>
+          <a-col :span="24" :style="{ textAlign: 'center' }">
+            <a-button type="primary" @click="ok">完成</a-button>
+            <a-button type="primary" @click="cancel" :style="{ marginLeft: '20px' }">取消</a-button>
+          </a-col>
+        </a-row>
+      </a-form-model>
     </a-col>
   </div>
 </template>
@@ -118,8 +145,26 @@ export default {
   name: 'PersonalCenter',
   data () {
     return {
+      top: 10,
+      type: 'add',
       staffInfo: {},
-      form: this.$form.createForm(this),
+      form: {
+        userName: '',
+        gender: '',
+        description: ''
+      },
+      rules: {
+        userName: [
+          { required: true, message: '请输入用户名', trigger: 'change' }
+        ],
+        gender: [
+          { required: true, message: '请输入性别', trigger: 'change' }
+        ],
+        description: [
+          { required: true, message: '请输入描述', trigger: 'blur' },
+          { min: 3, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
+        ]
+      },
       labelCol: {
         xs: { span: 24 },
         sm: { span: 7 }
@@ -127,8 +172,7 @@ export default {
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 13 }
-      },
-      top: 10
+      }
     }
   },
   mounted () {
@@ -137,6 +181,16 @@ export default {
   methods: {
     backHome () {
       this.$router.push('/elderlyHealthcare/home')
+    },
+    ok () {
+      this.$refs.registerForm.validate(valid => {
+        if (valid) {
+          console.log(this.form)
+        }
+      })
+    },
+    cancel () {
+      this.$refs.registerForm.resetFields()
     }
   }
 }

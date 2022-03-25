@@ -8,7 +8,7 @@
           :bordered="false"
           hoverable
         >
-          <a-card-meta :title="staffInfo.userName" description="欢迎登录系统">
+          <a-card-meta :title="loginUser.userName" description="欢迎登录系统">
             <a-avatar
               size="large"
               slot="avatar"
@@ -16,9 +16,9 @@
             />
           </a-card-meta>
           <template slot="actions" class="ant-card-actions">
-            <span key="setting" @click="operationClick('person')">个人信息</span>
-            <span key="edit" @click="operationClick('back')">系统后台</span>
-            <span key="ellipsis" @click="operationClick('quit')">退出登录</span>
+            <span key="setting" @click="operationClick('person', null)">个人信息</span>
+            <span key="edit" @click="operationClick('back', null)">系统后台</span>
+            <span key="ellipsis" @click="operationClick('quit', null)">退出登录</span>
           </template>
         </a-card>
       </a-col>
@@ -29,56 +29,58 @@
         <div style="background-color: #ececec; padding: 20px;">
           <a-row :gutter="16">
             <a-col :span="8">
-              <a-card title="Card title" :bordered="false">
+              <a-card title="Card title" :bordered="false" size="small">
                 <p>card content</p>
               </a-card>
             </a-col>
             <a-col :span="8">
-              <a-card title="Card title" :bordered="false">
+              <a-card title="Card title" :bordered="false" size="small">
                 <p>card content</p>
               </a-card>
             </a-col>
             <a-col :span="8">
-              <a-card title="Card title" :bordered="false">
+              <a-card title="Card title" :bordered="false" size="small">
                 <p>card content</p>
               </a-card>
             </a-col>
           </a-row>
         </div>
 
-        <div style="margin: 10px 0px; padding: 5px">
-          <a-card title="代办任务" style="width: 100%">
+        <div style="margin: 10px 0px; padding: 5px;">
+          <a-card title="代办任务" size="default" style="width: 100%">
+            <a-radio-group
+              default-value="代办"
+              style="margin-bottom: 10px"
+            >
+              <a-radio-button value="0" @click="taskState('0')">
+                代办({{ count.act }})
+              </a-radio-button>
+              <a-radio-button value="1" @click="taskState('1')">
+                超时({{ count.delay }})
+              </a-radio-button>
+              <a-radio-button value="2" @click="taskState('2')">
+                已办({{ count.done }})
+              </a-radio-button>
+            </a-radio-group>
             <a-list
               class="task-list"
-              :loading="loading"
               item-layout="horizontal"
               :data-source="taskData"
             >
-              <div
-                v-if="showLoadingMore"
-                slot="loadMore"
-                :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
-              >
-                <a-spin v-if="loadingMore" />
-                <a-button v-else @click="onLoadMore">
-                  loading more
-                </a-button>
-              </div>
-              <a-list-item slot="renderItem" slot-scope="item, index">
-                <a-list-item-meta
-                  :description="item.taskContent.length>30 ? item.taskContent.substring(0,30).concat('...') : item.taskContent"
-                  :data-tips="item.taskContent"
-                >
-                  <a-tooltip>
-                    <template slot="title">
-                      prompt text
-                    </template>
-                    Tooltip will show when mouse enter.
-                  </a-tooltip>
-                  <a slot="title">{{ item.taskName }}</a>
-                </a-list-item-meta>
-                <a slot="actions" @click="operationClick('more')">详情</a>
-                <a slot="actions" @click="operationClick('edit')">编辑</a>
+              <a-list-item slot="renderItem" slot-scope="item, index" style="padding: 5px">
+                <a-tooltip>
+                  <template slot="title">
+                    {{ item.taskName }} :  {{ item.taskContent }}
+                  </template>
+                  <a-list-item-meta
+                    :description="item.taskContent.length<30 ? item.taskContent : item.taskContent.substr(0,30).concat('...')"
+                    :data-tips="item.taskContent"
+                  >
+                    <a slot="title">{{ item.taskName }}</a>
+                  </a-list-item-meta>
+                </a-tooltip>
+                <a slot="actions" @click="operationClick('more', item)">详情</a>
+                <a slot="actions" @click="operationClick('edit', item)">编辑</a>
               </a-list-item>
             </a-list>
           </a-card>
@@ -114,45 +116,77 @@ import { getStaffTask } from '@/api/dailyTask'
 export default {
   name: 'Home',
   components: {
-    // 声明组件
     taskModal
   },
   data () {
     return {
-      loading: false,
-      loadingMore: false,
-      showLoadingMore: true,
       imgUrl: '',
-      taskData: [],
-      staffInfo: {}
+      count: {
+        act: '',
+        delay: '',
+        done: ''
+      },
+      loginUser: {},
+      taskData: []
     }
   },
   mounted () {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
-    this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
-    this.getData()
+    this.loginUser = JSON.parse(localStorage.getItem('staffInfo'))
+    this.taskCount()
+    this.taskState('0')
   },
   methods: {
-    getData () {
-      this.loadingMore = false
-      const id = this.staffInfo.staffId
-      getStaffTask(id).then(res => {
-        console.log('res.date', res.data)
-        this.taskData = res.data
+    taskCount () {
+      this.count.act = 0
+      this.count.done = 0
+      this.count.delay = 0
+      const _id = this.loginUser.staffId
+      getStaffTask(_id).then(res => {
+        console.log('res', res.data)
+        res.data.forEach((task) => {
+          if (task.isFinished !== 1 && task.isDelay !== 1) {
+            this.count.act++
+          } else if (task.isDelay === 1) {
+            this.count.delay++
+          } else if (task.isFinished === 1) {
+            this.count.done++
+          }
+        })
       })
-      console.log('taskData', this.taskData)
     },
-    onLoadMore () {
-      this.loadingMore = true
-      this.data = this.data.concat()
-      this.loadingMore = false
-      this.$nextTick(() => {
-        window.dispatchEvent(new Event('resize'))
+    taskState (state) {
+      this.taskData = []
+      const _id = this.loginUser.staffId
+      getStaffTask(_id).then(res => {
+        switch (state) {
+          case '0':
+            res.data.forEach((task) => {
+              if (task.isFinished !== 1 && task.isDelay !== 1) {
+                this.taskData.push(task)
+              }
+            })
+            break
+          case '1':
+            res.data.forEach((task) => {
+              if (task.isDelay === 1) {
+                this.taskData.push(task)
+              }
+            })
+            break
+          case '2':
+            res.data.forEach((task) => {
+              if (task.isFinished === 1) {
+                this.taskData.push(task)
+              }
+            })
+            break
+        }
       })
     },
-    operationClick (data) {
-      switch (data) {
+    operationClick (type, data) {
+      switch (type) {
         case 'person':
           this.$router.push('/elderlyHealthcare/setting/personal')
           break
@@ -165,10 +199,10 @@ export default {
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'edit':
-          this.$refs.taskModal.paramReceive('edit', '123')
+          this.$refs.taskModal.paramReceive('edit', data)
           break
         case 'more':
-          this.$refs.taskModal.paramReceive('more', '123')
+          this.$refs.taskModal.paramReceive('more', data)
           break
       }
     },
@@ -206,12 +240,13 @@ export default {
   }
   .task{
     padding: 15px;
-    height: 40%;
+    max-height: 40%;
     overflow: auto;
     /*border: brown 2px solid;*/
   }
   .task-list {
-    min-height: 350px;
+    height: 365px;
+    overflow-y: auto;
   }
   .calendar{
     overflow: auto;

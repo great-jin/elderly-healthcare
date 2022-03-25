@@ -11,104 +11,23 @@
       </a-button>
       <a-affix :offset-top="top">
         <a-anchor>
-          <a-anchor-link href="#components-anchor-demo-basic" title="Basic demo" />
-          <a-anchor-link href="#components-anchor-demo-static" title="Static demo" />
-          <a-anchor-link
-            href="#components-anchor-demo-basic"
-            title="Basic demo with Target"
-          />
-          <!-- target="_blank"-->
-          <a-anchor-link href="#API" title="API">
-            <a-anchor-link href="#Anchor-Props" title="Anchor Props" />
+          <a-anchor-link href="#1" title="1. 基本介绍" />
+          <a-anchor-link href="#2" title="2. 功能模块">
+            <a-anchor-link href="#2-1" title="2.1 公共服务" />
+            <a-anchor-link href="#2-2" title="2.2 人力资源" />
+            <a-anchor-link href="#2-3" title="2.3 资产中心" />
+            <a-anchor-link href="#2-4" title="2.4 仓储服务" />
           </a-anchor-link>
+          <a-anchor-link href="#3" title="3. 常见问题">
+            <a-anchor-link href="#3-1" title="3.1 登录问题" />
+            <a-anchor-link href="#3-2" title="3.2 功能异常" />
+          </a-anchor-link>
+          <a-anchor-link href="#4" title="4. 关于我们" />
         </a-anchor>
       </a-affix>
     </a-col>
 
     <a-col :span="20" class="content">
-      <div style="overflow-x: hidden">
-        <a-divider orientation="center">
-          问题1
-        </a-divider>
-        <a-form :form="form">
-          <a-row :gutter="2">
-            <a-col :span="12">
-              <a-form-item
-                label="账号1"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input
-                  placeholder="请输入账号"
-                  v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item
-                label="账号2"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input placeholder="请输入账号"/>
-              </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row>
-            <a-col :span="24">
-              <a-form-item
-                style="width: 116%"
-                label="详情描述"
-                :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
-                :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
-              >
-                <a-textarea
-                  type="text"
-                  :rows="6"
-                  v-decorator="[
-                'systemDesc',
-                {
-                  rules: [
-                    { required: true, message: '不能为空' },
-                    { min: 1, max: 300, message: '长度在 1 到 300 个字符', trigger: 'blur' }
-                  ]
-                }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-          </a-row>
-          <a-row :gutter="2">
-            <a-col :span="12">
-              <a-form-item
-                label="账号1"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input
-                  placeholder="请输入账号"
-                  v-decorator="[
-                'accountID',
-                { rules: [{ required: true, message: '账号不能为空!' }] }
-              ]"
-                />
-              </a-form-item>
-            </a-col>
-            <a-col :span="12">
-              <a-form-item
-                label="账号2"
-                :labelCol="labelCol"
-                :wrapperCol="wrapperCol"
-              >
-                <a-input placeholder="请输入账号"/>
-              </a-form-item>
-            </a-col>
-          </a-row>
-        </a-form>
-      </div>
     </a-col>
   </div>
 </template>
@@ -139,17 +58,14 @@ export default {
 </script>
 
 <style scoped>
-#contain{
-  padding: 20px;
-}
-.side{
-  padding: 15px;
-  margin: auto 0px;
-  /*border: #1890ff 2px solid;*/
-}
-.content{
-  padding: 15px;
-  /*border: #1890ff 2px solid;*/
-}
-
+  #contain{
+    padding: 20px;
+  }
+  .side{
+    padding: 15px;
+    margin: auto 0px;
+  }
+  .content{
+    padding: 15px;
+  }
 </style>
