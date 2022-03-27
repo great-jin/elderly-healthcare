@@ -19,7 +19,7 @@
 
     <a-table
       :columns="columns"
-      :data-source="data"
+      :data-source="patientData"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
       style="padding: 10px 25px"
@@ -36,7 +36,7 @@
 
 <script>
 import { List } from '@/api/user.js';
-import { tableColumns } from "./const";
+import { columns } from "./const";
 import patientModal from "./patientModal";
 
 export default {
@@ -46,22 +46,22 @@ export default {
   },
   data() {
     return {
-      data: [],
-      columns: tableColumns,
       value: '',
+      columns,
+      patientData: [],
       dataSource: [],
       accountCode: ''
     }
   },
   mounted() {
     List().then(res =>{
-      this.data = res.data
+      this.patientData = res.data
     })
   },
   methods: {
     onSearch(searchText) {
       this.dataSource = []
-      this.data.forEach((user) => {
+      this.patientData.forEach((user) => {
         if((user.accountID).includes(searchText)) {
           this.dataSource.push(user.accountID)
         }
@@ -71,9 +71,9 @@ export default {
       }
     },
     onSelect(value) {
-      this.data.forEach((user) => {
+      this.patientData.forEach((user) => {
         if(value === user.accountID ) {
-          this.data = [user]
+          this.patientData = [user]
           return;
         }
       })

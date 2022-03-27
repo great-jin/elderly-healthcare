@@ -25,7 +25,7 @@
 
       <a-table
         :columns="columns"
-        :data-source="data"
+        :data-source="salaryData"
         :scroll="{ x: 1300, y: 310}"
       >
         <template slot="action" slot-scope="text, record, index">
@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import { tableColumns, tableData } from "./const";
+import { columns, salaryData } from "./const";
 
 export default {
   data() {
     return {
-      data: tableData,
-      columns: tableColumns
+      columns,
+      salaryData
     }
   },
   methods: {

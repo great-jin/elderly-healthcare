@@ -9,7 +9,7 @@
         >
           发布任务
         </a-button>
-        <a-table :columns="columns" :data-source="data">
+        <a-table :columns="columns" :data-source="taskData">
           <a slot="name" slot-scope="text">{{ text }}</a>
           <span slot="customTitle"><a-icon type="smile-o" /> Name</span>
           <span slot="tags" slot-scope="tags">
@@ -37,7 +37,7 @@
 
 <script>
 import taskForm from './taskForm'
-import { tableColumns, tableData } from './const'
+import { columns, taskData } from './const'
 
 export default {
   name: 'index',
@@ -47,8 +47,8 @@ export default {
   data () {
     return {
       type: 'add',
-      data: tableData,
-      columns: tableColumns,
+      columns,
+      taskData,
       tabActivity: '1'
     }
   },

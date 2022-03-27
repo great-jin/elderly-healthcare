@@ -37,8 +37,6 @@ public class RedisConfig {
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 // 设置缓存前缀
                 .prefixCacheNameWith("healthcare:")
-                // 设置缓存过期时间
-                .entryTtl(Duration.ofMinutes(5))
                 // 设置 key 序列化
                 .serializeKeysWith(keyPair())
                 // 设置 value 序列化
@@ -51,10 +49,10 @@ public class RedisConfig {
         cacheNames.add("task");
 
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
-        redisCacheConfigurationMap.put("login", redisCacheConfiguration);
-        redisCacheConfigurationMap.put("minio", redisCacheConfiguration);
-        redisCacheConfigurationMap.put("patient", redisCacheConfiguration);
-        redisCacheConfigurationMap.put("task", redisCacheConfiguration);
+        redisCacheConfigurationMap.put("login", redisCacheConfiguration.entryTtl(Duration.ofMinutes(30)));
+        redisCacheConfigurationMap.put("minio", redisCacheConfiguration.entryTtl(Duration.ofDays(5)));
+        redisCacheConfigurationMap.put("patient", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
+        redisCacheConfigurationMap.put("task", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
 
         // 返回 Redis 缓存管理器
         return RedisCacheManager.builder(factory)

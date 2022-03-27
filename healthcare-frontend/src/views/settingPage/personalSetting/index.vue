@@ -74,59 +74,19 @@
         </a-row>
 
         <a-divider orientation="center">
-          身体状况
+          账号安全
         </a-divider>
-        <a-row :gutter="2">
-          <a-col :span="12">
-            <a-form-model-item
-              label="年龄"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="form.userName"
-                placeholder="请输入账号"
-              />
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-model-item
-              label="入住时间"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="form.gender"
-                placeholder="请输入账号"
-              />
-            </a-form-model-item>
-          </a-col>
-        </a-row>
-        <a-row :gutter="2">
-          <a-col :span="12">
-            <a-form-model-item
-              label="姓名"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="form.userName"
-                placeholder="请输入账号"
-              />
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-model-item
-              label="性别"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="form.gender"
-                placeholder="请输入账号"
-              />
-            </a-form-model-item>
-          </a-col>
+          <a-row :gutter="2">
+            <a-col :span="12">
+            </a-col>
+            <a-col :span="12">
+            </a-col>
+          </a-row>
+          <a-row :gutter="2">
+            <a-col :span="12">
+            </a-col>
+            <a-col :span="12">
+            </a-col>
         </a-row>
 
         <a-row>
@@ -203,11 +163,8 @@ export default {
   .side{
     padding: 15px;
     margin: auto 0px;
-    /*border: #1890ff 2px solid;*/
   }
   .content{
     padding: 15px;
-    /*border: #1890ff 2px solid;*/
   }
-
 </style>

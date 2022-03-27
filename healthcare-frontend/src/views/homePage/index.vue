@@ -29,18 +29,21 @@
         <div style="background-color: #ececec; padding: 20px;">
           <a-row :gutter="16">
             <a-col :span="8">
-              <a-card title="Card title" :bordered="false" size="small">
-                <p>card content</p>
+              <a-card title="每日任务" :bordered="false" size="small">
+                <a-tag color="pink">未办{{ count.act + count.delay }}</a-tag>
+                <a-tag color="pink">超时{{ count.delay }}</a-tag>
+              </a-card>
+            </a-col>
+            <a-col :span="8">
+              <a-card title="病人总数" :bordered="false" size="small">
+                <a-tag color="green">健康{{ count.delay }}</a-tag>
+                <a-tag color="orange">需检查{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
             <a-col :span="8">
               <a-card title="Card title" :bordered="false" size="small">
-                <p>card content</p>
-              </a-card>
-            </a-col>
-            <a-col :span="8">
-              <a-card title="Card title" :bordered="false" size="small">
-                <p>card content</p>
+                <a-tag color="pink">pink</a-tag>
+                <a-tag color="pink">pink</a-tag>
               </a-card>
             </a-col>
           </a-row>

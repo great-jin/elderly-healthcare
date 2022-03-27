@@ -2,7 +2,7 @@
   <a-modal
     :title="type === 'edit' ? '编辑' : '详情'"
     :visible="visible"
-    width="50%"
+    width="70%"
     @cancel="cancel"
   >
     <template slot="footer">
@@ -57,11 +57,11 @@
       <a-descriptions-item>
       </a-descriptions-item>
       <a-descriptions-item label="任务内容" :span="24">
-          <a-textarea
+        <a-textarea
           v-model="taskInfo.taskContent"
           type="text"
           :rows="4"
-          :disabled="disabled"
+          :disabled="true"
           placeholder="任务内容"
           />
       </a-descriptions-item>

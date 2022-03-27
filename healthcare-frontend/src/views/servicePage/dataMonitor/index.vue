@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div style="background: #ECECEC; padding: 30px">
+    <div style="background: #ECECEC; padding: 5px">
       <a-row :gutter="16">
-        <a-col :span="12">
+        <a-col :span="8">
           <a-card>
             <a-statistic
               title="Feedback"
@@ -18,7 +18,14 @@
             </a-statistic>
           </a-card>
         </a-col>
-        <a-col :span="12">
+        <a-col :span="8">
+          <a-progress :percent="30" />
+          <a-progress :percent="30" />
+          <a-progress :percent="30" />
+          <a-progress :percent="30" />
+          <a-progress :percent="30" />
+        </a-col>
+        <a-col :span="8">
           <a-card>
             <a-statistic
               title="Idle"

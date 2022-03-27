@@ -1,4 +1,4 @@
-export const tableColumns = [
+export const columns = [
   {
     key: 'name',
     width: '20%',
@@ -34,7 +34,7 @@ export const tableColumns = [
   }
 ]
 
-export const tableData = [
+export const taskData = [
   {
     key: '1',
     name: 'John Brown',

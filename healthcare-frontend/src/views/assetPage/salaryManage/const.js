@@ -1,4 +1,4 @@
-export const tableColumns = [
+export const columns = [
   {
     title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left'
   },
@@ -38,7 +38,7 @@ export const tableColumns = [
   }
 ]
 
-export const tableData = [
+export const salaryData = [
   {
     key: '1',
     name: 'John Brown',

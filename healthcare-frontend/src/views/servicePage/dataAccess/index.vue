@@ -5,7 +5,10 @@
         <accessForm />
       </a-tab-pane>
       <a-tab-pane key="2" tab="登记信息">
-        <a-table :columns="columns" :data-source="data">
+        <a-table
+          :columns="columns"
+          :data-source="accessData"
+        >
           <a slot="action" slot-scope="text" href="javascript:;">Delete</a>
           <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
             {{ record.description }}
@@ -18,7 +21,7 @@
 
 <script>
 import accessForm from './accessForm'
-import { tableData, tableColumns } from './const'
+import { columns, accessData } from './const'
 
 export default {
   name: 'index',
@@ -27,8 +30,8 @@ export default {
   },
   data () {
     return {
-      data: tableData,
-      columns: tableColumns
+      columns,
+      accessData
     }
   },
   methods: {

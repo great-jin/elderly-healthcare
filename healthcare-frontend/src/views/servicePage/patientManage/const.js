@@ -1,4 +1,4 @@
-export const tableColumns = [
+export const columns = [
   {
     title: '编号',
     dataIndex: 'id',
