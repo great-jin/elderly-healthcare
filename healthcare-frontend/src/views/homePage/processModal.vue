@@ -10,6 +10,25 @@
     </template>
 
     <div>
+      <div class="process-content">
+        <a-descriptions>
+          <a-descriptions-item label="UserName">
+            Zhou Maomao
+          </a-descriptions-item>
+          <a-descriptions-item label="Telephone">
+            1810000000
+          </a-descriptions-item>
+          <a-descriptions-item label="Live">
+            Hangzhou, Zhejiang
+          </a-descriptions-item>
+          <a-descriptions-item label="Remark">
+            empty
+          </a-descriptions-item>
+          <a-descriptions-item label="Address">
+            No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang, China
+          </a-descriptions-item>
+        </a-descriptions>
+      </div>
       <div class="process-step">
         <a-steps :current="1">
           <a-popover slot="progressDot" slot-scope="{ index, status, prefixCls }">
@@ -52,4 +71,14 @@ export default {
 </script>
 
 <style scoped>
+  .process-content{
+    padding: 5px 10px;
+    margin-bottom: 35px;
+  }
+  .process-content ant-descriptions-item-colon{
+    font-size: 15px;
+  }
+  .process-step{
+    padding: 5px 10px;
+  }
 </style>

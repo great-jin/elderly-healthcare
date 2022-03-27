@@ -1,9 +1,9 @@
 <template>
   <div class="login-container">
-<!--    <h2 class="login-title">Elderly Healthcare</h2>-->
+    <h2 class="login-title">Elderly Healthcare</h2>
 
     <a-form class="login-form" :form="form">
-<!--      <h3 class="title">欢迎登录</h3>-->
+      <h3 class="title">欢迎登录</h3>
 
       <a-form-item style="margin: 15px 10px" >
         <a-input
@@ -112,14 +112,6 @@ export default {
             Login(values).then(res => {
               if (res.data === 1) {
                 this.loading = false
-                /*
-                // 设置登录状态为 true
-                let items = {
-                  flag: values.staffId,
-                  startTime: new Date().getTime()
-                }
-                localStorage.setItem('token', JSON.stringify(values))
-                */
                 getUser(values.staffId).then(res => {
                   // 记录用登录信息
                   res.data.startTime = new Date().getTime()
@@ -262,7 +254,6 @@ export default {
     },
     shuffle (str) {
       this.generateCode = [...str].sort(() => Math.random() - 0.5).join('')
-      console.log(this.generateCode)
     },
     refreshCode () {
       this.makeIdentifyCode({ randomTypeLen: true })
@@ -274,18 +265,19 @@ export default {
 <style scoped>
   /* 页面背景 */
   .login-form {
-    width: 25%;
+    width: 30%;
     margin: 5% auto;
+    padding: 5px 20px;
     border-radius: 25px;
-    /*background: url("../../assets/log.png") no-repeat;*/
+    background: url("../../assets/log.png") no-repeat;
   }
   /* 登录背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    /*background: url("../../assets/back.png") no-repeat;*/
-    /*background-size: 100% 100%;*/
+    background: url("../../assets/back.png") no-repeat;
+    background-size: 100% 100%;
   }
   /* 标题 */
   .login-title {

@@ -53,66 +53,57 @@
     <a-row>
       <a-col class="task" :span="14">
         <a-card
-          title="进行中的流程"
+          title="进行中流程"
           :style="{marginTop: '5px'}"
           :body-style="{padding: 0}"
         >
-          <a slot="extra" @click="operationClick('process', null)">全部流程</a>
-          <processModal ref="processModal"/>
-          <a-card-grid style="width:33%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
-                <div slot="title">
-                  <span>Alipay</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
-          <a-card-grid style="width:33%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
+          <a slot="extra" href="#">全部流程</a>
+          <a-card-grid
+            style="width:33.33%; text-align:center"
+            :key="i" v-for="(item, i) in processList.slice(0, 6)"
+          >
+            <a-card
+              :bordered="false"
+              :body-style="{padding: 0}"
+              @click="operationClick('process', item)"
+            >
+              <a-card-meta
+                :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
+              >
                 <div slot="title" class="card-title">
-                  <span>Alipay</span>
+                  <span>{{ item.title }}</span>
                 </div>
               </a-card-meta>
             </a-card>
           </a-card-grid>
-          <a-card-grid style="width:34%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
-                <div slot="title">
-                  <span>Alipay</span>
+          <processModal ref="processModal"/>
+        </a-card>
+
+        <a-card
+          title="待审批流程"
+          :style="{marginTop: '5px'}"
+          :body-style="{padding: 0}"
+        >
+          <a slot="extra" href="#">全部流程</a>
+          <a-card-grid
+            style="width:33.33%; text-align:center"
+            :key="i" v-for="(item, i) in processList.slice(0, 6)"
+          >
+            <a-card
+              :bordered="false"
+              :body-style="{padding: 0}"
+              @click="operationClick('process', item)"
+            >
+              <a-card-meta
+                :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
+              >
+                <div slot="title" class="card-title">
+                  <span>{{ item.title }}</span>
                 </div>
               </a-card-meta>
             </a-card>
           </a-card-grid>
-          <a-card-grid style="width:33%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
-                <div slot="title">
-                  <span>Alipay</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
-          <a-card-grid style="width:33%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
-                <div slot="title">
-                  <span>Alipay</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
-          <a-card-grid style="width:34%; text-align:center">
-            <a-card :bordered="false" :body-style="{padding: 0}">
-              <a-card-meta description="item.desc">
-                <div slot="title">
-                  <span>Alipay</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
+          <processModal ref="processModal"/>
         </a-card>
       </a-col>
 
@@ -187,7 +178,37 @@ export default {
         done: ''
       },
       loginUser: {},
-      taskData: []
+      taskData: [],
+      processList: [
+        {
+          title: 'title 1',
+          desc: 'describe 1iusdd bsdbjsdd ihsd iusddib iuuiu iuusddiub'
+        },
+        {
+          title: 'title 2',
+          desc: 'describe 2'
+        },
+        {
+          title: 'title 3',
+          desc: 'describe 3'
+        },
+        {
+          title: 'title 4',
+          desc: 'describe 4'
+        },
+        {
+          title: 'title 5',
+          desc: 'describe 5'
+        },
+        {
+          title: 'title 6',
+          desc: 'describe 6'
+        },
+        {
+          title: 'title 7',
+          desc: 'describe 7'
+        }
+      ]
     }
   },
   mounted () {
@@ -287,6 +308,17 @@ export default {
     padding: 10px;
     background-color: #ececec;
   }
+  .card-title{
+    vertical-align: middle;
+    margin-left: 12px;
+  }
+  .calendar{
+    width: 100%;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
   .task{
     margin-top: 5px;
     padding: 0px 10px;
@@ -296,13 +328,6 @@ export default {
   .task-list {
     height: 350px;
     overflow-y: auto;
-  }
-  .calendar{
-    width: 100%;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    margin-top: 10px;
-    padding: 0px 10px;
   }
   .footer{
     height: 80px;
