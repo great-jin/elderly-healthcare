@@ -152,8 +152,12 @@
         </div>
       </a-col>
     </a-row>
-    <a-row :span="24" class="footer">
-      版权所有 @布袋青年 2021-2022
+    <a-row :span="24">
+      <div class="footer">
+        <span><b>Copyright @布袋青年</b></span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span><b>Email: great__jin@163.com</b></span>
+      </div>
     </a-row>
   </div>
 </template>
@@ -301,7 +305,7 @@ export default {
     width: 0 !important;height: 0;
   }
   .head-workspace{
-    margin: 0px 15px;
+    margin: 10px 15px 0 15px;
   }
   .head-card{
     margin-top: 20px;
@@ -326,7 +330,7 @@ export default {
     overflow: auto;
   }
   .task-list {
-    height: 350px;
+    height: 340px;
     overflow-y: auto;
   }
   .footer{
