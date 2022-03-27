@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden">
     <a-row>
-      <a-col class="head" :span="24">
+      <a-col class="head-workspace" :span="16">
         <a-card
           title="工作台"
           style="width: 100%"
@@ -21,23 +21,18 @@
             <span key="ellipsis" @click="operationClick('quit', null)">退出登录</span>
           </template>
         </a-card>
-      </a-col>
-    </a-row>
-
-    <a-row>
-      <a-col class="task" :span="16">
-        <div style="background-color: #ececec; padding: 20px;">
+        <div class="head-card">
           <a-row :gutter="16">
             <a-col :span="8">
               <a-card title="每日任务" :bordered="false" size="small">
-                <a-tag color="pink">未办{{ count.act + count.delay }}</a-tag>
-                <a-tag color="pink">超时{{ count.delay }}</a-tag>
+                <a-tag color="pink">未办：{{ count.act + count.delay }}</a-tag>
+                <a-tag color="pink">超时：{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
             <a-col :span="8">
               <a-card title="病人总数" :bordered="false" size="small">
-                <a-tag color="green">健康{{ count.delay }}</a-tag>
-                <a-tag color="orange">需检查{{ count.delay }}</a-tag>
+                <a-tag color="green">健康：{{ count.delay }}</a-tag>
+                <a-tag color="orange">待检查：{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
             <a-col :span="8">
@@ -48,8 +43,81 @@
             </a-col>
           </a-row>
         </div>
+      </a-col>
+      <a-col :span="7">
+        <div class="calendar">
+          <a-calendar :fullscreen="false" />
+        </div>
+      </a-col>
+    </a-row>
+    <a-row>
+      <a-col class="task" :span="14">
+        <a-card
+          title="进行中的流程"
+          :style="{marginTop: '5px'}"
+          :body-style="{padding: 0}"
+        >
+          <a slot="extra" @click="operationClick('process', null)">全部流程</a>
+          <processModal ref="processModal"/>
+          <a-card-grid style="width:33%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+          <a-card-grid style="width:33%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title" class="card-title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+          <a-card-grid style="width:34%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+          <a-card-grid style="width:33%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+          <a-card-grid style="width:33%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+          <a-card-grid style="width:34%; text-align:center">
+            <a-card :bordered="false" :body-style="{padding: 0}">
+              <a-card-meta description="item.desc">
+                <div slot="title">
+                  <span>Alipay</span>
+                </div>
+              </a-card-meta>
+            </a-card>
+          </a-card-grid>
+        </a-card>
+      </a-col>
 
-        <div style="margin: 10px 0px; padding: 5px;">
+      <a-col class="task" :span="10">
+        <div style="padding: 5px;">
           <a-card title="代办任务" size="default" style="width: 100%">
             <a-radio-group
               default-value="代办"
@@ -85,42 +153,30 @@
                 </a-tooltip>
                 <a slot="actions" @click="operationClick('more', item)">详情</a>
                 <a slot="actions" @click="operationClick('edit', item)">编辑</a>
+
+                <taskModal ref="taskModal"/>
               </a-list-item>
             </a-list>
           </a-card>
         </div>
       </a-col>
-
-      <a-col class="calendar" :span="8">
-        <a-calendar >
-          <ul slot="dateCellRender" slot-scope="value" class="events">
-            <li v-for="item in getListData(value)" :key="item.content">
-              <a-badge :status="item.type" :text="item.content" />
-            </li>
-          </ul>
-          <template slot="monthCellRender" slot-scope="value">
-            <div v-if="getMonthData(value)" class="notes-month">
-              <section>{{ getMonthData(value) }}</section>
-              <span>Backlog number</span>
-            </div>
-          </template>
-        </a-calendar>
-      </a-col>
     </a-row>
-
-    <taskModal ref="taskModal"/>
+    <a-row :span="24" class="footer">
+      版权所有 @布袋青年 2021-2022
+    </a-row>
   </div>
-
 </template>
 
 <script>
 import taskModal from './taskModal'
+import processModal from './processModal'
 import { getStaffTask } from '@/api/dailyTask'
 
 export default {
   name: 'Home',
   components: {
-    taskModal
+    taskModal,
+    processModal
   },
   data () {
     return {
@@ -148,7 +204,6 @@ export default {
       this.count.delay = 0
       const _id = this.loginUser.staffId
       getStaffTask(_id).then(res => {
-        console.log('res', res.data)
         res.data.forEach((task) => {
           if (task.isFinished !== 1 && task.isDelay !== 1) {
             this.count.act++
@@ -208,24 +263,9 @@ export default {
         case 'more':
           this.$refs.taskModal.paramReceive('more', data)
           break
-      }
-    },
-    getListData (value) {
-      let listData
-      switch (value.date()) {
-        case 8:
-          listData = [
-            { type: 'warning', content: 'This is warning event.' },
-            { type: 'success', content: 'This is usual event.' }
-          ]
+        case 'process':
+          this.$refs.processModal.paramReceive('process', data)
           break
-        default:
-      }
-      return listData || []
-    },
-    getMonthData (value) {
-      if (value.month() === 8) {
-        return 1394
       }
     }
   }
@@ -239,42 +279,36 @@ export default {
   ::-webkit-scrollbar {
     width: 0 !important;height: 0;
   }
-  .head{
+  .head-workspace{
     margin: 0px 15px;
   }
+  .head-card{
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ececec;
+  }
   .task{
-    padding: 15px;
+    margin-top: 5px;
+    padding: 0px 10px;
     max-height: 40%;
     overflow: auto;
-    /*border: brown 2px solid;*/
   }
   .task-list {
-    height: 365px;
+    height: 350px;
     overflow-y: auto;
   }
   .calendar{
-    overflow: auto;
-    padding: 15px;
-    max-height: 700px;
-    /*border: #1890ff 2px solid;*/
-  }
-  .events {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .events .ant-badge-status {
-    overflow: hidden;
-    white-space: nowrap;
     width: 100%;
-    text-overflow: ellipsis;
-    font-size: 12px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 0px 10px;
   }
-  .notes-month {
+  .footer{
+    height: 80px;
+    line-height: 80px;
     text-align: center;
-    font-size: 28px;
-  }
-  .notes-month section {
-    font-size: 28px;
+    font-size: 15px;
+    background-color: #ECECEC;
   }
 </style>
