@@ -1,10 +1,7 @@
 <template>
   <div>
     <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="入住登记">
-        <accessForm />
-      </a-tab-pane>
-      <a-tab-pane key="2" tab="登记信息">
+      <a-tab-pane key="1" tab="登记信息">
         <a-table
           :columns="columns"
           :data-source="accessData"
@@ -14,6 +11,9 @@
             {{ record.description }}
           </p>
         </a-table>
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="入住登记">
+        <accessForm />
       </a-tab-pane>
     </a-tabs>
   </div>

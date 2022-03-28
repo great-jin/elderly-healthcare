@@ -1,71 +1,31 @@
 <template>
-  <a-modal
-    :title="type === 'add' ? '新增' : type === 'edit'? '编辑' : '详情'"
+  <a-drawer
+    title="病人详情"
+    width="60%"
+    height="100%"
+    placement="right"
+    :closable="true"
     :visible="visible"
-    width="30%"
-    @cancel="cancel()">
-
-    <template slot="footer">
-      <a-button key="back" @click="cancel()">取消</a-button>
-      <a-button
-        key="submit"
-        type="primary"
-        :hidden="isDetail"
-        @click="ok()"
-      >确定</a-button>
-    </template>
-
-    <a-spin :spinning="loading">
-      <a-form :form="form">
-        <a-form-item
-          label="账号"
-          :label-col="formItemLayout.labelCol"
-          :wrapper-col="formItemLayout.wrapperCol"
-        >
-          <a-input
-            placeholder="Account Code"
-            :disabled="isDetail || isEdit"
-            v-decorator="['accountID', { rules: [{ required: true, message: '账号不能为空!' }] }]"
-          />
-        </a-form-item>
-
-        <a-form-item
-          label="用户名"
-          :label-col="formItemLayout.labelCol"
-          :wrapper-col="formItemLayout.wrapperCol"
-        >
-          <a-input
-            placeholder="UserName"
-            :disabled="isDetail"
-            v-decorator="['userName', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
-          />
-        </a-form-item>
-
-        <a-form-item
-          label="密码"
-          :label-col="formItemLayout.labelCol"
-          :wrapper-col="formItemLayout.wrapperCol"
-        >
-          <a-input
-            placeholder="Password"
-            :disabled="isDetail"
-            v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
-          />
-        </a-form-item>
-      </a-form>
-    </a-spin>
-  </a-modal>
+    @close="onClose"
+  >
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+    <h1>AAAAAAAAAAAAAA</h1>
+  </a-drawer>
 </template>
 
 <script>
-import { getUser } from '@/api/test/user.js'
 export default {
   name: 'UserModal',
   data () {
     return {
       type: '',
       visible: false,
-      loading: false,
       isDetail: false,
       isEdit: false,
       formItemLayout: {
@@ -79,18 +39,7 @@ export default {
     paramReceive (type, data) {
       this.type = type
       this.visible = true
-      this.loading = false
       console.log('data', data)
-      if (this.type === 'add') {
-      }
-      if (this.type === 'detail') {
-        this.isDetail = true
-        this.setFormValue(data)
-      }
-      if (this.type === 'edit') {
-        this.isEdit = true
-        this.setFormValue(data)
-      }
     },
     cancel () {
       this.visible = false
@@ -117,18 +66,8 @@ export default {
         }
       })
     },
-    setFormValue (data) {
-      const code = data
-      if (code !== '') {
-        getUser(code).then(res => {
-          console.log(res.data)
-          this.form.setFieldsValue({
-            accountID: res.data.accountID,
-            userName: res.data.userName,
-            password: res.data.password
-          })
-        })
-      }
+    onClose () {
+      this.visible = false
     }
   }
 }

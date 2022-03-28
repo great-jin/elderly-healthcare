@@ -19,34 +19,73 @@ export default {
     }
   },
   mounted () {
-    this.pieChart()
+    this.dataChart()
   },
   methods: {
-    pieChart () {
+    dataChart () {
       // 通过 this.$echarts 来使用
       // document.getElementById()
       // document.getElementsByClassName() 不可用
-      const pieGraph = this.$echarts.init(document.getElementById('pie'))
+      const graph = this.$echarts.init(document.getElementById('pie'))
       // 配置图表信息
       const option = {
-        legend: {},
-        tooltip: {},
-        dataset: {
-          dimensions: ['product', '2015', '2016', '2017'],
-          source: [
-            { product: 'Matcha Latte', 2015: 43.3, 2016: 85.8, 2017: 93.7 },
-            { product: 'Milk Tea', 2015: 83.1, 2016: 73.4, 2017: 55.1 },
-            { product: 'Cheese Cocoa', 2015: 86.4, 2016: 65.2, 2017: 82.5 },
-            { product: 'Walnut Brownie', 2015: 72.4, 2016: 53.9, 2017: 39.1 }
-          ]
+        title: {
+          text: 'Stacked Line'
         },
-        xAxis: { type: 'category' },
-        yAxis: {},
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Email',
+            type: 'line',
+            stack: 'Total',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: 'Union Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: 'Video Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          },
+          {
+            name: 'Direct',
+            type: 'line',
+            stack: 'Total',
+            data: [320, 332, 301, 334, 390, 330, 320]
+          },
+          {
+            name: 'Search Engine',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          }
+        ]
       }
-      pieGraph.setOption(option)
+      graph.setOption(option)
     }
   }
 }

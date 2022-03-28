@@ -5,7 +5,6 @@
         type="primary"
         @click="operationClick('add', null)"
       >新增</a-button>
-
       <a-auto-complete
         v-model="accountCode"
         placeholder="输入查询账号"
@@ -27,10 +26,10 @@
       <template slot="operation" slot-scope="text, record, index">
         <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
         <a-button type="link" @click="operationClick('edit', record)" >修改 </a-button>
+
+        <patientModal ref="patientModal" />
       </template>
     </a-table>
-
-    <patientModal ref="patientModal" />
   </div>
 </template>
 
@@ -42,12 +41,13 @@ import patientModal from "./patientModal";
 export default {
   inject: ['reload'],
   components: {
-    patientModal
+    patientModal,
   },
   data() {
     return {
       value: '',
       columns,
+      visible: false,
       patientData: [],
       dataSource: [],
       accountCode: ''
@@ -86,17 +86,18 @@ export default {
         case 'reset':
           this.reload()
           break
-        case 'add':
-          this.$refs.patientModal.paramReceive(type, record)
+        case 'chart':
+          this.visible = true;
+          this.dataChart()
           break
         case 'edit':
-          this.$refs.patientModal.paramReceive(type, record.accountID)
+          this.$refs.patientModal.paramReceive(type, record)
           break
         case 'detail':
-          this.$refs.patientModal.paramReceive(type, record.accountID)
+          this.$refs.patientModal.paramReceive(type, record)
           break
       }
-    }
+    },
   }
 }
 </script>
