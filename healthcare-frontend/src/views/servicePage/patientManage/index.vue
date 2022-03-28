@@ -1,33 +1,26 @@
 <template>
   <div>
-    <div style="padding: 10px 25px">
-      <a-button
-        type="primary"
-        @click="operationClick('add', null)"
-      >新增</a-button>
-      <a-auto-complete
-        v-model="accountCode"
-        placeholder="输入查询账号"
-        :data-source="dataSource"
-        :allowClear="true"
-        style="width: 200px; float: right; z-index: 1"
-        @search="onSearch"
-        @select="onSelect"
-      />
-    </div>
+    <a-auto-complete
+      v-model="accountCode"
+      placeholder="输入查询账号"
+      :data-source="dataSource"
+      :allowClear="true"
+      @search="onSearch"
+      @select="onSelect"
+      class="auto-search"
+    />
 
     <a-table
       :columns="columns"
       :data-source="patientData"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
-      style="padding: 10px 25px"
+      style="padding: 10px"
     >
-      <template slot="operation" slot-scope="text, record, index">
+      <template slot="operation" slot-scope="record">
         <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
         <a-button type="link" @click="operationClick('edit', record)" >修改 </a-button>
-
-        <patientModal ref="patientModal" />
+        <patientDrawer ref="patientDrawer" />
       </template>
     </a-table>
   </div>
@@ -36,12 +29,12 @@
 <script>
 import { List } from '@/api/test/user.js';
 import { columns } from "./const";
-import patientModal from "./patientModal";
+import patientDrawer from "./patientDrawer";
 
 export default {
   inject: ['reload'],
   components: {
-    patientModal,
+    patientDrawer,
   },
   data() {
     return {
@@ -86,21 +79,23 @@ export default {
         case 'reset':
           this.reload()
           break
-        case 'chart':
-          this.visible = true;
-          this.dataChart()
-          break
         case 'edit':
-          this.$refs.patientModal.paramReceive(type, record)
+          this.$refs.patientDrawer.paramReceive(type, record)
           break
         case 'detail':
-          this.$refs.patientModal.paramReceive(type, record)
+          this.$refs.patientDrawer.paramReceive(type, record)
           break
       }
-    },
+    }
   }
 }
 </script>
 
 <style scoped>
+  .auto-search{
+    width: 200px;
+    float: right;
+    z-index: 1;
+    margin-bottom: 20px;
+  }
 </style>

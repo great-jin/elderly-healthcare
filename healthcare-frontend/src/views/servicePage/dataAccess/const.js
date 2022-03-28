@@ -1,8 +1,26 @@
 export const columns = [
-  { title: 'Name', dataIndex: 'name', key: 'name' },
-  { title: 'Age', dataIndex: 'age', key: 'age' },
-  { title: 'Address', dataIndex: 'address', key: 'address' },
-  { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } }
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age'
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address'
+  },
+  {
+    title: 'Action',
+    dataIndex: '',
+    key: 'x',
+    align: 'center',
+    scopedSlots: { customRender: 'action' }
+  }
 ]
 
 export const accessData = [
