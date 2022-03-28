@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import { upload } from '@/api/files.js'
+import { upload } from '@/api/test/files.js'
+
 export default {
   name: 'UploadModal',
   data () {

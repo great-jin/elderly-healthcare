@@ -15,6 +15,7 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="destroyTime" column="destroy_time" jdbcType="TIMESTAMP"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="bucketAvatar" column="bucket_avatar" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
@@ -30,7 +31,8 @@
                register_time,
                update_time,
                destroy_time,
-               comment
+               comment,
+               bucket_avatar
         from login_user
         where staff_id = #{staffId}
     </select>
@@ -39,7 +41,7 @@
     <select id="queryAllByLimit" resultMap="LoginUserMap">
         select
         id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled, register_time,
-        update_time, destroy_time, comment
+        update_time, destroy_time, comment, bucket_avatar
         from login_user
         <where>
             <if test="id != null and id != ''">
@@ -77,6 +79,9 @@
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -123,36 +128,39 @@
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
             </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into login_user(id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
-                               register_time, update_time, destroy_time, comment)
-        values (#{id}, #{staffId}, #{userName}, #{userPwd}, #{organizeId}, #{userAvatar}, #{userPower}, #{isDisabled},
-                #{registerTime}, #{updateTime}, #{destroyTime}, #{comment})
+        insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
+                               register_time, update_time, destroy_time, comment, bucket_avatar)
+        values (#{staffId}, #{userName}, #{userPwd}, #{organizeId}, #{userAvatar}, #{userPower}, #{isDisabled},
+                #{registerTime}, #{updateTime}, #{destroyTime}, #{comment}, #{bucketAvatar})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
-        register_time, update_time, destroy_time, comment)
+        register_time, update_time, destroy_time, comment, bucket_avatar)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.staffId}, #{entity.userName}, #{entity.userPwd}, #{entity.organizeId}, #{entity.userAvatar},
             #{entity.userPower}, #{entity.isDisabled}, #{entity.registerTime}, #{entity.updateTime},
-            #{entity.destroyTime}, #{entity.comment})
+            #{entity.destroyTime}, #{entity.comment}, #{entity.bucketAvatar})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
         insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
-        register_time, update_time, destroy_time, comment)
+        register_time, update_time, destroy_time, comment, bucket_avatar)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.staffId}, #{entity.userName}, #{entity.userPwd}, #{entity.organizeId}, #{entity.userAvatar},
             #{entity.userPower}, #{entity.isDisabled}, #{entity.registerTime}, #{entity.updateTime},
-            #{entity.destroyTime}, #{entity.comment})
+            #{entity.destroyTime}, #{entity.comment}, #{entity.bucketAvatar})
         </foreach>
         on duplicate key update
         staff_id = values(staff_id),
@@ -165,7 +173,8 @@
         register_time = values(register_time),
         update_time = values(update_time),
         destroy_time = values(destroy_time),
-        comment = values(comment)
+        comment = values(comment),
+        bucket_avatar = values(bucket_avatar)
     </insert>
 
     <!--通过主键修改数据-->
@@ -204,6 +213,9 @@
             </if>
             <if test="comment != null and comment != ''">
                 comment = #{comment},
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                bucket_avatar = #{bucketAvatar},
             </if>
         </set>
         where id = #{id}

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { getUser } from '@/api/user.js'
+import { getUser } from '@/api/test/user.js'
 export default {
   name: 'UserModal',
   data () {

@@ -68,7 +68,7 @@ import forgetModal from './forgetModal'
 import { Encrypt } from '@/utils/AES.js'
 import { Login, getUser } from '@/api/loginUser.js'
 import SIdentify from '@/views/utils/identify'
-import { GetUrl } from '@/api/files'
+import { getAvatar } from '@/api/loginUser'
 
 export default {
   name: 'Login',
@@ -118,8 +118,8 @@ export default {
                   localStorage.setItem('staffInfo', JSON.stringify(res.data))
                   // 获取用户头像
                   const formData = new FormData()
-                  formData.append('accountCode', values.staffId)
-                  GetUrl(formData).then(res => {
+                  formData.append('staffId', values.staffId)
+                  getAvatar(formData).then(res => {
                     localStorage.setItem('avatar', res.data)
                     // 跳转首页
                     this.$router.push({

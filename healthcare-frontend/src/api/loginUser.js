@@ -1,4 +1,4 @@
-import request from './axios'
+import request from './utils/axios'
 
 const prefix = '/api/healthcare/loginUser'
 
@@ -36,6 +36,22 @@ export function updateUser (params) {
 export function removeUser (params) {
   return request({
     url: `${prefix}/delete`,
+    method: 'post',
+    data: params
+  })
+}
+
+export function getAvatar (params) {
+  return request({
+    url: `${prefix}/getAvatar`,
+    method: 'post',
+    data: params
+  })
+}
+
+export function updateAvatar (params) {
+  return request({
+    url: `${prefix}/updateAvatar`,
     method: 'post',
     data: params
   })

@@ -1,4 +1,4 @@
-import request from './axios'
+import request from '../utils/axios'
 
 const prefix = '/api/healthcare/files'
 
@@ -44,21 +44,5 @@ export function download (params) {
     }
   }).catch(error => {
     console.log(error)
-  })
-}
-
-export function GetUrl (params) {
-  return request({
-    url: `${prefix}/getUrl`,
-    method: 'post',
-    data: params
-  })
-}
-
-export function Delete (params) {
-  return request({
-    url: `${prefix}/delete`,
-    method: 'post',
-    data: params
   })
 }

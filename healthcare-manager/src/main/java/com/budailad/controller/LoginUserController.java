@@ -1,7 +1,11 @@
 package com.budailad.controller;
 
 import com.budailad.entity.LoginUser;
+import com.budailad.entity.MinioFiles;
 import com.budailad.service.LoginUserService;
+import com.budailad.service.MinioFilesService;
+import com.budailad.utils.MinioUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +34,9 @@ public class LoginUserController {
 
     private final static String KEY_BACK = "dyouthinvincible";
     private final static String IV_BACK = "dyouthinvincible";
+
+    @Autowired
+    private MinioUtil minioUtil;
 
     /**
      * 服务对象
@@ -141,6 +148,31 @@ public class LoginUserController {
     @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.loginUserService.deleteById(id));
+    }
+
+    /**
+     * 获取头像外链
+     *
+     * @param ID
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/getAvatar")
+    public String getAvatar(@RequestParam(name = "staffId") String ID) throws Exception {
+        LoginUser user = loginUserService.queryById(ID);
+        return minioUtil.getObjectURL(user.getBucketAvatar(), user.getUserAvatar(), 7);
+    }
+
+    /**
+     * @param ID
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/updateAvatar")
+    public String updateAvatar(@RequestParam(name = "staffId") String ID) {
+        // TODO: 2022/3/28 更换头像
+
+        return "1";
     }
 
 }

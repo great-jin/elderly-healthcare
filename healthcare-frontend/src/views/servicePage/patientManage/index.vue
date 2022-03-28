@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { List } from '@/api/user.js';
+import { List } from '@/api/test/user.js';
 import { columns } from "./const";
 import patientModal from "./patientModal";
 

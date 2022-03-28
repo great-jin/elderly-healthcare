@@ -6,11 +6,11 @@ import java.io.Serializable;
 /**
  * (LoginUser)实体类
  *
- * @author Budai
- * @since 2022-03-11 16:21:07
+ * @author makejava
+ * @since 2022-03-28 16:32:31
  */
 public class LoginUser implements Serializable {
-    private static final long serialVersionUID = -69688040325764657L;
+    private static final long serialVersionUID = -91082088988117519L;
 
     private String id;
     /**
@@ -57,6 +57,10 @@ public class LoginUser implements Serializable {
      * 备注
      */
     private String comment;
+    /**
+     * 存储桶
+     */
+    private String bucketAvatar;
 
 
     public String getId() {
@@ -153,6 +157,14 @@ public class LoginUser implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getBucketAvatar() {
+        return bucketAvatar;
+    }
+
+    public void setBucketAvatar(String bucketAvatar) {
+        this.bucketAvatar = bucketAvatar;
     }
 
 }

@@ -54,7 +54,7 @@ public class SysLogsController {
      * @param sysLogs 实体
      * @return 新增结果
      */
-    @GetMapping("/get")
+    @PostMapping("/add")
     public ResponseEntity<SysLogs> add(SysLogs sysLogs) {
         return ResponseEntity.ok(this.sysLogsService.insert(sysLogs));
     }

@@ -14,7 +14,8 @@
 
 <script>
 import uploadModal from './uploadModal'
-import { download } from '@/api/files.js'
+import { download } from '@/api/test/files.js'
+
 export default {
   components: {
     uploadModal

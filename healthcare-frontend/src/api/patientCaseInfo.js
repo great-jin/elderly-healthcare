@@ -1,4 +1,4 @@
-import request from './axios'
+import request from './utils/axios'
 
 const prefix = '/api/healthcare/patientCaseInfo'
 
