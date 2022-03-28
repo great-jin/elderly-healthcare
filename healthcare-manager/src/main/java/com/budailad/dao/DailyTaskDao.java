@@ -1,6 +1,7 @@
 package com.budailad.dao;
 
 import com.budailad.entity.DailyTask;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -9,9 +10,10 @@ import java.util.List;
 /**
  * (DailyTask)表数据库访问层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:53:59
  */
+@Mapper
 public interface DailyTaskDao {
 
     /**

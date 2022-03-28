@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (DailyTask)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:53:59
  */
 public class DailyTask implements Serializable {

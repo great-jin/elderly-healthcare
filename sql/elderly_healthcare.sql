@@ -182,6 +182,21 @@ CREATE TABLE `patient_info` (
 
 
 -- ----------------------------
+-- COMMENT '病人联系人信息表'
+-- Table structure for patient_info
+-- ----------------------------
+DROP TABLE IF EXISTS `patient_contact`;
+CREATE TABLE `patient_contact` (
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `patient_id` varchar(36) COMMENT '编号',
+  `contact_name` varchar(50) COMMENT '姓名',
+  `contact_phone` varchar(20) COMMENT '电话',
+  `is_deleted` int COMMENT '状态',
+  `comment` varchar(500) COMMENT '备注'
+) 
+
+
+-- ----------------------------
 -- COMMENT '病历信息'
 -- Table structure for patient_case_info
 -- ----------------------------
@@ -309,6 +324,45 @@ CREATE TABLE `order_goods`  (
   `order_time` datetime COMMENT '购买时间',
   `staff_id` varchar(20) COMMENT '负责人',
   `delivery_time` datetime COMMENT '交付时间',
+  `comment` varchar(500) COMMENT '备注'
+) 
+
+
+-- ----------------------------
+-- COMMENT '物资申请表'
+-- Table structure for asset_apply_info
+-- ----------------------------
+DROP TABLE IF EXISTS `asset_apply_info`;
+CREATE TABLE `asset_apply_info`  (
+  `apply_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '申请订单编号',
+  `organize_unit` varchar(30) COMMENT '申请单位，冗余字段',
+  `organize_name` varchar(30) COMMENT '申请部门',
+  `staff_id` varchar(20) COMMENT '申请人',
+  `apply_time` datetime COMMENT '申请时间',
+  `apply_reason` datetime COMMENT '申请原因',
+  `receive_name` varchar(30) COMMENT '收件人',
+  `receive_phone` varchar(30) COMMENT '收件电话',
+  `receive_adress` varchar(100) COMMENT '收货地址',
+  `cost_money` double COMMENT '总金额',
+  `current_state` int COMMENT '当前状态',
+  `is_finished` int COMMENT '是否完成',
+  `comment` varchar(500) COMMENT '备注'
+) 
+
+
+-- ----------------------------
+-- COMMENT '物资申请关联表'
+-- Table structure for asset_apply_goods
+-- ----------------------------
+DROP TABLE IF EXISTS `asset_apply_goods`;
+CREATE TABLE `asset_apply_goods`  (
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `apply_id` varchar(36) COMMENT '申请订单编号',
+  `goods_name` varchar(50) COMMENT '商品名',
+  `goods_type` varchar(50) COMMENT '商品规格',
+  `goods_price` double COMMENT '单价',
+  `apply_count` int COMMENT '申请量',
+  `cost_money` double COMMENT '总价',
   `comment` varchar(500) COMMENT '备注'
 ) 
 

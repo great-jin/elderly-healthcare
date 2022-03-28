@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (SalaryDetailFiles)表服务接口
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:54:00
  */
 public interface SalaryDetailFilesService {

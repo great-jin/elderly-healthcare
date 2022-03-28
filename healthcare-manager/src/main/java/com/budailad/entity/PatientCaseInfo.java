@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (PatientCaseInfo)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:54:01
  */
 public class PatientCaseInfo implements Serializable {

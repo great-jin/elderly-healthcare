@@ -43,7 +43,7 @@ public class SysLogsController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
+    @GetMapping("/get")
     public ResponseEntity<SysLogs> queryById(@Param("id") String id) {
         return ResponseEntity.ok(this.sysLogsService.queryById(id));
     }

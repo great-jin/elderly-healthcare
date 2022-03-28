@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (SalaryDetailFiles)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:54:00
  */
 public class SalaryDetailFiles implements Serializable {

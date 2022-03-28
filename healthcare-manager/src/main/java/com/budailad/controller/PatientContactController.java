@@ -1,0 +1,85 @@
+package com.budailad.controller;
+
+import com.budailad.entity.PatientContact;
+import com.budailad.service.PatientContactService;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+
+/**
+ * (PatientContact)表控制层
+ *
+ * @author Budai
+ * @since 2022-03-28 16:00:20
+ */
+@RestController
+@RequestMapping("/api/healthcare/patientContact")
+public class PatientContactController {
+    /**
+     * 服务对象
+     */
+    @Resource
+    private PatientContactService patientContactService;
+
+    /**
+     * 分页查询
+     *
+     * @param patientContact 筛选条件
+     * @param pageRequest    分页对象
+     * @return 查询结果
+     */
+    @GetMapping("/page")
+    public ResponseEntity<Page<PatientContact>> queryByPage(PatientContact patientContact, PageRequest pageRequest) {
+        return ResponseEntity.ok(this.patientContactService.queryByPage(patientContact, pageRequest));
+    }
+
+    /**
+     * 通过主键查询单条数据
+     *
+     * @param id 主键
+     * @return 单条数据
+     */
+    @GetMapping("/get")
+    public ResponseEntity<PatientContact> queryById(@Param("id") String id) {
+        return ResponseEntity.ok(this.patientContactService.queryById(id));
+    }
+
+    /**
+     * 新增数据
+     *
+     * @param patientContact 实体
+     * @return 新增结果
+     */
+    @PostMapping("/add")
+    public ResponseEntity<PatientContact> add(PatientContact patientContact) {
+        return ResponseEntity.ok(this.patientContactService.insert(patientContact));
+    }
+
+    /**
+     * 编辑数据
+     *
+     * @param patientContact 实体
+     * @return 编辑结果
+     */
+    @PutMapping("/update")
+    public ResponseEntity<PatientContact> edit(PatientContact patientContact) {
+        return ResponseEntity.ok(this.patientContactService.update(patientContact));
+    }
+
+    /**
+     * 删除数据
+     *
+     * @param id 主键
+     * @return 删除是否成功
+     */
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteById(String id) {
+        return ResponseEntity.ok(this.patientContactService.deleteById(id));
+    }
+
+}
+

@@ -1,7 +1,7 @@
 <template>
-  <div style="overflow-x: hidden">
-    <a-row>
-      <a-col class="head-workspace" :span="16">
+  <div id="container">
+    <a-row style="margin-right: 15px">
+      <a-col class="head-workspace" :span="17">
         <a-card
           title="工作台"
           style="width: 100%"
@@ -45,17 +45,17 @@
         </div>
       </a-col>
       <a-col :span="7">
-        <div class="calendar">
+        <div class="calendar" >
           <a-calendar :fullscreen="false" />
         </div>
       </a-col>
     </a-row>
     <a-row>
-      <a-col class="task" :span="14">
+      <a-col class="process" :span="14">
         <a-card
           title="进行中流程"
-          :style="{marginTop: '5px'}"
           :body-style="{padding: 0}"
+          :style="{marginTop: '5px', minHeight: '240px'}"
         >
           <a slot="extra" href="#">全部流程</a>
           <a-card-grid
@@ -70,7 +70,7 @@
               <a-card-meta
                 :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
               >
-                <div slot="title" class="card-title">
+                <div slot="title">
                   <span>{{ item.title }}</span>
                 </div>
               </a-card-meta>
@@ -78,11 +78,10 @@
           </a-card-grid>
           <processModal ref="processModal"/>
         </a-card>
-
         <a-card
           title="待审批流程"
-          :style="{marginTop: '5px'}"
           :body-style="{padding: 0}"
+          :style="{marginTop: '15px', minHeight: '240px'}"
         >
           <a slot="extra" href="#">全部流程</a>
           <a-card-grid
@@ -97,7 +96,7 @@
               <a-card-meta
                 :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
               >
-                <div slot="title" class="card-title">
+                <div slot="title">
                   <span>{{ item.title }}</span>
                 </div>
               </a-card-meta>
@@ -106,7 +105,6 @@
           <processModal ref="processModal"/>
         </a-card>
       </a-col>
-
       <a-col class="task" :span="10">
         <div style="padding: 5px;">
           <a-card title="代办任务" size="default" style="width: 100%">
@@ -304,24 +302,36 @@ export default {
   ::-webkit-scrollbar {
     width: 0 !important;height: 0;
   }
+  #container{
+    padding: 7px 3px;
+    overflow: hidden;
+    height: 100%;
+    background-color: #ECECEC;
+  }
   .head-workspace{
-    margin: 10px 15px 0 15px;
+    padding: 10px 15px 0 10px;
   }
   .head-card{
     margin-top: 20px;
-    padding: 10px;
+    padding: 5px;
     background-color: #ececec;
-  }
-  .card-title{
-    vertical-align: middle;
-    margin-left: 12px;
   }
   .calendar{
     width: 100%;
+    height: 305px;
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     margin-top: 10px;
-    padding: 0 10px;
+  }
+  /*.card-title{
+    vertical-align: middle;
+    margin-left: 12px;
+  }*/
+  .process{
+    margin-top: 5px;
+    padding: 0px 10px;
+    max-height: 40%;
+    overflow: auto;
   }
   .task{
     margin-top: 5px;
@@ -330,7 +340,7 @@ export default {
     overflow: auto;
   }
   .task-list {
-    height: 340px;
+    height: 350px;
     overflow-y: auto;
   }
   .footer{

@@ -1,6 +1,6 @@
 package com.budailad.dao;
 
-import com.budailad.entity.PatientCaseInfo;
+import com.budailad.entity.PatientContact;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -8,79 +8,79 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * (PatientCaseInfo)表数据库访问层
+ * (PatientContact)表数据库访问层
  *
  * @author Budai
- * @since 2022-03-24 15:54:01
+ * @since 2022-03-28 16:00:20
  */
 @Mapper
-public interface PatientCaseInfoDao {
+public interface PatientContactDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param castId 主键
+     * @param id 主键
      * @return 实例对象
      */
-    PatientCaseInfo queryById(String castId);
+    PatientContact queryById(String id);
 
     /**
      * 查询指定行数据
      *
-     * @param patientCaseInfo 查询条件
-     * @param pageable        分页对象
+     * @param patientContact 查询条件
+     * @param pageable       分页对象
      * @return 对象列表
      */
-    List<PatientCaseInfo> queryAllByLimit(PatientCaseInfo patientCaseInfo, @Param("pageable") Pageable pageable);
+    List<PatientContact> queryAllByLimit(PatientContact patientContact, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
      *
-     * @param patientCaseInfo 查询条件
+     * @param patientContact 查询条件
      * @return 总行数
      */
-    long count(PatientCaseInfo patientCaseInfo);
+    long count(PatientContact patientContact);
 
     /**
      * 新增数据
      *
-     * @param patientCaseInfo 实例对象
+     * @param patientContact 实例对象
      * @return 影响行数
      */
-    int insert(PatientCaseInfo patientCaseInfo);
+    int insert(PatientContact patientContact);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<PatientCaseInfo> 实例对象列表
+     * @param entities List<PatientContact> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<PatientCaseInfo> entities);
+    int insertBatch(@Param("entities") List<PatientContact> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<PatientCaseInfo> 实例对象列表
+     * @param entities List<PatientContact> 实例对象列表
      * @return 影响行数
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
-    int insertOrUpdateBatch(@Param("entities") List<PatientCaseInfo> entities);
+    int insertOrUpdateBatch(@Param("entities") List<PatientContact> entities);
 
     /**
      * 修改数据
      *
-     * @param patientCaseInfo 实例对象
+     * @param patientContact 实例对象
      * @return 影响行数
      */
-    int update(PatientCaseInfo patientCaseInfo);
+    int update(PatientContact patientContact);
 
     /**
      * 通过主键删除数据
      *
-     * @param castId 主键
+     * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String castId);
+    int deleteById(String id);
 
 }
 

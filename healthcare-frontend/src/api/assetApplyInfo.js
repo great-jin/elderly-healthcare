@@ -1,23 +1,22 @@
 import request from './axios'
 
-const prefix = '/api/healthcare/loginUser'
+const prefix = '/api/healthcare/assetApplyInfo'
 
-export function getUser (params) {
+export function listApplyInfo () {
+  return request({
+    url: `${prefix}/list`,
+    method: 'get'
+  })
+}
+
+export function getApplyInfo (params) {
   return request({
     url: `${prefix}/get?id=${params}`,
     method: 'get'
   })
 }
 
-export function Login (params) {
-  return request({
-    url: `${prefix}/login`,
-    method: 'post',
-    data: params
-  })
-}
-
-export function addUser (params) {
+export function addApplyInfo (params) {
   return request({
     url: `${prefix}/add`,
     method: 'post',
@@ -25,7 +24,7 @@ export function addUser (params) {
   })
 }
 
-export function updateUser (params) {
+export function updateApplyInfo (params) {
   return request({
     url: `${prefix}/update`,
     method: 'post',
@@ -33,7 +32,7 @@ export function updateUser (params) {
   })
 }
 
-export function removeUser (params) {
+export function removeApplyInfo (params) {
   return request({
     url: `${prefix}/delete`,
     method: 'post',

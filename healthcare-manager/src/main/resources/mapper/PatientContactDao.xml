@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.PatientContactDao">
+
+    <resultMap type="com.budailad.entity.PatientContact" id="PatientContactMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="contactName" column="contact_name" jdbcType="VARCHAR"/>
+        <result property="contactPhone" column="contact_phone" jdbcType="VARCHAR"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatientContactMap">
+        select id,
+               patient_id,
+               contact_name,
+               contact_phone,
+               is_deleted,
+               comment
+        from patient_contact
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientContactMap">
+        select
+        id, patient_id, contact_name, contact_phone, is_deleted, comment
+        from patient_contact
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="contactName != null and contactName != ''">
+                and contact_name = #{contactName}
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                and contact_phone = #{contactPhone}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient_contact
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="contactName != null and contactName != ''">
+                and contact_name = #{contactName}
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                and contact_phone = #{contactPhone}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_contact(patient_id, contact_name, contact_phone, is_deleted, comment)
+        values (#{patientId}, #{contactName}, #{contactPhone}, #{isDeleted}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_contact(patient_id, contact_name, contact_phone, is_deleted, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.contactName}, #{entity.contactPhone}, #{entity.isDeleted}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_contact(patient_id, contact_name, contact_phone, is_deleted, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.patientId}, #{entity.contactName}, #{entity.contactPhone}, #{entity.isDeleted}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        patient_id = values(patient_id),
+        contact_name = values(contact_name),
+        contact_phone = values(contact_phone),
+        is_deleted = values(is_deleted),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update patient_contact
+        <set>
+            <if test="patientId != null and patientId != ''">
+                patient_id = #{patientId},
+            </if>
+            <if test="contactName != null and contactName != ''">
+                contact_name = #{contactName},
+            </if>
+            <if test="contactPhone != null and contactPhone != ''">
+                contact_phone = #{contactPhone},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from patient_contact
+        where id = #{id}
+    </delete>
+
+</mapper>
+

@@ -1,6 +1,7 @@
 package com.budailad.dao;
 
 import com.budailad.entity.SalaryDetailFiles;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -9,9 +10,10 @@ import java.util.List;
 /**
  * (SalaryDetailFiles)表数据库访问层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:54:00
  */
+@Mapper
 public interface SalaryDetailFilesDao {
 
     /**

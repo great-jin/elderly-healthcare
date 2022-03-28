@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 /**
  * (SalaryDetailFiles)表控制层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-24 15:54:00
  */
 @RestController
