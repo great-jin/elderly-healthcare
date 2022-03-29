@@ -15,9 +15,6 @@
       :rules="rules"
       ref="taskForm"
     >
-      <a-divider orientation="center">
-        任务信息
-      </a-divider>
       <a-row :gutter="2">
         <a-col :span="12">
           <a-form-model-item

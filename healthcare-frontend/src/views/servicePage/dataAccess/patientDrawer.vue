@@ -1,7 +1,7 @@
 <template>
   <a-drawer
     title="登记详情"
-    width="60%"
+    width="55%"
     placement="right"
     :closable="true"
     :visible="visible"
@@ -9,7 +9,7 @@
   >
     <h2>基本信息</h2>
     <br/>
-    <div style="color: white; font-size: 16px; padding-left: 20px">
+    <div style="font-size: 16px; padding-left: 20px">
       <a-row :gutter="16" style="margin-bottom: 15px">
         <a-col :span="12">
           <b>姓名</b> : AA
@@ -58,7 +58,7 @@
     <br/>
     <h2>身体状况</h2>
     <br/>
-    <div style="color: white; font-size: 16px; padding-left: 20px">
+    <div style="font-size: 16px; padding-left: 20px">
       <a-row :gutter="16" style="margin-bottom: 15px">
         <a-col :span="12">
           <b>体温</b> : AA

@@ -1,8 +1,11 @@
 <template>
   <div>
     <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="信息填写">
-        <a-descriptions title="资产申请" style="padding: 0px 10px" bordered>
+      <a-tab-pane key="1" tab="我的流程">
+        <vacateList ref="vacateList" />
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="信息填写" style="padding: 5px 10px">
+        <a-descriptions bordered>
           <a-descriptions-item label="申请部门" :span="2">
             <a-select placeholder="请选择部门" style="width: 100%; min-width: 100px">
               <a-select-option v-for="org in organize" :key="org.organizeId" :value="org.organizeName">
@@ -50,31 +53,25 @@
           </a-col>
         </a-row>
       </a-tab-pane>
-
-      <a-tab-pane key="2" tab="流程日志" style="padding: 20px 30px">
-        <a-steps direction="vertical" :current="1">
-          <a-step title="Finished" description="This is a description." />
-          <a-step title="In Progress" description="This is a description." />
-          <a-step title="Waiting" description="This is a description." />
-        </a-steps>
-      </a-tab-pane>
     </a-tabs>
   </div>
 </template>
 
 <script>
 import moment from 'moment'
+import vacateList from './vacateList'
 import { listOrg } from '@/api/organizeInfo'
 
 export default {
   name: 'index',
+  components: {
+    vacateList
+  },
   data () {
     return {
       organize: [],
       dayCount: '',
-      applyInfo: {
-
-      }
+      applyInfo: {}
     }
   },
   mounted () {

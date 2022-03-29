@@ -1,38 +1,39 @@
 <template>
   <div style="padding: 10px 20px">
-    <div style="margin-bottom: 20px; color: white">
-      <b>任务名称：</b>
-      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-        <a-select-option
-          v-for="staff in staffList"
-          :key="staff.staffId"
-          :value="staff.staffId"
-        >{{ staff.staffName }}</a-select-option>
-      </a-select>
-      <b>负责人：</b>
-      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-        <a-select-option
-          v-for="staff in staffList"
-          :key="staff.staffId"
-          :value="staff.staffId"
-        >{{ staff.staffName }}</a-select-option>
-      </a-select>
-      <b>负责病人：</b>
-      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-        <a-select-option
-          v-for="staff in staffList"
-          :key="staff.staffId"
-          :value="staff.staffId"
-        >{{ staff.staffName }}</a-select-option>
-      </a-select>
-      <b>创建时间：</b>
-      <a-date-picker
-        class="task-search"
-        placeholder="请选择创建时间"
-      />
-      <a-button @click="searchCancel" class="task-search-button">重置</a-button>
-      <a-button @click="searchOk" type="primary" class="task-search-button">查询</a-button>
-    </div>
+    <a-row style="margin-bottom: 30px;">
+      <a-col :span="6">
+        <b>账号：</b>
+        <a-auto-complete
+          placeholder="输入查询账号"
+          :allowClear="true"
+          class="task-search"
+        />
+      </a-col>
+      <a-col :span="6">
+        <b>任务名：</b>
+        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+          <a-select-option
+            v-for="staff in staffList"
+            :key="staff.staffId"
+            :value="staff.staffId"
+          >{{ staff.staffName }}</a-select-option>
+        </a-select>
+      </a-col>
+      <a-col :span="6">
+        <b>负责人：</b>
+        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+          <a-select-option
+            v-for="staff in staffList"
+            :key="staff.staffId"
+            :value="staff.staffId"
+          >{{ staff.staffName }}</a-select-option>
+        </a-select>
+      </a-col>
+      <a-col :span="6">
+        <a-button @click="searchCancel" class="task-search-button">重置</a-button>
+        <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 7px">查询</a-button>
+      </a-col>
+    </a-row>
 
     <a-button
       type="primary"
@@ -96,14 +97,11 @@ export default {
 
 <style scoped>
   .task-search{
-    width: 10%;
-    margin-right: 30px;
-    margin-bottom: 15px;
+    width: 65%;
+    margin-right: 5px;
   }
   .task-search-button{
     float: right;
     z-index: 1;
-    width: 100px;
-    margin-right: 20px;
   }
 </style>

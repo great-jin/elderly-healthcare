@@ -2,7 +2,9 @@
   <div id="home">
     <a-layout id="topBanner">
       <a-layout-header>
-        <div class="logo">疗养治理平台</div>
+        <router-link to="/elderlyHealthcare/home">
+          <div class="logo">疗养治理平台</div>
+        </router-link>
         <a-menu
           theme="dark"
           mode="horizontal"

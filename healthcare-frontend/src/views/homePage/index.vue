@@ -57,7 +57,7 @@
           :body-style="{padding: 0}"
           :style="{marginTop: '5px', minHeight: '240px'}"
         >
-          <a slot="extra" href="#">全部流程</a>
+          <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
           <a-card-grid
             style="width:33.33%; text-align:center"
             :key="i" v-for="(item, i) in processList.slice(0, 6)"
@@ -83,7 +83,7 @@
           :body-style="{padding: 0}"
           :style="{marginTop: '15px', minHeight: '240px'}"
         >
-          <a slot="extra" href="#">全部流程</a>
+          <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
           <a-card-grid
             style="width:33.33%; text-align:center"
             :key="i" v-for="(item, i) in processList.slice(0, 6)"
@@ -238,6 +238,16 @@ export default {
         })
       })
     },
+    jump (data) {
+      switch (data) {
+        case 'unFinish' :
+          this.$router.push('/elderlyHealthcare/service/task')
+          break
+        case 'unAudit' :
+          this.$router.push('/elderlyHealthcare/humanResource/vacate')
+          break
+      }
+    },
     taskState (state) {
       this.taskData = []
       const _id = this.loginUser.staffId
@@ -340,7 +350,7 @@ export default {
     overflow: auto;
   }
   .task-list {
-    height: 350px;
+    height: 365px;
     overflow-y: auto;
   }
   .footer{
