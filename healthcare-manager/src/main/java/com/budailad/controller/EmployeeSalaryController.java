@@ -44,7 +44,7 @@ public class EmployeeSalaryController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<EmployeeSalary> queryById(@Param("id") String id) {
+    public ResponseEntity<EmployeeSalary> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.employeeSalaryService.queryById(id));
     }
 

@@ -56,7 +56,7 @@ public class WarehoseStorageController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<WarehoseStorage> queryById(@Param("id") String id) {
+    public ResponseEntity<WarehoseStorage> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.warehoseStorageService.queryById(id));
     }
 

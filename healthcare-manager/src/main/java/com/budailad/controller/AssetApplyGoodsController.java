@@ -44,7 +44,7 @@ public class AssetApplyGoodsController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<AssetApplyGoods> queryById(@Param("id") String id) {
+    public ResponseEntity<AssetApplyGoods> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.assetApplyGoodsService.queryById(id));
     }
 

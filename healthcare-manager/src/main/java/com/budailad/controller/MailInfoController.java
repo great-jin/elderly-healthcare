@@ -44,7 +44,7 @@ public class MailInfoController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<MailInfo> queryById(@Param("id") String id) {
+    public ResponseEntity<MailInfo> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.mailInfoService.queryById(id));
     }
 

@@ -44,7 +44,7 @@ public class OrderGoodsController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<OrderGoods> queryById(@Param("id") String id) {
+    public ResponseEntity<OrderGoods> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.orderGoodsService.queryById(id));
     }
 

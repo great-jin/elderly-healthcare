@@ -43,7 +43,7 @@ public class PatientCaseInfoController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<PatientCaseInfo> queryById(@RequestParam("id") String id) {
+    public ResponseEntity<PatientCaseInfo> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.patientCaseInfoService.queryById(id));
     }
 

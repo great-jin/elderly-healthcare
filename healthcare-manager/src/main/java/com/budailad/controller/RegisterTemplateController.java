@@ -44,7 +44,7 @@ public class RegisterTemplateController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<RegisterTemplate> queryById(@Param("id") String id) {
+    public ResponseEntity<RegisterTemplate> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.registerTemplateService.queryById(id));
     }
 

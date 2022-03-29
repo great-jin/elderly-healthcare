@@ -13,8 +13,8 @@ import javax.annotation.Resource;
 /**
  * (PatientInfo)表服务实现类
  *
- * @author Budai
- * @since 2022-03-11 16:21:07
+ * @author makejava
+ * @since 2022-03-29 15:57:13
  */
 @Service("patientInfoService")
 public class PatientInfoServiceImpl implements PatientInfoService {

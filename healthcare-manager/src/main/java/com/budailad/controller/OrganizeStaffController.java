@@ -44,7 +44,7 @@ public class OrganizeStaffController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<OrganizeStaff> queryById(@Param("id") Integer id) {
+    public ResponseEntity<OrganizeStaff> queryById(@RequestParam(value = "id") Integer id) {
         return ResponseEntity.ok(this.organizeStaffService.queryById(id));
     }
 

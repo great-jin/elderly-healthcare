@@ -2,8 +2,8 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientInfo;
 import com.budailad.service.PatientInfoService;
-import org.springframework.data.domain.Page;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +13,11 @@ import javax.annotation.Resource;
 /**
  * (PatientInfo)表控制层
  *
- * @author Budai
- * @since 2022-03-11 16:21:07
+ * @author makejava
+ * @since 2022-03-29 15:57:12
  */
 @RestController
-@RequestMapping(value = "/api/healthcare/patientInfo")
+@RequestMapping("/api/healthcare/patientInfo")
 public class PatientInfoController {
     /**
      * 服务对象
@@ -44,7 +44,7 @@ public class PatientInfoController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<PatientInfo> queryById(@Param("id") String id) {
+    public ResponseEntity<PatientInfo> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.patientInfoService.queryById(id));
     }
 
@@ -76,7 +76,7 @@ public class PatientInfoController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.patientInfoService.deleteById(id));
     }

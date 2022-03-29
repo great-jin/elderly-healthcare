@@ -1,6 +1,7 @@
 package com.budailad.dao;
 
 import com.budailad.entity.VacateInfo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-03-29 15:38:01
  */
+@Mapper
 public interface VacateInfoDao {
 
     /**

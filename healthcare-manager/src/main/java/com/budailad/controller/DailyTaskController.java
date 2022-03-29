@@ -54,12 +54,12 @@ public class DailyTaskController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<DailyTask> queryById(@RequestParam("id") String id) {
+    public ResponseEntity<DailyTask> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.dailyTaskService.queryById(id));
     }
 
     @GetMapping("/getByID")
-    public List<DailyTask> getByID(@RequestParam("id") String Id) {
+    public List<DailyTask> getByID(@RequestParam(value = "id") String Id) {
         List<DailyTask> allTask = this.dailyTaskService.queryAll();
         List<DailyTask> resultList = new ArrayList<>();
         for (DailyTask dailyTask: allTask) {

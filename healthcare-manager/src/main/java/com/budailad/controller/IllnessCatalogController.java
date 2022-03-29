@@ -44,7 +44,7 @@ public class IllnessCatalogController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<IllnessCatalog> queryById(@Param("id") String id) {
+    public ResponseEntity<IllnessCatalog> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.illnessCatalogService.queryById(id));
     }
 

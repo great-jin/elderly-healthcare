@@ -43,7 +43,7 @@ public class SalaryDetailFilesController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<SalaryDetailFiles> queryById(@RequestParam("id") String id) {
+    public ResponseEntity<SalaryDetailFiles> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.salaryDetailFilesService.queryById(id));
     }
 

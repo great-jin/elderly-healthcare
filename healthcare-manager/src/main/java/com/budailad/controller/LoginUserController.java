@@ -63,7 +63,7 @@ public class LoginUserController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<LoginUser> queryById(@Param("id") String id) {
+    public ResponseEntity<LoginUser> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.loginUserService.queryById(id));
     }
 

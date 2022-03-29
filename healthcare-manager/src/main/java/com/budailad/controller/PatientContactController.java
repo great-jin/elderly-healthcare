@@ -44,7 +44,7 @@ public class PatientContactController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<PatientContact> queryById(@Param("id") String id) {
+    public ResponseEntity<PatientContact> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.patientContactService.queryById(id));
     }
 

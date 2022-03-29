@@ -44,7 +44,7 @@ public class StaffDoctorController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<StaffDoctor> queryById(@Param("id") Integer id) {
+    public ResponseEntity<StaffDoctor> queryById(@RequestParam(value = "id") Integer id) {
         return ResponseEntity.ok(this.staffDoctorService.queryById(id));
     }
 

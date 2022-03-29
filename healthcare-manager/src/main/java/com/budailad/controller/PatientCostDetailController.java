@@ -44,7 +44,7 @@ public class PatientCostDetailController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<PaitentCostDetail> queryById(@Param("id") String id) {
+    public ResponseEntity<PaitentCostDetail> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.paitentCostDetailService.queryById(id));
     }
 

@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * (PatientInfo)表数据库访问层
  *
- * @author Budai
- * @since 2022-03-11 16:21:07
+ * @author makejava
+ * @since 2022-03-29 15:57:12
  */
 @Mapper
 public interface PatientInfoDao {

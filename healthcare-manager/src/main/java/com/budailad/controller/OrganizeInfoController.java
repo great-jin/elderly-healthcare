@@ -55,7 +55,7 @@ public class OrganizeInfoController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<OrganizeInfo> queryById(@Param("id") String id) {
+    public ResponseEntity<OrganizeInfo> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.organizeInfoService.queryById(id));
     }
 
