@@ -42,6 +42,7 @@
         >
           <template slot="action" slot-scope="record">
             <a-button type="link" @click="openDrawer('detail', record)">详情</a-button>
+            <a-button type="link" @click="openDrawer('edit', record)">编辑</a-button>
             <patientDrawer ref="patientDrawer" />
           </template>
         </a-table>
