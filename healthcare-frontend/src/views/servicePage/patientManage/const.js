@@ -2,15 +2,17 @@ export const columns = [
   {
     title: '编号',
     dataIndex: 'id',
-    width: '15%',
+    width: 100,
     align: 'center',
+    fixed: 'left',
     scopedSlots: { customRender: 'ID' }
   },
   {
     title: '账号',
     dataIndex: 'accountID',
-    width: '20%',
+    width: 100,
     align: 'center',
+    fixed: 'left',
     scopedSlots: { customRender: 'accountID' }
   },
   {
@@ -31,8 +33,9 @@ export const columns = [
   },
   {
     title: '操作',
-    width: '20%',
+    width: 180,
     align: 'center',
+    fixed: 'right',
     dataIndex: 'operation',
     scopedSlots: { customRender: 'operation' }
   }

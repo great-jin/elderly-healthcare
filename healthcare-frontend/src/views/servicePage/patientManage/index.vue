@@ -1,5 +1,39 @@
 <template>
-  <div>
+  <div style="padding: 10px 20px">
+    <div style="margin-bottom: 30px; color: white">
+      <b>任务名称：</b>
+      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+        <a-select-option
+          v-for="staff in staffList"
+          :key="staff.staffId"
+          :value="staff.staffId"
+        >{{ staff.staffName }}</a-select-option>
+      </a-select>
+      <b>负责人：</b>
+      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+        <a-select-option
+          v-for="staff in staffList"
+          :key="staff.staffId"
+          :value="staff.staffId"
+        >{{ staff.staffName }}</a-select-option>
+      </a-select>
+      <b>负责病人：</b>
+      <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+        <a-select-option
+          v-for="staff in staffList"
+          :key="staff.staffId"
+          :value="staff.staffId"
+        >{{ staff.staffName }}</a-select-option>
+      </a-select>
+      <b>创建时间：</b>
+      <a-date-picker
+        class="task-search"
+        placeholder="请选择创建时间"
+      />
+      <a-button @click="searchCancel" class="task-search-button">重置</a-button>
+      <a-button @click="searchOk" type="primary" class="task-search-button">查询</a-button>
+    </div>
+
     <a-auto-complete
       v-model="accountCode"
       placeholder="输入查询账号"
@@ -15,7 +49,6 @@
       :data-source="patientData"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
-      style="padding: 10px"
     >
       <template slot="operation" slot-scope="record">
         <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
@@ -43,7 +76,13 @@ export default {
       visible: false,
       patientData: [],
       dataSource: [],
-      accountCode: ''
+      accountCode: '',
+      staffList: [
+        {
+          staffId: '123',
+          staffName: 'AA'
+        }
+      ]
     }
   },
   mounted() {
@@ -52,6 +91,12 @@ export default {
     })
   },
   methods: {
+    searchOk () {
+
+    },
+    searchCancel () {
+
+    },
     onSearch(searchText) {
       this.dataSource = []
       this.patientData.forEach((user) => {
@@ -92,6 +137,17 @@ export default {
 </script>
 
 <style scoped>
+  .task-search{
+    width: 10%;
+    margin-right: 30px;
+    margin-bottom: 15px;
+  }
+  .task-search-button{
+    float: right;
+    z-index: 1;
+    width: 100px;
+    margin-right: 20px;
+  }
   .auto-search{
     width: 200px;
     float: right;

@@ -5,7 +5,6 @@
 -- adress: 200
 -- comment: 255
 
-
 -- ----------------------------
 -- COMMENT '部门表'
 -- Table structure for organize_info
@@ -20,7 +19,7 @@ CREATE TABLE `organize_info` (
   `staff_id` varchar(20) COMMENT '领导编号',
   `organize_leader` varchar(30) COMMENT '领导',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -42,7 +41,7 @@ CREATE TABLE `staff_doctor` (
   `entry_time` datetime COMMENT '入职时间',
   `is_resigned` int COMMENT '是否离职',
   `resign_time` datetime COMMENT '离职时间'
-) 
+); 
 
 
 -- ----------------------------
@@ -64,7 +63,7 @@ CREATE TABLE `staff_nurse` (
   `entry_time` datetime COMMENT '入职时间',
   `is_resigned` int COMMENT '是否离职',
   `resign_time` datetime COMMENT '离职时间'
-) 
+);
 
 
 -- ----------------------------
@@ -86,7 +85,7 @@ CREATE TABLE `organize_staff` (
   `entry_time` datetime COMMENT '入职时间',
   `is_resigned` int COMMENT '是否离职',
   `resign_time` datetime COMMENT '离职时间'
-) 
+); 
 
 
 -- ----------------------------
@@ -106,7 +105,29 @@ CREATE TABLE `daily_task` (
   `is_finished` int COMMENT '是否完成',
   `finish_time` datetime COMMENT '完成时间',
   `comment` varchar(500) COMMENT '备注'
-) 
+);
+
+
+-- ----------------------------
+-- COMMENT '请假申请表'
+-- Table structure for vacate_info
+-- ----------------------------
+DROP TABLE IF EXISTS `vacate_info`;
+CREATE TABLE `vacate_info` (
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `organize_name` varchar(30) COMMENT '部门名',
+  `organize_type` varchar(20) COMMENT '部门类型',
+  `staff_id` varchar(20) COMMENT '申请人',
+  `staff_name` varchar(30) COMMENT '申请人',
+  `vacate_type` varchar(20) COMMENT '请假类别',
+  `vacate_reason` varchar(20) COMMENT '请假原因',
+  `start_time` datetime COMMENT '开始时间',
+  `end_time` datetime COMMENT '结束时间',
+  `count_time` double COMMENT '请假天数',
+  `audit_staff` varchar(30) COMMENT '审核人',
+  `is_approve` int COMMENT '是否批准',
+  `comment` varchar(500) COMMENT '备注'
+);
 
 
 -- ----------------------------
@@ -126,7 +147,7 @@ CREATE TABLE `employee_salary` (
   `allowance_count` double COMMENT '补贴',
   `salary_count` double COMMENT '总数',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -146,7 +167,7 @@ CREATE TABLE `salary_detail_files` (
   `update_time` datetime COMMENT '更新时间',
   `is_deleted` int COMMENT '是否删除',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -160,7 +181,7 @@ CREATE TABLE `register_template` (
   `temp_ill` varchar(30) COMMENT '疾病',
   `temp_time` double COMMENT '入住天数',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -170,15 +191,24 @@ CREATE TABLE `register_template` (
 DROP TABLE IF EXISTS `patient_info`;
 CREATE TABLE `patient_info` (
   `patient_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
-  `patient_name` varchar(50) COMMENT '姓名',
-  `patient_gender` varchar(10) COMMENT '性别',
+  `patient_name` varchar(30) COMMENT '姓名',
+  `in_time` datetime COMMENT '登记时间',
+  `patient_gender` varchar(30) COMMENT '性别',
   `patient_age` int COMMENT '年龄',
-  `patient_phone` varchar(20) COMMENT '电话',
-  `contact_name` varchar(30) COMMENT '紧急联系人',
-  `contact_phone` varchar(20) COMMENT '紧急电话',
-  `in_time` datetime COMMENT '入住时间',
-  `is_leave` int COMMENT '是否出院'
-) 
+  `patient_height` double COMMENT '身高(cm)',
+  `patient_weight` double COMMENT '体重(kg)',
+  `eye_left` double COMMENT '视力 左',
+  `eye_right` double COMMENT '视力 右',
+  `body_temper` double COMMENT '体温( 摄氏度)',
+  `heart_beat` double COMMENT '心率( n/min)',
+  `blood_pressure` varchar(30) COMMENT '血压( mmHg)',
+  `blood_glucose` varchar(30) COMMENT '血糖',
+  `blood_fat` varchar(30) COMMENT '血脂( mmo/L)',
+  `body_detail` varchar(255) COMMENT '身体状况',
+  `patient_phone` varchar(20) COMMENT '联系电话',
+  `patient_address` varchar(100) COMMENT '籍贯住址，联动控件',
+  `comment` varchar(500) COMMENT '备注'
+);
 
 
 -- ----------------------------
@@ -193,7 +223,7 @@ CREATE TABLE `patient_contact` (
   `contact_phone` varchar(20) COMMENT '电话',
   `is_deleted` int COMMENT '状态',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -212,7 +242,7 @@ CREATE TABLE `patient_case_info` (
   `is_leave` int COMMENT '是否出院',
   `out_time` datetime COMMENT '出院时间',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -231,7 +261,7 @@ CREATE TABLE `patient_case_files` (
   `upload_time` datetime COMMENT '上传时间',
   `update_time` datetime COMMENT '更新时间',
   `is_deleted` int COMMENT '是否删除'
-) 
+); 
 
 
 -- ----------------------------
@@ -250,7 +280,7 @@ CREATE TABLE `paitent_cost_detail`  (
   `is_pay` int COMMENT '是否结算',
   `pay_time` datetime COMMENT '付款时间',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -265,7 +295,7 @@ CREATE TABLE `illness_catalog`  (
   `ill_describe` text COMMENT '描述',
   `ill_index` varchar(50) COMMENT '疾病指标',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -285,7 +315,7 @@ CREATE TABLE `medicine_catalog`  (
   `is_overdue` int COMMENT '是否过期',
   `produce_vendor` varchar(50) COMMENT '生产厂商',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -305,7 +335,7 @@ CREATE TABLE `warehose_storage`  (
   `purchase_staff` varchar(20) COMMENT '购买人',
   `produce_vendor` varchar(50) COMMENT '生产厂商',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -325,7 +355,7 @@ CREATE TABLE `order_goods`  (
   `staff_id` varchar(20) COMMENT '负责人',
   `delivery_time` datetime COMMENT '交付时间',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -347,7 +377,7 @@ CREATE TABLE `asset_apply_info`  (
   `current_state` int COMMENT '当前状态',
   `is_finished` int COMMENT '是否完成',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -364,7 +394,7 @@ CREATE TABLE `asset_apply_goods`  (
   `apply_count` int COMMENT '申请量',
   `cost_money` double COMMENT '总价',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -385,7 +415,7 @@ CREATE TABLE `login_user`  (
   `update_time` datetime COMMENT '更新时间',
   `destroy_time` datetime COMMENT '注销时间',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -403,7 +433,7 @@ CREATE TABLE `mail_info`  (
   `send_time` datetime COMMENT '发件时间',
   `is_sended` int COMMENT '是否发送成功？',
   `comment` varchar(500) COMMENT '备注'
-) 
+); 
 
 
 -- ----------------------------
@@ -419,13 +449,13 @@ CREATE TABLE `sys_logs`  (
   `log_level` int COMMENT '日志等级',
   `log_describe` text COMMENT '描述',
   `in_time` datetime COMMENT '登记时间'
-) 
+); 
 
 
 
 
 
------------- Abandon ------------------
+-- ---------- Abandon ------------------
 
 
 -- ----------------------------
@@ -443,7 +473,7 @@ CREATE TABLE `sys_user`  (
   `register_time` datetime COMMENT '注册时间',
   `update_time` datetime COMMENT '更新时间',
   `destroy_time` datetime COMMENT '注销时间'
-) 
+); 
 
 
 -- ----------------------------
@@ -457,5 +487,5 @@ CREATE TABLE `illness_warning`  (
   `ill_type` varchar(50) COMMENT '疾病类别',
   `ill_index` varchar(50) COMMENT '疾病指标',
   `ill_describe` text COMMENT '描述',
-  `warn_index` varchar(50) COMMENT '阈值',
-) 
+  `warn_index` varchar(50) COMMENT '阈值'
+); 

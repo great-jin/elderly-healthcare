@@ -1,34 +1,53 @@
 export const columns = [
   {
-    key: 'name',
-    width: '20%',
-    dataIndex: 'name',
-    slots: { title: 'customTitle' },
-    scopedSlots: { customRender: 'name' }
+    key: 'taskName',
+    title: '任务名称',
+    align: 'center',
+    dataIndex: 'taskName'
   },
   {
-    key: 'age',
-    width: '15%',
-    title: 'Age',
-    dataIndex: 'age'
+    key: 'staffId',
+    title: '负责人',
+    align: 'center',
+    dataIndex: 'staffId'
   },
   {
-    key: 'address',
-    width: '20%',
-    title: 'Address',
-    dataIndex: 'address'
+    key: 'patientId',
+    title: '负责病人',
+    align: 'center',
+    dataIndex: 'patientId'
   },
   {
-    key: 'tags',
-    width: '15%',
-    title: 'Tags',
-    dataIndex: 'tags',
-    scopedSlots: { customRender: 'tags' }
+    key: 'createdTime',
+    title: '创建时间',
+    align: 'center',
+    dataIndex: 'createdTime'
+    /*,
+    customRender: (text, record) => {
+      const time = record.createdTime ? format(record.createdTime, 'YYYY-MM-DD HH:mm:ss') : '无'
+      return <span>{time}</span>
+    } */
   },
   {
+    key: 'taskContent',
+    title: '任务内容',
+    align: 'center',
+    dataIndex: 'taskContent',
+    colSpan: 0,
+    customRender: () => {
+      return { attrs: { colSpan: 0 } }
+    }
+  },
+  {
+    key: 'comment',
+    title: '备注',
+    align: 'center',
+    dataIndex: 'comment',
+    scopedSlots: { customRender: 'comment' }
+  },
+  {
+    title: '操作',
     key: 'action',
-    width: '30%',
-    title: 'Action',
     align: 'center',
     scopedSlots: { customRender: 'action' }
   }
@@ -37,23 +56,66 @@ export const columns = [
 export const taskData = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer']
-  },
-  {
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
     key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser']
-  },
-  {
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
     key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher']
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
+    key: '4',
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
+    key: '5',
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
+    key: '6',
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
+  }, {
+    key: '7',
+    taskId: '123',
+    taskName: '123',
+    staffId: '23',
+    patientId: '12',
+    createdTime: '34g',
+    taskContent: '是法国的是法国是是法国的是法国是法国的是法国是法国的是法国是法国的是法国国的是法国ebffffffb',
+    comment: 'fgfffxddd'
   }
 ]
