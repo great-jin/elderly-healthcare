@@ -49,16 +49,6 @@ public class WarehoseStorageController {
     }
 
     /**
-     * 查询非分页数据
-     *
-     * @return
-     */
-    @GetMapping("/list")
-    public ResponseEntity<List<WarehoseStorage>> queryAll() {
-        return ResponseEntity.ok(this.warehoseStorageService.queryAll());
-    }
-
-    /**
      * 通过主键查询单条数据
      *
      * @param id 主键

@@ -50,15 +50,6 @@ public class DailyTaskController {
     }
 
     /**
-     *
-     * @return
-     */
-    @GetMapping("/list")
-    public ResponseEntity<List<DailyTask>> queryAll() {
-        return ResponseEntity.ok(this.dailyTaskService.queryAll());
-    }
-
-    /**
      * 通过主键查询单条数据
      *
      * @param id 主键
@@ -69,6 +60,12 @@ public class DailyTaskController {
         return ResponseEntity.ok(this.dailyTaskService.queryById(id));
     }
 
+    /**
+     * 获取当前
+     *
+     * @param Id
+     * @return
+     */
     @GetMapping("/getByID")
     public List<DailyTask> getByID(@RequestParam(value = "id") String Id) {
         List<DailyTask> allTask = this.dailyTaskService.queryAll();
