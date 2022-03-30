@@ -16,9 +16,9 @@
             />
           </a-card-meta>
           <template slot="actions" class="ant-card-actions">
-            <span key="setting" @click="operationClick('person', null)">个人信息</span>
-            <span key="edit" @click="operationClick('back', null)">系统后台</span>
-            <span key="ellipsis" @click="operationClick('quit', null)">退出登录</span>
+            <span key="setting" @click="clickOption('person', null)">个人信息</span>
+            <span key="edit" @click="clickOption('back', null)">系统后台</span>
+            <span key="ellipsis" @click="clickOption('quit', null)">退出登录</span>
           </template>
         </a-card>
         <div class="head-card">
@@ -65,7 +65,7 @@
             <a-card
               :bordered="false"
               :body-style="{padding: 0}"
-              @click="operationClick('process', item)"
+              @click="clickOption('process', item)"
             >
               <a-card-meta
                 :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
@@ -91,7 +91,7 @@
             <a-card
               :bordered="false"
               :body-style="{padding: 0}"
-              @click="operationClick('process', item)"
+              @click="clickOption('process', item)"
             >
               <a-card-meta
                 :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
@@ -140,8 +140,8 @@
                     <a slot="title">{{ item.taskName }}</a>
                   </a-list-item-meta>
                 </a-tooltip>
-                <a slot="actions" @click="operationClick('more', item)">详情</a>
-                <a slot="actions" @click="operationClick('edit', item)">编辑</a>
+                <a slot="actions" @click="clickOption('more', item)">详情</a>
+                <a slot="actions" @click="clickOption('edit', item)">编辑</a>
 
                 <taskModal ref="taskModal"/>
               </a-list-item>
@@ -277,7 +277,7 @@ export default {
         }
       })
     },
-    operationClick (type, data) {
+    clickOption (type, data) {
       switch (type) {
         case 'person':
           this.$router.push('/elderlyHealthcare/setting/personal')

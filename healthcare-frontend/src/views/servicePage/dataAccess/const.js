@@ -16,7 +16,6 @@ export const columns = [
   },
   {
     title: 'Action',
-    dataIndex: '',
     key: 'x',
     align: 'center',
     scopedSlots: { customRender: 'action' }

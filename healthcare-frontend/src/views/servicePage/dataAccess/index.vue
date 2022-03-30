@@ -42,8 +42,9 @@
           :data-source="accessData"
         >
           <template slot="action" slot-scope="record">
-            <a-button type="link" @click="openDrawer('detail', record)">详情</a-button>
-            <a-button type="link" @click="openDrawer('edit', record)">编辑</a-button>
+            <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+
             <patientDrawer ref="patientDrawer" />
           </template>
         </a-table>
@@ -79,7 +80,7 @@ export default {
     }
   },
   methods: {
-    openDrawer (type, record) {
+    clickOption (type, record) {
       this.$refs.patientDrawer.paramReceive(type, record)
     },
     searchOk () {

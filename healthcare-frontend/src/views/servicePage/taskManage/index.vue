@@ -37,7 +37,7 @@
 
     <a-button
       type="primary"
-      @click="openClick('add', null)"
+      @click="clickOption('add', null)"
       style="margin-bottom: 20px"
     >新建任务</a-button>
     <a-table
@@ -45,7 +45,7 @@
       :data-source="taskData"
       :pagination="{ pageSize: 5 }"
     >
-      <a-button slot="action" slot-scope="record" type="link" @click="openClick('edit', record)">编辑</a-button>
+      <a-button slot="action" slot-scope="record" type="link" @click="clickOption('edit', record)">编辑</a-button>
       <span slot="expandedRowRender" slot-scope="record" style="margin: 0">{{ record.taskContent }}</span>
     </a-table>
 
@@ -75,7 +75,7 @@ export default {
     }
   },
   methods: {
-    openClick (type, data) {
+    clickOption (type, data) {
       switch (type) {
         case 'add':
           this.$refs.taskModal.paramReceive(type, data)

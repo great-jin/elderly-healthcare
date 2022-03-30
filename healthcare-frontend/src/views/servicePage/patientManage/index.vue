@@ -32,7 +32,7 @@
         </a-select>
       </a-col>
       <a-col :span="6">
-        <a-button @click="searchCancel" class="task-search-button">重置</a-button>
+        <a-button @click="refresh" class="task-search-button">重置</a-button>
         <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 7px">查询</a-button>
       </a-col>
     </a-row>
@@ -40,12 +40,13 @@
     <a-table
       :columns="columns"
       :data-source="patientCaseData"
-      :pagination="{ pageSize: 5 }"
       :bordered="false"
+      :scroll="{ x: 900 }"
+      :pagination="{ pageSize: 5 }"
     >
-      <template slot="operation" slot-scope="record">
-        <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
-        <a-button type="link" @click="operationClick('edit', record)" >更新 </a-button>
+      <template slot="action" slot-scope="record">
+        <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
         <patientDrawer ref="patientDrawer" />
       </template>
     </a-table>
@@ -53,10 +54,9 @@
 </template>
 
 <script>
-import { List } from '@/api/patientCaseInfo.js';
 import { columns } from "./const";
 import patientDrawer from "./patientDrawer";
-import {listPatientInfo} from "../../../api/patientInfo";
+import { listCaseInfo } from '@/api/patientCaseInfo.js';
 
 export default {
   inject: ['reload'],
@@ -65,9 +65,6 @@ export default {
   },
   data() {
     return {
-      value: '',
-      columns,
-      visible: false,
       dataSource: [],
       patientCaseData: [],
       staffList: [
@@ -78,34 +75,36 @@ export default {
       ]
     }
   },
+  computed: {
+    columns () {
+      return columns(this)
+    }
+  },
   mounted() {
     this.getData()
   },
   methods: {
     getData() {
-      listPatientInfo().then(res =>{
+      listCaseInfo().then(res =>{
         this.patientCaseData = res.data
       })
     },
     searchOk () {
 
     },
-    searchCancel () {
-
-    },
     async refresh () {
-      await this.operationClick('reset')
+      await this.clickOption('reset')
     },
-    async operationClick (type, record) {
+    async clickOption (type, data) {
       switch (type) {
         case 'reset':
           this.reload()
           break
         case 'edit':
-          this.$refs.patientDrawer.paramReceive(type, record)
+          this.$refs.patientDrawer.paramReceive(type, data)
           break
-        case 'detail':
-          this.$refs.patientDrawer.paramReceive(type, record)
+        case 'more':
+          this.$refs.patientDrawer.paramReceive(type, data)
           break
       }
     }

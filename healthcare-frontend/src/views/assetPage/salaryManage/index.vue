@@ -29,8 +29,8 @@
         :scroll="{ x: 1300, y: 310}"
       >
         <template slot="action" slot-scope="text, record, index">
-          <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
-          <a-button type="link" @click="operationClick('edit', record)" >下载</a-button>
+          <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+          <a-button type="link" @click="clickOption('edit', record)" >下载</a-button>
         </template>
       </a-table>
     </div>
@@ -52,12 +52,12 @@ export default {
     onSelect(keys) {
       console.log(keys);
     },
-    async operationClick (type, record) {
+    async clickOption (type, record) {
       switch (type) {
         case 'download':
           this.$message.info('下载')
           break
-        case 'detail':
+        case 'more':
           this.$message.info('详情')
           break
       }
