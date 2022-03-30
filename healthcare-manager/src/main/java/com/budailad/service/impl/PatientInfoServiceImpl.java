@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.PatientInfo;
 import com.budailad.dao.PatientInfoDao;
 import com.budailad.service.PatientInfoService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-29 15:57:13
  */
 @Service("patientInfoService")
+@CacheConfig(cacheNames = "patientInfo")
 public class PatientInfoServiceImpl implements PatientInfoService {
     @Resource
     private PatientInfoDao patientInfoDao;
@@ -40,6 +44,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<PatientInfo> queryAll(PatientInfo patientInfo) {
         return this.patientInfoDao.queryAll(patientInfo);
     }
@@ -64,6 +69,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PatientInfo insert(PatientInfo patientInfo) {
         this.patientInfoDao.insert(patientInfo);
         return patientInfo;
@@ -76,6 +82,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PatientInfo update(PatientInfo patientInfo) {
         this.patientInfoDao.update(patientInfo);
         return this.queryById(patientInfo.getPatientId());
@@ -88,6 +95,7 @@ public class PatientInfoServiceImpl implements PatientInfoService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String patientId) {
         return this.patientInfoDao.deleteById(patientId) > 0;
     }

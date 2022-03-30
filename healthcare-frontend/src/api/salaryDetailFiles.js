@@ -2,10 +2,11 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/salaryDetailFiles'
 
-export function listSalaryDetailFiles () {
+export function listSalaryDetailFiles (params) {
   return request({
     url: `${prefix}/list`,
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }
 

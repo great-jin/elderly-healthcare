@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.WarehoseStorage;
 import com.budailad.dao.WarehoseStorageDao;
 import com.budailad.service.WarehoseStorageService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:05
  */
 @Service("warehoseStorageService")
+@CacheConfig(cacheNames = "warehoseStorage")
 public class WarehoseStorageServiceImpl implements WarehoseStorageService {
     @Resource
     private WarehoseStorageDao warehoseStorageDao;
@@ -40,6 +44,7 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<WarehoseStorage> queryAll(WarehoseStorage warehoseStorage) {
         return this.warehoseStorageDao.queryAll(warehoseStorage);
     }
@@ -70,6 +75,7 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public WarehoseStorage insert(WarehoseStorage warehoseStorage) {
         this.warehoseStorageDao.insert(warehoseStorage);
         return warehoseStorage;
@@ -82,6 +88,7 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public WarehoseStorage update(WarehoseStorage warehoseStorage) {
         this.warehoseStorageDao.update(warehoseStorage);
         return this.queryById(warehoseStorage.getGoodsId());
@@ -94,6 +101,7 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String goodsId) {
         return this.warehoseStorageDao.deleteById(goodsId) > 0;
     }

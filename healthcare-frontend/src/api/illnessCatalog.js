@@ -2,10 +2,11 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/illnessCatalog'
 
-export function listIllnessCatalog () {
+export function listIllnessCatalog (params) {
   return request({
     url: `${prefix}/list`,
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }
 

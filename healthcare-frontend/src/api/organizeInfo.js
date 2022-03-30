@@ -2,10 +2,11 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/organizeInfo'
 
-export function listOrg () {
+export function listOrg (params) {
   return request({
     url: `${prefix}/list`,
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }
 

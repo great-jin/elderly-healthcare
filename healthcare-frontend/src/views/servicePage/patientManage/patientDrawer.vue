@@ -202,9 +202,9 @@ export default {
   },
   methods: {
     paramReceive (type, data) {
-      this.form.patientId = data.patientId
       this.type = type
       this.visible = true
+      this.form.patientId = data.patientId
       if (type === 'more') {
         this.isMore = true
         this.getData()
@@ -214,8 +214,10 @@ export default {
       }
     },
     getData () {
-      const patientId = this.form.patientId
-      listBodyInfo(patientId).then(res => {
+      const object = {
+        patientId: this.form.patientId
+      }
+      listBodyInfo(object).then(res => {
         this.form.patientBodyInfoList = res.data
       })
     },

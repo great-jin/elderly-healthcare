@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.OrderGoods;
 import com.budailad.dao.OrderGoodsDao;
 import com.budailad.service.OrderGoodsService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:05
  */
 @Service("orderGoodsService")
+@CacheConfig(cacheNames = "orderGoods")
 public class OrderGoodsServiceImpl implements OrderGoodsService {
     @Resource
     private OrderGoodsDao orderGoodsDao;
@@ -40,6 +44,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<OrderGoods> queryAll(OrderGoods orderGoods) {
         return this.orderGoodsDao.queryAll(orderGoods);
     }
@@ -64,6 +69,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public OrderGoods insert(OrderGoods orderGoods) {
         this.orderGoodsDao.insert(orderGoods);
         return orderGoods;
@@ -76,6 +82,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public OrderGoods update(OrderGoods orderGoods) {
         this.orderGoodsDao.update(orderGoods);
         return this.queryById(orderGoods.getOrderId());
@@ -88,6 +95,7 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String orderId) {
         return this.orderGoodsDao.deleteById(orderId) > 0;
     }

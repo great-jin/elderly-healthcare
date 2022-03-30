@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.EmployeeSalary;
 import com.budailad.dao.EmployeeSalaryDao;
 import com.budailad.service.EmployeeSalaryService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:07
  */
 @Service("employeeSalaryService")
+@CacheConfig(cacheNames = "employeeSalary")
 public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
     @Resource
     private EmployeeSalaryDao employeeSalaryDao;
@@ -40,6 +44,7 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<EmployeeSalary> queryAll(EmployeeSalary employeeSalary) {
         return this.employeeSalaryDao.queryAll(employeeSalary);
     }
@@ -64,6 +69,7 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public EmployeeSalary insert(EmployeeSalary employeeSalary) {
         this.employeeSalaryDao.insert(employeeSalary);
         return employeeSalary;
@@ -76,6 +82,7 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public EmployeeSalary update(EmployeeSalary employeeSalary) {
         this.employeeSalaryDao.update(employeeSalary);
         return this.queryById(employeeSalary.getSalaryId());
@@ -88,6 +95,7 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String salaryId) {
         return this.employeeSalaryDao.deleteById(salaryId) > 0;
     }

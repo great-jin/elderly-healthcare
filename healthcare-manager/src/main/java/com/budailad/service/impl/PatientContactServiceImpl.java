@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.PatientContact;
 import com.budailad.dao.PatientContactDao;
 import com.budailad.service.PatientContactService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-28 16:00:20
  */
 @Service("patientContactService")
+@CacheConfig(cacheNames = "patientContact")
 public class PatientContactServiceImpl implements PatientContactService {
     @Resource
     private PatientContactDao patientContactDao;
@@ -40,6 +44,7 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<PatientContact> queryAll(PatientContact patientContact) {
         return this.patientContactDao.queryAll(patientContact);
     }
@@ -64,6 +69,7 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PatientContact insert(PatientContact patientContact) {
         this.patientContactDao.insert(patientContact);
         return patientContact;
@@ -76,6 +82,7 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PatientContact update(PatientContact patientContact) {
         this.patientContactDao.update(patientContact);
         return this.queryById(patientContact.getId());
@@ -88,6 +95,7 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String id) {
         return this.patientContactDao.deleteById(id) > 0;
     }

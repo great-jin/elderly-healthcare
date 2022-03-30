@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.RegisterTemplate;
 import com.budailad.dao.RegisterTemplateDao;
 import com.budailad.service.RegisterTemplateService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:06
  */
 @Service("registerTemplateService")
+@CacheConfig(cacheNames = "registerTemplate")
 public class RegisterTemplateServiceImpl implements RegisterTemplateService {
     @Resource
     private RegisterTemplateDao registerTemplateDao;
@@ -40,6 +44,7 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate) {
         return this.registerTemplateDao.queryAll(registerTemplate);
     }
@@ -64,6 +69,7 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public RegisterTemplate insert(RegisterTemplate registerTemplate) {
         this.registerTemplateDao.insert(registerTemplate);
         return registerTemplate;
@@ -76,6 +82,7 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public RegisterTemplate update(RegisterTemplate registerTemplate) {
         this.registerTemplateDao.update(registerTemplate);
         return this.queryById(registerTemplate.getTempId());
@@ -88,6 +95,7 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String tempId) {
         return this.registerTemplateDao.deleteById(tempId) > 0;
     }

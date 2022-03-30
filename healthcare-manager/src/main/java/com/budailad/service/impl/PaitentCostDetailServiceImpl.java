@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.PaitentCostDetail;
 import com.budailad.dao.PaitentCostDetailDao;
 import com.budailad.service.PaitentCostDetailService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:06
  */
 @Service("paitentCostDetailService")
+@CacheConfig(cacheNames = "paitentCostDetail")
 public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
     @Resource
     private PaitentCostDetailDao paitentCostDetailDao;
@@ -40,6 +44,7 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<PaitentCostDetail> queryAll(PaitentCostDetail paitentCostDetail) {
         return this.paitentCostDetailDao.queryAll(paitentCostDetail);
     }
@@ -64,6 +69,7 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PaitentCostDetail insert(PaitentCostDetail paitentCostDetail) {
         this.paitentCostDetailDao.insert(paitentCostDetail);
         return paitentCostDetail;
@@ -76,6 +82,7 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public PaitentCostDetail update(PaitentCostDetail paitentCostDetail) {
         this.paitentCostDetailDao.update(paitentCostDetail);
         return this.queryById(paitentCostDetail.getCostId());
@@ -88,6 +95,7 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String costId) {
         return this.paitentCostDetailDao.deleteById(costId) > 0;
     }

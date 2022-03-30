@@ -21,7 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:07
  */
 @Service("loginUserService")
-@CacheConfig(cacheNames = "login")
+@CacheConfig(cacheNames = "loginUser")
 public class LoginUserServiceImpl implements LoginUserService {
     @Resource
     private LoginUserDao loginUserDao;
@@ -45,6 +45,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<LoginUser> queryAll(LoginUser loginUser) {
         return this.loginUserDao.queryAll(loginUser);
     }
@@ -69,6 +70,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public LoginUser insert(LoginUser loginUser) {
         this.loginUserDao.insert(loginUser);
         return loginUser;

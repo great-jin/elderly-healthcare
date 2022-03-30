@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.MedicineCatalog;
 import com.budailad.dao.MedicineCatalogDao;
 import com.budailad.service.MedicineCatalogService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:04
  */
 @Service("medicineCatalogService")
+@CacheConfig(cacheNames = "medicineCatalog")
 public class MedicineCatalogServiceImpl implements MedicineCatalogService {
     @Resource
     private MedicineCatalogDao medicineCatalogDao;
@@ -40,6 +44,7 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog) {
         return this.medicineCatalogDao.queryAll(medicineCatalog);
     }
@@ -64,6 +69,7 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public MedicineCatalog insert(MedicineCatalog medicineCatalog) {
         this.medicineCatalogDao.insert(medicineCatalog);
         return medicineCatalog;
@@ -76,6 +82,7 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public MedicineCatalog update(MedicineCatalog medicineCatalog) {
         this.medicineCatalogDao.update(medicineCatalog);
         return this.queryById(medicineCatalog.getDrugId());
@@ -88,6 +95,7 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String drugId) {
         return this.medicineCatalogDao.deleteById(drugId) > 0;
     }

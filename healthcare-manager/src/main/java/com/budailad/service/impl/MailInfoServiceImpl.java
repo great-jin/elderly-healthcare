@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.MailInfo;
 import com.budailad.dao.MailInfoDao;
 import com.budailad.service.MailInfoService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-11 16:21:07
  */
 @Service("mailInfoService")
+@CacheConfig(cacheNames = "mailInfo")
 public class MailInfoServiceImpl implements MailInfoService {
     @Resource
     private MailInfoDao mailInfoDao;
@@ -40,6 +44,7 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<MailInfo> queryAll(MailInfo mailInfo) {
         return this.mailInfoDao.queryAll(mailInfo);
     }
@@ -64,6 +69,7 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public MailInfo insert(MailInfo mailInfo) {
         this.mailInfoDao.insert(mailInfo);
         return mailInfo;
@@ -76,6 +82,7 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public MailInfo update(MailInfo mailInfo) {
         this.mailInfoDao.update(mailInfo);
         return this.queryById(mailInfo.getMailId());
@@ -88,6 +95,7 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String mailId) {
         return this.mailInfoDao.deleteById(mailId) > 0;
     }

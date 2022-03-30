@@ -2,21 +2,22 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/patientCaseFiles'
 
-export function list () {
+export function listCaseFiles (params) {
   return request({
     url: `${prefix}/list`,
-    method: 'get'
+    method: 'get',
+    params: params
   })
 }
 
-export function get (params) {
+export function getCaseFiles (params) {
   return request({
     url: `${prefix}/get?id=${params}`,
     method: 'get'
   })
 }
 
-export function add (params) {
+export function addCaseFiles (params) {
   return request({
     url: `${prefix}/add`,
     method: 'post',
@@ -24,7 +25,7 @@ export function add (params) {
   })
 }
 
-export function update (params) {
+export function updateCaseFiles (params) {
   return request({
     url: `${prefix}/update`,
     method: 'post',
@@ -32,7 +33,7 @@ export function update (params) {
   })
 }
 
-export function remove (params) {
+export function removeCaseFiles (params) {
   return request({
     url: `${prefix}/delete`,
     method: 'post',

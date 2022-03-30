@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.AssetApplyGoods;
 import com.budailad.dao.AssetApplyGoodsDao;
 import com.budailad.service.AssetApplyGoodsService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-28 16:00:22
  */
 @Service("assetApplyGoodsService")
+@CacheConfig(cacheNames = "applyGoods")
 public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
     @Resource
     private AssetApplyGoodsDao assetApplyGoodsDao;
@@ -40,6 +44,7 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<AssetApplyGoods> queryAll(AssetApplyGoods assetApplyGoods) {
         return this.assetApplyGoodsDao.queryAll(assetApplyGoods);
     }
@@ -64,6 +69,7 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public AssetApplyGoods insert(AssetApplyGoods assetApplyGoods) {
         this.assetApplyGoodsDao.insert(assetApplyGoods);
         return assetApplyGoods;
@@ -76,6 +82,7 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public AssetApplyGoods update(AssetApplyGoods assetApplyGoods) {
         this.assetApplyGoodsDao.update(assetApplyGoods);
         return this.queryById(assetApplyGoods.getId());
@@ -88,6 +95,7 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String id) {
         return this.assetApplyGoodsDao.deleteById(id) > 0;
     }

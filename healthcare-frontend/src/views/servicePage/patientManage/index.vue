@@ -1,41 +1,59 @@
 <template>
   <div style="padding: 10px">
-    <a-row style="margin-bottom: 30px;">
-      <a-col :span="6">
-        <b>病人：</b>
-        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-          <a-select-option
-            v-for="patient in patientCaseData"
-            :key="patient.patientId"
-            :value="patient.patientId"
-          >{{ patient.patientName }}</a-select-option>
-        </a-select>
-      </a-col>
-      <a-col :span="6">
-        <b>护理员：</b>
-        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-          <a-select-option
-            v-for="patient in patientCaseData"
-            :key="patient.patientId"
-            :value="patient.patientId"
-          >{{ patient.chargeNurse }}</a-select-option>
-        </a-select>
-      </a-col>
-      <a-col :span="6">
-        <b>主治医师：</b>
-        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-          <a-select-option
-            v-for="patient in patientCaseData"
-            :key="patient.patientId"
-            :value="patient.patientId"
-          >{{ patient.chargeDoctor }}</a-select-option>
-        </a-select>
-      </a-col>
-      <a-col :span="6">
-        <a-button @click="refresh" class="task-search-button">重置</a-button>
-        <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 7px">查询</a-button>
-      </a-col>
-    </a-row>
+    <a-form-model
+      ref="searchForm"
+      v-model="searchData"
+      style="margin-bottom: 15px; font-weight: bold"
+    >
+      <a-row>
+        <a-col :span="6">
+          <a-form-model-item
+            label="病人"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.patientId"
+              :allowClear="true"
+              placeholder="请选择病人"
+              :value="null"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in patientCaseData"
+                :key="cases.patientId"
+                :value="cases.patientId"
+              >{{ cases.patientName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="6">
+          <a-form-model-item
+            label="护理员"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.chargeNurse"
+              :allowClear="true"
+              placeholder="请选择护理员"
+              :value="undefined"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in patientCaseData"
+                :key="cases.chargeNurse"
+                :value="cases.chargeNurse"
+              >{{ cases.chargeNurse }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-button @click="refresh" class="task-search-button">重置</a-button>
+          <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 15px">查询</a-button>
+        </a-col>
+      </a-row>
+    </a-form-model>
 
     <a-table
       :columns="columns"
@@ -67,12 +85,19 @@ export default {
     return {
       dataSource: [],
       patientCaseData: [],
-      staffList: [
-        {
-          staffId: '123',
-          staffName: 'AA'
-        }
-      ]
+      searchData: {
+        patientId: '',
+        chargeNurse: '',
+        chargeDoctor: ''
+      },
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 5 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 18 }
+      }
     }
   },
   computed: {
@@ -90,7 +115,10 @@ export default {
       })
     },
     searchOk () {
-
+      const _searchInfo = this.searchData
+      listCaseInfo(_searchInfo).then(res =>{
+        this.patientCaseData = res.data
+      })
     },
     async refresh () {
       await this.clickOption('reset')
@@ -98,7 +126,8 @@ export default {
     async clickOption (type, data) {
       switch (type) {
         case 'reset':
-          this.reload()
+          this.$refs.searchForm.resetFields()
+          this.getData()
           break
         case 'edit':
           console.log('edit', data.patientId)
@@ -115,10 +144,6 @@ export default {
 </script>
 
 <style scoped>
-  .task-search{
-    width: 65%;
-    margin-right: 5px;
-  }
   .task-search-button{
     float: right;
     z-index: 1;

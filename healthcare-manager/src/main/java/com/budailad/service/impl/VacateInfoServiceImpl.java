@@ -3,6 +3,9 @@ package com.budailad.service.impl;
 import com.budailad.entity.VacateInfo;
 import com.budailad.dao.VacateInfoDao;
 import com.budailad.service.VacateInfoService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,6 +21,7 @@ import java.util.List;
  * @since 2022-03-29 15:38:02
  */
 @Service("vacateInfoService")
+@CacheConfig(cacheNames = "vacateInfo")
 public class VacateInfoServiceImpl implements VacateInfoService {
     @Resource
     private VacateInfoDao vacateInfoDao;
@@ -40,6 +44,7 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<VacateInfo> queryAll(VacateInfo vacateInfo) {
         return this.vacateInfoDao.queryAll(vacateInfo);
     }
@@ -64,6 +69,7 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public VacateInfo insert(VacateInfo vacateInfo) {
         this.vacateInfoDao.insert(vacateInfo);
         return vacateInfo;
@@ -76,6 +82,7 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 实例对象
      */
     @Override
+    @CacheEvict(key = "'list'")
     public VacateInfo update(VacateInfo vacateInfo) {
         this.vacateInfoDao.update(vacateInfo);
         return this.queryById(vacateInfo.getId());
@@ -88,6 +95,7 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 是否成功
      */
     @Override
+    @CacheEvict(key = "'list'")
     public boolean deleteById(String id) {
         return this.vacateInfoDao.deleteById(id) > 0;
     }
