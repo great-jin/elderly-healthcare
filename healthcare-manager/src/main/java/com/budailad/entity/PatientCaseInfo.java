@@ -7,14 +7,14 @@ import java.io.Serializable;
  * (PatientCaseInfo)实体类
  *
  * @author Budai
- * @since 2022-03-24 15:54:01
+ * @since 2022-03-30 09:19:07
  */
 public class PatientCaseInfo implements Serializable {
-    private static final long serialVersionUID = 745923259131530263L;
+    private static final long serialVersionUID = 753060986232579230L;
     /**
      * 编号
      */
-    private String castId;
+    private String caseId;
     /**
      * 病人编号
      */
@@ -52,14 +52,6 @@ public class PatientCaseInfo implements Serializable {
      */
     private String comment;
 
-
-    public String getCastId() {
-        return castId;
-    }
-
-    public void setCastId(String castId) {
-        this.castId = castId;
-    }
 
     public String getPatientId() {
         return patientId;
@@ -131,6 +123,14 @@ public class PatientCaseInfo implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getCaseId() {
+        return caseId;
+    }
+
+    public void setCaseId(String caseId) {
+        this.caseId = caseId;
     }
 
 }

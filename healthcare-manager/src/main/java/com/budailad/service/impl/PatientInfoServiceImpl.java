@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 /**
  * (PatientInfo)表服务实现类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-29 15:57:13
  */
 @Service("patientInfoService")

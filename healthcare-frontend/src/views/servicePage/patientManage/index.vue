@@ -47,7 +47,7 @@
     >
       <template slot="operation" slot-scope="record">
         <a-button type="link" @click="operationClick('detail', record)">详情</a-button>
-        <a-button type="link" @click="operationClick('edit', record)" >修改 </a-button>
+        <a-button type="link" @click="operationClick('edit', record)" >更新 </a-button>
         <patientDrawer ref="patientDrawer" />
       </template>
     </a-table>

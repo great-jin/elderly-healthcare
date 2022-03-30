@@ -232,17 +232,37 @@ CREATE TABLE `patient_contact` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_case_info`;
 CREATE TABLE `patient_case_info` (
-  `cast_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `case_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
   `patient_id` varchar(36) COMMENT '病人编号',
   `patient_name` varchar(30) COMMENT '姓名',
-  `case_describe` text COMMENT '描述',
   `charge_doctor` varchar(20) COMMENT '主治医师 ID',
   `charge_nurse` varchar(20) COMMENT '护理员 ID',
+  `case_describe` text COMMENT '描述',
   `in_time` datetime COMMENT '入住时间',
   `is_leave` int COMMENT '是否出院',
   `out_time` datetime COMMENT '出院时间',
   `comment` varchar(500) COMMENT '备注'
-); 
+);
+
+
+-- ----------------------------
+-- COMMENT '病人身体指标信息'
+-- Table structure for patient_case_info
+-- ----------------------------
+DROP TABLE IF EXISTS `patient_body_info`;
+CREATE TABLE `patient_body_info` (
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `patient_id` varchar(36) COMMENT '病人编号',
+  `body_temper` double COMMENT '体温(摄氏度)',
+  `heart_beat` double COMMENT '心率(n/min)',
+  `blood_pressure` varchar(30) COMMENT '血压(mmHg)',
+  `blood_glucose` varchar(30) COMMENT '血糖',
+  `blood_fat` varchar(30) COMMENT '血脂(mmo/L)',
+  `drug_info` varchar(255) COMMENT '用药详情',
+  `body_detail` varchar(255) COMMENT '身体状况',
+  `in_time` datetime COMMENT '登记时间',
+  `comment` varchar(500) COMMENT '备注'
+);
 
 
 -- ----------------------------

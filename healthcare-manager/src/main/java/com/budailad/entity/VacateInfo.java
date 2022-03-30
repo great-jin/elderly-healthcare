@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (VacateInfo)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-29 15:38:01
  */
 public class VacateInfo implements Serializable {

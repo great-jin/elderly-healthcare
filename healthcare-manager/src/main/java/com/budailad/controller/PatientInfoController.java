@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 /**
  * (PatientInfo)表控制层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-29 15:57:12
  */
 @RestController

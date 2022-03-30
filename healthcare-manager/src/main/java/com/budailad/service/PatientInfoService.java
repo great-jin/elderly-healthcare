@@ -7,7 +7,7 @@ import org.springframework.data.domain.PageRequest;
 /**
  * (PatientInfo)表服务接口
  *
- * @author makejava
+ * @author Budai
  * @since 2022-03-29 15:57:13
  */
 public interface PatientInfoService {
