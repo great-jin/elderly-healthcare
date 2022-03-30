@@ -1,6 +1,7 @@
 package com.budailad.controller;
 
 import com.budailad.entity.VacateInfo;
+import com.budailad.entity.WarehoseStorage;
 import com.budailad.service.VacateInfoService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (VacateInfo)表控制层
@@ -24,6 +26,17 @@ public class VacateInfoController {
      */
     @Resource
     private VacateInfoService vacateInfoService;
+
+    /**
+     * 条件查询
+     *
+     * @param vacateInfo  筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<VacateInfo>> queryAll(VacateInfo vacateInfo) {
+        return ResponseEntity.ok(this.vacateInfoService.queryAll(vacateInfo));
+    }
 
     /**
      * 分页查询

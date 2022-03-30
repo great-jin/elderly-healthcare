@@ -4,6 +4,8 @@ import com.budailad.entity.EmployeeSalary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (EmployeeSalary)表服务接口
  *
@@ -19,6 +21,14 @@ public interface EmployeeSalaryService {
      * @return 实例对象
      */
     EmployeeSalary queryById(String salaryId);
+
+    /**
+     * 条件查询
+     *
+     * @param employeeSalary 筛选条件
+     * @return 查询结果
+     */
+    List<EmployeeSalary> queryAll(EmployeeSalary employeeSalary);
 
     /**
      * 分页查询

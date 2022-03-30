@@ -77,6 +77,49 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="EmployeeSalaryMap">
+        select
+        salary_id, staff_id, work_days, off_days, deduct_count, insurance_count, allowance_count, salary_count, comment,
+        organize_id, work_date
+        from employee_salary
+        <where>
+            <if test="salaryId != null and salaryId != ''">
+                and salary_id = #{salaryId}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="workDays != null">
+                and work_days = #{workDays}
+            </if>
+            <if test="offDays != null">
+                and off_days = #{offDays}
+            </if>
+            <if test="deductCount != null">
+                and deduct_count = #{deductCount}
+            </if>
+            <if test="insuranceCount != null">
+                and insurance_count = #{insuranceCount}
+            </if>
+            <if test="allowanceCount != null">
+                and allowance_count = #{allowanceCount}
+            </if>
+            <if test="salaryCount != null">
+                and salary_count = #{salaryCount}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="workDate != null and workDate != ''">
+                and work_date = #{workDate}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

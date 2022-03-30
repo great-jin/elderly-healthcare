@@ -25,6 +25,14 @@ public interface PaitentCostDetailDao {
     PaitentCostDetail queryById(String costId);
 
     /**
+     * 条件查询
+     *
+     * @param paitentCostDetail 筛选条件
+     * @return 查询结果
+     */
+    List<PaitentCostDetail> queryAll(PaitentCostDetail paitentCostDetail);
+
+    /**
      * 查询指定行数据
      *
      * @param paitentCostDetail 查询条件

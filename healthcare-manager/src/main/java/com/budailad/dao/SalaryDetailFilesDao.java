@@ -25,6 +25,14 @@ public interface SalaryDetailFilesDao {
     SalaryDetailFiles queryById(String fileId);
 
     /**
+     * 条件查询
+     *
+     * @param salaryDetailFiles 筛选条件
+     * @return 查询结果
+     */
+    List<SalaryDetailFiles> queryAll(SalaryDetailFiles salaryDetailFiles);
+
+    /**
      * 查询指定行数据
      *
      * @param salaryDetailFiles 查询条件

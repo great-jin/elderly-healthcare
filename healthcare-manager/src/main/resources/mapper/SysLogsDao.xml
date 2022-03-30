@@ -56,6 +56,36 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="SysLogsMap">
+        select
+        log_id, log_name, log_module, log_info, log_level, in_time, log_describe
+        from sys_logs
+        <where>
+            <if test="logId != null and logId != ''">
+                and log_id = #{logId}
+            </if>
+            <if test="logName != null and logName != ''">
+                and log_name = #{logName}
+            </if>
+            <if test="logModule != null and logModule != ''">
+                and log_module = #{logModule}
+            </if>
+            <if test="logInfo != null and logInfo != ''">
+                and log_info = #{logInfo}
+            </if>
+            <if test="logLevel != null">
+                and log_level = #{logLevel}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="logDescribe != null and logDescribe != ''">
+                and log_describe = #{logDescribe}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

@@ -33,21 +33,6 @@
         where task_id = #{taskId}
     </select>
 
-    <select id="queryAll" resultMap="DailyTaskMap">
-        select task_id,
-               task_name,
-               patient_id,
-               task_content,
-               staff_id,
-               created_time,
-               is_delay,
-               update_time,
-               is_finished,
-               finish_time,
-               comment
-        from daily_task
-    </select>
-
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DailyTaskMap">
         select
@@ -90,6 +75,49 @@
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="queryAll" resultMap="DailyTaskMap">
+        select
+        task_id, task_name, patient_id, task_content, staff_id, created_time, is_delay, update_time, is_finished,
+        finish_time, comment
+        from daily_task
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and task_name = #{taskName}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="taskContent != null and taskContent != ''">
+                and task_content = #{taskContent}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="isDelay != null">
+                and is_delay = #{isDelay}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="finishTime != null">
+                and finish_time = #{finishTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
     </select>
 
     <!--统计总行数-->

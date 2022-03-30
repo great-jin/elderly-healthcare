@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PatientBodyInfo)表控制层
@@ -23,6 +24,17 @@ public class PatientBodyInfoController {
      */
     @Resource
     private PatientBodyInfoService patientBodyInfoService;
+
+    /**
+     * 条件查询
+     *
+     * @param patientBodyInfo 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<PatientBodyInfo>> queryAll(PatientBodyInfo patientBodyInfo) {
+        return ResponseEntity.ok(this.patientBodyInfoService.queryAll(patientBodyInfo));
+    }
 
     /**
      * 分页查询

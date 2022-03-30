@@ -25,6 +25,14 @@ public interface PatientCaseInfoDao {
     PatientCaseInfo queryById(String castId);
 
     /**
+     * 条件查询
+     *
+     * @param patientCaseInfo
+     * @return
+     */
+    List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo);
+
+    /**
      * 查询指定行数据
      *
      * @param patientCaseInfo 查询条件

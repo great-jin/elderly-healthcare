@@ -23,11 +23,12 @@ public interface OrganizeInfoService {
     OrganizeInfo queryById(String organizeId);
 
     /**
-     * 查询非分页数据
+     * 条件查询
      *
-     * @return
+     * @param organizeInfo 筛选条件
+     * @return 查询结果
      */
-    List<OrganizeInfo> queryAll();
+    List<OrganizeInfo> queryAll(OrganizeInfo organizeInfo);
 
     /**
      * 分页查询

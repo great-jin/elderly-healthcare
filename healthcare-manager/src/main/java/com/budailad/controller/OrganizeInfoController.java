@@ -3,7 +3,6 @@ package com.budailad.controller;
 import com.budailad.entity.OrganizeInfo;
 import com.budailad.service.OrganizeInfoService;
 import org.springframework.data.domain.Page;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +26,17 @@ public class OrganizeInfoController {
     private OrganizeInfoService organizeInfoService;
 
     /**
+     * 条件查询
+     *
+     * @param organizeInfo 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<OrganizeInfo>> queryAll(OrganizeInfo organizeInfo) {
+        return ResponseEntity.ok(this.organizeInfoService.queryAll(organizeInfo));
+    }
+
+    /**
      * 分页查询
      *
      * @param organizeInfo 筛选条件
@@ -36,16 +46,6 @@ public class OrganizeInfoController {
     @GetMapping("/page")
     public ResponseEntity<Page<OrganizeInfo>> queryByPage(OrganizeInfo organizeInfo, PageRequest pageRequest) {
         return ResponseEntity.ok(this.organizeInfoService.queryByPage(organizeInfo, pageRequest));
-    }
-
-    /**
-     * 查询非分页数据
-     *
-     * @return
-     */
-    @GetMapping("/list")
-    public ResponseEntity<List<OrganizeInfo>> queryAll() {
-        return ResponseEntity.ok(this.organizeInfoService.queryAll());
     }
 
     /**

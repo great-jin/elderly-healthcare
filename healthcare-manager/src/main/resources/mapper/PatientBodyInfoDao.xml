@@ -77,6 +77,49 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientBodyInfoMap">
+        select
+        id, patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info, body_detail,
+        in_time, comment
+        from patient_body_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="bodyTemper != null">
+                and body_temper = #{bodyTemper}
+            </if>
+            <if test="heartBeat != null">
+                and heart_beat = #{heartBeat}
+            </if>
+            <if test="bloodPressure != null and bloodPressure != ''">
+                and blood_pressure = #{bloodPressure}
+            </if>
+            <if test="bloodGlucose != null and bloodGlucose != ''">
+                and blood_glucose = #{bloodGlucose}
+            </if>
+            <if test="bloodFat != null and bloodFat != ''">
+                and blood_fat = #{bloodFat}
+            </if>
+            <if test="drugInfo != null and drugInfo != ''">
+                and drug_info = #{drugInfo}
+            </if>
+            <if test="bodyDetail != null and bodyDetail != ''">
+                and body_detail = #{bodyDetail}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

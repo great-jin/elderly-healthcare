@@ -4,6 +4,8 @@ import com.budailad.entity.MailInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (MailInfo)表服务接口
  *
@@ -19,6 +21,14 @@ public interface MailInfoService {
      * @return 实例对象
      */
     MailInfo queryById(String mailId);
+
+    /**
+     * 条件查询
+     *
+     * @param mailInfo    筛选条件
+     * @return 查询结果
+     */
+    List<MailInfo> queryAll(MailInfo mailInfo);
 
     /**
      * 分页查询

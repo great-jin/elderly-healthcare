@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (OrganizeStaff)表服务实现类
@@ -30,6 +31,17 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
     @Override
     public OrganizeStaff queryById(Integer id) {
         return this.organizeStaffDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param organizeStaff 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff) {
+        return this.organizeStaffDao.queryAll(organizeStaff);
     }
 
     /**

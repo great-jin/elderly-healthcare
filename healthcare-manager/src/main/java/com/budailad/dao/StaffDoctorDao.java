@@ -25,6 +25,14 @@ public interface StaffDoctorDao {
     StaffDoctor queryById(Integer id);
 
     /**
+     * 条件查询
+     *
+     * @param staffDoctor 筛选条件
+     * @return 查询结果
+     */
+    List<StaffDoctor> queryAll(StaffDoctor staffDoctor);
+
+    /**
      * 查询指定行数据
      *
      * @param staffDoctor 查询条件

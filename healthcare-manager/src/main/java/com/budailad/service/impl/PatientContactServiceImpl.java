@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PatientContact)表服务实现类
@@ -30,6 +31,17 @@ public class PatientContactServiceImpl implements PatientContactService {
     @Override
     public PatientContact queryById(String id) {
         return this.patientContactDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param patientContact 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<PatientContact> queryAll(PatientContact patientContact) {
+        return this.patientContactDao.queryAll(patientContact);
     }
 
     /**

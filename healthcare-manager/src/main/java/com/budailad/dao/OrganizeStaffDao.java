@@ -25,6 +25,14 @@ public interface OrganizeStaffDao {
     OrganizeStaff queryById(Integer id);
 
     /**
+     * 条件查询
+     *
+     * @param organizeStaff 筛选条件
+     * @return 查询结果
+     */
+    List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff);
+
+    /**
      * 查询指定行数据
      *
      * @param organizeStaff 查询条件

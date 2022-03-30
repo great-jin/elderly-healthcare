@@ -113,6 +113,71 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientInfoMap">
+        select
+        patient_id, patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight, eye_left,
+        eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail, patient_phone,
+        patient_address, comment
+        from patient_info
+        <where>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="patientGender != null and patientGender != ''">
+                and patient_gender = #{patientGender}
+            </if>
+            <if test="patientAge != null">
+                and patient_age = #{patientAge}
+            </if>
+            <if test="patientHeight != null">
+                and patient_height = #{patientHeight}
+            </if>
+            <if test="patientWeight != null">
+                and patient_weight = #{patientWeight}
+            </if>
+            <if test="eyeLeft != null">
+                and eye_left = #{eyeLeft}
+            </if>
+            <if test="eyeRight != null">
+                and eye_right = #{eyeRight}
+            </if>
+            <if test="bodyTemper != null">
+                and body_temper = #{bodyTemper}
+            </if>
+            <if test="heartBeat != null">
+                and heart_beat = #{heartBeat}
+            </if>
+            <if test="bloodPressure != null and bloodPressure != ''">
+                and blood_pressure = #{bloodPressure}
+            </if>
+            <if test="bloodGlucose != null and bloodGlucose != ''">
+                and blood_glucose = #{bloodGlucose}
+            </if>
+            <if test="bloodFat != null and bloodFat != ''">
+                and blood_fat = #{bloodFat}
+            </if>
+            <if test="bodyDetail != null and bodyDetail != ''">
+                and body_detail = #{bodyDetail}
+            </if>
+            <if test="patientPhone != null and patientPhone != ''">
+                and patient_phone = #{patientPhone}
+            </if>
+            <if test="patientAddress != null and patientAddress != ''">
+                and patient_address = #{patientAddress}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

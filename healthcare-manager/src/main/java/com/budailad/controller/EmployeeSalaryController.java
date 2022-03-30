@@ -2,13 +2,13 @@ package com.budailad.controller;
 
 import com.budailad.entity.EmployeeSalary;
 import com.budailad.service.EmployeeSalaryService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (EmployeeSalary)表控制层
@@ -24,6 +24,17 @@ public class EmployeeSalaryController {
      */
     @Resource
     private EmployeeSalaryService employeeSalaryService;
+
+    /**
+     * 条件查询
+     *
+     * @param employeeSalary 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<EmployeeSalary>> queryAll(EmployeeSalary employeeSalary) {
+        return ResponseEntity.ok(this.employeeSalaryService.queryAll(employeeSalary));
+    }
 
     /**
      * 分页查询

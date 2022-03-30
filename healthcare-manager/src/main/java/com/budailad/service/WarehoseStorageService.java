@@ -23,6 +23,14 @@ public interface WarehoseStorageService {
     WarehoseStorage queryById(String goodsId);
 
     /**
+     * 条件查询
+     *
+     * @param warehoseStorage 筛选条件
+     * @return 查询结果
+     */
+    List<WarehoseStorage> queryAll(WarehoseStorage warehoseStorage);
+
+    /**
      * 分页查询
      *
      * @param warehoseStorage 筛选条件

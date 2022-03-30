@@ -25,6 +25,14 @@ public interface SysLogsDao {
     SysLogs queryById(String logId);
 
     /**
+     * 条件查询
+     *
+     * @param sysLogs     筛选条件
+     * @return 查询结果
+     */
+    List<SysLogs> queryAll(SysLogs sysLogs);
+
+    /**
      * 查询指定行数据
      *
      * @param sysLogs  查询条件

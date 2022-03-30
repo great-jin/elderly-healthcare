@@ -33,9 +33,15 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
         return this.organizeInfoDao.queryById(organizeId);
     }
 
+    /**
+     * 条件查询
+     *
+     * @param organizeInfo 筛选条件
+     * @return 查询结果
+     */
     @Override
-    public List<OrganizeInfo> queryAll() {
-        return this.organizeInfoDao.queryAll();
+    public List<OrganizeInfo> queryAll(OrganizeInfo organizeInfo) {
+        return this.organizeInfoDao.queryAll(organizeInfo);
     }
 
     /**

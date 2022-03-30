@@ -3,7 +3,8 @@ package com.budailad.service;
 import com.budailad.entity.LoginUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * (LoginUser)表服务接口
@@ -20,6 +21,14 @@ public interface LoginUserService {
      * @return 实例对象
      */
     LoginUser queryById(String id);
+
+    /**
+     * 条件查询
+     *
+     * @param loginUser   筛选条件
+     * @return 查询结果
+     */
+    List<LoginUser> queryAll(LoginUser loginUser);
 
     /**
      * 分页查询

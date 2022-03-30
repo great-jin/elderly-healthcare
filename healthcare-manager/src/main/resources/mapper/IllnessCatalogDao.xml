@@ -51,6 +51,33 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="IllnessCatalogMap">
+        select
+        ill_id, ill_type, ill_name, comment, ill_describe, ill_index
+        from illness_catalog
+        <where>
+            <if test="illId != null and illId != ''">
+                and ill_id = #{illId}
+            </if>
+            <if test="illType != null and illType != ''">
+                and ill_type = #{illType}
+            </if>
+            <if test="illName != null and illName != ''">
+                and ill_name = #{illName}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="illDescribe != null and illDescribe != ''">
+                and ill_describe = #{illDescribe}
+            </if>
+            <if test="illIndex != null and illIndex != ''">
+                and ill_index = #{illIndex}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

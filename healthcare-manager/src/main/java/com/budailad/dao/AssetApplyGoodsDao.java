@@ -25,6 +25,14 @@ public interface AssetApplyGoodsDao {
     AssetApplyGoods queryById(String id);
 
     /**
+     * 条件查询
+     *
+     * @param assetApplyGoods 筛选条件
+     * @return 查询结果
+     */
+    List<AssetApplyGoods> queryAll(AssetApplyGoods assetApplyGoods);
+
+    /**
      * 查询指定行数据
      *
      * @param assetApplyGoods 查询条件

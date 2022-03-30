@@ -87,6 +87,55 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="LoginUserMap">
+        select
+        id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled, register_time,
+        update_time, destroy_time, comment, bucket_avatar
+        from login_user
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="userAvatar != null and userAvatar != ''">
+                and user_avatar = #{userAvatar}
+            </if>
+            <if test="userPower != null">
+                and user_power = #{userPower}
+            </if>
+            <if test="isDisabled != null">
+                and is_disabled = #{isDisabled}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="destroyTime != null">
+                and destroy_time = #{destroyTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

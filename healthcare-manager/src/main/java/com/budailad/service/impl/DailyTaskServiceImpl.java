@@ -38,6 +38,17 @@ public class DailyTaskServiceImpl implements DailyTaskService {
     }
 
     /**
+     * 条件查询
+     *
+     * @param dailyTask   筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<DailyTask> queryAll(DailyTask dailyTask) {
+        return this.dailyTaskDao.queryAll(dailyTask);
+    }
+
+    /**
      * 分页查询
      *
      * @param dailyTask   筛选条件

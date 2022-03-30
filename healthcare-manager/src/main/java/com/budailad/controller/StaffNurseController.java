@@ -3,12 +3,12 @@ package com.budailad.controller;
 import com.budailad.entity.StaffNurse;
 import com.budailad.service.StaffNurseService;
 import org.springframework.data.domain.Page;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (StaffNurse)表控制层
@@ -24,6 +24,18 @@ public class StaffNurseController {
      */
     @Resource
     private StaffNurseService staffNurseService;
+
+    /**
+     * 条件查询
+     *
+     * @param staffNurse  筛选条件
+     * @ pageRequest 分页对象
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<StaffNurse>> queryAll(StaffNurse staffNurse) {
+        return ResponseEntity.ok(this.staffNurseService.queryAll(staffNurse));
+    }
 
     /**
      * 分页查询

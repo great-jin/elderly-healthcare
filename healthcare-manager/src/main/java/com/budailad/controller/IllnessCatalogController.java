@@ -2,13 +2,13 @@ package com.budailad.controller;
 
 import com.budailad.entity.IllnessCatalog;
 import com.budailad.service.IllnessCatalogService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (IllnessCatalog)表控制层
@@ -24,6 +24,17 @@ public class IllnessCatalogController {
      */
     @Resource
     private IllnessCatalogService illnessCatalogService;
+
+    /**
+     * 条件查询
+     *
+     * @param illnessCatalog 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<IllnessCatalog>> queryAll(IllnessCatalog illnessCatalog) {
+        return ResponseEntity.ok(this.illnessCatalogService.queryAll(illnessCatalog));
+    }
 
     /**
      * 分页查询

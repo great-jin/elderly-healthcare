@@ -71,6 +71,45 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PaitentCostDetailMap">
+        select
+        patient_id, cost_list, cost_count, in_time, out_time, cost_id, charge_doctor, is_pay, pay_time, comment
+        from paitent_cost_detail
+        <where>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="costList != null and costList != ''">
+                and cost_list = #{costList}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
+            <if test="chargeDoctor != null and chargeDoctor != ''">
+                and charge_doctor = #{chargeDoctor}
+            </if>
+            <if test="isPay != null">
+                and is_pay = #{isPay}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

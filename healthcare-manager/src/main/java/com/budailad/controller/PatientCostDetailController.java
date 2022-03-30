@@ -3,12 +3,12 @@ package com.budailad.controller;
 import com.budailad.entity.PaitentCostDetail;
 import com.budailad.service.PaitentCostDetailService;
 import org.springframework.data.domain.Page;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PaitentCostDetail)表控制层
@@ -24,6 +24,17 @@ public class PatientCostDetailController {
      */
     @Resource
     private PaitentCostDetailService paitentCostDetailService;
+
+    /**
+     * 条件查询
+     *
+     * @param paitentCostDetail 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<PaitentCostDetail>> queryAll(PaitentCostDetail paitentCostDetail) {
+        return ResponseEntity.ok(this.paitentCostDetailService.queryAll(paitentCostDetail));
+    }
 
     /**
      * 分页查询

@@ -25,6 +25,14 @@ public interface PatientInfoDao {
     PatientInfo queryById(String patientId);
 
     /**
+     * 条件查询
+     *
+     * @param patientInfo 筛选条件
+     * @return 查询结果
+     */
+    List<PatientInfo> queryAll(PatientInfo patientInfo);
+
+    /**
      * 查询指定行数据
      *
      * @param patientInfo 查询条件

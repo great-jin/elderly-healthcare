@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (SalaryDetailFiles)表控制层
@@ -23,6 +24,17 @@ public class SalaryDetailFilesController {
      */
     @Resource
     private SalaryDetailFilesService salaryDetailFilesService;
+
+    /**
+     * 条件查询
+     *
+     * @param salaryDetailFiles 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<SalaryDetailFiles>> queryAll(SalaryDetailFiles salaryDetailFiles) {
+        return ResponseEntity.ok(this.salaryDetailFilesService.queryAll(salaryDetailFiles));
+    }
 
     /**
      * 分页查询

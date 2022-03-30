@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (LoginUser)表服务实现类
@@ -35,6 +36,17 @@ public class LoginUserServiceImpl implements LoginUserService {
     @Cacheable(key = "#id")
     public LoginUser queryById(String id) {
         return this.loginUserDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param loginUser   筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<LoginUser> queryAll(LoginUser loginUser) {
+        return this.loginUserDao.queryAll(loginUser);
     }
 
     /**

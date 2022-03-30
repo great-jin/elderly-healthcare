@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PatientCaseInfo)表服务实现类
@@ -46,6 +47,17 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
     }
 
     /**
+     * 条件查询
+     *
+     * @param patientCaseInfo
+     * @return
+     */
+    @Override
+    public List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo) {
+        return patientCaseInfoDao.queryAll(patientCaseInfo);
+    }
+
+    /**
      * 新增数据
      *
      * @param patientCaseInfo 实例对象
@@ -66,7 +78,7 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
     @Override
     public PatientCaseInfo update(PatientCaseInfo patientCaseInfo) {
         this.patientCaseInfoDao.update(patientCaseInfo);
-        return this.queryById(patientCaseInfo.getCastId());
+        return this.queryById(patientCaseInfo.getCaseId());
     }
 
     /**

@@ -34,6 +34,17 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
     }
 
     /**
+     * 条件查询
+     *
+     * @param warehoseStorage 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<WarehoseStorage> queryAll(WarehoseStorage warehoseStorage) {
+        return this.warehoseStorageDao.queryAll(warehoseStorage);
+    }
+
+    /**
      * 分页查询
      *
      * @param warehoseStorage 筛选条件

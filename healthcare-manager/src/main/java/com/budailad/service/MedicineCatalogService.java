@@ -4,6 +4,8 @@ import com.budailad.entity.MedicineCatalog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (MedicineCatalog)表服务接口
  *
@@ -19,6 +21,14 @@ public interface MedicineCatalogService {
      * @return 实例对象
      */
     MedicineCatalog queryById(String drugId);
+
+    /**
+     * 条件查询
+     *
+     * @param medicineCatalog 筛选条件
+     * @return 查询结果
+     */
+    List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog);
 
     /**
      * 分页查询

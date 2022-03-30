@@ -25,6 +25,14 @@ public interface AssetApplyInfoDao {
     AssetApplyInfo queryById(String applyId);
 
     /**
+     * 条件查询
+     *
+     * @param assetApplyInfo 筛选条件
+     * @return 查询结果
+     */
+    List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo);
+
+    /**
      * 查询指定行数据
      *
      * @param assetApplyInfo 查询条件

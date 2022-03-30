@@ -4,6 +4,8 @@ import com.budailad.entity.SalaryDetailFiles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (SalaryDetailFiles)表服务接口
  *
@@ -19,6 +21,14 @@ public interface SalaryDetailFilesService {
      * @return 实例对象
      */
     SalaryDetailFiles queryById(String fileId);
+
+    /**
+     * 条件查询
+     *
+     * @param salaryDetailFiles 筛选条件
+     * @return 查询结果
+     */
+    List<SalaryDetailFiles> queryAll(SalaryDetailFiles salaryDetailFiles);
 
     /**
      * 分页查询

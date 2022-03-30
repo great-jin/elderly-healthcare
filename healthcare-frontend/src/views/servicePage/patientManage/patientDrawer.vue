@@ -7,13 +7,34 @@
     :visible="visible"
     @close="cancel"
   >
-
+    <a-form-model>
+      <a-form-model-item
+        label=""
+        prop=""
+      >
+      </a-form-model-item>
+      <a-form-model-item
+        label=""
+        prop=""
+      >
+      </a-form-model-item>
+      <a-form-model-item
+        label=""
+        prop=""
+      >
+      </a-form-model-item>
+      <a-form-model-item
+        label=""
+        prop=""
+      >
+      </a-form-model-item>
+    </a-form-model>
   </a-drawer>
 </template>
 
 <script>
 export default {
-  name: 'UserModal',
+  name: 'CaseInfo',
   data () {
     return {
       type: '',

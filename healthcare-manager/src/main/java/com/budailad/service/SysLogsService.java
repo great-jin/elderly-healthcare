@@ -4,6 +4,8 @@ import com.budailad.entity.SysLogs;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (SysLogs)表服务接口
  *
@@ -19,6 +21,14 @@ public interface SysLogsService {
      * @return 实例对象
      */
     SysLogs queryById(String logId);
+
+    /**
+     * 条件查询
+     *
+     * @param sysLogs     筛选条件
+     * @return 查询结果
+     */
+    List<SysLogs> queryAll(SysLogs sysLogs);
 
     /**
      * 分页查询

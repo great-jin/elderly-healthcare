@@ -4,6 +4,8 @@ import com.budailad.entity.VacateInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (VacateInfo)表服务接口
  *
@@ -19,6 +21,14 @@ public interface VacateInfoService {
      * @return 实例对象
      */
     VacateInfo queryById(String id);
+
+    /**
+     * 条件查询
+     *
+     * @param vacateInfo  筛选条件
+     * @return 查询结果
+     */
+    List<VacateInfo> queryAll(VacateInfo vacateInfo);
 
     /**
      * 分页查询

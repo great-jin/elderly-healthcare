@@ -72,6 +72,47 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientCaseInfoMap">
+        select
+        patient_id, patient_name, case_describe, charge_doctor, charge_nurse, in_time, is_leave, out_time, comment,
+        case_id
+        from patient_case_info
+        <where>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="caseDescribe != null and caseDescribe != ''">
+                and case_describe = #{caseDescribe}
+            </if>
+            <if test="chargeDoctor != null and chargeDoctor != ''">
+                and charge_doctor = #{chargeDoctor}
+            </if>
+            <if test="chargeNurse != null and chargeNurse != ''">
+                and charge_nurse = #{chargeNurse}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="isLeave != null">
+                and is_leave = #{isLeave}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="caseId != null and caseId != ''">
+                and case_id = #{caseId}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

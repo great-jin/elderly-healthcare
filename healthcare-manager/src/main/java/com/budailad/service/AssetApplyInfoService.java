@@ -4,6 +4,8 @@ import com.budailad.entity.AssetApplyInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (AssetApplyInfo)表服务接口
  *
@@ -19,6 +21,14 @@ public interface AssetApplyInfoService {
      * @return 实例对象
      */
     AssetApplyInfo queryById(String applyId);
+
+    /**
+     * 条件查询
+     *
+     * @param assetApplyInfo 筛选条件
+     * @return 查询结果
+     */
+    List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo);
 
     /**
      * 分页查询

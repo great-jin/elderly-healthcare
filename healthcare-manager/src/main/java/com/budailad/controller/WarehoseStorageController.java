@@ -1,10 +1,8 @@
 package com.budailad.controller;
 
-import com.budailad.entity.OrganizeInfo;
 import com.budailad.entity.WarehoseStorage;
 import com.budailad.service.WarehoseStorageService;
 import org.springframework.data.domain.Page;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +24,17 @@ public class WarehoseStorageController {
      */
     @Resource
     private WarehoseStorageService warehoseStorageService;
+
+    /**
+     * 条件查询
+     *
+     * @param warehoseStorage 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<WarehoseStorage>> queryAll(WarehoseStorage warehoseStorage) {
+        return ResponseEntity.ok(this.warehoseStorageService.queryAll(warehoseStorage));
+    }
 
     /**
      * 分页查询

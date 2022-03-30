@@ -4,6 +4,8 @@ import com.budailad.entity.OrganizeStaff;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (OrganizeStaff)表服务接口
  *
@@ -19,6 +21,14 @@ public interface OrganizeStaffService {
      * @return 实例对象
      */
     OrganizeStaff queryById(Integer id);
+
+    /**
+     * 条件查询
+     *
+     * @param organizeStaff 筛选条件
+     * @return 查询结果
+     */
+    List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff);
 
     /**
      * 分页查询

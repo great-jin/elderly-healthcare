@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (MedicineCatalog)表服务实现类
@@ -30,6 +31,17 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
     @Override
     public MedicineCatalog queryById(String drugId) {
         return this.medicineCatalogDao.queryById(drugId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param medicineCatalog 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog) {
+        return this.medicineCatalogDao.queryAll(medicineCatalog);
     }
 
     /**

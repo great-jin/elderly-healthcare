@@ -4,6 +4,8 @@ import com.budailad.entity.IllnessCatalog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (IllnessCatalog)表服务接口
  *
@@ -19,6 +21,14 @@ public interface IllnessCatalogService {
      * @return 实例对象
      */
     IllnessCatalog queryById(String illId);
+
+    /**
+     * 条件查询
+     *
+     * @param illnessCatalog 筛选条件
+     * @return 查询结果
+     */
+    List<IllnessCatalog> queryAll(IllnessCatalog illnessCatalog);
 
     /**
      * 分页查询

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (SalaryDetailFiles)表服务实现类
@@ -30,6 +31,17 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
     @Override
     public SalaryDetailFiles queryById(String fileId) {
         return this.salaryDetailFilesDao.queryById(fileId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param salaryDetailFiles 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<SalaryDetailFiles> queryAll(SalaryDetailFiles salaryDetailFiles) {
+        return this.salaryDetailFilesDao.queryAll(salaryDetailFiles);
     }
 
     /**

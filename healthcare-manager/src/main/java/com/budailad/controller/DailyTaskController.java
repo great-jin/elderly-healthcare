@@ -27,6 +27,17 @@ public class DailyTaskController {
     private DailyTaskService dailyTaskService;
 
     /**
+     * 条件查询
+     *
+     * @param dailyTask   筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<DailyTask>> queryAll(DailyTask dailyTask) {
+        return ResponseEntity.ok(this.dailyTaskService.queryAll(dailyTask));
+    }
+
+    /**
      * 分页查询
      *
      * @param dailyTask   筛选条件

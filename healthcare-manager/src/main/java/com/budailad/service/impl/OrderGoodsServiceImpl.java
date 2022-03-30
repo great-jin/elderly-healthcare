@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (OrderGoods)表服务实现类
@@ -30,6 +31,17 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
     @Override
     public OrderGoods queryById(String orderId) {
         return this.orderGoodsDao.queryById(orderId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param orderGoods 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<OrderGoods> queryAll(OrderGoods orderGoods) {
+        return this.orderGoodsDao.queryAll(orderGoods);
     }
 
     /**

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (StaffNurse)表服务实现类
@@ -30,6 +31,17 @@ public class StaffNurseServiceImpl implements StaffNurseService {
     @Override
     public StaffNurse queryById(Integer id) {
         return this.staffNurseDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param staffNurse 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<StaffNurse> queryAll(StaffNurse staffNurse) {
+        return this.staffNurseDao.queryAll(staffNurse);
     }
 
     /**

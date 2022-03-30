@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (VacateInfo)表服务实现类
@@ -30,6 +31,17 @@ public class VacateInfoServiceImpl implements VacateInfoService {
     @Override
     public VacateInfo queryById(String id) {
         return this.vacateInfoDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param vacateInfo 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<VacateInfo> queryAll(VacateInfo vacateInfo) {
+        return this.vacateInfoDao.queryAll(vacateInfo);
     }
 
     /**

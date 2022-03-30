@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (SysLogs)表服务实现类
@@ -30,6 +31,17 @@ public class SysLogsServiceImpl implements SysLogsService {
     @Override
     public SysLogs queryById(String logId) {
         return this.sysLogsDao.queryById(logId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param sysLogs 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<SysLogs> queryAll(SysLogs sysLogs) {
+        return this.sysLogsDao.queryAll(sysLogs);
     }
 
     /**

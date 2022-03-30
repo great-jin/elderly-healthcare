@@ -25,6 +25,14 @@ public interface RegisterTemplateDao {
     RegisterTemplate queryById(String tempId);
 
     /**
+     * 条件查询
+     *
+     * @param registerTemplate 筛选条件
+     * @return 查询结果
+     */
+    List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate);
+
+    /**
      * 查询指定行数据
      *
      * @param registerTemplate 查询条件

@@ -33,23 +33,6 @@
         where goods_id = #{goodsId}
     </select>
 
-
-    <!--查询单个-->
-    <select id="queryAll" resultMap="WarehoseStorageMap">
-        select goods_id,
-               goods_name,
-               goods_type,
-               goods_price,
-               produce_time,
-               produce_vendor,
-               goods_count,
-               warn_line,
-               comment,
-               purchase_time,
-               purchase_staff
-        from warehose_storage
-    </select>
-
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WarehoseStorageMap">
         select
@@ -92,6 +75,49 @@
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="queryAll" resultMap="WarehoseStorageMap">
+        select
+        goods_id, goods_name, goods_type, goods_price, produce_time, produce_vendor, goods_count, warn_line, comment,
+        purchase_time, purchase_staff
+        from warehose_storage
+        <where>
+            <if test="goodsId != null and goodsId != ''">
+                and goods_id = #{goodsId}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="produceTime != null">
+                and produce_time = #{produceTime}
+            </if>
+            <if test="produceVendor != null and produceVendor != ''">
+                and produce_vendor = #{produceVendor}
+            </if>
+            <if test="goodsCount != null">
+                and goods_count = #{goodsCount}
+            </if>
+            <if test="warnLine != null">
+                and warn_line = #{warnLine}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="purchaseTime != null">
+                and purchase_time = #{purchaseTime}
+            </if>
+            <if test="purchaseStaff != null and purchaseStaff != ''">
+                and purchase_staff = #{purchaseStaff}
+            </if>
+        </where>
     </select>
 
     <!--统计总行数-->

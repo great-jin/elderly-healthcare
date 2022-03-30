@@ -4,6 +4,8 @@ import com.budailad.entity.MinioFiles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (MinioFiles)表服务接口
  *
@@ -19,6 +21,14 @@ public interface MinioFilesService {
      * @return 实例对象
      */
     MinioFiles queryById(String id);
+
+    /**
+     * 条件查询
+     *
+     * @param minioFiles  筛选条件
+     * @return 查询结果
+     */
+    List<MinioFiles> queryAll(MinioFiles minioFiles);
 
     /**
      * 分页查询

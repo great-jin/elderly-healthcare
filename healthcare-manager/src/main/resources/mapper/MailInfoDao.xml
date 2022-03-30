@@ -66,6 +66,42 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="MailInfoMap">
+        select
+        mail_id, staff_id, sender_name, sender_mail, receiver_name, receiver_mail, send_time, is_sended, comment
+        from mail_info
+        <where>
+            <if test="mailId != null and mailId != ''">
+                and mail_id = #{mailId}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="senderName != null and senderName != ''">
+                and sender_name = #{senderName}
+            </if>
+            <if test="senderMail != null and senderMail != ''">
+                and sender_mail = #{senderMail}
+            </if>
+            <if test="receiverName != null and receiverName != ''">
+                and receiver_name = #{receiverName}
+            </if>
+            <if test="receiverMail != null and receiverMail != ''">
+                and receiver_mail = #{receiverMail}
+            </if>
+            <if test="sendTime != null">
+                and send_time = #{sendTime}
+            </if>
+            <if test="isSended != null">
+                and is_sended = #{isSended}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

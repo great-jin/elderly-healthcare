@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (MinioFiles)表服务实现类
@@ -35,6 +36,17 @@ public class MinioFilesServiceImpl implements MinioFilesService {
     @Cacheable(key = "#id")
     public MinioFiles queryById(String id) {
         return this.minioFilesDao.queryById(id);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param minioFiles 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<MinioFiles> queryAll(MinioFiles minioFiles) {
+        return this.minioFilesDao.queryAll(minioFiles);
     }
 
     /**

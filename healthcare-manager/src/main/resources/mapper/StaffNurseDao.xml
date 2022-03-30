@@ -87,6 +87,55 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="StaffNurseMap">
+        select
+        id, staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone, staff_email,
+        staff_adress, organize_id, staff_position, entry_time
+        from staff_nurse
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                and staff_name = #{staffName}
+            </if>
+            <if test="staffGender != null and staffGender != ''">
+                and staff_gender = #{staffGender}
+            </if>
+            <if test="isResigned != null">
+                and is_resigned = #{isResigned}
+            </if>
+            <if test="resignTime != null">
+                and resign_time = #{resignTime}
+            </if>
+            <if test="staffAge != null">
+                and staff_age = #{staffAge}
+            </if>
+            <if test="staffPhone != null and staffPhone != ''">
+                and staff_phone = #{staffPhone}
+            </if>
+            <if test="staffEmail != null and staffEmail != ''">
+                and staff_email = #{staffEmail}
+            </if>
+            <if test="staffAdress != null and staffAdress != ''">
+                and staff_adress = #{staffAdress}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="staffPosition != null and staffPosition != ''">
+                and staff_position = #{staffPosition}
+            </if>
+            <if test="entryTime != null">
+                and entry_time = #{entryTime}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

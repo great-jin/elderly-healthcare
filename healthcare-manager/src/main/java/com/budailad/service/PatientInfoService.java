@@ -4,6 +4,8 @@ import com.budailad.entity.PatientInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (PatientInfo)表服务接口
  *
@@ -19,6 +21,14 @@ public interface PatientInfoService {
      * @return 实例对象
      */
     PatientInfo queryById(String patientId);
+
+    /**
+     * 条件查询
+     *
+     * @param patientInfo 筛选条件
+     * @return 查询结果
+     */
+    List<PatientInfo> queryAll(PatientInfo patientInfo);
 
     /**
      * 分页查询

@@ -46,6 +46,30 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="RegisterTemplateMap">
+        select
+        temp_id, temp_ill, temp_time, comment, temp_level
+        from register_template
+        <where>
+            <if test="tempId != null and tempId != ''">
+                and temp_id = #{tempId}
+            </if>
+            <if test="tempIll != null and tempIll != ''">
+                and temp_ill = #{tempIll}
+            </if>
+            <if test="tempTime != null">
+                and temp_time = #{tempTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="tempLevel != null">
+                and temp_level = #{tempLevel}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

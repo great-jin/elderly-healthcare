@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PatientCaseFiles)表服务实现类
@@ -30,6 +31,17 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
     @Override
     public PatientCaseFiles queryById(String fileId) {
         return this.patientCaseFilesDao.queryById(fileId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param patientCaseFiles 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles) {
+        return this.patientCaseFilesDao.queryAll(patientCaseFiles);
     }
 
     /**

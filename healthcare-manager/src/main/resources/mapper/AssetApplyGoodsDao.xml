@@ -61,6 +61,39 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="AssetApplyGoodsMap">
+        select
+        id, apply_id, goods_name, goods_type, goods_price, apply_count, cost_money, comment
+        from asset_apply_goods
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="applyId != null and applyId != ''">
+                and apply_id = #{applyId}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="applyCount != null">
+                and apply_count = #{applyCount}
+            </if>
+            <if test="costMoney != null">
+                and cost_money = #{costMoney}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

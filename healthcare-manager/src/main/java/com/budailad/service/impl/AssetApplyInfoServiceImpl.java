@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (AssetApplyInfo)表服务实现类
@@ -30,6 +31,17 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
     @Override
     public AssetApplyInfo queryById(String applyId) {
         return this.assetApplyInfoDao.queryById(applyId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param assetApplyInfo 筛选条件
+     * @return 查询结果
+     */
+    @Override
+    public List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo) {
+        return this.assetApplyInfoDao.queryAll(assetApplyInfo);
     }
 
     /**

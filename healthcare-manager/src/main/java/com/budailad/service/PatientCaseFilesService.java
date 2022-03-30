@@ -4,6 +4,8 @@ import com.budailad.entity.PatientCaseFiles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (PatientCaseFiles)表服务接口
  *
@@ -19,6 +21,14 @@ public interface PatientCaseFilesService {
      * @return 实例对象
      */
     PatientCaseFiles queryById(String fileId);
+
+    /**
+     * 条件查询
+     *
+     * @param patientCaseFiles 筛选条件
+     * @return 查询结果
+     */
+    List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles);
 
     /**
      * 分页查询

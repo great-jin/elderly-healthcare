@@ -4,6 +4,8 @@ import com.budailad.entity.RegisterTemplate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (RegisterTemplate)表服务接口
  *
@@ -19,6 +21,14 @@ public interface RegisterTemplateService {
      * @return 实例对象
      */
     RegisterTemplate queryById(String tempId);
+
+    /**
+     * 条件查询
+     *
+     * @param registerTemplate 筛选条件
+     * @return 查询结果
+     */
+    List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate);
 
     /**
      * 分页查询

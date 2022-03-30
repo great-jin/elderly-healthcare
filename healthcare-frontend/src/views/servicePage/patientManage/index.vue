@@ -3,15 +3,13 @@
     <a-row style="margin-bottom: 30px;">
       <a-col :span="6">
         <b>账号：</b>
-        <a-auto-complete
-          v-model="accountCode"
-          placeholder="输入查询账号"
-          :data-source="dataSource"
-          :allowClear="true"
-          @search="onSearch"
-          @select="onSelect"
-          class="task-search"
-        />
+        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
+          <a-select-option
+            v-for="staff in staffList"
+            :key="staff.staffId"
+            :value="staff.staffId"
+          >{{ staff.staffName }}</a-select-option>
+        </a-select>
       </a-col>
       <a-col :span="6">
         <b>任务名：</b>
@@ -41,7 +39,7 @@
 
     <a-table
       :columns="columns"
-      :data-source="patientData"
+      :data-source="patientCaseData"
       :pagination="{ pageSize: 5 }"
       :bordered="false"
     >
@@ -55,9 +53,10 @@
 </template>
 
 <script>
-import { List } from '@/api/test/user.js';
+import { List } from '@/api/patientCaseInfo.js';
 import { columns } from "./const";
 import patientDrawer from "./patientDrawer";
+import {listPatientInfo} from "../../../api/patientInfo";
 
 export default {
   inject: ['reload'],
@@ -69,9 +68,8 @@ export default {
       value: '',
       columns,
       visible: false,
-      patientData: [],
       dataSource: [],
-      accountCode: '',
+      patientCaseData: [],
       staffList: [
         {
           staffId: '123',
@@ -81,35 +79,19 @@ export default {
     }
   },
   mounted() {
-    List().then(res =>{
-      this.patientData = res.data
-    })
+    this.getData()
   },
   methods: {
+    getData() {
+      listPatientInfo().then(res =>{
+        this.patientCaseData = res.data
+      })
+    },
     searchOk () {
 
     },
     searchCancel () {
 
-    },
-    onSearch(searchText) {
-      this.dataSource = []
-      this.patientData.forEach((user) => {
-        if((user.accountID).includes(searchText)) {
-          this.dataSource.push(user.accountID)
-        }
-      })
-      if(searchText === '' ) {
-        this.reload()
-      }
-    },
-    onSelect(value) {
-      this.patientData.forEach((user) => {
-        if(value === user.accountID ) {
-          this.patientData = [user]
-          return;
-        }
-      })
     },
     async refresh () {
       await this.operationClick('reset')

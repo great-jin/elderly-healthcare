@@ -25,6 +25,14 @@ public interface IllnessCatalogDao {
     IllnessCatalog queryById(String illId);
 
     /**
+     * 条件查询
+     *
+     * @param illnessCatalog 筛选条件
+     * @return 查询结果
+     */
+    List<IllnessCatalog> queryAll(IllnessCatalog illnessCatalog);
+
+    /**
      * 查询指定行数据
      *
      * @param illnessCatalog 查询条件

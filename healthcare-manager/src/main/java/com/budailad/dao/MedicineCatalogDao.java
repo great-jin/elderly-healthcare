@@ -25,6 +25,14 @@ public interface MedicineCatalogDao {
     MedicineCatalog queryById(String drugId);
 
     /**
+     * 条件查询
+     *
+     * @param medicineCatalog 筛选条件
+     * @return 查询结果
+     */
+    List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog);
+
+    /**
      * 查询指定行数据
      *
      * @param medicineCatalog 查询条件

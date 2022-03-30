@@ -2,13 +2,13 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientInfo;
 import com.budailad.service.PatientInfoService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (PatientInfo)表控制层
@@ -24,6 +24,17 @@ public class PatientInfoController {
      */
     @Resource
     private PatientInfoService patientInfoService;
+
+    /**
+     * 条件查询
+     *
+     * @param patientInfo 筛选条件
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public ResponseEntity<List<PatientInfo>> queryAll(PatientInfo patientInfo) {
+        return ResponseEntity.ok(this.patientInfoService.queryAll(patientInfo));
+    }
 
     /**
      * 分页查询

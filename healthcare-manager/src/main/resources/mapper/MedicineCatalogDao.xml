@@ -77,6 +77,49 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="MedicineCatalogMap">
+        select
+        drug_id, drug_name, drug_type, drug_price, goods_count, produce_time, overdue_time, is_overdue, produce_vendor,
+        comment, goods_id
+        from medicine_catalog
+        <where>
+            <if test="drugId != null and drugId != ''">
+                and drug_id = #{drugId}
+            </if>
+            <if test="drugName != null and drugName != ''">
+                and drug_name = #{drugName}
+            </if>
+            <if test="drugType != null and drugType != ''">
+                and drug_type = #{drugType}
+            </if>
+            <if test="drugPrice != null">
+                and drug_price = #{drugPrice}
+            </if>
+            <if test="goodsCount != null">
+                and goods_count = #{goodsCount}
+            </if>
+            <if test="produceTime != null">
+                and produce_time = #{produceTime}
+            </if>
+            <if test="overdueTime != null">
+                and overdue_time = #{overdueTime}
+            </if>
+            <if test="isOverdue != null">
+                and is_overdue = #{isOverdue}
+            </if>
+            <if test="produceVendor != null and produceVendor != ''">
+                and produce_vendor = #{produceVendor}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and goods_id = #{goodsId}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

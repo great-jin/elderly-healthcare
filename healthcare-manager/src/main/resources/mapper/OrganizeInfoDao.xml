@@ -27,20 +27,6 @@
         where organize_id = #{organizeId}
     </select>
 
-
-    <!--查询非分页对象-->
-    <select id="queryAll" resultMap="OrganizeInfoMap">
-        select organize_id,
-               organize_name,
-               organize_type,
-               create_time,
-               man_count,
-               staff_id,
-               organize_leader,
-               comment
-        from organize_info
-    </select>
-
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="OrganizeInfoMap">
         select
@@ -73,6 +59,39 @@
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="queryAll" resultMap="OrganizeInfoMap">
+        select
+        organize_id, organize_name, organize_type, create_time, man_count, staff_id, organize_leader, comment
+        from organize_info
+        <where>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="organizeType != null and organizeType != ''">
+                and organize_type = #{organizeType}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="manCount != null">
+                and man_count = #{manCount}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="organizeLeader != null and organizeLeader != ''">
+                and organize_leader = #{organizeLeader}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
     </select>
 
     <!--统计总行数-->

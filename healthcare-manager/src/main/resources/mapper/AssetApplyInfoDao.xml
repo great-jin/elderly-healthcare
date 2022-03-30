@@ -87,6 +87,55 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="AssetApplyInfoMap">
+        select
+        apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
+        receive_adress, cost_money, current_state, is_finished, comment
+        from asset_apply_info
+        <where>
+            <if test="applyId != null and applyId != ''">
+                and apply_id = #{applyId}
+            </if>
+            <if test="organizeUnit != null and organizeUnit != ''">
+                and organize_unit = #{organizeUnit}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="applyReason != null">
+                and apply_reason = #{applyReason}
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                and receive_name = #{receiveName}
+            </if>
+            <if test="receivePhone != null and receivePhone != ''">
+                and receive_phone = #{receivePhone}
+            </if>
+            <if test="receiveAdress != null and receiveAdress != ''">
+                and receive_adress = #{receiveAdress}
+            </if>
+            <if test="costMoney != null">
+                and cost_money = #{costMoney}
+            </if>
+            <if test="currentState != null">
+                and current_state = #{currentState}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

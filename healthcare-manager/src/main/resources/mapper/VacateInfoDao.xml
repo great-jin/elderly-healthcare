@@ -87,6 +87,55 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+    <!--条件查询-->
+    <select id="queryAll" resultMap="VacateInfoMap">
+        select
+        id, organize_name, organize_type, staff_id, staff_name, vacate_type, vacate_reason, start_time, end_time,
+        count_time, audit_staff, is_approve, comment
+        from vacate_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="organizeType != null and organizeType != ''">
+                and organize_type = #{organizeType}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                and staff_name = #{staffName}
+            </if>
+            <if test="vacateType != null and vacateType != ''">
+                and vacate_type = #{vacateType}
+            </if>
+            <if test="vacateReason != null and vacateReason != ''">
+                and vacate_reason = #{vacateReason}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="countTime != null">
+                and count_time = #{countTime}
+            </if>
+            <if test="auditStaff != null and auditStaff != ''">
+                and audit_staff = #{auditStaff}
+            </if>
+            <if test="isApprove != null">
+                and is_approve = #{isApprove}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
