@@ -101,9 +101,11 @@ export default {
           this.reload()
           break
         case 'edit':
+          console.log('edit', data.patientId)
           this.$refs.patientDrawer.paramReceive(type, data)
           break
         case 'more':
+          console.log('more', data.patientId)
           this.$refs.patientDrawer.paramReceive(type, data)
           break
       }

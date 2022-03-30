@@ -2,9 +2,10 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/patientBodyInfo'
 
-export function listBodyInfo () {
+export function listBodyInfo (params) {
+  console.log('request', params)
   return request({
-    url: `${prefix}/list`,
+    url: `${prefix}/list?patientId=${params}`,
     method: 'get'
   })
 }

@@ -202,6 +202,7 @@ export default {
   },
   methods: {
     paramReceive (type, data) {
+      this.form.patientId = data.patientId
       this.type = type
       this.visible = true
       if (type === 'more') {
@@ -211,10 +212,10 @@ export default {
       if (type === 'edit') {
         this.isEdit = true
       }
-      this.form.patientId = data.patientId
     },
     getData () {
-      listBodyInfo(this.form.patientId).then(res => {
+      const patientId = this.form.patientId
+      listBodyInfo(patientId).then(res => {
         this.form.patientBodyInfoList = res.data
       })
     },
@@ -237,6 +238,8 @@ export default {
       this.isMore = false
       this.isEdit = false
       this.$refs.ruleForm.resetFields()
+      this.form.patientId = ''
+      this.form.patientBodyInfoList = []
     },
     addBodyInfo () {
       this.form.patientBodyInfoList.push({
