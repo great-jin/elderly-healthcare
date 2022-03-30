@@ -64,7 +64,6 @@ export default {
   },
   data () {
     return {
-      columns,
       taskData,
       staffList: [
         {
@@ -72,6 +71,11 @@ export default {
           staffName: 'AA'
         }
       ]
+    }
+  },
+  computed: {
+    columns () {
+      return columns(this)
     }
   },
   methods: {

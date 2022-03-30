@@ -170,11 +170,11 @@
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_body_info(patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
+        insert into patient_body_info(id, patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
         drug_info, body_detail, in_time, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure},
+            (#{entity.id}, #{entity.patientId}, #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure},
             #{entity.bloodGlucose}, #{entity.bloodFat}, #{entity.drugInfo}, #{entity.bodyDetail}, #{entity.inTime},
             #{entity.comment})
         </foreach>

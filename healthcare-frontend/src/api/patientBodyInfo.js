@@ -24,6 +24,14 @@ export function addBodyInfo (params) {
   })
 }
 
+export function addBatchInfo (params) {
+  return request({
+    url: `${prefix}/addBatch`,
+    method: 'post',
+    data: params
+  })
+}
+
 export function updateBodyInfo (params) {
   return request({
     url: `${prefix}/update`,

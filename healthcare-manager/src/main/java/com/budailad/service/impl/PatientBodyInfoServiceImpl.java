@@ -70,6 +70,17 @@ public class PatientBodyInfoServiceImpl implements PatientBodyInfoService {
     }
 
     /**
+     * 批量新增
+     *
+     * @param patientBodyInfoList
+     * @return
+     */
+    @Override
+    public int insertBatch(List<PatientBodyInfo> patientBodyInfoList) {
+        return this.patientBodyInfoDao.insertBatch(patientBodyInfoList);
+    }
+
+    /**
      * 修改数据
      *
      * @param patientBodyInfo 实例对象

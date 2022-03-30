@@ -2,33 +2,33 @@
   <div style="padding: 10px">
     <a-row style="margin-bottom: 30px;">
       <a-col :span="6">
-        <b>账号：</b>
+        <b>病人：</b>
         <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
           <a-select-option
-            v-for="staff in staffList"
-            :key="staff.staffId"
-            :value="staff.staffId"
-          >{{ staff.staffName }}</a-select-option>
+            v-for="patient in patientCaseData"
+            :key="patient.patientId"
+            :value="patient.patientId"
+          >{{ patient.patientName }}</a-select-option>
         </a-select>
       </a-col>
       <a-col :span="6">
-        <b>任务名：</b>
+        <b>护理员：</b>
         <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
           <a-select-option
-            v-for="staff in staffList"
-            :key="staff.staffId"
-            :value="staff.staffId"
-          >{{ staff.staffName }}</a-select-option>
+            v-for="patient in patientCaseData"
+            :key="patient.patientId"
+            :value="patient.patientId"
+          >{{ patient.chargeNurse }}</a-select-option>
         </a-select>
       </a-col>
       <a-col :span="6">
-        <b>负责人：</b>
+        <b>主治医师：</b>
         <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
           <a-select-option
-            v-for="staff in staffList"
-            :key="staff.staffId"
-            :value="staff.staffId"
-          >{{ staff.staffName }}</a-select-option>
+            v-for="patient in patientCaseData"
+            :key="patient.patientId"
+            :value="patient.patientId"
+          >{{ patient.chargeDoctor }}</a-select-option>
         </a-select>
       </a-col>
       <a-col :span="6">
@@ -46,7 +46,7 @@
     >
       <template slot="action" slot-scope="record">
         <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-        <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">新增</a-button>
         <patientDrawer ref="patientDrawer" />
       </template>
     </a-table>

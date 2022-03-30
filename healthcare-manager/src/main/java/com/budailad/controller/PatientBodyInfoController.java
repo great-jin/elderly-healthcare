@@ -1,6 +1,7 @@
 package com.budailad.controller;
 
 import com.budailad.entity.PatientBodyInfo;
+import com.budailad.entity.PatientCaseInfo;
 import com.budailad.service.PatientBodyInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (PatientBodyInfo)表控制层
@@ -68,6 +71,17 @@ public class PatientBodyInfoController {
     @PostMapping("/add")
     public ResponseEntity<PatientBodyInfo> add(PatientBodyInfo patientBodyInfo) {
         return ResponseEntity.ok(this.patientBodyInfoService.insert(patientBodyInfo));
+    }
+
+    @PostMapping("/addBatch")
+    public ResponseEntity<Integer> addBatch(@RequestBody PatientCaseInfo patientCaseInfo) {
+        List<PatientBodyInfo> infoList = new ArrayList<>();
+        for (PatientBodyInfo info : patientCaseInfo.getPatientBodyInfoList()) {
+            info.setId(UUID.randomUUID().toString());
+            info.setPatientId(patientCaseInfo.getPatientId());
+            infoList.add(info);
+        }
+        return ResponseEntity.ok(this.patientBodyInfoService.insertBatch(infoList));
     }
 
     /**

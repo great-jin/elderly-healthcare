@@ -1,57 +1,68 @@
-export const columns = [
-  {
-    key: 'taskName',
-    title: '任务名称',
-    align: 'center',
-    dataIndex: 'taskName'
-  },
-  {
-    key: 'staffId',
-    title: '负责人',
-    align: 'center',
-    dataIndex: 'staffId'
-  },
-  {
-    key: 'patientId',
-    title: '负责病人',
-    align: 'center',
-    dataIndex: 'patientId'
-  },
-  {
-    key: 'createdTime',
-    title: '创建时间',
-    align: 'center',
-    dataIndex: 'createdTime'
-    /*,
-    customRender: (text, record) => {
-      const time = record.createdTime ? format(record.createdTime, 'YYYY-MM-DD HH:mm:ss') : '无'
-      return <span>{time}</span>
-    } */
-  },
-  {
-    key: 'taskContent',
-    title: '任务内容',
-    align: 'center',
-    dataIndex: 'taskContent',
-    colSpan: 0,
-    customRender: () => {
-      return { attrs: { colSpan: 0 } }
+import moment from 'moment'
+
+export const columns = (cxt) => {
+  // eslint-disable-next-line no-unused-vars
+  const h = cxt.$createElement
+  return [
+    {
+      key: 'taskName',
+      title: '任务名称',
+      align: 'center',
+      width: '15%',
+      dataIndex: 'taskName'
+    },
+    {
+      key: 'staffId',
+      title: '负责人',
+      align: 'center',
+      width: '15%',
+      dataIndex: 'staffId'
+    },
+    {
+      key: 'patientId',
+      title: '负责病人',
+      align: 'center',
+      width: '20%',
+      dataIndex: 'patientId'
+    },
+    {
+      key: 'createdTime',
+      title: '创建时间',
+      align: 'center',
+      width: '20%',
+      dataIndex: 'createdTime'
+    },
+    {
+      key: 'comment',
+      title: '备注',
+      align: 'center',
+      dataIndex: 'comment',
+      ellipsis: true,
+      width: '15%',
+      customCell: (record) => {
+        return {
+          attrs: {
+            title: record
+          }
+        }
+      }
+    },
+    {
+      key: 'taskContent',
+      title: '任务内容',
+      align: 'center',
+      dataIndex: 'taskContent',
+      ellipsis: true
+    },
+    {
+      title: '操作',
+      key: 'action',
+      width: '15%',
+      align: 'center',
+      scopedSlots: { customRender: 'action' }
     }
-  },
-  {
-    key: 'comment',
-    title: '备注',
-    align: 'center',
-    dataIndex: 'comment',
-    scopedSlots: { customRender: 'comment' }
-  },
-  {
-    title: '操作',
-    key: 'action',
-    align: 'center',
-    scopedSlots: { customRender: 'action' }
-  }
-]
+  ]
+}
 
 export const taskData = [
   {

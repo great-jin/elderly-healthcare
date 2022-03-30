@@ -47,6 +47,15 @@ public interface PatientBodyInfoService {
      */
     PatientBodyInfo insert(PatientBodyInfo patientBodyInfo);
 
+
+    /**
+     * 批量新增
+     *
+     * @param patientBodyInfoList
+     * @return
+     */
+    int insertBatch(List<PatientBodyInfo> patientBodyInfoList);
+
     /**
      * 修改数据
      *
