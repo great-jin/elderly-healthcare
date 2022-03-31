@@ -1,8 +1,8 @@
 package com.budailad.service.impl;
 
-import com.budailad.entity.PaitentCostDetail;
-import com.budailad.dao.PaitentCostDetailDao;
-import com.budailad.service.PaitentCostDetailService;
+import com.budailad.entity.PatientCostDetail;
+import com.budailad.dao.PatientCostDetailDao;
+import com.budailad.service.PatientCostDetailService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -23,9 +23,9 @@ import java.util.List;
  */
 @Service("paitentCostDetailService")
 @CacheConfig(cacheNames = "paitentCostDetail")
-public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
+public class PatientCostDetailServiceImpl implements PatientCostDetailService {
     @Resource
-    private PaitentCostDetailDao paitentCostDetailDao;
+    private PatientCostDetailDao patientCostDetailDao;
 
     /**
      * 通过ID查询单条数据
@@ -35,62 +35,62 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
      */
     @Override
     @Cacheable(key = "#costId")
-    public PaitentCostDetail queryById(String costId) {
-        return this.paitentCostDetailDao.queryById(costId);
+    public PatientCostDetail queryById(String costId) {
+        return this.patientCostDetailDao.queryById(costId);
     }
 
     /**
      * 条件查询
      *
-     * @param paitentCostDetail 筛选条件
+     * @param patientCostDetail 筛选条件
      * @return 查询结果
      */
     @Override
     @Cacheable(key = "'list'")
-    public List<PaitentCostDetail> queryAll(PaitentCostDetail paitentCostDetail) {
-        return this.paitentCostDetailDao.queryAll(paitentCostDetail);
+    public List<PatientCostDetail> queryAll(PatientCostDetail patientCostDetail) {
+        return this.patientCostDetailDao.queryAll(patientCostDetail);
     }
 
     /**
      * 分页查询
      *
-     * @param paitentCostDetail 筛选条件
+     * @param patientCostDetail 筛选条件
      * @param pageRequest       分页对象
      * @return 查询结果
      */
     @Override
-    public Page<PaitentCostDetail> queryByPage(PaitentCostDetail paitentCostDetail, PageRequest pageRequest) {
-        long total = this.paitentCostDetailDao.count(paitentCostDetail);
-        return new PageImpl<>(this.paitentCostDetailDao.queryAllByLimit(paitentCostDetail, pageRequest), pageRequest, total);
+    public Page<PatientCostDetail> queryByPage(PatientCostDetail patientCostDetail, PageRequest pageRequest) {
+        long total = this.patientCostDetailDao.count(patientCostDetail);
+        return new PageImpl<>(this.patientCostDetailDao.queryAllByLimit(patientCostDetail, pageRequest), pageRequest, total);
     }
 
     /**
      * 新增数据
      *
-     * @param paitentCostDetail 实例对象
+     * @param patientCostDetail 实例对象
      * @return 实例对象
      */
     @Override
     @CacheEvict(key = "'list'")
-    public PaitentCostDetail insert(PaitentCostDetail paitentCostDetail) {
-        this.paitentCostDetailDao.insert(paitentCostDetail);
-        return paitentCostDetail;
+    public PatientCostDetail insert(PatientCostDetail patientCostDetail) {
+        this.patientCostDetailDao.insert(patientCostDetail);
+        return patientCostDetail;
     }
 
     /**
      * 修改数据
      *
-     * @param paitentCostDetail 实例对象
+     * @param patientCostDetail 实例对象
      * @return 实例对象
      */
     @Override
     @Caching(evict = {
             @CacheEvict(key = "'list'"),
-            @CacheEvict(key = "#paitentCostDetail.costId")
+            @CacheEvict(key = "#patientCostDetail.costId")
     })
-    public PaitentCostDetail update(PaitentCostDetail paitentCostDetail) {
-        this.paitentCostDetailDao.update(paitentCostDetail);
-        return this.queryById(paitentCostDetail.getCostId());
+    public PatientCostDetail update(PatientCostDetail patientCostDetail) {
+        this.patientCostDetailDao.update(patientCostDetail);
+        return this.queryById(patientCostDetail.getCostId());
     }
 
     /**
@@ -105,6 +105,6 @@ public class PaitentCostDetailServiceImpl implements PaitentCostDetailService {
             @CacheEvict(key = "#costId")
     })
     public boolean deleteById(String costId) {
-        return this.paitentCostDetailDao.deleteById(costId) > 0;
+        return this.patientCostDetailDao.deleteById(costId) > 0;
     }
 }

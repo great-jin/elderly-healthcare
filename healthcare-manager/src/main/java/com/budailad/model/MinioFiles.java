@@ -1,4 +1,4 @@
-package com.budailad.entity;
+package com.budailad.model;
 
 import java.util.Date;
 import java.io.Serializable;

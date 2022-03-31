@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Budai
  * @since 2022-03-11 16:21:06
  */
-public class PaitentCostDetail implements Serializable {
+public class PatientCostDetail implements Serializable {
     private static final long serialVersionUID = 386175855833591798L;
     /**
      * 病人编号

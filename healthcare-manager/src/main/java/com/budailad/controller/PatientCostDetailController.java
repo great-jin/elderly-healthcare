@@ -1,7 +1,7 @@
 package com.budailad.controller;
 
-import com.budailad.entity.PaitentCostDetail;
-import com.budailad.service.PaitentCostDetailService;
+import com.budailad.entity.PatientCostDetail;
+import com.budailad.service.PatientCostDetailService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -23,29 +23,29 @@ public class PatientCostDetailController {
      * 服务对象
      */
     @Resource
-    private PaitentCostDetailService paitentCostDetailService;
+    private PatientCostDetailService patientCostDetailService;
 
     /**
      * 条件查询
      *
-     * @param paitentCostDetail 筛选条件
+     * @param patientCostDetail 筛选条件
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PaitentCostDetail>> queryAll(PaitentCostDetail paitentCostDetail) {
-        return ResponseEntity.ok(this.paitentCostDetailService.queryAll(paitentCostDetail));
+    public ResponseEntity<List<PatientCostDetail>> queryAll(PatientCostDetail patientCostDetail) {
+        return ResponseEntity.ok(this.patientCostDetailService.queryAll(patientCostDetail));
     }
 
     /**
      * 分页查询
      *
-     * @param paitentCostDetail 筛选条件
+     * @param patientCostDetail 筛选条件
      * @param pageRequest       分页对象
      * @return 查询结果
      */
     @GetMapping("/page")
-    public ResponseEntity<Page<PaitentCostDetail>> queryByPage(PaitentCostDetail paitentCostDetail, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.paitentCostDetailService.queryByPage(paitentCostDetail, pageRequest));
+    public ResponseEntity<Page<PatientCostDetail>> queryByPage(PatientCostDetail patientCostDetail, PageRequest pageRequest) {
+        return ResponseEntity.ok(this.patientCostDetailService.queryByPage(patientCostDetail, pageRequest));
     }
 
     /**
@@ -55,30 +55,30 @@ public class PatientCostDetailController {
      * @return 单条数据
      */
     @GetMapping("/get")
-    public ResponseEntity<PaitentCostDetail> queryById(@RequestParam(value = "id") String id) {
-        return ResponseEntity.ok(this.paitentCostDetailService.queryById(id));
+    public ResponseEntity<PatientCostDetail> queryById(@RequestParam(value = "id") String id) {
+        return ResponseEntity.ok(this.patientCostDetailService.queryById(id));
     }
 
     /**
      * 新增数据
      *
-     * @param paitentCostDetail 实体
+     * @param patientCostDetail 实体
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PaitentCostDetail> add(PaitentCostDetail paitentCostDetail) {
-        return ResponseEntity.ok(this.paitentCostDetailService.insert(paitentCostDetail));
+    public ResponseEntity<PatientCostDetail> add(PatientCostDetail patientCostDetail) {
+        return ResponseEntity.ok(this.patientCostDetailService.insert(patientCostDetail));
     }
 
     /**
      * 编辑数据
      *
-     * @param paitentCostDetail 实体
+     * @param patientCostDetail 实体
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<PaitentCostDetail> edit(PaitentCostDetail paitentCostDetail) {
-        return ResponseEntity.ok(this.paitentCostDetailService.update(paitentCostDetail));
+    public ResponseEntity<PatientCostDetail> edit(PatientCostDetail patientCostDetail) {
+        return ResponseEntity.ok(this.patientCostDetailService.update(patientCostDetail));
     }
 
     /**
@@ -89,7 +89,7 @@ public class PatientCostDetailController {
      */
     @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
-        return ResponseEntity.ok(this.paitentCostDetailService.deleteById(id));
+        return ResponseEntity.ok(this.patientCostDetailService.deleteById(id));
     }
 
 }

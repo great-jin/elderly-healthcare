@@ -1,8 +1,7 @@
 package com.budailad.http;
 
-import com.budailad.entity.MinioFiles;
+import com.budailad.model.MinioFiles;
 import com.budailad.model.MinioRespond;
-import com.budailad.service.MinioFilesService;
 import io.minio.errors.MinioException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
-import java.util.Date;
 
 @Slf4j
 @RestController
@@ -28,13 +26,9 @@ public class FilesController {
     @Autowired
     private MinioUtil minioUtil;
 
-    @Autowired
-    private MinioFilesService minioFilesService;
-
     @PostMapping("/upload")
-    public boolean Upload(@RequestParam(name = "files") MultipartFile file,
-                          @RequestParam(name = "ID") String ID) {
-        if(file.isEmpty()){
+    public boolean Upload(@RequestParam(name = "files") MultipartFile file) {
+        if (file.isEmpty()) {
             return false;
         }
 
@@ -43,18 +37,8 @@ public class FilesController {
         String bucketName = "webtest";
         try {
             minioRespond = minioUtil.uploadFile(file, bucketName);
-            if(minioRespond.getObjectWriteResponse() != null){
-                MinioFiles minioFiles = new MinioFiles();
-                minioFiles.setAccountCode(ID);
-                minioFiles.setFileName(minioRespond.getOriginName());
-                minioFiles.setInTime(new Date());
-                minioFiles.setMinioBucket(bucketName);
-                minioFiles.setMinioPath(minioRespond.getFileName());
-
-                MinioFiles res = minioFilesService.insert(minioFiles);
-                if(res != null){
-                    tag = true;
-                }
+            if (minioRespond.getObjectWriteResponse() != null) {
+                tag = true;
             }
         } catch (Exception e) {
             log.error("上传失败 : [{}]", Arrays.asList(e.getStackTrace()));
@@ -66,9 +50,9 @@ public class FilesController {
     public ResponseEntity<byte[]> Download(@RequestParam(name = "staffId") String ID) throws Exception {
         ResponseEntity<byte[]> responseEntity = null;
 
-        MinioFiles files = minioFilesService.queryById(ID);
-        try(InputStream in = minioUtil.getObject(files.getMinioBucket(), files.getMinioPath());
-            ByteArrayOutputStream out = new ByteArrayOutputStream();) {
+        MinioFiles files = null;
+        try (InputStream in = minioUtil.getObject(files.getMinioBucket(), files.getMinioPath());
+             ByteArrayOutputStream out = new ByteArrayOutputStream();) {
             if (in == null) {
                 throw new PrinterException("文件不存在");
             }
@@ -99,15 +83,13 @@ public class FilesController {
 
     @PostMapping("/delete")
     public void Delete(@RequestParam(name = "staffId") String ID) throws Exception {
-        MinioFiles files = minioFilesService.queryById(ID);
+        MinioFiles files = null;
         minioUtil.removeObject(files.getMinioBucket(), files.getFileName());
     }
 
     @PostMapping("/getUrl")
-    public String GetUrl(@RequestParam(name = "accountCode") String ID) throws Exception {
-        // 查找用户关联文件信息
-        MinioFiles files = minioFilesService.queryById(ID);
-        // 获取文件外链
+    public String GetUrl(@RequestParam(name = "staffId") String ID) throws Exception {
+        MinioFiles files = null;
         return minioUtil.getObjectURL(files.getMinioBucket(), files.getMinioPath(), 7);
     }
 
