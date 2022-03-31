@@ -6,6 +6,7 @@ import com.budailad.service.EmployeeSalaryService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#salaryId")
     public EmployeeSalary queryById(String salaryId) {
         return this.employeeSalaryDao.queryById(salaryId);
     }
@@ -82,7 +84,10 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#employeeSalary.salaryId")
+    })
     public EmployeeSalary update(EmployeeSalary employeeSalary) {
         this.employeeSalaryDao.update(employeeSalary);
         return this.queryById(employeeSalary.getSalaryId());
@@ -95,7 +100,10 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#salaryId")
+    })
     public boolean deleteById(String salaryId) {
         return this.employeeSalaryDao.deleteById(salaryId) > 0;
     }

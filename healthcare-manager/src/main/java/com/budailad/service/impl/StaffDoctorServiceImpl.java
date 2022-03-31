@@ -6,6 +6,7 @@ import com.budailad.service.StaffDoctorService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#id")
     public StaffDoctor queryById(Integer id) {
         return this.staffDoctorDao.queryById(id);
     }
@@ -82,7 +84,10 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#staffDoctor.id")
+    })
     public StaffDoctor update(StaffDoctor staffDoctor) {
         this.staffDoctorDao.update(staffDoctor);
         return this.queryById(staffDoctor.getId());
@@ -95,7 +100,10 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#id")
+    })
     public boolean deleteById(Integer id) {
         return this.staffDoctorDao.deleteById(id) > 0;
     }

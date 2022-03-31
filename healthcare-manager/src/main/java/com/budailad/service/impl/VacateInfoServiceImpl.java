@@ -6,6 +6,7 @@ import com.budailad.service.VacateInfoService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#id")
     public VacateInfo queryById(String id) {
         return this.vacateInfoDao.queryById(id);
     }
@@ -82,7 +84,10 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#vacateInfo.id")
+    })
     public VacateInfo update(VacateInfo vacateInfo) {
         this.vacateInfoDao.update(vacateInfo);
         return this.queryById(vacateInfo.getId());
@@ -95,7 +100,10 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#id")
+    })
     public boolean deleteById(String id) {
         return this.vacateInfoDao.deleteById(id) > 0;
     }

@@ -6,6 +6,7 @@ import com.budailad.service.SysLogsService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#logId")
     public SysLogs queryById(String logId) {
         return this.sysLogsDao.queryById(logId);
     }
@@ -82,7 +84,10 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#sysLogs.logId")
+    })
     public SysLogs update(SysLogs sysLogs) {
         this.sysLogsDao.update(sysLogs);
         return this.queryById(sysLogs.getLogId());
@@ -95,7 +100,10 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#logId")
+    })
     public boolean deleteById(String logId) {
         return this.sysLogsDao.deleteById(logId) > 0;
     }

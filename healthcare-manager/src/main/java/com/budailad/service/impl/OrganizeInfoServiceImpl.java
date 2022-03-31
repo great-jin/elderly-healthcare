@@ -6,6 +6,7 @@ import com.budailad.service.OrganizeInfoService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#organizeId")
     public OrganizeInfo queryById(String organizeId) {
         return this.organizeInfoDao.queryById(organizeId);
     }
@@ -82,7 +84,10 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#organizeInfo.organizeId")
+    })
     public OrganizeInfo update(OrganizeInfo organizeInfo) {
         this.organizeInfoDao.update(organizeInfo);
         return this.queryById(organizeInfo.getOrganizeId());
@@ -95,7 +100,10 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#organizeId")
+    })
     public boolean deleteById(String organizeId) {
         return this.organizeInfoDao.deleteById(organizeId) > 0;
     }

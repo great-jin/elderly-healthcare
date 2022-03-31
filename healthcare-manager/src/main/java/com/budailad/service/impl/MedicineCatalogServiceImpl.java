@@ -6,6 +6,7 @@ import com.budailad.service.MedicineCatalogService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#drugId")
     public MedicineCatalog queryById(String drugId) {
         return this.medicineCatalogDao.queryById(drugId);
     }
@@ -82,7 +84,10 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#medicineCatalog.drugId")
+    })
     public MedicineCatalog update(MedicineCatalog medicineCatalog) {
         this.medicineCatalogDao.update(medicineCatalog);
         return this.queryById(medicineCatalog.getDrugId());
@@ -95,7 +100,10 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#drugId")
+    })
     public boolean deleteById(String drugId) {
         return this.medicineCatalogDao.deleteById(drugId) > 0;
     }

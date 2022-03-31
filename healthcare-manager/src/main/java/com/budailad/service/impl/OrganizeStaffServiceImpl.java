@@ -6,6 +6,7 @@ import com.budailad.service.OrganizeStaffService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#id")
     public OrganizeStaff queryById(Integer id) {
         return this.organizeStaffDao.queryById(id);
     }
@@ -82,7 +84,10 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#organizeStaff.id")
+    })
     public OrganizeStaff update(OrganizeStaff organizeStaff) {
         this.organizeStaffDao.update(organizeStaff);
         return this.queryById(organizeStaff.getId());
@@ -95,7 +100,10 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#id")
+    })
     public boolean deleteById(Integer id) {
         return this.organizeStaffDao.deleteById(id) > 0;
     }

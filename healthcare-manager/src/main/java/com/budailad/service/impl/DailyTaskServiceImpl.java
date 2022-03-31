@@ -6,6 +6,7 @@ import com.budailad.service.DailyTaskService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,7 +34,7 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 实例对象
      */
     @Override
-    @Cacheable(key = "#id")
+    @Cacheable(key = "#taskId")
     public DailyTask queryById(String taskId) {
         return this.dailyTaskDao.queryById(taskId);
     }
@@ -93,7 +94,10 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#dailyTask.taskId")
+    })
     public DailyTask update(DailyTask dailyTask) {
         this.dailyTaskDao.update(dailyTask);
         return this.queryById(dailyTask.getTaskId());
@@ -106,6 +110,10 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 是否成功
      */
     @Override
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#taskId")
+    })
     public boolean deleteById(String taskId) {
         return this.dailyTaskDao.deleteById(taskId) > 0;
     }

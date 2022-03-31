@@ -6,6 +6,7 @@ import com.budailad.service.WarehoseStorageService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#goodsId")
     public WarehoseStorage queryById(String goodsId) {
         return this.warehoseStorageDao.queryById(goodsId);
     }
@@ -88,7 +90,10 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#warehoseStorage.goodsId")
+    })
     public WarehoseStorage update(WarehoseStorage warehoseStorage) {
         this.warehoseStorageDao.update(warehoseStorage);
         return this.queryById(warehoseStorage.getGoodsId());
@@ -101,7 +106,10 @@ public class WarehoseStorageServiceImpl implements WarehoseStorageService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#goodsId")
+    })
     public boolean deleteById(String goodsId) {
         return this.warehoseStorageDao.deleteById(goodsId) > 0;
     }

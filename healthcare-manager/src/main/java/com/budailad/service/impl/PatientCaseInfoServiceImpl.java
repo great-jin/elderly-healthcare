@@ -6,6 +6,7 @@ import com.budailad.service.PatientCaseInfoService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,8 +34,21 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#castId")
     public PatientCaseInfo queryById(String castId) {
         return this.patientCaseInfoDao.queryById(castId);
+    }
+
+    /**
+     * 条件查询
+     *
+     * @param patientCaseInfo
+     * @return
+     */
+    @Override
+    @Cacheable(key = "'list'")
+    public List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo) {
+        return patientCaseInfoDao.queryAll(patientCaseInfo);
     }
 
     /**
@@ -45,21 +59,9 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public Page<PatientCaseInfo> queryByPage(PatientCaseInfo patientCaseInfo, PageRequest pageRequest) {
         long total = this.patientCaseInfoDao.count(patientCaseInfo);
         return new PageImpl<>(this.patientCaseInfoDao.queryAllByLimit(patientCaseInfo, pageRequest), pageRequest, total);
-    }
-
-    /**
-     * 条件查询
-     *
-     * @param patientCaseInfo
-     * @return
-     */
-    @Override
-    public List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo) {
-        return patientCaseInfoDao.queryAll(patientCaseInfo);
     }
 
     /**
@@ -82,7 +84,10 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#patientCaseInfo.caseId")
+    })
     public PatientCaseInfo update(PatientCaseInfo patientCaseInfo) {
         this.patientCaseInfoDao.update(patientCaseInfo);
         return this.queryById(patientCaseInfo.getCaseId());
@@ -95,7 +100,10 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#castId")
+    })
     public boolean deleteById(String castId) {
         return this.patientCaseInfoDao.deleteById(castId) > 0;
     }

@@ -6,6 +6,7 @@ import com.budailad.service.RegisterTemplateService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#tempId")
     public RegisterTemplate queryById(String tempId) {
         return this.registerTemplateDao.queryById(tempId);
     }
@@ -82,7 +84,10 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#registerTemplate.tempId")
+    })
     public RegisterTemplate update(RegisterTemplate registerTemplate) {
         this.registerTemplateDao.update(registerTemplate);
         return this.queryById(registerTemplate.getTempId());
@@ -95,7 +100,10 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#tempId")
+    })
     public boolean deleteById(String tempId) {
         return this.registerTemplateDao.deleteById(tempId) > 0;
     }

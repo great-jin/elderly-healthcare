@@ -6,6 +6,7 @@ import com.budailad.service.PatientCaseFilesService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#fileId")
     public PatientCaseFiles queryById(String fileId) {
         return this.patientCaseFilesDao.queryById(fileId);
     }
@@ -82,7 +84,10 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#patientCaseFiles.fileId")
+    })
     public PatientCaseFiles update(PatientCaseFiles patientCaseFiles) {
         this.patientCaseFilesDao.update(patientCaseFiles);
         return this.queryById(patientCaseFiles.getFileId());
@@ -95,7 +100,10 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#fileId")
+    })
     public boolean deleteById(String fileId) {
         return this.patientCaseFilesDao.deleteById(fileId) > 0;
     }

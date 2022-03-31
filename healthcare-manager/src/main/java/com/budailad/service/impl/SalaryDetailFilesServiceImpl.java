@@ -6,6 +6,7 @@ import com.budailad.service.SalaryDetailFilesService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -33,6 +34,7 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 实例对象
      */
     @Override
+    @Cacheable(key = "#fileId")
     public SalaryDetailFiles queryById(String fileId) {
         return this.salaryDetailFilesDao.queryById(fileId);
     }
@@ -82,7 +84,10 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#salaryDetailFiles.fileId")
+    })
     public SalaryDetailFiles update(SalaryDetailFiles salaryDetailFiles) {
         this.salaryDetailFilesDao.update(salaryDetailFiles);
         return this.queryById(salaryDetailFiles.getFileId());
@@ -95,7 +100,10 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 是否成功
      */
     @Override
-    @CacheEvict(key = "'list'")
+    @Caching(evict = {
+            @CacheEvict(key = "'list'"),
+            @CacheEvict(key = "#fileId")
+    })
     public boolean deleteById(String fileId) {
         return this.salaryDetailFilesDao.deleteById(fileId) > 0;
     }
