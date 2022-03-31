@@ -48,6 +48,14 @@ public interface PatientContactService {
     PatientContact insert(PatientContact patientContact);
 
     /**
+     * 批量新增
+     *
+     * @param contactList 实例对象
+     * @return 影响行数
+     */
+    int insertBatch(List<PatientContact> contactList);
+
+    /**
      * 修改数据
      *
      * @param patientContact 实例对象

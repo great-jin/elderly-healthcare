@@ -111,10 +111,10 @@
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_contact(patient_id, contact_name, contact_phone, is_deleted, comment)
+        insert into patient_contact(id, patient_id, contact_name, contact_phone, is_deleted, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.contactName}, #{entity.contactPhone}, #{entity.isDeleted}, #{entity.comment})
+            (#{entity.id}, #{entity.patientId}, #{entity.contactName}, #{entity.contactPhone}, #{entity.isDeleted}, #{entity.comment})
         </foreach>
     </insert>
 

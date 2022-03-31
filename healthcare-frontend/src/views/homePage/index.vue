@@ -55,7 +55,7 @@
         <a-card
           title="进行中流程"
           :body-style="{padding: 0}"
-          :style="{marginTop: '5px', minHeight: '240px'}"
+          :style="{marginTop: '5px', minHeight: '250px'}"
         >
           <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
           <a-card-grid
@@ -68,10 +68,10 @@
               @click="clickOption('process', item)"
             >
               <a-card-meta
-                :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
+                :description="item.vacateReason.length<30 ? item.vacateReason : item.vacateReason.substr(0,20).concat('...')"
               >
                 <div slot="title">
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.vacateType }}</span>
                 </div>
               </a-card-meta>
             </a-card>
@@ -81,7 +81,7 @@
         <a-card
           title="待审批流程"
           :body-style="{padding: 0}"
-          :style="{marginTop: '15px', minHeight: '240px'}"
+          :style="{marginTop: '15px', minHeight: '250px'}"
         >
           <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
           <a-card-grid
@@ -94,10 +94,10 @@
               @click="clickOption('process', item)"
             >
               <a-card-meta
-                :description="item.desc.length<30 ? item.desc : item.desc.substr(0,20).concat('...')"
+                :description="item.vacateReason.length<30 ? item.vacateReason : item.vacateReason.substr(0,20).concat('...')"
               >
                 <div slot="title">
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.vacateType }}</span>
                 </div>
               </a-card-meta>
             </a-card>
@@ -164,6 +164,7 @@
 import taskModal from './taskModal'
 import processModal from './processModal'
 import { getStaffTask } from '@/api/dailyTask'
+import { listVacateInfo } from '@/api/vacateInfo'
 
 export default {
   name: 'Home',
@@ -181,46 +182,26 @@ export default {
       },
       loginUser: {},
       taskData: [],
-      processList: [
-        {
-          title: 'title 1',
-          desc: 'describe 1iusdd bsdbjsdd ihsd iusddib iuuiu iuusddiub'
-        },
-        {
-          title: 'title 2',
-          desc: 'describe 2'
-        },
-        {
-          title: 'title 3',
-          desc: 'describe 3'
-        },
-        {
-          title: 'title 4',
-          desc: 'describe 4'
-        },
-        {
-          title: 'title 5',
-          desc: 'describe 5'
-        },
-        {
-          title: 'title 6',
-          desc: 'describe 6'
-        },
-        {
-          title: 'title 7',
-          desc: 'describe 7'
-        }
-      ]
+      processList: []
     }
   },
   mounted () {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
     this.loginUser = JSON.parse(localStorage.getItem('staffInfo'))
+    this.getData()
     this.taskCount()
     this.taskState('0')
   },
   methods: {
+    getData () {
+      const _data = {
+        staffId: this.loginUser.staffId
+      }
+      listVacateInfo(_data).then(res => {
+        this.processList = res.data
+      })
+    },
     taskCount () {
       this.count.act = 0
       this.count.done = 0

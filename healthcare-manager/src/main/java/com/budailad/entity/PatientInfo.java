@@ -2,6 +2,7 @@ package com.budailad.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (PatientInfo)实体类
@@ -83,7 +84,18 @@ public class PatientInfo implements Serializable {
      * 备注
      */
     private String comment;
+    /**
+     * 联系人列表
+     */
+    private List<PatientContact> contactList;
 
+    public List<PatientContact> getContactList() {
+        return contactList;
+    }
+
+    public void setContactList(List<PatientContact> contactList) {
+        this.contactList = contactList;
+    }
 
     public String getPatientId() {
         return patientId;

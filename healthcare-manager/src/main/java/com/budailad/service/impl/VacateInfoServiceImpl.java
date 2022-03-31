@@ -46,7 +46,6 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<VacateInfo> queryAll(VacateInfo vacateInfo) {
         return this.vacateInfoDao.queryAll(vacateInfo);
     }
@@ -71,7 +70,6 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public VacateInfo insert(VacateInfo vacateInfo) {
         this.vacateInfoDao.insert(vacateInfo);
         return vacateInfo;
@@ -85,7 +83,6 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#vacateInfo.id")
     })
     public VacateInfo update(VacateInfo vacateInfo) {
@@ -101,7 +98,6 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#id")
     })
     public boolean deleteById(String id) {

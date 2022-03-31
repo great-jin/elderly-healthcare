@@ -367,6 +367,8 @@
 </template>
 
 <script>
+import { addPatientInfo } from '@/api/patientInfo'
+
 export default {
   name: 'accessForm',
   data () {
@@ -460,7 +462,13 @@ export default {
       if (_len > 0) {
         this.$refs.registerForm.validate(valid => {
           if (valid) {
-            console.log(this.form)
+            addPatientInfo(this.form).then(res => {
+              if (res.data) {
+                this.$message.success('添加成功')
+              } else {
+                this.$message.error('添加失败')
+              }
+            })
           }
         })
       } else {

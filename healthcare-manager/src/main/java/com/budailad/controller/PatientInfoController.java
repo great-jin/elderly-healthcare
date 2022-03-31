@@ -1,6 +1,8 @@
 package com.budailad.controller;
 
+import com.budailad.entity.PatientContact;
 import com.budailad.entity.PatientInfo;
+import com.budailad.service.PatientContactService;
 import com.budailad.service.PatientInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (PatientInfo)表控制层
@@ -24,6 +28,9 @@ public class PatientInfoController {
      */
     @Resource
     private PatientInfoService patientInfoService;
+
+    @Resource
+    private PatientContactService patientContactService;
 
     /**
      * 条件查询
@@ -66,8 +73,21 @@ public class PatientInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientInfo> add(PatientInfo patientInfo) {
-        return ResponseEntity.ok(this.patientInfoService.insert(patientInfo));
+    public ResponseEntity<Boolean> add(PatientInfo patientInfo) {
+        List<PatientContact> contactList = new ArrayList<>();
+        for (PatientContact contact : patientInfo.getContactList()) {
+            contact.setId(UUID.randomUUID().toString());
+            contactList.add(contact);
+        }
+        boolean tag = false;
+        int i = this.patientContactService.insertBatch(contactList);
+        if (i > 0) {
+            PatientInfo patient = this.patientInfoService.insert(patientInfo);
+            if (patient != null) {
+                tag = true;
+            }
+        }
+        return ResponseEntity.ok(tag);
     }
 
     /**

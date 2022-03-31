@@ -190,6 +190,7 @@ export default {
 
 <style scoped>
   .task-search-button{
+    width: 100px;
     float: right;
     z-index: 1;
   }

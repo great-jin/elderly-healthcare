@@ -50,24 +50,22 @@
       <a-row :gutter="2">
         <a-col :span="12">
           <a-form-model-item
-            label="负    责    人"
+            label="护理人员"
             prop="staffId"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
             <a-select
               v-model="form.staffId"
-              :allowClear="true"
               placeholder="请选择负责人"
+              :allowClear="true"
               style="width: 100%; min-width: 100px"
             >
               <a-select-option
-                v-for="staff in staffList"
-                :key="staff.staffId"
-                :value="staff.staffId"
-              >
-                {{ staff.staffName }}
-              </a-select-option>
+                v-for="cases in nurseList"
+                :key="cases.staffId"
+                :value="cases.staffId"
+              >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -80,17 +78,15 @@
           >
             <a-select
               v-model="form.patientId"
-              :allowClear="true"
               placeholder="请选择病人"
+              :allowClear="true"
               style="width: 100%; min-width: 100px"
             >
               <a-select-option
-                v-for="patient in patientList"
-                :key="patient.patientId"
-                :value="patient.patientId"
-              >
-                {{ patient.patientName }}
-              </a-select-option>
+                v-for="cases in patientList"
+                :key="cases.patientId"
+                :value="cases.patientName"
+              >{{ cases.patientName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -115,6 +111,7 @@
           <a-form-model-item
             label="任务内容"
             prop="taskContent"
+            placeholder="请选择任务内容"
             :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
             :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
             style="width: 116%"
@@ -132,6 +129,7 @@
           <a-form-model-item
             label="任务备注"
             prop="comment"
+            placeholder="任务备注"
             :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
             :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
             style="width: 116%"
@@ -149,33 +147,26 @@
 </template>
 
 <script>
+import { listNurse } from '@/api/staffNurse.js'
+import { listCaseInfo } from '@/api/patientCaseInfo.js'
+
 export default {
   name: 'accessForm',
   data () {
     return {
       type: 'add',
       visible: false,
+      patientList: [],
+      nurseList: [],
       form: {
         taskId: '',
         taskName: '',
-        staffId: '',
-        patientId: '',
+        staffId: undefined,
+        patientId: undefined,
         createdTime: '',
         taskContent: '',
         comment: ''
       },
-      staffList: [
-        {
-          staffId: '123',
-          staffName: 'AA'
-        }
-      ],
-      patientList: [
-        {
-          patientId: '321',
-          patientName: 'BB'
-        }
-      ],
       rules: {
         taskName: [
           { required: true, message: '请输入任务名', trigger: 'change' }
@@ -211,7 +202,16 @@ export default {
     paramReceive (type, data) {
       this.type = type
       this.visible = true
-      console.log(data)
+      this.form = data
+      this.getData()
+    },
+    getData () {
+      listNurse().then(res => {
+        this.nurseList = res.data
+      })
+      listCaseInfo().then(res => {
+        this.patientList = res.data
+      })
     },
     ok () {
       this.$refs.taskForm.validate(valid => {
