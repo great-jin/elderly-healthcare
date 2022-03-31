@@ -2,7 +2,7 @@ import request from './utils/axios'
 
 const prefix = '/api/healthcare/staffNurse'
 
-export function listStaffNurse (params) {
+export function listNurse (params) {
   return request({
     url: `${prefix}/list`,
     method: 'get',
@@ -10,14 +10,14 @@ export function listStaffNurse (params) {
   })
 }
 
-export function getStaffNurse (params) {
+export function getNurse (params) {
   return request({
     url: `${prefix}/get?id=${params}`,
     method: 'get'
   })
 }
 
-export function addStaffNurse (params) {
+export function addNurse (params) {
   return request({
     url: `${prefix}/add`,
     method: 'post',
@@ -25,7 +25,7 @@ export function addStaffNurse (params) {
   })
 }
 
-export function updateStaffNurse (params) {
+export function updateNurse (params) {
   return request({
     url: `${prefix}/update`,
     method: 'post',
@@ -33,7 +33,7 @@ export function updateStaffNurse (params) {
   })
 }
 
-export function removeStaffNurse (params) {
+export function removeNurse (params) {
   return request({
     url: `${prefix}/delete`,
     method: 'post',

@@ -111,6 +111,9 @@
                 and case_id = #{caseId}
             </if>
         </where>
+        <if test="inTime != null">
+            order by in_time
+        </if>
     </select>
 
     <!--统计总行数-->

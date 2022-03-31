@@ -14,7 +14,7 @@ export const columns = cxt => {
       scopedSlots: { customRender: 'caseId' }
     },
     {
-      title: '姓名',
+      title: '病人',
       dataIndex: 'patientName',
       align: 'center',
       fixed: 'left',
@@ -46,11 +46,11 @@ export const columns = cxt => {
       align: 'center',
       ellipsis: true,
       customRender: (record) => {
-        const _time = record !== null ? moment(record).format('YYYY-MM-DD HH:mm:ss') : '无'
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
         return <span>{_time}</span>
       },
       customCell: (record) => {
-        const _time = record !== null ? moment(record).format('YYYY-MM-DD HH:mm:ss') : '无'
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
         return {
           attrs: {
             title: _time
@@ -76,11 +76,11 @@ export const columns = cxt => {
       align: 'center',
       ellipsis: true,
       customRender: (record) => {
-        const _time = record !== null ? moment(record).format('YYYY-MM-DD HH:mm:ss') : '无'
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
         return <span>{_time}</span>
       },
       customCell: (record) => {
-        const _time = record !== null ? moment(record).format('YYYY-MM-DD HH:mm:ss') : '无'
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
         return {
           attrs: {
             title: _time
@@ -89,10 +89,23 @@ export const columns = cxt => {
       }
     },
     {
+      title: '描述',
+      dataIndex: 'caseDescribe',
+      align: 'center',
+      ellipsis: true,
+      customCell: (record) => {
+        return {
+          attrs: {
+            title: record.name
+          }
+        }
+      }
+    },
+    {
       title: '操作',
       align: 'center',
       fixed: 'right',
-      width: 200,
+      width: 250,
       scopedSlots: { customRender: 'action' }
     }
   ]
