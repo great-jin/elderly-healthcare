@@ -46,7 +46,6 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<DailyTask> queryAll(DailyTask dailyTask) {
         return this.dailyTaskDao.queryAll(dailyTask);
     }
@@ -69,7 +68,6 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<DailyTask> queryAll() {
         return this.dailyTaskDao.queryAll();
     }
@@ -81,7 +79,6 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public DailyTask insert(DailyTask dailyTask) {
         this.dailyTaskDao.insert(dailyTask);
         return dailyTask;
@@ -95,7 +92,6 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#dailyTask.taskId")
     })
     public DailyTask update(DailyTask dailyTask) {
@@ -111,7 +107,6 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#taskId")
     })
     public boolean deleteById(String taskId) {

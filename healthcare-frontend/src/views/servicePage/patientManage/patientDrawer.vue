@@ -16,7 +16,11 @@
           <a-button type="primary" @click="addBodyInfo">新增</a-button>
         </a-col>
         <a-col :span="22" :style="{ textAlign: 'right' }">
-          <a-button type="primary" @click="save">保存</a-button>
+          <a-button
+            type="primary"
+            @click="save"
+            :disabled="!form.patientBodyInfoList.length>0"
+          >保存</a-button>
         </a-col>
       </a-row>
 
@@ -185,7 +189,6 @@ export default {
       type: '',
       visible: false,
       isMore: false,
-      isEdit: false,
       form: {
         patientId: '',
         patientBodyInfoList: []
@@ -208,9 +211,6 @@ export default {
       if (type === 'more') {
         this.isMore = true
         this.getData()
-      }
-      if (type === 'edit') {
-        this.isEdit = true
       }
     },
     getData () {
@@ -238,7 +238,6 @@ export default {
     cancel () {
       this.visible = false
       this.isMore = false
-      this.isEdit = false
       this.$refs.ruleForm.resetFields()
       this.form.patientId = ''
       this.form.patientBodyInfoList = []

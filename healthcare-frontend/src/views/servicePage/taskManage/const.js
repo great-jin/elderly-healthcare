@@ -30,7 +30,11 @@ export const columns = (cxt) => {
       title: '创建时间',
       align: 'center',
       width: '20%',
-      dataIndex: 'createdTime'
+      dataIndex: 'createdTime',
+      customRender: (record) => {
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
+        return <span>{_time}</span>
+      }
     },
     {
       key: 'comment',

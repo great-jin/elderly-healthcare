@@ -1,39 +1,85 @@
 <template>
-  <div style="padding: 10px 20px">
-    <a-row style="margin-bottom: 30px;">
-      <a-col :span="6">
-        <b>账号：</b>
-        <a-auto-complete
-          placeholder="输入查询账号"
-          :allowClear="true"
-          class="task-search"
-        />
-      </a-col>
-      <a-col :span="6">
-        <b>任务名：</b>
-        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-          <a-select-option
-            v-for="staff in staffList"
-            :key="staff.staffId"
-            :value="staff.staffId"
-          >{{ staff.staffName }}</a-select-option>
-        </a-select>
-      </a-col>
-      <a-col :span="6">
-        <b>负责人：</b>
-        <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-          <a-select-option
-            v-for="staff in staffList"
-            :key="staff.staffId"
-            :value="staff.staffId"
-          >{{ staff.staffName }}</a-select-option>
-        </a-select>
-      </a-col>
-      <a-col :span="6">
-        <a-button @click="searchCancel" class="task-search-button">重置</a-button>
-        <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 7px">查询</a-button>
-      </a-col>
-    </a-row>
+  <div style="padding: 10px">
+    <a-form-model
+      ref="searchForm"
+      :model="searchData"
+      style="margin-bottom: 10px; font-weight: bold"
+    >
+      <a-row>
+        <a-col :span="6">
+          <a-form-model-item
+            label="任务"
+            prop="taskName"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.taskName"
+              :allowClear="true"
+              placeholder="请选择任务名"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in taskList"
+                :key="cases.taskId"
+                :value="cases.taskName"
+              >{{ cases.taskName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="6">
+          <a-form-model-item
+            label="护理"
+            prop="chargeNurse"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.chargeNurse"
+              :allowClear="true"
+              placeholder="请选择护理"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in nurseList"
+                :key="cases.staffId"
+                :value="cases.staffName"
+              >{{ cases.staffName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="6">
+          <a-form-model-item
+            label="病人"
+            prop="patientId"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.patientId"
+              :allowClear="true"
+              placeholder="请选择病人"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in patientCaseData"
+                :key="cases.patientId"
+                :value="cases.patientId"
+              >{{ cases.patientName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="6">
+          <a-button @click="searchCancel" class="task-search-button">重置</a-button>
+          <a-button
+            @click="searchOk"
+            type="primary"
+            class="task-search-button"
+            :style="{marginRight: '15px'}"
+          >查询</a-button>
+        </a-col>
+      </a-row>
+    </a-form-model>
 
     <a-button
       type="primary"
@@ -54,23 +100,36 @@
 </template>
 
 <script>
+import { columns } from './const'
 import taskModal from './taskModal'
-import { columns, taskData } from './const'
+import { listTask } from '@/api/dailyTask'
+import { listNurse } from '@/api/staffNurse.js'
+import { listCaseInfo } from '@/api/patientCaseInfo.js'
 
 export default {
-  name: 'index',
+  name: 'dailyTask',
   components: {
     taskModal
   },
   data () {
     return {
-      taskData,
-      staffList: [
-        {
-          staffId: '123',
-          staffName: 'AA'
-        }
-      ]
+      taskData: [],
+      searchData: {
+        taskName: undefined,
+        chargeNurse: undefined,
+        patientId: undefined
+      },
+      taskList: [],
+      nurseList: [],
+      patientCaseData: [],
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 5 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 18 }
+      }
     }
   },
   computed: {
@@ -78,7 +137,32 @@ export default {
       return columns(this)
     }
   },
+  mounted () {
+    this.getData()
+  },
   methods: {
+    getData () {
+      listTask().then(res => {
+        this.taskList = res.data
+        this.taskData = res.data
+      })
+      listNurse().then(res => {
+        this.nurseList = res.data
+      })
+      listCaseInfo().then(res => {
+        this.patientCaseData = res.data
+      })
+    },
+    searchOk () {
+      const _searchInfo = this.searchData
+      listTask(_searchInfo).then(res => {
+        this.taskData = res.data
+      })
+    },
+    searchCancel () {
+      this.$refs.searchForm.resetFields()
+      this.getData()
+    },
     clickOption (type, data) {
       switch (type) {
         case 'add':
@@ -88,23 +172,14 @@ export default {
           this.$refs.taskModal.paramReceive(type, data)
           break
       }
-    },
-    searchOk () {
-
-    },
-    searchCancel () {
-
     }
   }
 }
 </script>
 
 <style scoped>
-  .task-search{
-    width: 65%;
-    margin-right: 5px;
-  }
   .task-search-button{
+    width: 100px;
     float: right;
     z-index: 1;
   }

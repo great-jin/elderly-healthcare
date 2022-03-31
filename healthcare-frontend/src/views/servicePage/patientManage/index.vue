@@ -69,17 +69,21 @@
             </a-select>
           </a-form-model-item>
         </a-col>
+        <a-col :span="6">
+          <a-button @click="refresh" class="task-search-button">重置</a-button>
+          <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 15px">查询</a-button>
+        </a-col>
       </a-row>
     </a-form-model>
     <a-row>
       <a-col :span="12">
-        <a-button @click="clickOption('add', null)" type="primary" style="margin-bottom: 15px">新增</a-button>
+        <a-button
+          type="primary"
+          @click="clickOption('add', null)"
+          style="margin-bottom: 15px; width: 100px"
+        >新增</a-button>
 
         <addPatientModal ref="addPatientModal" />
-      </a-col>
-      <a-col :span="12">
-        <a-button @click="refresh" class="task-search-button">重置</a-button>
-        <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 15px">查询</a-button>
       </a-col>
     </a-row>
 

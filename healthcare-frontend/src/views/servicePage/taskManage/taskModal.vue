@@ -168,6 +168,9 @@ export default {
         comment: ''
       },
       rules: {
+        taskId: [
+          { required: true, message: '请输入任务名', trigger: 'change' }
+        ],
         taskName: [
           { required: true, message: '请输入任务名', trigger: 'change' }
         ],
@@ -202,8 +205,10 @@ export default {
     paramReceive (type, data) {
       this.type = type
       this.visible = true
-      this.form = data
-      this.getData()
+      if (type === 'edit') {
+        this.form = data
+        this.getData()
+      }
     },
     getData () {
       listNurse().then(res => {
