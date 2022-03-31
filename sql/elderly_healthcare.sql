@@ -2,7 +2,7 @@
 -- name: 30
 -- phone: 20
 -- email: 50
--- adress: 200
+-- address: 200
 -- comment: 255
 
 -- ----------------------------
@@ -35,7 +35,7 @@ CREATE TABLE `staff_doctor` (
   `staff_age` int COMMENT '年龄',
   `staff_phone` varchar(20) COMMENT '电话',
   `staff_email` varchar(50) COMMENT '邮箱',
-  `staff_adress` varchar(200) COMMENT '住址',
+  `staff_address` varchar(200) COMMENT '住址',
   `organize_id` varchar(20) COMMENT '部门编号',
   `staff_position` varchar(20) COMMENT '职位',
   `entry_time` datetime COMMENT '入职时间',
@@ -57,7 +57,7 @@ CREATE TABLE `staff_nurse` (
   `staff_age` int COMMENT '年龄',
   `staff_phone` varchar(20) COMMENT '电话',
   `staff_email` varchar(50) COMMENT '邮箱',
-  `staff_adress` varchar(200) COMMENT '住址',
+  `staff_address` varchar(200) COMMENT '住址',
   `organize_id` varchar(20) COMMENT '部门编号',
   `staff_position` varchar(20) COMMENT '职位',
   `entry_time` datetime COMMENT '入职时间',
@@ -79,7 +79,7 @@ CREATE TABLE `organize_staff` (
   `staff_age` int COMMENT '年龄',
   `staff_phone` varchar(20) COMMENT '电话',
   `staff_email` varchar(50) COMMENT '邮箱',
-  `staff_adress` varchar(200) COMMENT '住址',
+  `staff_address` varchar(200) COMMENT '住址',
   `organize_id` varchar(20) COMMENT '部门编号',
   `staff_position` varchar(20) COMMENT '职位',
   `entry_time` datetime COMMENT '入职时间',
@@ -97,8 +97,10 @@ CREATE TABLE `daily_task` (
   `task_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '任务编号',
   `task_name` varchar(100) COMMENT '任务名称',
   `patient_id` varchar(36) COMMENT '负责的病人',
+  `patient_name` varchar(30) COMMENT '病人姓名',
+  `nurse_id` varchar(20) COMMENT '护理员ID',
+  `nurse_name` varchar(30) COMMENT '护理员姓名',
   `task_content` text COMMENT '工作内容',
-  `staff_id` varchar(20) COMMENT '负责人',
   `created_time` datetime COMMENT '创建时间',
   `is_delay` int COMMENT '是否延期',
   `update_time` datetime COMMENT '更新时间',
@@ -117,14 +119,15 @@ CREATE TABLE `vacate_info` (
   `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
   `organize_name` varchar(30) COMMENT '部门名',
   `organize_type` varchar(20) COMMENT '部门类型',
-  `staff_id` varchar(20) COMMENT '申请人',
-  `staff_name` varchar(30) COMMENT '申请人',
+  `staff_id` varchar(20) COMMENT '申请人编号',
+  `staff_name` varchar(30) COMMENT '申请人姓名',
   `vacate_type` varchar(20) COMMENT '请假类别',
   `vacate_reason` varchar(20) COMMENT '请假原因',
   `start_time` datetime COMMENT '开始时间',
   `end_time` datetime COMMENT '结束时间',
   `count_time` double COMMENT '请假天数',
-  `audit_staff` varchar(30) COMMENT '审核人',
+  `auditor_id` varchar(30) COMMENT '审核人编号',
+  `auditor_name` varchar(30) COMMENT '审核人姓名',
   `is_approve` int COMMENT '是否批准',
   `comment` varchar(500) COMMENT '备注'
 );
@@ -137,8 +140,10 @@ CREATE TABLE `vacate_info` (
 DROP TABLE IF EXISTS `employee_salary`;
 CREATE TABLE `employee_salary` (
   `salary_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
-  `staff_id` varchar(20) COMMENT '员工编号',
   `organize_id` varchar(20) COMMENT '部门编号',
+  `organize_name` varchar(20) COMMENT '部门名',
+  `staff_id` varchar(20) COMMENT '员工编号',
+  `staff_name` varchar(30) COMMENT '员工姓名',
   `work_date` varchar(20) COMMENT '月份',
   `work_days` double COMMENT '工作天数',
   `off_days` double COMMENT '请假天数',
@@ -159,6 +164,7 @@ CREATE TABLE `salary_detail_files` (
   `file_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `salary_id` varchar(36) COMMENT '工资编号',
   `staff_id` varchar(20) COMMENT '员工编号',
+  `staff_name` varchar(30) COMMENT '员工姓名',
   `file_type` varchar(30) COMMENT '文件类型',
   `file_name` varchar(100) COMMENT '文件名',
   `minio_bucket` varchar(100) COMMENT '桶名',
@@ -234,9 +240,11 @@ DROP TABLE IF EXISTS `patient_case_info`;
 CREATE TABLE `patient_case_info` (
   `case_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
   `patient_id` varchar(36) COMMENT '病人编号',
-  `patient_name` varchar(30) COMMENT '姓名',
-  `charge_doctor` varchar(20) COMMENT '主治医师 ID',
-  `charge_nurse` varchar(20) COMMENT '护理员 ID',
+  `patient_name` varchar(30) COMMENT '病人姓名',
+  `nurse_id` varchar(20) COMMENT '护理员编号',
+  `nurse_name` varchar(30) COMMENT '护理员姓名',
+  `doctor_id` varchar(20) COMMENT '主治医师编号',
+  `doctor_name` varchar(30) COMMENT '主治医师姓名',
   `case_describe` text COMMENT '描述',
   `in_time` datetime COMMENT '入住时间',
   `is_leave` int COMMENT '是否出院',
@@ -253,6 +261,7 @@ DROP TABLE IF EXISTS `patient_body_info`;
 CREATE TABLE `patient_body_info` (
   `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
   `patient_id` varchar(36) COMMENT '病人编号',
+  `patient_name` varchar(30) COMMENT '病人姓名',
   `body_temper` double COMMENT '体温(摄氏度)',
   `heart_beat` double COMMENT '心率(n/min)',
   `blood_pressure` varchar(30) COMMENT '血压(mmHg)',
@@ -273,6 +282,7 @@ DROP TABLE IF EXISTS `patient_case_files`;
 CREATE TABLE `patient_case_files` (
   `file_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '文件ID',
   `patient_id` varchar(36) COMMENT '病人编号',
+  `patient_name` varchar(30) COMMENT '病人姓名',
   `cast_id` varchar(36) COMMENT '病历编号',
   `file_type` varchar(30) COMMENT '文件类型',
   `file_name` varchar(100) COMMENT '文件名',
@@ -286,13 +296,15 @@ CREATE TABLE `patient_case_files` (
 
 -- ----------------------------
 -- COMMENT '消费记录'
--- Table structure for paitent_cost_detail
+-- Table structure for patient_cost_detail
 -- ----------------------------
-DROP TABLE IF EXISTS `paitent_cost_detail`;
-CREATE TABLE `paitent_cost_detail`  (
+DROP TABLE IF EXISTS `patient_cost_detail`;
+CREATE TABLE `patient_cost_detail`  (
   `cost_id` varchar(20) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '病人编号',
-  `charge_doctor` varchar(30) COMMENT '主治医师',
+  `patient_name` varchar(30) COMMENT '病人姓名',
+  `doctor_id` varchar(30) COMMENT '医师Id',
+  `doctor_name` varchar(30) COMMENT '医师名',
   `cost_list` text COMMENT '清单',
   `in_time` datetime COMMENT '入院时间',
   `out_time` datetime COMMENT '出院时间',
@@ -362,7 +374,7 @@ CREATE TABLE `warehose_storage`  (
 -- COMMENT '订单管理表'
 -- Table structure for order_goods
 -- ----------------------------
-DROP TABLE IF EXISTS `order_info`;
+DROP TABLE IF EXISTS `order_goods`;
 CREATE TABLE `order_goods`  (
   `order_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '订单编号',
   `order_name` varchar(30) COMMENT '订单名',
@@ -372,7 +384,8 @@ CREATE TABLE `order_goods`  (
   `order_count` int COMMENT '购买量',
   `cost_count` double COMMENT '总价',
   `order_time` datetime COMMENT '购买时间',
-  `staff_id` varchar(20) COMMENT '负责人',
+  `staff_id` varchar(20) COMMENT '负责人Id',
+  `staff_name` varchar(30) COMMENT '负责人姓名',
   `delivery_time` datetime COMMENT '交付时间',
   `comment` varchar(500) COMMENT '备注'
 ); 
@@ -388,11 +401,12 @@ CREATE TABLE `asset_apply_info`  (
   `organize_unit` varchar(30) COMMENT '申请单位，冗余字段',
   `organize_name` varchar(30) COMMENT '申请部门',
   `staff_id` varchar(20) COMMENT '申请人',
+  `staff_name` varchar(30) COMMENT '申请人姓名',
   `apply_time` datetime COMMENT '申请时间',
   `apply_reason` datetime COMMENT '申请原因',
   `receive_name` varchar(30) COMMENT '收件人',
   `receive_phone` varchar(30) COMMENT '收件电话',
-  `receive_adress` varchar(100) COMMENT '收货地址',
+  `receive_address` varchar(100) COMMENT '收货地址',
   `cost_money` double COMMENT '总金额',
   `current_state` int COMMENT '当前状态',
   `is_finished` int COMMENT '是否完成',

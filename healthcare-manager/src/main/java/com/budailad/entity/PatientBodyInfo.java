@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (PatientBodyInfo)实体类
  *
  * @author Budai
- * @since 2022-03-30 09:20:21
+ * @since 2022-03-31 20:35:09
  */
 public class PatientBodyInfo implements Serializable {
-    private static final long serialVersionUID = 529289703996240458L;
+    private static final long serialVersionUID = -41571889469859977L;
     /**
      * 编号
      */
@@ -19,6 +19,10 @@ public class PatientBodyInfo implements Serializable {
      * 病人编号
      */
     private String patientId;
+    /**
+     * 病人姓名
+     */
+    private String patientName;
     /**
      * 体温(摄氏度)
      */
@@ -71,6 +75,14 @@ public class PatientBodyInfo implements Serializable {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public Double getBodyTemper() {

@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (VacateInfo)实体类
  *
  * @author Budai
- * @since 2022-03-29 15:38:01
+ * @since 2022-03-31 20:35:05
  */
 public class VacateInfo implements Serializable {
-    private static final long serialVersionUID = -44538072835110737L;
+    private static final long serialVersionUID = -55890920506248719L;
     /**
      * 编号
      */
@@ -24,11 +24,11 @@ public class VacateInfo implements Serializable {
      */
     private String organizeType;
     /**
-     * 申请人
+     * 申请人编号
      */
     private String staffId;
     /**
-     * 申请人
+     * 申请人姓名
      */
     private String staffName;
     /**
@@ -52,9 +52,13 @@ public class VacateInfo implements Serializable {
      */
     private Double countTime;
     /**
-     * 审核人
+     * 审核人编号
      */
-    private String auditStaff;
+    private String auditorId;
+    /**
+     * 审核人姓名
+     */
+    private String auditorName;
     /**
      * 是否批准
      */
@@ -145,12 +149,20 @@ public class VacateInfo implements Serializable {
         this.countTime = countTime;
     }
 
-    public String getAuditStaff() {
-        return auditStaff;
+    public String getAuditorId() {
+        return auditorId;
     }
 
-    public void setAuditStaff(String auditStaff) {
-        this.auditStaff = auditStaff;
+    public void setAuditorId(String auditorId) {
+        this.auditorId = auditorId;
+    }
+
+    public String getAuditorName() {
+        return auditorName;
+    }
+
+    public void setAuditorName(String auditorName) {
+        this.auditorName = auditorName;
     }
 
     public Integer getIsApprove() {

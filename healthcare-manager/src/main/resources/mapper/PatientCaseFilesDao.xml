@@ -5,6 +5,7 @@
     <resultMap type="com.budailad.entity.PatientCaseFiles" id="PatientCaseFilesMap">
         <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
         <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
         <result property="castId" column="cast_id" jdbcType="VARCHAR"/>
         <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
         <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
@@ -19,6 +20,7 @@
     <select id="queryById" resultMap="PatientCaseFilesMap">
         select file_id,
                patient_id,
+               patient_name,
                cast_id,
                file_type,
                file_name,
@@ -31,11 +33,11 @@
         where file_id = #{fileId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="PatientCaseFilesMap">
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientCaseFilesMap">
         select
-        file_id, patient_id, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time, update_time,
-        is_deleted
+        file_id, patient_id, patient_name, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
+        update_time, is_deleted
         from patient_case_files
         <where>
             <if test="fileId != null and fileId != ''">
@@ -43,6 +45,52 @@
             </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="castId != null and castId != ''">
+                and cast_id = #{castId}
+            </if>
+            <if test="fileType != null and fileType != ''">
+                and file_type = #{fileType}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="minioBucket != null and minioBucket != ''">
+                and minio_bucket = #{minioBucket}
+            </if>
+            <if test="minioPath != null and minioPath != ''">
+                and minio_path = #{minioPath}
+            </if>
+            <if test="uploadTime != null">
+                and upload_time = #{uploadTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientCaseFilesMap">
+        select
+        file_id, patient_id, patient_name, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
+        update_time, is_deleted
+        from patient_case_files
+        <where>
+            <if test="fileId != null and fileId != ''">
+                and file_id = #{fileId}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
             </if>
             <if test="castId != null and castId != ''">
                 and cast_id = #{castId}
@@ -72,46 +120,6 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
-    <!--条件查询-->
-    <select id="queryAll" resultMap="PatientCaseFilesMap">
-        select
-        file_id, patient_id, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time, update_time,
-        is_deleted
-        from patient_case_files
-        <where>
-            <if test="fileId != null and fileId != ''">
-                and file_id = #{fileId}
-            </if>
-            <if test="patientId != null and patientId != ''">
-                and patient_id = #{patientId}
-            </if>
-            <if test="castId != null and castId != ''">
-                and cast_id = #{castId}
-            </if>
-            <if test="fileType != null and fileType != ''">
-                and file_type = #{fileType}
-            </if>
-            <if test="fileName != null and fileName != ''">
-                and file_name = #{fileName}
-            </if>
-            <if test="minioBucket != null and minioBucket != ''">
-                and minio_bucket = #{minioBucket}
-            </if>
-            <if test="minioPath != null and minioPath != ''">
-                and minio_path = #{minioPath}
-            </if>
-            <if test="uploadTime != null">
-                and upload_time = #{uploadTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
-            </if>
-        </where>
-    </select>
-
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -122,6 +130,9 @@
             </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
             </if>
             <if test="castId != null and castId != ''">
                 and cast_id = #{castId}
@@ -152,32 +163,33 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="fileId" useGeneratedKeys="true">
-        insert into patient_case_files(patient_id, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
-                                       update_time, is_deleted)
-        values (#{patientId}, #{castId}, #{fileType}, #{fileName}, #{minioBucket}, #{minioPath}, #{uploadTime},
-                #{updateTime}, #{isDeleted})
+        insert into patient_case_files(patient_id, patient_name, cast_id, file_type, file_name, minio_bucket,
+                                       minio_path, upload_time, update_time, is_deleted)
+        values (#{patientId}, #{patientName}, #{castId}, #{fileType}, #{fileName}, #{minioBucket}, #{minioPath},
+                #{uploadTime}, #{updateTime}, #{isDeleted})
     </insert>
 
     <insert id="insertBatch" keyProperty="fileId" useGeneratedKeys="true">
-        insert into patient_case_files(patient_id, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
-        update_time, is_deleted)
+        insert into patient_case_files(patient_id, patient_name, cast_id, file_type, file_name, minio_bucket,
+        minio_path, upload_time, update_time, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.castId}, #{entity.fileType}, #{entity.fileName}, #{entity.minioBucket},
-            #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted})
+            (#{entity.patientId}, #{entity.patientName}, #{entity.castId}, #{entity.fileType}, #{entity.fileName},
+            #{entity.minioBucket}, #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="fileId" useGeneratedKeys="true">
-        insert into patient_case_files(patient_id, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
-        update_time, is_deleted)
+        insert into patient_case_files(patient_id, patient_name, cast_id, file_type, file_name, minio_bucket,
+        minio_path, upload_time, update_time, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.castId}, #{entity.fileType}, #{entity.fileName}, #{entity.minioBucket},
-            #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted})
+            (#{entity.patientId}, #{entity.patientName}, #{entity.castId}, #{entity.fileType}, #{entity.fileName},
+            #{entity.minioBucket}, #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted})
         </foreach>
         on duplicate key update
         patient_id = values(patient_id),
+        patient_name = values(patient_name),
         cast_id = values(cast_id),
         file_type = values(file_type),
         file_name = values(file_name),
@@ -194,6 +206,9 @@
         <set>
             <if test="patientId != null and patientId != ''">
                 patient_id = #{patientId},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
             </if>
             <if test="castId != null and castId != ''">
                 cast_id = #{castId},

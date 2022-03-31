@@ -8,10 +8,10 @@ import java.util.List;
  * (PatientCaseInfo)实体类
  *
  * @author Budai
- * @since 2022-03-30 09:19:07
+ * @since 2022-03-31 20:35:07
  */
 public class PatientCaseInfo implements Serializable {
-    private static final long serialVersionUID = 753060986232579230L;
+    private static final long serialVersionUID = 709910392366207487L;
     /**
      * 编号
      */
@@ -21,21 +21,29 @@ public class PatientCaseInfo implements Serializable {
      */
     private String patientId;
     /**
-     * 姓名
+     * 病人姓名
      */
     private String patientName;
+    /**
+     * 护理员编号
+     */
+    private String nurseId;
+    /**
+     * 护理员姓名
+     */
+    private String nurseName;
+    /**
+     * 主治医师编号
+     */
+    private String doctorId;
+    /**
+     * 主治医师姓名
+     */
+    private String doctorName;
     /**
      * 描述
      */
     private String caseDescribe;
-    /**
-     * 主治医师 ID
-     */
-    private String chargeDoctor;
-    /**
-     * 护理员 ID
-     */
-    private String chargeNurse;
     /**
      * 入住时间
      */
@@ -59,6 +67,14 @@ public class PatientCaseInfo implements Serializable {
         return patientBodyInfoList;
     }
 
+    public String getCaseId() {
+        return caseId;
+    }
+
+    public void setCaseId(String caseId) {
+        this.caseId = caseId;
+    }
+
     public void setPatientBodyInfoList(List<PatientBodyInfo> patientBodyInfoList) {
         this.patientBodyInfoList = patientBodyInfoList;
     }
@@ -79,28 +95,44 @@ public class PatientCaseInfo implements Serializable {
         this.patientName = patientName;
     }
 
+    public String getNurseId() {
+        return nurseId;
+    }
+
+    public void setNurseId(String nurseId) {
+        this.nurseId = nurseId;
+    }
+
+    public String getNurseName() {
+        return nurseName;
+    }
+
+    public void setNurseName(String nurseName) {
+        this.nurseName = nurseName;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     public String getCaseDescribe() {
         return caseDescribe;
     }
 
     public void setCaseDescribe(String caseDescribe) {
         this.caseDescribe = caseDescribe;
-    }
-
-    public String getChargeDoctor() {
-        return chargeDoctor;
-    }
-
-    public void setChargeDoctor(String chargeDoctor) {
-        this.chargeDoctor = chargeDoctor;
-    }
-
-    public String getChargeNurse() {
-        return chargeNurse;
-    }
-
-    public void setChargeNurse(String chargeNurse) {
-        this.chargeNurse = chargeNurse;
     }
 
     public Date getInTime() {
@@ -133,14 +165,6 @@ public class PatientCaseInfo implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public String getCaseId() {
-        return caseId;
-    }
-
-    public void setCaseId(String caseId) {
-        this.caseId = caseId;
     }
 
 }

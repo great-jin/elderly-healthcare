@@ -30,15 +30,15 @@ export const columns = cxt => {
     },
     {
       title: '主治医师',
-      dataIndex: 'chargeDoctor',
+      dataIndex: 'doctorId',
       align: 'center',
-      scopedSlots: { customRender: 'chargeDoctor' }
+      scopedSlots: { customRender: 'doctorId' }
     },
     {
       title: '护理员',
-      dataIndex: 'chargeNurse',
+      dataIndex: 'nurseId',
       align: 'center',
-      scopedSlots: { customRender: 'chargeNurse' }
+      scopedSlots: { customRender: 'nurseId' }
     },
     {
       title: '入住时间',

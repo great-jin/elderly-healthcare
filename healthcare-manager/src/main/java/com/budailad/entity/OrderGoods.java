@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (OrderGoods)实体类
  *
  * @author Budai
- * @since 2022-03-11 16:21:05
+ * @since 2022-03-31 20:35:07
  */
 public class OrderGoods implements Serializable {
-    private static final long serialVersionUID = 475978046827487192L;
+    private static final long serialVersionUID = 896550623167115466L;
     /**
      * 订单编号
      */
@@ -44,9 +44,13 @@ public class OrderGoods implements Serializable {
      */
     private Date orderTime;
     /**
-     * 负责人
+     * 负责人Id
      */
     private String staffId;
+    /**
+     * 负责人姓名
+     */
+    private String staffName;
     /**
      * 交付时间
      */
@@ -127,6 +131,14 @@ public class OrderGoods implements Serializable {
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 
     public Date getDeliveryTime() {

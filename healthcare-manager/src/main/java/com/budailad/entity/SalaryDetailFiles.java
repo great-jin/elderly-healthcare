@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (SalaryDetailFiles)实体类
  *
  * @author Budai
- * @since 2022-03-24 15:54:00
+ * @since 2022-03-31 20:35:08
  */
 public class SalaryDetailFiles implements Serializable {
-    private static final long serialVersionUID = -94720819282057459L;
+    private static final long serialVersionUID = -39810967000275261L;
     /**
      * 主键ID
      */
@@ -23,6 +23,10 @@ public class SalaryDetailFiles implements Serializable {
      * 员工编号
      */
     private String staffId;
+    /**
+     * 员工姓名
+     */
+    private String staffName;
     /**
      * 文件类型
      */
@@ -79,6 +83,14 @@ public class SalaryDetailFiles implements Serializable {
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
     }
 
     public String getFileType() {

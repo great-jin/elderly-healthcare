@@ -6,6 +6,7 @@
         <result property="fileId" column="file_id" jdbcType="VARCHAR"/>
         <result property="salaryId" column="salary_id" jdbcType="VARCHAR"/>
         <result property="staffId" column="staff_id" jdbcType="VARCHAR"/>
+        <result property="staffName" column="staff_name" jdbcType="VARCHAR"/>
         <result property="fileType" column="file_type" jdbcType="VARCHAR"/>
         <result property="fileName" column="file_name" jdbcType="VARCHAR"/>
         <result property="minioBucket" column="minio_bucket" jdbcType="VARCHAR"/>
@@ -21,6 +22,7 @@
         select file_id,
                salary_id,
                staff_id,
+               staff_name,
                file_type,
                file_name,
                minio_bucket,
@@ -33,11 +35,11 @@
         where file_id = #{fileId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="SalaryDetailFilesMap">
+    <!--条件查询-->
+    <select id="queryAll" resultMap="SalaryDetailFilesMap">
         select
-        file_id, salary_id, staff_id, file_type, file_name, minio_bucket, minio_path, upload_time, update_time,
-        is_deleted, comment
+        file_id, salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path, upload_time,
+        update_time, is_deleted, comment
         from salary_detail_files
         <where>
             <if test="fileId != null and fileId != ''">
@@ -48,6 +50,55 @@
             </if>
             <if test="staffId != null and staffId != ''">
                 and staff_id = #{staffId}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                and staff_name = #{staffName}
+            </if>
+            <if test="fileType != null and fileType != ''">
+                and file_type = #{fileType}
+            </if>
+            <if test="fileName != null and fileName != ''">
+                and file_name = #{fileName}
+            </if>
+            <if test="minioBucket != null and minioBucket != ''">
+                and minio_bucket = #{minioBucket}
+            </if>
+            <if test="minioPath != null and minioPath != ''">
+                and minio_path = #{minioPath}
+            </if>
+            <if test="uploadTime != null">
+                and upload_time = #{uploadTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SalaryDetailFilesMap">
+        select
+        file_id, salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path, upload_time,
+        update_time, is_deleted, comment
+        from salary_detail_files
+        <where>
+            <if test="fileId != null and fileId != ''">
+                and file_id = #{fileId}
+            </if>
+            <if test="salaryId != null and salaryId != ''">
+                and salary_id = #{salaryId}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                and staff_name = #{staffName}
             </if>
             <if test="fileType != null and fileType != ''">
                 and file_type = #{fileType}
@@ -77,49 +128,6 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
-    <!--条件查询-->
-    <select id="queryAll" resultMap="SalaryDetailFilesMap">
-        select
-        file_id, salary_id, staff_id, file_type, file_name, minio_bucket, minio_path, upload_time, update_time,
-        is_deleted, comment
-        from salary_detail_files
-        <where>
-            <if test="fileId != null and fileId != ''">
-                and file_id = #{fileId}
-            </if>
-            <if test="salaryId != null and salaryId != ''">
-                and salary_id = #{salaryId}
-            </if>
-            <if test="staffId != null and staffId != ''">
-                and staff_id = #{staffId}
-            </if>
-            <if test="fileType != null and fileType != ''">
-                and file_type = #{fileType}
-            </if>
-            <if test="fileName != null and fileName != ''">
-                and file_name = #{fileName}
-            </if>
-            <if test="minioBucket != null and minioBucket != ''">
-                and minio_bucket = #{minioBucket}
-            </if>
-            <if test="minioPath != null and minioPath != ''">
-                and minio_path = #{minioPath}
-            </if>
-            <if test="uploadTime != null">
-                and upload_time = #{uploadTime}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
-            </if>
-            <if test="comment != null and comment != ''">
-                and comment = #{comment}
-            </if>
-        </where>
-    </select>
-
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -133,6 +141,9 @@
             </if>
             <if test="staffId != null and staffId != ''">
                 and staff_id = #{staffId}
+            </if>
+            <if test="staffName != null and staffName != ''">
+                and staff_name = #{staffName}
             </if>
             <if test="fileType != null and fileType != ''">
                 and file_type = #{fileType}
@@ -163,33 +174,36 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="fileId" useGeneratedKeys="true">
-        insert into salary_detail_files(salary_id, staff_id, file_type, file_name, minio_bucket, minio_path,
+        insert into salary_detail_files(salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path,
                                         upload_time, update_time, is_deleted, comment)
-        values (#{salaryId}, #{staffId}, #{fileType}, #{fileName}, #{minioBucket}, #{minioPath}, #{uploadTime},
-                #{updateTime}, #{isDeleted}, #{comment})
+        values (#{salaryId}, #{staffId}, #{staffName}, #{fileType}, #{fileName}, #{minioBucket}, #{minioPath},
+                #{uploadTime}, #{updateTime}, #{isDeleted}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="fileId" useGeneratedKeys="true">
-        insert into salary_detail_files(salary_id, staff_id, file_type, file_name, minio_bucket, minio_path,
+        insert into salary_detail_files(salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path,
         upload_time, update_time, is_deleted, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.salaryId}, #{entity.staffId}, #{entity.fileType}, #{entity.fileName}, #{entity.minioBucket},
-            #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted}, #{entity.comment})
+            (#{entity.salaryId}, #{entity.staffId}, #{entity.staffName}, #{entity.fileType}, #{entity.fileName},
+            #{entity.minioBucket}, #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted},
+            #{entity.comment})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="fileId" useGeneratedKeys="true">
-        insert into salary_detail_files(salary_id, staff_id, file_type, file_name, minio_bucket, minio_path,
+        insert into salary_detail_files(salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path,
         upload_time, update_time, is_deleted, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.salaryId}, #{entity.staffId}, #{entity.fileType}, #{entity.fileName}, #{entity.minioBucket},
-            #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted}, #{entity.comment})
+            (#{entity.salaryId}, #{entity.staffId}, #{entity.staffName}, #{entity.fileType}, #{entity.fileName},
+            #{entity.minioBucket}, #{entity.minioPath}, #{entity.uploadTime}, #{entity.updateTime}, #{entity.isDeleted},
+            #{entity.comment})
         </foreach>
         on duplicate key update
         salary_id = values(salary_id),
         staff_id = values(staff_id),
+        staff_name = values(staff_name),
         file_type = values(file_type),
         file_name = values(file_name),
         minio_bucket = values(minio_bucket),
@@ -209,6 +223,9 @@
             </if>
             <if test="staffId != null and staffId != ''">
                 staff_id = #{staffId},
+            </if>
+            <if test="staffName != null and staffName != ''">
+                staff_name = #{staffName},
             </if>
             <if test="fileType != null and fileType != ''">
                 file_type = #{fileType},

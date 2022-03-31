@@ -6,18 +6,34 @@ import java.io.Serializable;
  * (EmployeeSalary)实体类
  *
  * @author Budai
- * @since 2022-03-11 16:21:07
+ * @since 2022-03-31 20:35:08
  */
 public class EmployeeSalary implements Serializable {
-    private static final long serialVersionUID = -99068214956487572L;
+    private static final long serialVersionUID = 100704947998375996L;
     /**
      * 主键ID
      */
     private String salaryId;
     /**
+     * 部门编号
+     */
+    private String organizeId;
+    /**
+     * 部门名
+     */
+    private String organizeName;
+    /**
      * 员工编号
      */
     private String staffId;
+    /**
+     * 员工姓名
+     */
+    private String staffName;
+    /**
+     * 月份
+     */
+    private String workDate;
     /**
      * 工作天数
      */
@@ -46,14 +62,6 @@ public class EmployeeSalary implements Serializable {
      * 备注
      */
     private String comment;
-    /**
-     * 部门编号
-     */
-    private String organizeId;
-    /**
-     * 月份
-     */
-    private String workDate;
 
 
     public String getSalaryId() {
@@ -64,12 +72,44 @@ public class EmployeeSalary implements Serializable {
         this.salaryId = salaryId;
     }
 
+    public String getOrganizeId() {
+        return organizeId;
+    }
+
+    public void setOrganizeId(String organizeId) {
+        this.organizeId = organizeId;
+    }
+
+    public String getOrganizeName() {
+        return organizeName;
+    }
+
+    public void setOrganizeName(String organizeName) {
+        this.organizeName = organizeName;
+    }
+
     public String getStaffId() {
         return staffId;
     }
 
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getWorkDate() {
+        return workDate;
+    }
+
+    public void setWorkDate(String workDate) {
+        this.workDate = workDate;
     }
 
     public Double getWorkDays() {
@@ -126,22 +166,6 @@ public class EmployeeSalary implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public String getOrganizeId() {
-        return organizeId;
-    }
-
-    public void setOrganizeId(String organizeId) {
-        this.organizeId = organizeId;
-    }
-
-    public String getWorkDate() {
-        return workDate;
-    }
-
-    public void setWorkDate(String workDate) {
-        this.workDate = workDate;
     }
 
 }

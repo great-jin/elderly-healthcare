@@ -5,6 +5,7 @@
     <resultMap type="com.budailad.entity.PatientBodyInfo" id="PatientBodyInfoMap">
         <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
         <result property="bodyTemper" column="body_temper" jdbcType="NUMERIC"/>
         <result property="heartBeat" column="heart_beat" jdbcType="NUMERIC"/>
         <result property="bloodPressure" column="blood_pressure" jdbcType="VARCHAR"/>
@@ -20,6 +21,7 @@
     <select id="queryById" resultMap="PatientBodyInfoMap">
         select id,
                patient_id,
+               patient_name,
                body_temper,
                heart_beat,
                blood_pressure,
@@ -33,11 +35,11 @@
         where id = #{id}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="PatientBodyInfoMap">
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientBodyInfoMap">
         select
-        id, patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info, body_detail,
-        in_time, comment
+        id, patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info,
+        body_detail, in_time, comment
         from patient_body_info
         <where>
             <if test="id != null and id != ''">
@@ -45,6 +47,55 @@
             </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="bodyTemper != null">
+                and body_temper = #{bodyTemper}
+            </if>
+            <if test="heartBeat != null">
+                and heart_beat = #{heartBeat}
+            </if>
+            <if test="bloodPressure != null and bloodPressure != ''">
+                and blood_pressure = #{bloodPressure}
+            </if>
+            <if test="bloodGlucose != null and bloodGlucose != ''">
+                and blood_glucose = #{bloodGlucose}
+            </if>
+            <if test="bloodFat != null and bloodFat != ''">
+                and blood_fat = #{bloodFat}
+            </if>
+            <if test="drugInfo != null and drugInfo != ''">
+                and drug_info = #{drugInfo}
+            </if>
+            <if test="bodyDetail != null and bodyDetail != ''">
+                and body_detail = #{bodyDetail}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientBodyInfoMap">
+        select
+        id, patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info,
+        body_detail, in_time, comment
+        from patient_body_info
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
             </if>
             <if test="bodyTemper != null">
                 and body_temper = #{bodyTemper}
@@ -77,49 +128,6 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
-    <!--条件查询-->
-    <select id="queryAll" resultMap="PatientBodyInfoMap">
-        select
-        id, patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info, body_detail,
-        in_time, comment
-        from patient_body_info
-        <where>
-            <if test="id != null and id != ''">
-                and id = #{id}
-            </if>
-            <if test="patientId != null and patientId != ''">
-                and patient_id = #{patientId}
-            </if>
-            <if test="bodyTemper != null">
-                and body_temper = #{bodyTemper}
-            </if>
-            <if test="heartBeat != null">
-                and heart_beat = #{heartBeat}
-            </if>
-            <if test="bloodPressure != null and bloodPressure != ''">
-                and blood_pressure = #{bloodPressure}
-            </if>
-            <if test="bloodGlucose != null and bloodGlucose != ''">
-                and blood_glucose = #{bloodGlucose}
-            </if>
-            <if test="bloodFat != null and bloodFat != ''">
-                and blood_fat = #{bloodFat}
-            </if>
-            <if test="drugInfo != null and drugInfo != ''">
-                and drug_info = #{drugInfo}
-            </if>
-            <if test="bodyDetail != null and bodyDetail != ''">
-                and body_detail = #{bodyDetail}
-            </if>
-            <if test="inTime != null">
-                and in_time = #{inTime}
-            </if>
-            <if test="comment != null and comment != ''">
-                and comment = #{comment}
-            </if>
-        </where>
-    </select>
-
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -130,6 +138,9 @@
             </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
             </if>
             <if test="bodyTemper != null">
                 and body_temper = #{bodyTemper}
@@ -163,34 +174,35 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_body_info(patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
-                                      drug_info, body_detail, in_time, comment)
-        values (#{patientId}, #{bodyTemper}, #{heartBeat}, #{bloodPressure}, #{bloodGlucose}, #{bloodFat}, #{drugInfo},
-                #{bodyDetail}, #{inTime}, #{comment})
+        insert into patient_body_info(patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose,
+                                      blood_fat, drug_info, body_detail, in_time, comment)
+        values (#{patientId}, #{patientName}, #{bodyTemper}, #{heartBeat}, #{bloodPressure}, #{bloodGlucose},
+                #{bloodFat}, #{drugInfo}, #{bodyDetail}, #{inTime}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_body_info(id, patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
-        drug_info, body_detail, in_time, comment)
+        insert into patient_body_info(id, patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose,
+        blood_fat, drug_info, body_detail, in_time, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.id}, #{entity.patientId}, #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure},
-            #{entity.bloodGlucose}, #{entity.bloodFat}, #{entity.drugInfo}, #{entity.bodyDetail}, #{entity.inTime},
-            #{entity.comment})
+            (#{entity.id}, #{entity.patientId}, #{entity.patientName}, #{entity.bodyTemper}, #{entity.heartBeat},
+            #{entity.bloodPressure}, #{entity.bloodGlucose}, #{entity.bloodFat}, #{entity.drugInfo},
+            #{entity.bodyDetail}, #{entity.inTime}, #{entity.comment})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_body_info(patient_id, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
-        drug_info, body_detail, in_time, comment)
+        insert into patient_body_info(patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose,
+        blood_fat, drug_info, body_detail, in_time, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure},
-            #{entity.bloodGlucose}, #{entity.bloodFat}, #{entity.drugInfo}, #{entity.bodyDetail}, #{entity.inTime},
-            #{entity.comment})
+            (#{entity.patientId}, #{entity.patientName}, #{entity.bodyTemper}, #{entity.heartBeat},
+            #{entity.bloodPressure}, #{entity.bloodGlucose}, #{entity.bloodFat}, #{entity.drugInfo},
+            #{entity.bodyDetail}, #{entity.inTime}, #{entity.comment})
         </foreach>
         on duplicate key update
         patient_id = values(patient_id),
+        patient_name = values(patient_name),
         body_temper = values(body_temper),
         heart_beat = values(heart_beat),
         blood_pressure = values(blood_pressure),
@@ -208,6 +220,9 @@
         <set>
             <if test="patientId != null and patientId != ''">
                 patient_id = #{patientId},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
             </if>
             <if test="bodyTemper != null">
                 body_temper = #{bodyTemper},

@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (PatientCaseFiles)实体类
  *
  * @author Budai
- * @since 2022-03-24 15:54:00
+ * @since 2022-03-31 20:35:06
  */
 public class PatientCaseFiles implements Serializable {
-    private static final long serialVersionUID = -29185032678137532L;
+    private static final long serialVersionUID = -71141396876941768L;
     /**
      * 文件ID
      */
@@ -19,6 +19,10 @@ public class PatientCaseFiles implements Serializable {
      * 病人编号
      */
     private String patientId;
+    /**
+     * 病人姓名
+     */
+    private String patientName;
     /**
      * 病历编号
      */
@@ -67,6 +71,14 @@ public class PatientCaseFiles implements Serializable {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public String getCastId() {

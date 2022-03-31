@@ -2,49 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.budailad.dao.PatientCostDetailDao">
 
-    <resultMap type="com.budailad.entity.PatientCostDetail" id="PaitentCostDetailMap">
+    <resultMap type="com.budailad.entity.PatientCostDetail" id="PatientCostDetailMap">
+        <result property="costId" column="cost_id" jdbcType="VARCHAR"/>
         <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
+        <result property="doctorId" column="doctor_id" jdbcType="VARCHAR"/>
+        <result property="doctorName" column="doctor_name" jdbcType="VARCHAR"/>
         <result property="costList" column="cost_list" jdbcType="VARCHAR"/>
-        <result property="costCount" column="cost_count" jdbcType="NUMERIC"/>
         <result property="inTime" column="in_time" jdbcType="TIMESTAMP"/>
         <result property="outTime" column="out_time" jdbcType="TIMESTAMP"/>
-        <result property="costId" column="cost_id" jdbcType="VARCHAR"/>
-        <result property="chargeDoctor" column="charge_doctor" jdbcType="VARCHAR"/>
+        <result property="costCount" column="cost_count" jdbcType="NUMERIC"/>
         <result property="isPay" column="is_pay" jdbcType="INTEGER"/>
         <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="PaitentCostDetailMap">
-        select patient_id,
+    <select id="queryById" resultMap="PatientCostDetailMap">
+        select cost_id,
+               patient_id,
+               patient_name,
+               doctor_id,
+               doctor_name,
                cost_list,
-               cost_count,
                in_time,
                out_time,
-               cost_id,
-               charge_doctor,
+               cost_count,
                is_pay,
                pay_time,
                comment
-        from paitent_cost_detail
+        from patient_cost_detail
         where cost_id = #{costId}
     </select>
 
-    <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="PaitentCostDetailMap">
+    <!--条件查询-->
+    <select id="queryAll" resultMap="PatientCostDetailMap">
         select
-        patient_id, cost_list, cost_count, in_time, out_time, cost_id, charge_doctor, is_pay, pay_time, comment
-        from paitent_cost_detail
+        cost_id, patient_id, patient_name, doctor_id, doctor_name, cost_list, in_time, out_time, cost_count, is_pay,
+        pay_time, comment
+        from patient_cost_detail
         <where>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
             </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="doctorId != null and doctorId != ''">
+                and doctor_id = #{doctorId}
+            </if>
+            <if test="doctorName != null and doctorName != ''">
+                and doctor_name = #{doctorName}
+            </if>
             <if test="costList != null and costList != ''">
                 and cost_list = #{costList}
-            </if>
-            <if test="costCount != null">
-                and cost_count = #{costCount}
             </if>
             <if test="inTime != null">
                 and in_time = #{inTime}
@@ -52,11 +66,54 @@
             <if test="outTime != null">
                 and out_time = #{outTime}
             </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="isPay != null">
+                and is_pay = #{isPay}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientCostDetailMap">
+        select
+        cost_id, patient_id, patient_name, doctor_id, doctor_name, cost_list, in_time, out_time, cost_count, is_pay,
+        pay_time, comment
+        from patient_cost_detail
+        <where>
             <if test="costId != null and costId != ''">
                 and cost_id = #{costId}
             </if>
-            <if test="chargeDoctor != null and chargeDoctor != ''">
-                and charge_doctor = #{chargeDoctor}
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="doctorId != null and doctorId != ''">
+                and doctor_id = #{doctorId}
+            </if>
+            <if test="doctorName != null and doctorName != ''">
+                and doctor_name = #{doctorName}
+            </if>
+            <if test="costList != null and costList != ''">
+                and cost_list = #{costList}
+            </if>
+            <if test="inTime != null">
+                and in_time = #{inTime}
+            </if>
+            <if test="outTime != null">
+                and out_time = #{outTime}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
             </if>
             <if test="isPay != null">
                 and is_pay = #{isPay}
@@ -71,58 +128,28 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
-    <!--条件查询-->
-    <select id="queryAll" resultMap="PaitentCostDetailMap">
-        select
-        patient_id, cost_list, cost_count, in_time, out_time, cost_id, charge_doctor, is_pay, pay_time, comment
-        from paitent_cost_detail
-        <where>
-            <if test="patientId != null and patientId != ''">
-                and patient_id = #{patientId}
-            </if>
-            <if test="costList != null and costList != ''">
-                and cost_list = #{costList}
-            </if>
-            <if test="costCount != null">
-                and cost_count = #{costCount}
-            </if>
-            <if test="inTime != null">
-                and in_time = #{inTime}
-            </if>
-            <if test="outTime != null">
-                and out_time = #{outTime}
-            </if>
-            <if test="costId != null and costId != ''">
-                and cost_id = #{costId}
-            </if>
-            <if test="chargeDoctor != null and chargeDoctor != ''">
-                and charge_doctor = #{chargeDoctor}
-            </if>
-            <if test="isPay != null">
-                and is_pay = #{isPay}
-            </if>
-            <if test="payTime != null">
-                and pay_time = #{payTime}
-            </if>
-            <if test="comment != null and comment != ''">
-                and comment = #{comment}
-            </if>
-        </where>
-    </select>
-
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from paitent_cost_detail
+        from patient_cost_detail
         <where>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
             <if test="patientId != null and patientId != ''">
                 and patient_id = #{patientId}
             </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="doctorId != null and doctorId != ''">
+                and doctor_id = #{doctorId}
+            </if>
+            <if test="doctorName != null and doctorName != ''">
+                and doctor_name = #{doctorName}
+            </if>
             <if test="costList != null and costList != ''">
                 and cost_list = #{costList}
-            </if>
-            <if test="costCount != null">
-                and cost_count = #{costCount}
             </if>
             <if test="inTime != null">
                 and in_time = #{inTime}
@@ -130,11 +157,8 @@
             <if test="outTime != null">
                 and out_time = #{outTime}
             </if>
-            <if test="costId != null and costId != ''">
-                and cost_id = #{costId}
-            </if>
-            <if test="chargeDoctor != null and chargeDoctor != ''">
-                and charge_doctor = #{chargeDoctor}
+            <if test="costCount != null">
+                and cost_count = #{costCount}
             </if>
             <if test="isPay != null">
                 and is_pay = #{isPay}
@@ -150,37 +174,41 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="costId" useGeneratedKeys="true">
-        insert into paitent_cost_detail(patient_id, cost_list, cost_count, in_time, out_time, charge_doctor, is_pay,
-                                        pay_time, comment)
-        values (#{patientId}, #{costList}, #{costCount}, #{inTime}, #{outTime}, #{chargeDoctor}, #{isPay}, #{payTime},
-                #{comment})
+        insert into patient_cost_detail(patient_id, patient_name, doctor_id, doctor_name, cost_list, in_time, out_time,
+                                        cost_count, is_pay, pay_time, comment)
+        values (#{patientId}, #{patientName}, #{doctorId}, #{doctorName}, #{costList}, #{inTime}, #{outTime},
+                #{costCount}, #{isPay}, #{payTime}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="costId" useGeneratedKeys="true">
-        insert into paitent_cost_detail(patient_id, cost_list, cost_count, in_time, out_time, charge_doctor, is_pay,
-        pay_time, comment)
+        insert into patient_cost_detail(patient_id, patient_name, doctor_id, doctor_name, cost_list, in_time, out_time,
+        cost_count, is_pay, pay_time, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.costList}, #{entity.costCount}, #{entity.inTime}, #{entity.outTime},
-            #{entity.chargeDoctor}, #{entity.isPay}, #{entity.payTime}, #{entity.comment})
+            (#{entity.patientId}, #{entity.patientName}, #{entity.doctorId}, #{entity.doctorName}, #{entity.costList},
+            #{entity.inTime}, #{entity.outTime}, #{entity.costCount}, #{entity.isPay}, #{entity.payTime},
+            #{entity.comment})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="costId" useGeneratedKeys="true">
-        insert into paitent_cost_detail(patient_id, cost_list, cost_count, in_time, out_time, charge_doctor, is_pay,
-        pay_time, comment)
+        insert into patient_cost_detail(patient_id, patient_name, doctor_id, doctor_name, cost_list, in_time, out_time,
+        cost_count, is_pay, pay_time, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.patientId}, #{entity.costList}, #{entity.costCount}, #{entity.inTime}, #{entity.outTime},
-            #{entity.chargeDoctor}, #{entity.isPay}, #{entity.payTime}, #{entity.comment})
+            (#{entity.patientId}, #{entity.patientName}, #{entity.doctorId}, #{entity.doctorName}, #{entity.costList},
+            #{entity.inTime}, #{entity.outTime}, #{entity.costCount}, #{entity.isPay}, #{entity.payTime},
+            #{entity.comment})
         </foreach>
         on duplicate key update
         patient_id = values(patient_id),
+        patient_name = values(patient_name),
+        doctor_id = values(doctor_id),
+        doctor_name = values(doctor_name),
         cost_list = values(cost_list),
-        cost_count = values(cost_count),
         in_time = values(in_time),
         out_time = values(out_time),
-        charge_doctor = values(charge_doctor),
+        cost_count = values(cost_count),
         is_pay = values(is_pay),
         pay_time = values(pay_time),
         comment = values(comment)
@@ -188,16 +216,22 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update paitent_cost_detail
+        update patient_cost_detail
         <set>
             <if test="patientId != null and patientId != ''">
                 patient_id = #{patientId},
             </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
+            </if>
+            <if test="doctorId != null and doctorId != ''">
+                doctor_id = #{doctorId},
+            </if>
+            <if test="doctorName != null and doctorName != ''">
+                doctor_name = #{doctorName},
+            </if>
             <if test="costList != null and costList != ''">
                 cost_list = #{costList},
-            </if>
-            <if test="costCount != null">
-                cost_count = #{costCount},
             </if>
             <if test="inTime != null">
                 in_time = #{inTime},
@@ -205,8 +239,8 @@
             <if test="outTime != null">
                 out_time = #{outTime},
             </if>
-            <if test="chargeDoctor != null and chargeDoctor != ''">
-                charge_doctor = #{chargeDoctor},
+            <if test="costCount != null">
+                cost_count = #{costCount},
             </if>
             <if test="isPay != null">
                 is_pay = #{isPay},
@@ -224,7 +258,7 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
-        from paitent_cost_detail
+        from patient_cost_detail
         where cost_id = #{costId}
     </delete>
 

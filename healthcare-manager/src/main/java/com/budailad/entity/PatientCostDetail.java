@@ -4,25 +4,37 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (PaitentCostDetail)实体类
+ * (PatientCostDetail)实体类
  *
  * @author Budai
- * @since 2022-03-11 16:21:06
+ * @since 2022-03-31 20:35:08
  */
 public class PatientCostDetail implements Serializable {
-    private static final long serialVersionUID = 386175855833591798L;
+    private static final long serialVersionUID = 234179117044812745L;
+    /**
+     * 主键ID
+     */
+    private String costId;
     /**
      * 病人编号
      */
     private String patientId;
     /**
+     * 病人姓名
+     */
+    private String patientName;
+    /**
+     * 医师Id
+     */
+    private String doctorId;
+    /**
+     * 医师名
+     */
+    private String doctorName;
+    /**
      * 清单
      */
     private String costList;
-    /**
-     * 总价
-     */
-    private Double costCount;
     /**
      * 入院时间
      */
@@ -32,13 +44,9 @@ public class PatientCostDetail implements Serializable {
      */
     private Date outTime;
     /**
-     * 主键ID
+     * 总价
      */
-    private String costId;
-    /**
-     * 主治医师
-     */
-    private String chargeDoctor;
+    private Double costCount;
     /**
      * 是否结算
      */
@@ -53,6 +61,14 @@ public class PatientCostDetail implements Serializable {
     private String comment;
 
 
+    public String getCostId() {
+        return costId;
+    }
+
+    public void setCostId(String costId) {
+        this.costId = costId;
+    }
+
     public String getPatientId() {
         return patientId;
     }
@@ -61,20 +77,36 @@ public class PatientCostDetail implements Serializable {
         this.patientId = patientId;
     }
 
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
     public String getCostList() {
         return costList;
     }
 
     public void setCostList(String costList) {
         this.costList = costList;
-    }
-
-    public Double getCostCount() {
-        return costCount;
-    }
-
-    public void setCostCount(Double costCount) {
-        this.costCount = costCount;
     }
 
     public Date getInTime() {
@@ -93,20 +125,12 @@ public class PatientCostDetail implements Serializable {
         this.outTime = outTime;
     }
 
-    public String getCostId() {
-        return costId;
+    public Double getCostCount() {
+        return costCount;
     }
 
-    public void setCostId(String costId) {
-        this.costId = costId;
-    }
-
-    public String getChargeDoctor() {
-        return chargeDoctor;
-    }
-
-    public void setChargeDoctor(String chargeDoctor) {
-        this.chargeDoctor = chargeDoctor;
+    public void setCostCount(Double costCount) {
+        this.costCount = costCount;
     }
 
     public Integer getIsPay() {

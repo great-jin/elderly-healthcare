@@ -2,7 +2,7 @@
   <a-modal
     :title="type === 'add' ? '新增病人' : '信息修改'"
     :visible="visible"
-    width="40%"
+    width="55%"
     @cancel="cancel"
   >
     <template slot="footer">
@@ -25,7 +25,7 @@
           >
             <a-input
               v-model="form.patientId"
-              placeholder="自动生成"
+              placeholder="自动识别"
               :disabled="true"
             />
           </a-form-model-item>
@@ -55,13 +55,27 @@
       <a-row>
         <a-col :span="12">
           <a-form-model-item
+            label="护理编号"
+            prop="nurseId"
+            :labelCol="formLayout.labelCol"
+            :wrapperCol="formLayout.wrapperCol"
+          >
+            <a-input
+              v-model="form.nurseId"
+              placeholder="自动识别"
+              :disabled="true"
+            />
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-model-item
             label="护理人员"
-            prop="chargeNurse"
+            prop="nurseName"
             :labelCol="formLayout.labelCol"
             :wrapperCol="formLayout.wrapperCol"
           >
             <a-select
-              v-model="form.chargeNurse"
+              v-model="form.nurseName"
               placeholder="请选择护理员"
               :allowClear="true"
             >
@@ -73,15 +87,31 @@
             </a-select>
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span="12">
+          <a-form-model-item
+            label="医师编号"
+            prop="doctorId"
+            :labelCol="formLayout.labelCol"
+            :wrapperCol="formLayout.wrapperCol"
+          >
+            <a-input
+              v-model="form.doctorId"
+              placeholder="自动识别"
+              :disabled="true"
+            />
+          </a-form-model-item>
+        </a-col>
         <a-col :span="12">
           <a-form-model-item
             label="主治医师"
-            prop="chargeDoctor"
+            prop="doctorName"
             :labelCol="formLayout.labelCol"
             :wrapperCol="formLayout.wrapperCol"
           >
             <a-select
-              v-model="form.chargeDoctor"
+              v-model="form.doctorName"
               placeholder="请选择主治医师"
               :allowClear="true"
             >
@@ -181,8 +211,10 @@ export default {
       form: {
         patientId: '',
         patientName: undefined,
-        chargeNurse: undefined,
-        chargeDoctor: undefined,
+        nurseId: '',
+        nurseName: undefined,
+        doctorId: '',
+        doctorName: undefined,
         inTime: '',
         isLeave: 0,
         outTime: '',
@@ -195,10 +227,16 @@ export default {
         patientName: [
           { required: true, message: '请选择病人', trigger: 'change' }
         ],
-        chargeNurse: [
+        nurseId: [
           { required: true, message: '请选择护理员', trigger: 'change' }
         ],
-        chargeDoctor: [
+        nurseName: [
+          { required: true, message: '请选择护理员', trigger: 'change' }
+        ],
+        doctorId: [
+          { required: true, message: '请输入主治医师', trigger: 'change' }
+        ],
+        doctorName: [
           { required: true, message: '请输入主治医师', trigger: 'change' }
         ],
         inTime: [

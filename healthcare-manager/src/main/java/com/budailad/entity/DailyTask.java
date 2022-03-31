@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (DailyTask)实体类
  *
  * @author Budai
- * @since 2022-03-24 15:53:59
+ * @since 2022-03-31 20:35:07
  */
 public class DailyTask implements Serializable {
-    private static final long serialVersionUID = 179556781907252796L;
+    private static final long serialVersionUID = -31737156909375593L;
     /**
      * 任务编号
      */
@@ -24,13 +24,21 @@ public class DailyTask implements Serializable {
      */
     private String patientId;
     /**
+     * 病人姓名
+     */
+    private String patientName;
+    /**
+     * 护理员ID
+     */
+    private String nurseId;
+    /**
+     * 护理员姓名
+     */
+    private String nurseName;
+    /**
      * 工作内容
      */
     private String taskContent;
-    /**
-     * 负责人
-     */
-    private String staffId;
     /**
      * 创建时间
      */
@@ -81,20 +89,36 @@ public class DailyTask implements Serializable {
         this.patientId = patientId;
     }
 
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getNurseId() {
+        return nurseId;
+    }
+
+    public void setNurseId(String nurseId) {
+        this.nurseId = nurseId;
+    }
+
+    public String getNurseName() {
+        return nurseName;
+    }
+
+    public void setNurseName(String nurseName) {
+        this.nurseName = nurseName;
+    }
+
     public String getTaskContent() {
         return taskContent;
     }
 
     public void setTaskContent(String taskContent) {
         this.taskContent = taskContent;
-    }
-
-    public String getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
     }
 
     public Date getCreatedTime() {

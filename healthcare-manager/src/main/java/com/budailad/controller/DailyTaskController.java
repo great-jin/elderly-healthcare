@@ -71,7 +71,7 @@ public class DailyTaskController {
         List<DailyTask> allTask = this.dailyTaskService.queryAll();
         List<DailyTask> resultList = new ArrayList<>();
         for (DailyTask dailyTask: allTask) {
-            if(dailyTask.getStaffId().equals(Id)){
+            if(dailyTask.getNurseId().equals(Id)){
                 resultList.add(dailyTask);
             }
         }

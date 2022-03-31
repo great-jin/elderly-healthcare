@@ -30,12 +30,12 @@
         <a-col :span="6">
           <a-form-model-item
             label="护理"
-            prop="chargeNurse"
+            prop="nurseId"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.chargeNurse"
+              v-model="searchData.nurseId"
               :allowClear="true"
               placeholder="请选择护理"
               style="padding: 0 5px"
@@ -51,12 +51,12 @@
         <a-col :span="6">
           <a-form-model-item
             label="医师"
-            prop="chargeDoctor"
+            prop="doctorId"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.chargeDoctor"
+              v-model="searchData.doctorId"
               :allowClear="true"
               placeholder="请选择医师"
               style="padding: 0 5px"
@@ -124,8 +124,8 @@ export default {
       patientCaseData: [],
       searchData: {
         patientId: undefined,
-        chargeNurse: undefined,
-        chargeDoctor: undefined,
+        nurseId: undefined,
+        doctorId: undefined,
       },
       nurseList: [],
       doctorList: [],
