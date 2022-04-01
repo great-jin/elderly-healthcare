@@ -40,12 +40,6 @@ public interface DailyTaskService {
     Page<DailyTask> queryByPage(DailyTask dailyTask, PageRequest pageRequest);
 
     /**
-     *
-     * @return
-     */
-    List<DailyTask> queryAll();
-
-    /**
      * 新增数据
      *
      * @param dailyTask 实例对象

@@ -61,24 +61,6 @@ public class DailyTaskController {
     }
 
     /**
-     * 获取当前
-     *
-     * @param Id
-     * @return
-     */
-    @GetMapping("/getByID")
-    public List<DailyTask> getByID(@RequestParam(value = "id") String Id) {
-        List<DailyTask> allTask = this.dailyTaskService.queryAll();
-        List<DailyTask> resultList = new ArrayList<>();
-        for (DailyTask dailyTask: allTask) {
-            if(dailyTask.getNurseId().equals(Id)){
-                resultList.add(dailyTask);
-            }
-        }
-        return resultList;
-    }
-
-    /**
      * 新增数据
      *
      * @param dailyTask 实体

@@ -163,11 +163,11 @@
 <script>
 import taskModal from './taskModal'
 import processModal from './processModal'
-import { getStaffTask } from '@/api/dailyTask'
+import { listTask } from '@/api/dailyTask'
 import { listVacateInfo } from '@/api/vacateInfo'
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: {
     taskModal,
     processModal
@@ -206,8 +206,10 @@ export default {
       this.count.act = 0
       this.count.done = 0
       this.count.delay = 0
-      const _id = this.loginUser.staffId
-      getStaffTask(_id).then(res => {
+      const staff = {
+        nurseId: this.loginUser.staffId
+      }
+      listTask(staff).then(res => {
         res.data.forEach((task) => {
           if (task.isFinished !== 1 && task.isDelay !== 1) {
             this.count.act++
@@ -231,8 +233,10 @@ export default {
     },
     taskState (state) {
       this.taskData = []
-      const _id = this.loginUser.staffId
-      getStaffTask(_id).then(res => {
+      const staff = {
+        nurseId: this.loginUser.staffId
+      }
+      listTask(staff).then(res => {
         switch (state) {
           case '0':
             res.data.forEach((task) => {
