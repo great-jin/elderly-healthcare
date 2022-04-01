@@ -87,20 +87,22 @@
       </a-col>
     </a-row>
 
-    <a-table
-      :columns="columns"
-      :data-source="patientCaseData"
-      :bordered="false"
-      :scroll="{ x: 900 }"
-      :pagination="{ pageSize: 5 }"
-    >
-      <template slot="action" slot-scope="record">
-        <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-        <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
-        <a-button type="link" @click="clickOption('update', record)">更新</a-button>
-        <patientDrawer ref="patientDrawer" />
-      </template>
-    </a-table>
+    <a-locale-provider :locale="zhCN">
+      <a-table
+        :columns="columns"
+        :data-source="patientCaseData"
+        :bordered="false"
+        :scroll="{ x: 900 }"
+        :pagination="pagination"
+      >
+        <template slot="action" slot-scope="record">
+          <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+          <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+          <a-button type="link" @click="clickOption('update', record)">更新</a-button>
+          <patientDrawer ref="patientDrawer" />
+        </template>
+      </a-table>
+    </a-locale-provider>
   </div>
 </template>
 
@@ -111,6 +113,7 @@ import addPatientModal from "./addPatientModal";
 import { listNurse } from '@/api/staffNurse.js';
 import { listDoctor } from '@/api/staffDoctor.js';
 import { listCaseInfo } from '@/api/patientCaseInfo.js';
+import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
 
 export default {
   inject: ['reload'],
@@ -120,6 +123,7 @@ export default {
   },
   data() {
     return {
+      zhCN,
       dataSource: [],
       patientCaseData: [],
       searchData: {
@@ -129,6 +133,14 @@ export default {
       },
       nurseList: [],
       doctorList: [],
+      pagination: {
+        total: 0,
+        defaultPageSize: 5,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '30'],
+        showTotal: total => `共 ${total} 条数据`,
+        onShowSizeChange: (current, pageSize) => this.pageSize = pageSize
+      },
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }

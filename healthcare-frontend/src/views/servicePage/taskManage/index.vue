@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 10px">
+  <div style="padding: 10px" >
     <a-form-model
       ref="searchForm"
       :model="searchData"
@@ -86,16 +86,19 @@
       @click="clickOption('add', null)"
       style="margin-bottom: 20px"
     >新建任务</a-button>
-    <a-table
-      :columns="columns"
-      :data-source="taskData"
-      :pagination="{ pageSize: 5 }"
-    >
-      <a-button slot="action" slot-scope="record" type="link" @click="clickOption('edit', record)">编辑</a-button>
-      <span slot="expandedRowRender" slot-scope="record" style="margin: 0">{{ record.taskContent }}</span>
-    </a-table>
 
-    <taskModal ref="taskModal" />
+    <a-locale-provider :locale="zhCN">
+      <a-table
+        :columns="columns"
+        :data-source="taskData"
+        :pagination="pagination"
+        >
+        <a-button slot="action" slot-scope="record" type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <span slot="expandedRowRender" slot-scope="record" style="margin: 0">{{ record.taskContent }}</span>
+      </a-table>
+
+      <taskModal ref="taskModal" />
+    </a-locale-provider>
   </div>
 </template>
 
@@ -105,6 +108,7 @@ import taskModal from './taskModal'
 import { listTask } from '@/api/dailyTask'
 import { listNurse } from '@/api/staffNurse.js'
 import { listCaseInfo } from '@/api/patientCaseInfo.js'
+import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
 
 export default {
   name: 'dailyTask',
@@ -113,6 +117,7 @@ export default {
   },
   data () {
     return {
+      zhCN,
       taskData: [],
       searchData: {
         taskId: undefined,
@@ -122,6 +127,14 @@ export default {
       taskList: [],
       nurseList: [],
       patientCaseData: [],
+      pagination: {
+        total: 0,
+        defaultPageSize: 5,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '30'],
+        showTotal: total => `共 ${total} 条数据`,
+        onShowSizeChange: (current, pageSize) => this.pageSize = pageSize
+      },
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }

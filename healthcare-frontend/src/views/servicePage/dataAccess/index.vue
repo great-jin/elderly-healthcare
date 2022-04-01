@@ -41,17 +41,20 @@
             </a-col>
           </a-row>
         </a-form-model>
-        <a-table
-          :columns="columns"
-          :data-source="accessData"
-        >
-          <template slot="action" slot-scope="record">
-            <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <a-locale-provider :locale="zhCN">
+          <a-table
+            :columns="columns"
+            :data-source="accessData"
+            :pagination="pagination"
+          >
+            <template slot="action" slot-scope="record">
+              <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+              <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
 
-            <patientDrawer ref="patientDrawer" />
-          </template>
-        </a-table>
+              <patientDrawer ref="patientDrawer" />
+            </template>
+          </a-table>
+        </a-locale-provider>
       </a-tab-pane>
       <a-tab-pane key="2" tab="入住登记">
         <accessForm />
@@ -65,6 +68,7 @@ import { columns } from './const'
 import accessForm from './accessForm'
 import patientDrawer from './patientDrawer'
 import { listPatientInfo } from '@/api/patientInfo'
+import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
 
 export default {
   name: 'dataAccess',
@@ -74,10 +78,19 @@ export default {
   },
   data () {
     return {
+      zhCN,
       accessData: [],
       patientList: [],
       searchData: {
         patientId: undefined
+      },
+      pagination: {
+        total: 0,
+        defaultPageSize: 5,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '30'],
+        showTotal: total => `共 ${total} 条数据`,
+        onShowSizeChange: (current, pageSize) => this.pageSize = pageSize
       },
       labelCol: {
         xs: { span: 24 },

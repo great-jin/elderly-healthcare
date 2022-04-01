@@ -46,7 +46,9 @@
       </a-col>
       <a-col :span="7">
         <div class="calendar" >
-          <a-calendar :fullscreen="false" />
+          <a-locale-provider :locale="zhCN">
+            <a-calendar :fullscreen="false" />
+          </a-locale-provider>
         </div>
       </a-col>
     </a-row>
@@ -165,6 +167,7 @@ import taskModal from './taskModal'
 import processModal from './processModal'
 import { listTask } from '@/api/dailyTask'
 import { listVacateInfo } from '@/api/vacateInfo'
+import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
 
 export default {
   name: 'HomePage',
@@ -174,6 +177,7 @@ export default {
   },
   data () {
     return {
+      zhCN,
       imgUrl: '',
       count: {
         act: '',
