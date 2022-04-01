@@ -42,6 +42,7 @@
 import { columns, salaryData } from "./const";
 
 export default {
+  name: 'SalaryManage',
   data() {
     return {
       columns,

@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: '403',
+  name: '403Error',
   data () {
     return {
       title: 'Authorized Reject',

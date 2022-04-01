@@ -46,9 +46,9 @@
       </a-col>
       <a-col :span="7">
         <div class="calendar" >
-          <a-locale-provider :locale="zhCN">
+          <a-config-provider :locale="zhCN">
             <a-calendar :fullscreen="false" />
-          </a-locale-provider>
+          </a-config-provider>
         </div>
       </a-col>
     </a-row>
@@ -130,7 +130,7 @@
               item-layout="horizontal"
               :data-source="taskData"
             >
-              <a-list-item slot="renderItem" slot-scope="item, index" style="padding: 5px">
+              <a-list-item slot="renderItem" slot-scope="item" style="padding: 5px">
                 <a-tooltip>
                   <template slot="title">
                     {{ item.taskName }} :  {{ item.taskContent }}
@@ -167,7 +167,7 @@ import taskModal from './taskModal'
 import processModal from './processModal'
 import { listTask } from '@/api/dailyTask'
 import { listVacateInfo } from '@/api/vacateInfo'
-import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   name: 'HomePage',

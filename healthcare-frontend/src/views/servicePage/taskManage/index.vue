@@ -20,52 +20,52 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in taskList"
-                :key="cases.taskId"
-                :value="cases.taskId"
-              >{{ cases.taskName }}</a-select-option>
+                v-for="option in taskData"
+                :key="option.taskId"
+                :value="option.taskId"
+              >{{ option.taskName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
         <a-col :span="6">
           <a-form-model-item
             label="病人"
-            prop="patientId"
+            prop="patientName"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.patientId"
+              v-model="searchData.patientName"
               :allowClear="true"
               placeholder="请选择病人"
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in patientCaseData"
-                :key="cases.patientId"
-                :value="cases.patientId"
-              >{{ cases.patientName }}</a-select-option>
+                v-for="option in (taskData.map(item => item.patientName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                :key="option"
+                :value="option"
+              >{{ option }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
         <a-col :span="6">
           <a-form-model-item
             label="负责人"
-            prop="nurseId"
+            prop="nurseName"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.nurseId"
+              v-model="searchData.nurseName"
               :allowClear="true"
               placeholder="请选择负责人"
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in nurseList"
-                :key="cases.staffId"
-                :value="cases.staffId"
-              >{{ cases.staffName }}</a-select-option>
+                v-for="option in (taskData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                :key="option"
+                :value="option"
+              >{{ option }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -86,19 +86,22 @@
       @click="clickOption('add', null)"
       style="margin-bottom: 20px"
     >新建任务</a-button>
-
-    <a-locale-provider :locale="zhCN">
+    <a-config-provider :locale="zhCN">
       <a-table
         :columns="columns"
         :data-source="taskData"
         :pagination="pagination"
-        >
-        <a-button slot="action" slot-scope="record" type="link" @click="clickOption('edit', record)">编辑</a-button>
-        <span slot="expandedRowRender" slot-scope="record" style="margin: 0">{{ record.taskContent }}</span>
+      >
+        <a-button
+          slot="action"
+          slot-scope="record"
+          type="link"
+          @click="clickOption('edit', record)"
+        >编辑</a-button>
+        <span slot="expandedRowRender" slot-scope="record">{{ record.taskContent }}</span>
       </a-table>
-
-      <taskModal ref="taskModal" />
-    </a-locale-provider>
+    </a-config-provider>
+    <taskModal ref="taskModal" />
   </div>
 </template>
 
@@ -106,12 +109,10 @@
 import { columns } from './const'
 import taskModal from './taskModal'
 import { listTask } from '@/api/dailyTask'
-import { listNurse } from '@/api/staffNurse.js'
-import { listCaseInfo } from '@/api/patientCaseInfo.js'
-import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
-  name: 'dailyTask',
+  name: 'DailyTask',
   components: {
     taskModal
   },
@@ -121,12 +122,9 @@ export default {
       taskData: [],
       searchData: {
         taskId: undefined,
-        nurseId: undefined,
-        patientId: undefined
+        nurseName: undefined,
+        patientName: undefined
       },
-      taskList: [],
-      nurseList: [],
-      patientCaseData: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -156,14 +154,7 @@ export default {
   methods: {
     getData () {
       listTask().then(res => {
-        this.taskList = res.data
         this.taskData = res.data
-      })
-      listNurse().then(res => {
-        this.nurseList = res.data
-      })
-      listCaseInfo().then(res => {
-        this.patientCaseData = res.data
       })
     },
     searchOk () {

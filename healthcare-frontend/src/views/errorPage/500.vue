@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: '500',
+  name: '500Error',
   data () {
     return {
       title: 'Server Error',

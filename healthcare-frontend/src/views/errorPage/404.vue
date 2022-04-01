@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  name: '404',
+  name: '404Error',
   data () {
     return {
       title: 'Not Found',

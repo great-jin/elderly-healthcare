@@ -105,7 +105,7 @@
 
 <script>
 export default {
-  name: 'Service',
+  name: 'AssetPage',
   data () {
     const panes = [{ title: '费用缴纳', key: 'payment', closable: false }]
     return {

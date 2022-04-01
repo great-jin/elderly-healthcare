@@ -20,52 +20,52 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in patientCaseData"
-                :key="cases.patientId"
-                :value="cases.patientId"
-              >{{ cases.patientName }}</a-select-option>
+                v-for="option in patientCaseData"
+                :key="option.patientId"
+                :value="option.patientId"
+              >{{ option.patientName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
         <a-col :span="6">
           <a-form-model-item
             label="护理"
-            prop="nurseId"
+            prop="nurseName"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.nurseId"
+              v-model="searchData.nurseName"
               :allowClear="true"
               placeholder="请选择护理"
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in nurseList"
-                :key="cases.staffId"
-                :value="cases.staffId"
-              >{{ cases.staffName }}</a-select-option>
+                v-for="option in (patientCaseData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                :key="option"
+                :value="option"
+              >{{ option }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
         <a-col :span="6">
           <a-form-model-item
             label="医师"
-            prop="doctorId"
+            prop="doctorName"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.doctorId"
+              v-model="searchData.doctorName"
               :allowClear="true"
               placeholder="请选择医师"
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="cases in doctorList"
-                :key="cases.staffId"
-                :value="cases.staffId"
-              >{{ cases.staffName }}</a-select-option>
+                v-for="option in (patientCaseData.map(item => item.doctorName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                :key="option"
+                :value="option"
+              >{{ option }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -87,7 +87,7 @@
       </a-col>
     </a-row>
 
-    <a-locale-provider :locale="zhCN">
+    <a-config-provider :locale="zhCN">
       <a-table
         :columns="columns"
         :data-source="patientCaseData"
@@ -102,7 +102,7 @@
           <patientDrawer ref="patientDrawer" />
         </template>
       </a-table>
-    </a-locale-provider>
+    </a-config-provider>
   </div>
 </template>
 
@@ -113,7 +113,7 @@ import addPatientModal from "./addPatientModal";
 import { listNurse } from '@/api/staffNurse.js';
 import { listDoctor } from '@/api/staffDoctor.js';
 import { listCaseInfo } from '@/api/patientCaseInfo.js';
-import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   inject: ['reload'],
@@ -124,15 +124,12 @@ export default {
   data() {
     return {
       zhCN,
-      dataSource: [],
-      patientCaseData: [],
       searchData: {
         patientId: undefined,
-        nurseId: undefined,
-        doctorId: undefined,
+        nurseName: undefined,
+        doctorName: undefined,
       },
-      nurseList: [],
-      doctorList: [],
+      patientCaseData: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -161,12 +158,6 @@ export default {
   },
   methods: {
     getData() {
-      listNurse().then(res =>{
-        this.nurseList = res.data
-      })
-      listDoctor().then(res =>{
-        this.doctorList = res.data
-      })
       listCaseInfo().then(res =>{
         this.patientCaseData = res.data
       })

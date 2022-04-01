@@ -22,7 +22,7 @@
                   style="padding: 0 5px"
                 >
                   <a-select-option
-                    v-for="cases in patientList"
+                    v-for="cases in accessData"
                     :key="cases.patientId"
                     :value="cases.patientId"
                   >{{ cases.patientName }}</a-select-option>
@@ -41,7 +41,7 @@
             </a-col>
           </a-row>
         </a-form-model>
-        <a-locale-provider :locale="zhCN">
+        <a-config-provider :locale="zhCN">
           <a-table
             :columns="columns"
             :data-source="accessData"
@@ -54,7 +54,7 @@
               <patientDrawer ref="patientDrawer" />
             </template>
           </a-table>
-        </a-locale-provider>
+        </a-config-provider>
       </a-tab-pane>
       <a-tab-pane key="2" tab="入住登记">
         <accessForm />
@@ -68,7 +68,7 @@ import { columns } from './const'
 import accessForm from './accessForm'
 import patientDrawer from './patientDrawer'
 import { listPatientInfo } from '@/api/patientInfo'
-import zhCN from 'ant-design-vue/es/locale-provider/zh_CN'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   name: 'dataAccess',
@@ -79,11 +79,10 @@ export default {
   data () {
     return {
       zhCN,
-      accessData: [],
-      patientList: [],
       searchData: {
         patientId: undefined
       },
+      accessData: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -114,7 +113,6 @@ export default {
     getData () {
       listPatientInfo().then(res => {
         this.accessData = res.data
-        this.patientList = res.data
       })
     },
     clickOption (type, data) {

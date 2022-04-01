@@ -156,7 +156,7 @@ import { listOrg } from '@/api/organizeInfo'
 import { listGoods } from '@/api/warehoseStorage'
 
 export default {
-  name: 'index',
+  name: 'ApplyManage',
   data () {
     return {
       organize: [],
