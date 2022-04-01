@@ -51,11 +51,10 @@
             <template slot="action" slot-scope="record">
               <a-button type="link" @click="clickOption('more', record)">详情</a-button>
               <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
-
-              <patientDrawer ref="patientDrawer" />
             </template>
           </a-table>
         </a-config-provider>
+        <patientDrawer ref="patientDrawer" />
       </a-tab-pane>
       <a-tab-pane key="2" tab="入住登记">
         <accessForm />
