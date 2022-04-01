@@ -5,10 +5,11 @@
         <a-form-model
           ref="searchForm"
           :model="searchData"
+          labelAlign="left"
           style="margin-bottom: 10px; font-weight: bold"
         >
-          <a-row>
-            <a-col :span="6">
+          <a-row style="padding-left: 5px">
+            <a-col :span="5">
               <a-form-model-item
                 label="病人"
                 prop="patientId"
@@ -29,7 +30,7 @@
                 </a-select>
               </a-form-model-item>
             </a-col>
-            <a-col :span="12" />
+            <a-col :span="13" />
             <a-col :span="6">
               <a-button @click="searchCancel" class="task-search-button">重置</a-button>
               <a-button
@@ -93,7 +94,7 @@ export default {
       },
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 5 }
+        sm: { span: 4 }
       },
       wrapperCol: {
         xs: { span: 24 },

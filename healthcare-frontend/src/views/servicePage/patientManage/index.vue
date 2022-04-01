@@ -3,10 +3,11 @@
     <a-form-model
       ref="searchForm"
       :model="searchData"
+      labelAlign="left"
       style="margin-bottom: 10px; font-weight: bold"
     >
-      <a-row>
-        <a-col :span="6">
+      <a-row style="padding-left: 5px">
+        <a-col :span="5">
           <a-form-model-item
             label="病人"
             prop="patientId"
@@ -27,7 +28,7 @@
             </a-select>
           </a-form-model-item>
         </a-col>
-        <a-col :span="6">
+        <a-col :span="5">
           <a-form-model-item
             label="护理"
             prop="nurseName"
@@ -48,7 +49,7 @@
             </a-select>
           </a-form-model-item>
         </a-col>
-        <a-col :span="6">
+        <a-col :span="5">
           <a-form-model-item
             label="医师"
             prop="doctorName"
@@ -69,7 +70,7 @@
             </a-select>
           </a-form-model-item>
         </a-col>
-        <a-col :span="6">
+        <a-col :span="9">
           <a-button @click="refresh" class="task-search-button">重置</a-button>
           <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 15px">查询</a-button>
         </a-col>
@@ -99,6 +100,7 @@
           <a-button type="link" @click="clickOption('more', record)">详情</a-button>
           <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
           <a-button type="link" @click="clickOption('update', record)">更新</a-button>
+
           <patientDrawer ref="patientDrawer" />
         </template>
       </a-table>
@@ -140,7 +142,7 @@ export default {
       },
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 5 }
+        sm: { span: 4 }
       },
       wrapperCol: {
         xs: { span: 24 },
