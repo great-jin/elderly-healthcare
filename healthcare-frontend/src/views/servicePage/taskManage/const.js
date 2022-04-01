@@ -67,18 +67,18 @@ export const columns = (cxt) => {
       width: '15%',
       ellipsis: true,
       dataIndex: 'comment',
-      customCell: (record) => {
-        return {
-          attrs: {
-            title: record
-          }
-        }
-      },
       customRender: (record) => {
         if (record === null || record === '') {
           return <span>无</span>
         } else {
           return <span>{record}</span>
+        }
+      },
+      customCell: (record) => {
+        return {
+          attrs: {
+            title: record.name
+          }
         }
       }
     },

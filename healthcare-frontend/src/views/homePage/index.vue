@@ -45,11 +45,9 @@
         </div>
       </a-col>
       <a-col :span="7">
-        <div class="calendar" >
-          <a-config-provider :locale="zhCN">
-            <a-calendar :fullscreen="false" />
-          </a-config-provider>
-        </div>
+        <a-config-provider :locale="zhCN" class="calendar">
+          <a-calendar :fullscreen="false"/>
+        </a-config-provider>
       </a-col>
     </a-row>
     <a-row>
@@ -321,11 +319,8 @@ export default {
     border: 1px solid #d9d9d9;
     border-radius: 4px;
     margin-top: 10px;
+    background-color: white;
   }
-  /*.card-title{
-    vertical-align: middle;
-    margin-left: 12px;
-  }*/
   .process{
     margin-top: 5px;
     padding: 0px 10px;

@@ -119,7 +119,7 @@
 export default {
   name: 'Service',
   data () {
-    const panes = [{ title: '数据监控', key: 'monitor', closable: false }]
+    const panes = [{ title: '数据大屏', key: 'chart', closable: false }]
     return {
       id: '',
       imgUrl: '',

@@ -6,25 +6,26 @@ export const columns = cxt => {
   return [
     {
       title: '编号',
+      width: 100,
       dataIndex: 'caseId',
       ellipsis: true,
       align: 'center',
       fixed: 'left',
-      width: 100,
-      scopedSlots: { customRender: 'caseId' }
+      customRender: (record) => {
+        return <span>{record.substr(0, 8)}</span>
+      }
     },
     {
       title: '病人',
+      width: 100,
       dataIndex: 'patientName',
       align: 'center',
       fixed: 'left',
-      width: 100,
       scopedSlots: { customRender: 'patientName' }
     },
     {
       title: '病人编号',
       dataIndex: 'patientId',
-      ellipsis: true,
       align: 'center',
       scopedSlots: { customRender: 'patientId' }
     },
@@ -92,14 +93,7 @@ export const columns = cxt => {
       title: '描述',
       dataIndex: 'caseDescribe',
       align: 'center',
-      ellipsis: true,
-      customCell: (record) => {
-        return {
-          attrs: {
-            title: record.name
-          }
-        }
-      }
+      ellipsis: true
     },
     {
       title: '操作',

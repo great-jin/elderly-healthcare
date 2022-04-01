@@ -99,7 +99,9 @@
           type="link"
           @click="clickOption('edit', record)"
         >编辑</a-button>
-        <span slot="expandedRowRender" slot-scope="record">{{ record.taskContent }}</span>
+        <span slot="expandedRowRender" slot-scope="record">
+          <b>任务内容：</b>{{ record.taskContent }}
+        </span>
       </a-table>
     </a-config-provider>
     <taskModal ref="taskModal" />
