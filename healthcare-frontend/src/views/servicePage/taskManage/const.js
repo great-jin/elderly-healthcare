@@ -56,7 +56,7 @@ export const columns = (cxt) => {
         if (record === 1) {
           return <a-tag color="blue">是</a-tag>
         } else {
-          return <a-tag color="blue">否</a-tag>
+          return <a-tag color="red">否</a-tag>
         }
       }
     },
