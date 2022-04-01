@@ -1,6 +1,6 @@
 <template>
   <div class="chart">
-    <div id="pie" style="width: 70%; height: 100%; margin: 0 auto;"></div>
+    <div id="pie" style="width: 70%; height: 100%; margin: 20px auto;"></div>
   </div>
 </template>
 

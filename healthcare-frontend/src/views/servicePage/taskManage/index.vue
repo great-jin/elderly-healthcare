@@ -9,12 +9,12 @@
         <a-col :span="6">
           <a-form-model-item
             label="任务"
-            prop="taskName"
+            prop="taskId"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
             <a-select
-              v-model="searchData.taskName"
+              v-model="searchData.taskId"
               :allowClear="true"
               placeholder="请选择任务名"
               style="padding: 0 5px"
@@ -22,29 +22,8 @@
               <a-select-option
                 v-for="cases in taskList"
                 :key="cases.taskId"
-                :value="cases.taskName"
+                :value="cases.taskId"
               >{{ cases.taskName }}</a-select-option>
-            </a-select>
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="6">
-          <a-form-model-item
-            label="护理"
-            prop="nurseId"
-            :label-col="labelCol"
-            :wrapper-col="wrapperCol"
-          >
-            <a-select
-              v-model="searchData.nurseId"
-              :allowClear="true"
-              placeholder="请选择护理"
-              style="padding: 0 5px"
-            >
-              <a-select-option
-                v-for="cases in nurseList"
-                :key="cases.staffId"
-                :value="cases.staffName"
-              >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -66,6 +45,27 @@
                 :key="cases.patientId"
                 :value="cases.patientId"
               >{{ cases.patientName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="6">
+          <a-form-model-item
+            label="负责人"
+            prop="nurseId"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.nurseId"
+              :allowClear="true"
+              placeholder="请选择负责人"
+              style="padding: 0 5px"
+            >
+              <a-select-option
+                v-for="cases in nurseList"
+                :key="cases.staffId"
+                :value="cases.staffId"
+              >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -115,7 +115,7 @@ export default {
     return {
       taskData: [],
       searchData: {
-        taskName: undefined,
+        taskId: undefined,
         nurseId: undefined,
         patientId: undefined
       },

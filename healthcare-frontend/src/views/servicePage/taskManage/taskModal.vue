@@ -50,34 +50,13 @@
       <a-row :gutter="2">
         <a-col :span="12">
           <a-form-model-item
-            label="护理人员"
-            prop="staffId"
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-          >
-            <a-select
-              v-model="form.staffId"
-              placeholder="请选择负责人"
-              :allowClear="true"
-              style="width: 100%; min-width: 100px"
-            >
-              <a-select-option
-                v-for="cases in nurseList"
-                :key="cases.staffId"
-                :value="cases.staffId"
-              >{{ cases.staffName }}</a-select-option>
-            </a-select>
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-model-item
             label="负责病人"
-            prop="patientId"
+            prop="patientName"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
             <a-select
-              v-model="form.patientId"
+              v-model="form.patientName"
               placeholder="请选择病人"
               :allowClear="true"
               style="width: 100%; min-width: 100px"
@@ -87,6 +66,27 @@
                 :key="cases.patientId"
                 :value="cases.patientName"
               >{{ cases.patientName }}</a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-model-item
+            label="护理人员"
+            prop="staffName"
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+          >
+            <a-select
+              v-model="form.staffName"
+              placeholder="请选择负责人"
+              :allowClear="true"
+              style="width: 100%; min-width: 100px"
+            >
+              <a-select-option
+                v-for="cases in nurseList"
+                :key="cases.staffId"
+                :value="cases.staffName"
+              >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -161,8 +161,8 @@ export default {
       form: {
         taskId: '',
         taskName: '',
-        staffId: undefined,
-        patientId: undefined,
+        patientName: undefined,
+        staffName: undefined,
         createdTime: '',
         taskContent: '',
         comment: ''
@@ -174,10 +174,10 @@ export default {
         taskName: [
           { required: true, message: '请输入任务名', trigger: 'change' }
         ],
-        staffId: [
+        patientName: [
           { required: true, message: '请选择负责人', trigger: 'change' }
         ],
-        patientId: [
+        staffName: [
           { required: true, message: '请选择负责人', trigger: 'change' }
         ],
         createdTime: [
@@ -207,8 +207,10 @@ export default {
       this.visible = true
       if (type === 'edit') {
         this.form = data
-        this.getData()
+        this.form.staffName = data.nurseName
+        this.form.taskId = data.taskId.substr(0, 8)
       }
+      this.getData()
     },
     getData () {
       listNurse().then(res => {
@@ -227,7 +229,6 @@ export default {
     },
     cancel () {
       this.visible = false
-      this.$refs.taskForm.resetFields()
     },
     guid () {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

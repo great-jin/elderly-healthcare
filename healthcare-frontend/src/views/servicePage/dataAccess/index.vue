@@ -2,41 +2,45 @@
   <div>
     <a-tabs type="card">
       <a-tab-pane key="1" tab="登记信息">
-        <a-row style="margin: 0 0 30px 10px; ">
-          <a-col :span="6">
-            <b>账号：</b>
-            <a-auto-complete
-              placeholder="输入查询账号"
-              :allowClear="true"
-              class="task-search"
-            />
-          </a-col>
-          <a-col :span="6">
-            <b>任务名：</b>
-            <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-              <a-select-option
-                v-for="staff in staffList"
-                :key="staff.staffId"
-                :value="staff.staffId"
-              >{{ staff.staffName }}</a-select-option>
-            </a-select>
-          </a-col>
-          <a-col :span="6">
-            <b>负责人：</b>
-            <a-select :allowClear="true" placeholder="请选择负责人" class="task-search">
-              <a-select-option
-                v-for="staff in staffList"
-                :key="staff.staffId"
-                :value="staff.staffId"
-              >{{ staff.staffName }}</a-select-option>
-            </a-select>
-          </a-col>
-          <a-col :span="6">
-            <a-button @click="searchCancel" class="task-search-button">重置</a-button>
-            <a-button @click="searchOk" type="primary" class="task-search-button" style="margin-right: 7px">查询</a-button>
-          </a-col>
-        </a-row>
-
+        <a-form-model
+          ref="searchForm"
+          :model="searchData"
+          style="margin-bottom: 10px; font-weight: bold"
+        >
+          <a-row>
+            <a-col :span="6">
+              <a-form-model-item
+                label="病人"
+                prop="patientId"
+                :label-col="labelCol"
+                :wrapper-col="wrapperCol"
+              >
+                <a-select
+                  v-model="searchData.patientId"
+                  :allowClear="true"
+                  placeholder="请选择病人"
+                  style="padding: 0 5px"
+                >
+                  <a-select-option
+                    v-for="cases in patientList"
+                    :key="cases.patientId"
+                    :value="cases.patientId"
+                  >{{ cases.patientName }}</a-select-option>
+                </a-select>
+              </a-form-model-item>
+            </a-col>
+            <a-col :span="12" />
+            <a-col :span="6">
+              <a-button @click="searchCancel" class="task-search-button">重置</a-button>
+              <a-button
+                @click="searchOk"
+                type="primary"
+                class="task-search-button"
+                :style="{marginRight: '15px'}"
+              >查询</a-button>
+            </a-col>
+          </a-row>
+        </a-form-model>
         <a-table
           :columns="columns"
           :data-source="accessData"
@@ -57,48 +61,69 @@
 </template>
 
 <script>
+import { columns } from './const'
 import accessForm from './accessForm'
 import patientDrawer from './patientDrawer'
-import { columns, accessData } from './const'
+import { listPatientInfo } from '@/api/patientInfo'
 
 export default {
-  name: 'index',
+  name: 'dataAccess',
   components: {
     accessForm,
     patientDrawer
   },
   data () {
     return {
-      columns,
-      accessData,
-      staffList: [
-        {
-          staffId: '123',
-          staffName: 'AA'
-        }
-      ]
+      accessData: [],
+      patientList: [],
+      searchData: {
+        patientId: undefined
+      },
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 5 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 18 }
+      }
     }
   },
+  computed: {
+    columns () {
+      return columns(this)
+    }
+  },
+  mounted () {
+    this.getData()
+  },
   methods: {
-    clickOption (type, record) {
-      this.$refs.patientDrawer.paramReceive(type, record)
+    getData () {
+      listPatientInfo().then(res => {
+        this.accessData = res.data
+        this.patientList = res.data
+      })
+    },
+    clickOption (type, data) {
+      this.$refs.patientDrawer.paramReceive(type, data)
     },
     searchOk () {
-
+      const _searchInfo = this.searchData
+      listPatientInfo(_searchInfo).then(res => {
+        this.accessData = res.data
+      })
     },
     searchCancel () {
-
+      this.$refs.searchForm.resetFields()
+      this.getData()
     }
   }
 }
 </script>
 
 <style scoped>
-  .task-search{
-    width: 65%;
-    margin-right: 5px;
-  }
   .task-search-button{
+    width: 100px;
     float: right;
     z-index: 1;
   }

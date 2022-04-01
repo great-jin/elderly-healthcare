@@ -1,47 +1,58 @@
-export const columns = [
-  {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age'
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address'
-  },
-  {
-    title: 'Action',
-    key: 'x',
-    align: 'center',
-    scopedSlots: { customRender: 'action' }
-  }
-]
+import moment from 'moment'
 
-export const accessData = [
-  {
-    key: 1,
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
-  },
-  {
-    key: 2,
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
-  },
-  {
-    key: 3,
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park',
-    description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
-  }
-]
+export const columns = (cxt) => {
+  // eslint-disable-next-line no-unused-vars
+  const h = cxt.$createElement
+  return [
+    {
+      title: '编号',
+      key: 'patientId',
+      align: 'center',
+      dataIndex: 'patientId',
+      customRender: (record) => {
+        return <span>{record.substr(0, 8)}</span>
+      }
+    },
+    {
+      title: '姓名',
+      key: 'patientName',
+      align: 'center',
+      dataIndex: 'patientName'
+    },
+    {
+      title: '年龄',
+      key: 'patientAge',
+      align: 'center',
+      dataIndex: 'patientAge'
+    },
+    {
+      title: '登记时间',
+      key: 'inTime',
+      align: 'center',
+      dataIndex: 'inTime',
+      customRender: (record) => {
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
+        return <span>{_time}</span>
+      }
+    },
+    {
+      title: '备注',
+      key: 'comment',
+      align: 'center',
+      dataIndex: 'comment',
+      customRender: (record) => {
+        if (record === null || record === '') {
+          return <span>无</span>
+        } else {
+          return <span>{record}</span>
+        }
+      }
+    },
+    {
+      title: '操作',
+      key: 'x',
+      align: 'center',
+      scopedSlots: { customRender: 'action' }
+    }
+  ]
+}

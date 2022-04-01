@@ -376,7 +376,7 @@ export default {
       type: 'add',
       form: {
         patientName: '',
-        patientGender: '',
+        patientGender: undefined,
         patientAge: '',
         patientHeight: '',
         patientWeight: '',

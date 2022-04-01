@@ -60,13 +60,13 @@
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
             @click="() => (collapsed = !collapsed)"
           />
-          <a-menu-item key="1" @click="routePage('monitor')">
+          <a-menu-item key="1" @click="routePage('chart')">
             <a-icon type="line-chart" />
-            <span>数据监控</span>
-          </a-menu-item>
-          <a-menu-item key="2" @click="routePage('chart')">
-            <a-icon type="dot-chart" />
             <span>数据大屏</span>
+          </a-menu-item>
+          <a-menu-item key="2" @click="routePage('monitor')">
+            <a-icon type="dot-chart" />
+            <span>监控预警</span>
           </a-menu-item>
           <a-menu-item key="3" @click="routePage('access')">
             <a-icon type="user-add" />
@@ -138,7 +138,7 @@ export default {
   },
   mounted () {
     this.id = this.$route.query.id
-    this.routePage('monitor')
+    this.routePage('chart')
     // 监控页面关闭
     // window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
     // 获取头像地址

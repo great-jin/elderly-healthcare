@@ -29,16 +29,16 @@ export const columns = cxt => {
       scopedSlots: { customRender: 'patientId' }
     },
     {
-      title: '主治医师',
-      dataIndex: 'doctorId',
+      title: '护理员',
+      dataIndex: 'nurseName',
       align: 'center',
-      scopedSlots: { customRender: 'doctorId' }
+      scopedSlots: { customRender: 'nurseName' }
     },
     {
-      title: '护理员',
-      dataIndex: 'nurseId',
+      title: '主治医师',
+      dataIndex: 'doctorName',
       align: 'center',
-      scopedSlots: { customRender: 'nurseId' }
+      scopedSlots: { customRender: 'doctorName' }
     },
     {
       title: '入住时间',
