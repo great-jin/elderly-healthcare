@@ -136,7 +136,7 @@ export default {
       },
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 4 }
+        sm: { span: 5 }
       },
       wrapperCol: {
         xs: { span: 24 },

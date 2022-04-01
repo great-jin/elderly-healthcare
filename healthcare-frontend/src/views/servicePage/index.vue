@@ -105,8 +105,8 @@
           </a-tabs>
         </div>
         <a-layout-content
-          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
-          style="overflow: auto;"
+          :style="{ margin: '0px 16px 24px 16px', padding: '15px', background: '#fff'}"
+          style="overflow-y: auto; overflow-x: hidden"
         >
           <router-view v-if="isRouterAlive"/>
         </a-layout-content>

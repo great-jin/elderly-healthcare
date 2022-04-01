@@ -1,6 +1,23 @@
 <template>
-  <div class="chart">
-    <div id="pie" style="width: 70%; height: 100%; margin: 20px auto;"></div>
+  <div>
+    <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
+      <a-col :span="8">
+        <div id="pie2" style="width: 100%; height: 300px;"/>
+      </a-col>
+      <a-col :span="8">
+        <div id="pie1" style="width: 100%; height: 300px;"/>
+      </a-col>
+      <a-col :span="8">
+        <div id="pie3" style="width: 100%; height: 300px;"/>
+      </a-col>
+    </a-row>
+    <a-row style="width: 100%; height: 100%;">
+      <a-col :span="1"/>
+      <a-col :span="22">
+        <div id="line" style="width: 100%; height: 400px;"/>
+      </a-col>
+      <a-col :span="1"/>
+    </a-row>
   </div>
 </template>
 
@@ -8,29 +25,175 @@
 export default {
   name: 'DataChart',
   props: {
-    // 设置容器的宽、高，解决外部设置无效问题
     width: {
-      type: Number,
+      type: String,
       default: null
     },
     height: {
-      type: Number,
+      type: String,
       default: null
     }
   },
   mounted () {
-    this.dataChart()
+    setTimeout(() => {
+      this.pie1Chart()
+      this.pie2Chart()
+      this.pie3Chart()
+      this.lineChart()
+    })
+    window.onresize = () => {
+      this.pie1Chart()
+      this.pie2Chart()
+      this.pie3Chart()
+      this.lineChart()
+    }
   },
   methods: {
-    dataChart () {
-      // 通过 this.$echarts 来使用
-      // document.getElementById()
-      // document.getElementsByClassName() 不可用
-      const graph = this.$echarts.init(document.getElementById('pie'))
-      // 配置图表信息
+    pie1Chart () {
+      const graph = this.$echarts.init(document.getElementById('pie1'))
       const option = {
         title: {
-          text: 'Stacked Line'
+          text: '员工分布',
+          left: 'center',
+          top: 'bottom',
+          textStyle: {
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          top: 'top',
+          left: 'center'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: '45%',
+            data: [
+              { value: 1048, name: 'Search Engine' },
+              { value: 735, name: 'Direct' },
+              { value: 580, name: 'Email' },
+              { value: 484, name: 'Union Ads' }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
+      graph.setOption(option)
+    },
+    pie2Chart () {
+      const graph = this.$echarts.init(document.getElementById('pie2'))
+      const option = {
+        title: {
+          text: '病人分布',
+          left: 'center',
+          top: 'bottom',
+          textStyle: {
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          top: 'top',
+          left: 'center'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 1048, name: 'Search Engine' },
+              { value: 735, name: 'Direct' },
+              { value: 580, name: 'Email' },
+              { value: 484, name: 'Union Ads' }
+            ]
+          }
+        ]
+      }
+      graph.setOption(option)
+    },
+    pie3Chart () {
+      const graph = this.$echarts.init(document.getElementById('pie3'))
+      const option = {
+        title: {
+          text: '病人分布',
+          left: 'center',
+          top: 'bottom',
+          textStyle: {
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          top: 'top',
+          left: 'center'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['40%', '55%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 2
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 1048, name: 'Search Engine' },
+              { value: 735, name: 'Direct' },
+              { value: 580, name: 'Email' },
+              { value: 484, name: 'Union Ads' }
+            ]
+          }
+        ]
+      }
+      graph.setOption(option)
+    },
+    lineChart () {
+      const graph = this.$echarts.init(document.getElementById('line'))
+      const option = {
+        title: {
+          text: 'Nightingale Chart',
+          left: 'center',
+          top: 'bottom',
+          textStyle: {
+            fontSize: 16
+          }
         },
         tooltip: {
           trigger: 'axis'
@@ -41,7 +204,7 @@ export default {
         grid: {
           left: '3%',
           right: '4%',
-          bottom: '3%',
+          bottom: '10%',
           containLabel: true
         },
         xAxis: {
@@ -92,8 +255,4 @@ export default {
 </script>
 
 <style scoped>
-  .chart{
-    width: 100%;
-    height: 100%;
-  }
 </style>
