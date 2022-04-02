@@ -270,7 +270,7 @@ export default {
           this.$router.push('/elderlyHealthcare/setting/personal')
           break
         case 'back':
-          this.$router.push('/elderlyHealthcare/service')
+          this.$router.push('/elderlyHealthcare/service/chart')
           break
         case 'quit':
           localStorage.removeItem('staffInfo')

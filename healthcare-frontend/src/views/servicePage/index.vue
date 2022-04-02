@@ -117,7 +117,7 @@
 
 <script>
 export default {
-  name: 'Service',
+  name: 'ServicePage',
   data () {
     const panes = [{ title: '数据大屏', key: 'chart', closable: false }]
     return {
@@ -138,7 +138,6 @@ export default {
   },
   mounted () {
     this.id = this.$route.query.id
-    this.routePage('chart')
     // 监控页面关闭
     // window.addEventListener('beforeunload', e => this.beforeunloadHandler(e))
     // 获取头像地址

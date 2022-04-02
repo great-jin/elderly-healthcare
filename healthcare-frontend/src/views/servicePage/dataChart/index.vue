@@ -17,11 +17,12 @@
       </a-col>
     </a-row>
     <a-row style="width: 100%; height: 100%;">
-      <a-col :span="1"/>
-      <a-col :span="22">
-        <div id="line" style="width: 100%; height: 400px;"/>
+      <a-col :span="12">
+        <div id="line1" style="width: 100%; height: 400px;"/>
       </a-col>
-      <a-col :span="1"/>
+      <a-col :span="12">
+        <div id="line2" style="width: 100%; height: 400px;"/>
+      </a-col>
     </a-row>
   </div>
 </template>
@@ -44,13 +45,15 @@ export default {
       this.pie1Chart()
       this.pie2Chart()
       this.pie3Chart()
-      this.lineChart()
+      this.line1Chart()
+      this.line2Chart()
     })
     window.onresize = () => {
       this.pie1Chart()
       this.pie2Chart()
       this.pie3Chart()
-      this.lineChart()
+      this.line1Chart()
+      this.line2Chart()
     }
   },
   methods: {
@@ -189,8 +192,74 @@ export default {
       }
       graph.setOption(option)
     },
-    lineChart () {
-      const graph = this.$echarts.init(document.getElementById('line'))
+    line1Chart () {
+      const graph = this.$echarts.init(document.getElementById('line1'))
+      const option = {
+        title: {
+          text: 'Nightingale Chart',
+          left: 'center',
+          top: 'bottom',
+          textStyle: {
+            fontSize: 16
+          }
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '10%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: 'Email',
+            type: 'line',
+            stack: 'Total',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: 'Union Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: 'Video Ads',
+            type: 'line',
+            stack: 'Total',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          },
+          {
+            name: 'Direct',
+            type: 'line',
+            stack: 'Total',
+            data: [320, 332, 301, 334, 390, 330, 320]
+          },
+          {
+            name: 'Search Engine',
+            type: 'line',
+            stack: 'Total',
+            data: [820, 932, 901, 934, 1290, 1330, 1320]
+          }
+        ]
+      }
+      graph.setOption(option)
+    },
+    line2Chart () {
+      const graph = this.$echarts.init(document.getElementById('line2'))
       const option = {
         title: {
           text: 'Nightingale Chart',
