@@ -1,15 +1,33 @@
 <template>
   <div>
     <div class="tree">
-      <a-directory-tree @select="onSelect" multiple default-expand-all>
-        <a-tree-node key="0" title="医护人员">
-          <a-tree-node key="0-1" title="医师" is-leaf />
-          <a-tree-node key="0-2" title="护理员" is-leaf />
+      <a-input-search
+        style="margin-bottom: 8px"
+        placeholder="输入姓名查询"
+        @change="onChange"
+      />
+      <a-tree
+        :expanded-keys="expandedKeys"
+        :auto-expand-parent="autoExpandParent"
+        @expand="onExpand"
+      >
+        <a-tree-node key="0" title="parent 0">
+          <a-tree-node
+            v-for="option in nurseList"
+            :key="option.staffId"
+            :title="option.staffName"
+            is-leaf
+          />
         </a-tree-node>
-        <a-tree-node key="1" title="普通员工">
-          <a-tree-node key="1-1" title="员工" is-leaf />
+        <a-tree-node key="1" title="parent 1">
+          <a-tree-node
+            v-for="option in nurseList"
+            :key="option.staffId"
+            :title="option.staffName"
+            is-leaf
+          />
         </a-tree-node>
-      </a-directory-tree>
+      </a-tree>
     </div>
 
     <div class="table">
@@ -23,13 +41,15 @@
         style="width: 200px; float: right; z-index: 1; margin: 10px"
       />
 
-      <a-table
-        :columns="columns"
-        :data-source="staffData"
-        :scroll="{ x: 1300, y: 310}"
-      >
-        <a slot="action" slot-scope="text" href="javascript:;">操作</a>
-      </a-table>
+      <a-config-provider :locale="zhCN">
+        <a-table
+          :columns="columns"
+          :data-source="staffData"
+          :pagination="pagination"
+        >
+          <a slot="action" slot-scope="record" href="javascript:;">操作</a>
+        </a-table>
+      </a-config-provider>
     </div>
 
   </div>
@@ -37,17 +57,56 @@
 
 <script>
 import { columns, staffData } from './const'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   data () {
     return {
+      zhCN,
       columns,
-      staffData
+      staffData,
+      nurseList: [
+        {
+          staffId: '张三',
+          staffName: '张三'
+        },
+        {
+          staffId: '王五',
+          staffName: '王五'
+        },
+        {
+          staffId: '李四',
+          staffName: '李四'
+        }
+      ],
+      doctorList: [],
+      expandedKeys: [],
+      autoExpandParent: true,
+      pagination: {
+        total: 0,
+        defaultPageSize: 5,
+        showSizeChanger: true,
+        pageSizeOptions: ['5', '10', '20', '30'],
+        showTotal: total => `共 ${total} 条数据`,
+        onShowSizeChange: (current, pageSize) => this.pageSize = pageSize
+      }
     }
   },
   methods: {
     onSelect (keys) {
       console.log(keys)
+    },
+    onExpand (expandedKeys) {
+      this.expandedKeys = expandedKeys
+      this.autoExpandParent = false
+    },
+    onChange (e) {
+      const value = e.target.value
+      this.autoExpandParent = true
+      this.expandedKeys.push(value)
+      if (value === '') {
+        this.expandedKeys = []
+      }
     }
   }
 }
@@ -55,7 +114,7 @@ export default {
 
 <style>
    .tree{
-     width: 15%;
+     width: 20%;
      float: left;
      z-index: 1;
      border: #1890ff 2px solid

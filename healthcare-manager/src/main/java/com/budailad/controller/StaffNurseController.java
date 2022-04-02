@@ -37,6 +37,12 @@ public class StaffNurseController {
         return ResponseEntity.ok(this.staffNurseService.queryAll(staffNurse));
     }
 
+
+    @GetMapping("/getTree")
+    public ResponseEntity<List<StaffNurse>> getTree(StaffNurse staffNurse) {
+        return ResponseEntity.ok(this.staffNurseService.queryAll(staffNurse));
+    }
+
     /**
      * 分页查询
      *
