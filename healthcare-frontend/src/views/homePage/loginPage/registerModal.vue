@@ -90,12 +90,10 @@ export default {
       this.form.validateFields((errors, values) => {
         if (!errors) {
           if (values.userPwd === values.re_pwd) {
-            console.log(values)
             const params = values
             params.userPwd = Encrypt(values.userPwd)
 
             addUser(params).then(res => {
-              console.log(res)
               switch (res) {
                 case 1 :
                   this.$message.success('注册成功')

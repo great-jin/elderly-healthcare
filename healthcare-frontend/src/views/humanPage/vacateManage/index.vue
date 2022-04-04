@@ -77,7 +77,6 @@ export default {
   mounted () {
     listOrg().then(res => {
       this.organize = res.data
-      console.log(this.organize)
     })
   },
   methods: {

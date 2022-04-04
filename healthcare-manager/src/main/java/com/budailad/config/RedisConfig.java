@@ -52,6 +52,7 @@ public class RedisConfig {
         cacheNames.add("employeeSalary");
         cacheNames.add("illnessCatalog");
         cacheNames.add("loginUser");
+        cacheNames.add("homeMenu");
         cacheNames.add("mailInfo");
         cacheNames.add("medicineCatalog");
         cacheNames.add("orderGoods");
@@ -81,6 +82,7 @@ public class RedisConfig {
         redisCacheConfigurationMap.put("employeeSalary", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
         redisCacheConfigurationMap.put("illnessCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
         redisCacheConfigurationMap.put("loginUser", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
+        redisCacheConfigurationMap.put("homeMenu", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
         redisCacheConfigurationMap.put("mailInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
         redisCacheConfigurationMap.put("medicineCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
         redisCacheConfigurationMap.put("orderGoods", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));

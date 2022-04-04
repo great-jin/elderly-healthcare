@@ -59,6 +59,7 @@ export default {
   },
   mounted () {
     this.getData()
+    this.routeMenu('service')
     this.id = this.$route.query.id
     this.imgUrl = localStorage.getItem('avatar')
   },

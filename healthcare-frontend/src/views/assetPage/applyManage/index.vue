@@ -177,7 +177,6 @@ export default {
       })
       listGoods().then(res => {
         this.goodsList = res.data
-        console.log(this.goodsList)
       })
     },
     callback (key) {

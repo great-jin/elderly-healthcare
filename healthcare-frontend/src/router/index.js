@@ -2,8 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // 首页
-import Login from '@/views/loginPage/index'
-import Home from '@/views/homePage/index'
+import Home from '@/views/homePage/dashBoard/index'
+import Login from '@/views/homePage/loginPage/index'
+
+import Main from '@/views/index'
 
 // 公共服务
 import Service from '@/views/servicePage/index'
@@ -52,6 +54,9 @@ const router = new Router({
       path: '*',
       redirect: '/404'
     }, {
+      path: '',
+      redirect: '/elderlyHealthcare/login'
+    }, {
       path: '/',
       redirect: '/elderlyHealthcare/login'
     }, {
@@ -63,81 +68,88 @@ const router = new Router({
       name: 'Home',
       component: Home
     }, {
-      // 公共服务
-      path: '/elderlyHealthcare/service',
-      name: 'Service',
-      component: Service,
+      path: '/elderlyHealthcare/main',
+      name: 'Main',
+      component: Main,
       children: [
         {
-          path: '/elderlyHealthcare/service/chart',
-          component: DataChart
+          // 公共服务
+          path: '/elderlyHealthcare/service',
+          name: 'Service',
+          component: Service,
+          children: [
+            {
+              path: '/elderlyHealthcare/service/chart',
+              component: DataChart
+            }, {
+              path: '/elderlyHealthcare/service/monitor',
+              component: DataMonitor
+            }, {
+              path: '/elderlyHealthcare/service/access',
+              component: DataAccess
+            }, {
+              path: '/elderlyHealthcare/service/patient',
+              component: Patient
+            }, {
+              path: '/elderlyHealthcare/service/task',
+              component: Task
+            }, {
+              path: '/elderlyHealthcare/service/logs',
+              component: SysLog
+            }
+          ]
         }, {
-          path: '/elderlyHealthcare/service/monitor',
-          component: DataMonitor
+          // 人力资源
+          path: '/elderlyHealthcare/humanResource',
+          name: 'Human',
+          component: Human,
+          children: [
+            {
+              path: '/elderlyHealthcare/humanResource/staff',
+              component: Staff
+            }, {
+              path: '/elderlyHealthcare/humanResource/dispatch',
+              component: Dispatch
+            }, {
+              path: '/elderlyHealthcare/humanResource/vacate',
+              component: Vacate
+            }
+          ]
         }, {
-          path: '/elderlyHealthcare/service/access',
-          component: DataAccess
+          // 资产中心
+          path: '/elderlyHealthcare/asset',
+          name: 'Property',
+          component: Property,
+          children: [
+            {
+              path: '/elderlyHealthcare/asset/apply',
+              component: Apply
+            }, {
+              path: '/elderlyHealthcare/asset/payment',
+              component: Payment
+            }, {
+              path: '/elderlyHealthcare/asset/salary',
+              component: Salary
+            }
+          ]
         }, {
-          path: '/elderlyHealthcare/service/patient',
-          component: Patient
-        }, {
-          path: '/elderlyHealthcare/service/task',
-          component: Task
-        }, {
-          path: '/elderlyHealthcare/service/logs',
-          component: SysLog
-        }
-      ]
-    }, {
-      // 人力资源
-      path: '/elderlyHealthcare/humanResource',
-      name: 'Human',
-      component: Human,
-      children: [
-        {
-          path: '/elderlyHealthcare/humanResource/staff',
-          component: Staff
-        }, {
-          path: '/elderlyHealthcare/humanResource/dispatch',
-          component: Dispatch
-        }, {
-          path: '/elderlyHealthcare/humanResource/vacate',
-          component: Vacate
-        }
-      ]
-    }, {
-      // 资产中心
-      path: '/elderlyHealthcare/asset',
-      name: 'Property',
-      component: Property,
-      children: [
-        {
-          path: '/elderlyHealthcare/asset/apply',
-          component: Apply
-        }, {
-          path: '/elderlyHealthcare/asset/payment',
-          component: Payment
-        }, {
-          path: '/elderlyHealthcare/asset/salary',
-          component: Salary
-        }
-      ]
-    }, {
-      // 仓库管理
-      path: '/elderlyHealthcare/store',
-      name: 'Store',
-      component: Store,
-      children: [
-        {
-          path: '/elderlyHealthcare/store/order',
-          component: Order
-        },
-        {
-          path: '/elderlyHealthcare/store/storage',
-          component: Storage
-        }, {
-          path: '/elderlyHealthcare/store/medicine',
-          component: Medicine
+          // 仓库管理
+          path: '/elderlyHealthcare/store',
+          name: 'Store',
+          component: Store,
+          children: [
+            {
+              path: '/elderlyHealthcare/store/order',
+              component: Order
+            },
+            {
+              path: '/elderlyHealthcare/store/storage',
+              component: Storage
+            }, {
+              path: '/elderlyHealthcare/store/medicine',
+              component: Medicine
+            }
+          ]
         }
       ]
     }, {

@@ -262,7 +262,6 @@ export default {
       if (type === 'edit') {
         this.idEdit = true
         this.form = data
-        console.log(this.isEdit)
       }
       this.getData()
     },

@@ -1,42 +1,56 @@
 <template>
-  <div id="home">
-    <a-layout id="top-banner">
-      <a-layout-header>
-        <router-link to="/elderlyHealthcare/home">
-          <div class="logo">疗养治理平台</div>
-        </router-link>
-        <a-menu
-          theme="dark"
-          mode="horizontal"
-          :default-selected-keys="['1']"
-          :style="{ lineHeight: '64px' }"
+  <a-layout class="side-bar">
+    <a-layout-sider
+      v-model="collapsed"
+      :trigger="null"
+      style="background-color: white"
+      collapsible
+    >
+      <a-menu
+        mode="inline"
+        theme="light"
+        :default-selected-keys="['1']"
+      >
+        <a-icon
+          class="trigger"
+          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+          @click="() => (collapsed = !collapsed)"
+        />
+        <a-menu-item
+          v-for="option in menuData.filter(item => item.menuType === 'service')"
+          :key="option.menuKey"
+          @click="routePage(option.routerName)"
         >
-          <a-menu-item
-            v-for="option in menuData.filter(item => item.menuType === 'top')"
-            :key="option.menuKey"
-            @click="routeMenu(option.routerName)"
-          >{{ option.menuTitle }}</a-menu-item>
-          <a-dropdown class="setting-menu">
-            <a-avatar
-              size="large"
-              :src="imgUrl"
-            />
-            <a-menu slot="overlay">
-              <a-menu-item
-                v-for="option in menuData.filter(item => item.menuType === 'setting')"
-                :key="option.menuKey"
-                @click="openSetting(option.routerName)"
-              >
-                <a-icon :type="option.menuIcon" />
-                <span>{{ option.menuTitle }}</span>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-        </a-menu>
-      </a-layout-header>
+          <a-icon :type="option.menuIcon" />
+          <span>{{ option.menuTitle }}</span>
+        </a-menu-item>
+      </a-menu>
+    </a-layout-sider>
+
+    <a-layout style="height: 94%">
+      <div>
+        <a-tabs
+          v-model="activeKey"
+          type="editable-card"
+          @edit="onEdit"
+          style="margin: 10px 10px 0px 15px"
+          @change="tabChange"
+          hide-add
+        >
+          <a-tab-pane
+            v-for="pane in panes"
+            :key="pane.key"
+            :tab="pane.title"
+            :closable="pane.closable"
+            @click="tabChange(pane.key)"
+          />
+        </a-tabs>
+      </div>
+      <a-layout-content class="layout-content">
+        <router-view v-if="isRouterAlive"/>
+      </a-layout-content>
     </a-layout>
-    <router-view />
-  </div>
+  </a-layout>
 </template>
 
 <script>
@@ -49,8 +63,6 @@ export default {
   name: 'ServicePage',
   data () {
     return {
-      id: '',
-      imgUrl: '',
       menuData: [],
       collapsed: false,
       newTabIndex: 0,
@@ -68,8 +80,6 @@ export default {
   mounted () {
     this.getData()
     this.routePage('chart')
-    this.id = this.$route.query.id
-    this.imgUrl = localStorage.getItem('avatar')
   },
   methods: {
     reload () {
@@ -82,24 +92,6 @@ export default {
       listHomeMenu().then(res => {
         this.menuData = res.data
       })
-    },
-    openSetting (data) {
-      switch (data) {
-        case 'quit':
-          localStorage.removeItem('staffInfo')
-          localStorage.removeItem('avatar')
-          this.$router.push('/elderlyHealthcare/login')
-          break
-        case 'personal':
-          this.$router.push('/elderlyHealthcare/home')
-          break
-        case 'question':
-          this.$router.push('/elderlyHealthcare/setting/question')
-          break
-      }
-    },
-    routeMenu (data) {
-      this.$router.push(`/elderlyHealthcare/${data}`)
     },
     routePage (data) {
       this.addTabs(data)
@@ -163,47 +155,24 @@ export default {
 </script>
 
 <style scoped>
-  #home{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    overflow: hidden;
-  }
-  #top-banner .logo {
-    width: 120px;
-    height: 31px;
-    line-height: 31px;
-    font-weight: bold;
-    color: lightgray;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px 28px 16px 0;
-    padding-left: 7px;
-    float: left;
-  }
-  .setting-menu{
-    float: right;
-    z-index: 1;
-    margin: 12px 0px;
-  }
-  .side-bar{
-    height: 100%;
-  }
-  .side-bar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .side-bar .trigger:hover {
-    color: #1890ff;
-  }
-  .layout-content {
-    margin: 0px 16px 24px 16px;
-    padding: 15px;
-    background: #fff;
-    overflow-y: auto;
-    overflow-x: hidden
-  }
+.side-bar{
+  height: 100%;
+}
+.side-bar .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.side-bar .trigger:hover {
+  color: #1890ff;
+}
+.layout-content {
+  margin: 0px 16px 24px 16px;
+  padding: 15px;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden
+}
 </style>

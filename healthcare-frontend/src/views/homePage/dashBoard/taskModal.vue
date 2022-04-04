@@ -98,7 +98,6 @@ export default {
       this.type = type
       this.visible = true
       this.taskInfo = data
-      console.log(this.taskInfo)
       if (type === 'more') {
         this.disabled = true
       }
