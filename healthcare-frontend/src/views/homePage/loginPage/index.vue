@@ -1,60 +1,97 @@
 <template>
-  <div class="login-container">
-    <h2 class="login-title">Elderly Healthcare</h2>
+  <div id="login-container">
+    <a-row :style="{textAlign: 'center'}">
+      <a-col :span="24">
+        <h2 class="home-title">Elderly Healthcare</h2>
+      </a-col>
+    </a-row>
 
-    <a-form class="login-form" :form="form">
-      <h3 class="title">欢迎登录</h3>
-
-      <a-form-item style="margin: 15px 10px" >
-        <a-input
-          placeholder="请输入账号"
-          v-decorator="[
+    <a-form
+      :form="form"
+      class="login-form"
+    >
+      <a-row>
+        <a-col :span="24">
+          <h3 class="title">欢迎登录</h3>
+        </a-col>
+      </a-row>
+      <a-row :style="{marginTop: '8px'}">
+        <a-col :span="24">
+          <a-form-item >
+            <a-input
+              placeholder="请输入账号"
+              v-decorator="[
             'staffId',
             { rules: [{ required: true, message: '账号不能为空!' }] }
           ]"
-        >
-          <a-icon slot="prefix" type="user" />
-        </a-input>
-      </a-form-item>
-      <a-form-item style="margin: 15px 10px" >
-        <a-input-password
-          placeholder="请输入密码"
-          v-decorator="[
-            'userPwd',
-            { rules: [{ required: true, message: '密码不能为空!' }] }
-          ]"
-        >
-          <a-icon slot="prefix" type="lock" />
-        </a-input-password>
-      </a-form-item>
-      <a-form-item style="margin: 15px 10px" >
-        <a-input
-          style="width: 62%;"
-          placeholder="请输入验证码"
-          v-decorator="[
-            'authCode',
-            { rules: [{ required: true, message: '验证码不能为空!' }] }
-          ]"
-        >
-          <a-icon slot="prefix" type="lock" />
-        </a-input>
-        <span @click="refreshCode()">
-          <s-identify :identifyCode="generateCode" ></s-identify>
-        </span>
-      </a-form-item>
-      <a-form-item style="margin: 15px 10px 15px 10px" >
-        <a-button class="submit" type="primary" :loading="loading" @click="submit">登录</a-button>
-      </a-form-item>
-      <a-form-item>
-        <a-button type="link"
-                  style="float: left; z-index: 1;"
-                  @click="register"
-        >找回密码</a-button>
-        <a-button type="link"
-                  style="float: right; z-index: 1;"
-                  @click="forget"
-        >修改密码</a-button>
-      </a-form-item>
+            >
+              <a-icon slot="prefix" type="user" />
+            </a-input>
+          </a-form-item>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span="24">
+          <a-form-item>
+            <a-input-password
+              placeholder="请输入密码"
+              v-decorator="[
+                'userPwd',
+                { rules: [{ required: true, message: '密码不能为空!' }] }
+              ]"
+            >
+              <a-icon slot="prefix" type="lock" />
+            </a-input-password>
+          </a-form-item>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span="15">
+          <a-form-item>
+            <a-input
+              style="width: 100%;"
+              placeholder="请输入验证码"
+              v-decorator="[
+                'authCode',
+                { rules: [{ required: true, message: '验证码不能为空!' }] }
+              ]"
+            >
+              <a-icon slot="prefix" type="lock" />
+            </a-input>
+          </a-form-item>
+        </a-col>
+        <a-col :span="9">
+          <span @click="refreshCode()">
+            <s-identify :identifyCode="generateCode" ></s-identify>
+          </span>
+        </a-col>
+      </a-row>
+      <a-row>
+        <a-col :span="24">
+          <a-button
+            class="submit"
+            type="primary"
+            :loading="loading"
+            @click="submit"
+          >登录</a-button>
+        </a-col>
+      </a-row>
+      <a-row :style="{marginTop: '15px'}">
+        <a-col :span="12">
+          <a-button
+            type="link"
+            style="float: left; z-index: 1;"
+            @click="register"
+          >找回密码</a-button>
+        </a-col>
+        <a-col :span="12">
+          <a-button
+            type="link"
+            style="float: right; z-index: 1;"
+            @click="forget"
+          >修改密码</a-button>
+        </a-col>
+      </a-row>
     </a-form>
 
     <registerModal ref="registerModal"></registerModal>
@@ -71,7 +108,7 @@ import SIdentify from '@/views/utils/identify'
 import { getAvatar } from '@/api/loginUser'
 
 export default {
-  name: 'Login',
+  name: 'LoginPage',
   components: {
     's-identify': SIdentify,
     registerModal,
@@ -263,43 +300,43 @@ export default {
 </script>
 
 <style scoped>
-  /* 页面背景 */
-  .login-form {
-    width: 30%;
-    margin: 5% auto;
-    padding: 5px 20px;
-    border-radius: 25px;
-    /*background: url("src/assets/log.png") no-repeat;*/
-  }
   /* 登录背景 */
-  .login-container {
+  #login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    /*background: url("src/assets/back.png") no-repeat;*/
+    background: url("./assets/back.png") no-repeat;
     background-size: 100% 100%;
   }
-  /* 标题 */
-  .login-title {
+  /* 首页标题 */
+  .home-title {
     color: #fff;
     margin-top: 5%;
-    text-align: center;
     font-size: 40px;
     font-family: Microsoft Yahei;
   }
-  /* 登陆按钮 */
-  .submit{
-    width: 100%;
-    height: 45px;
-    font-size: 16px;
+  /* 登录背景 */
+  .login-form {
+    width: 30%;
+    margin: 3% auto;
+    padding: 5px 20px;
+    border-radius: 25px;
+    background: url("./assets/log.png") no-repeat;
   }
   /* 登陆标题 */
-  .title{
-    width: 32%;
+  .login-form .title{
+    text-align: center;
     margin: 10px auto;
     color: #14C6CC;
     font-weight: 700;
     font-size: 24px;
     font-family: Microsoft Yahei;
+  }
+  /* 登陆按钮 */
+  .login-form .submit{
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
+    margin-top: 5px;
   }
 </style>
