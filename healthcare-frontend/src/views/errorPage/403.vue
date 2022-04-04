@@ -7,9 +7,10 @@
     </template>
   </a-result>
 </template>
+
 <script>
 export default {
-  name: '403Error',
+  name: '403',
   data () {
     return {
       title: 'Authorized Reject',

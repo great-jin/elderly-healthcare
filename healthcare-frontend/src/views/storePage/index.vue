@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <a-layout id="topBanner">
+    <a-layout id="top-banner">
       <a-layout-header>
         <router-link to="/elderlyHealthcare/home">
           <div class="logo">疗养治理平台</div>
@@ -11,92 +11,79 @@
           :default-selected-keys="['4']"
           :style="{ lineHeight: '64px' }"
         >
-          <a-menu-item key="1" @click="routeMenu('service')">
-            公共服务
-          </a-menu-item>
-          <a-menu-item key="2" @click="routeMenu('humanResource')">
-            人力资源
-          </a-menu-item>
-          <a-menu-item key="3" @click="routeMenu('asset')">
-            资产中心
-          </a-menu-item>
-          <a-menu-item key="4" @click="routeMenu('store')">
-            仓储管理
-          </a-menu-item>
-          <a-dropdown class="settingMenu">
+          <a-menu-item
+            v-for="option in menuData.filter(item => item.menuType === 'top')"
+            :key="option.menuKey"
+            @click="routeMenu(option.routerName)"
+          >{{ option.menuTitle }}</a-menu-item>
+          <a-dropdown class="setting-menu">
             <a-avatar
               size="large"
               :src="imgUrl"
             />
             <a-menu slot="overlay">
-              <a-menu-item key="1">
-                <a-icon type="smile" />
-                <span @click="openSetting('personal')">我的首页</span>
-              </a-menu-item>
-              <a-menu-item key="2">
-                <a-icon type="question-circle" />
-                <span @click="openSetting('question')">用户手册</span>
-              </a-menu-item>
-              <a-menu-item key="3">
-                <a-icon type="disconnect" />
-                <span @click="openSetting('quit')">退出登录</span>
+              <a-menu-item
+                v-for="option in menuData.filter(item => item.menuType === 'setting')"
+                :key="option.menuKey"
+                @click="openSetting(option.routerName)"
+              >
+                <a-icon :type="option.menuIcon" />
+                <span>{{ option.menuTitle }}</span>
               </a-menu-item>
             </a-menu>
           </a-dropdown>
         </a-menu>
       </a-layout-header>
     </a-layout>
-
-    <a-layout class="sideBar">
+    <a-layout class="side-bar">
       <a-layout-sider
         v-model="collapsed"
         :trigger="null"
         style="background-color: white"
         collapsible
       >
-        <a-icon
-          class="trigger"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-          @click="() => (collapsed = !collapsed)"
-        />
-        <a-menu theme="light" mode="inline" :default-selected-keys="['1']">
-          <a-menu-item key="1" @click="routePage('order')">
-            <a-icon type="shopping-cart" />
-            <span>物资采购</span>
-          </a-menu-item>
-          <a-menu-item key="2" @click="routePage('medicine')">
-            <a-icon type="folder-open" />
-            <span>药品管理</span>
-          </a-menu-item>
-          <a-menu-item key="3" @click="routePage('storage')">
-            <a-icon type="profile" />
-            <span>库存管理</span>
+        <a-menu
+          mode="inline"
+          theme="light"
+          :default-selected-keys="['1']"
+        >
+          <a-icon
+            class="trigger"
+            :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+            @click="() => (collapsed = !collapsed)"
+          />
+          <a-menu-item
+            v-for="option in menuData.filter(item => item.menuType === 'store')"
+            :key="option.menuKey"
+            @click="routePage(option.routerName)"
+          >
+            <a-icon :type="option.menuIcon" />
+            <span>{{ option.menuTitle }}</span>
           </a-menu-item>
         </a-menu>
       </a-layout-sider>
 
       <a-layout style="height: 94%">
         <div>
-          <a-tabs v-model="activeKey"
-                  type="editable-card"
-                  @edit="onEdit"
-                  style="margin: 10px 10px 0px 15px"
-                  @change="tabChange"
-                  hide-add
+          <a-tabs
+            v-model="activeKey"
+            type="editable-card"
+            @edit="onEdit"
+            style="margin: 10px 10px 0px 15px"
+            @change="tabChange"
+            hide-add
           >
-            <a-tab-pane v-for="pane in panes"
-                        :key="pane.key"
-                        :tab="pane.title"
-                        :closable="pane.closable"
-                        @click="tabChange(pane.key)"
+            <a-tab-pane
+              v-for="pane in panes"
+              :key="pane.key"
+              :tab="pane.title"
+              :closable="pane.closable"
+              @click="tabChange(pane.key)"
             />
           </a-tabs>
         </div>
-        <a-layout-content
-          :style="{ margin: '0px 16px 24px 16px', padding: '24px', background: '#fff'}"
-          style="overflow: auto;"
-        >
-          <router-view />
+        <a-layout-content class="layout-content">
+          <router-view v-if="isRouterAlive"/>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -104,25 +91,49 @@
 </template>
 
 <script>
+import { listHomeMenu } from '@/api/homeMenu'
+const panes = [
+  { title: '物资采购', key: 'order', closable: false }
+]
+
 export default {
   name: 'Storage',
   data () {
-    const panes = [{ title: '物资采购', key: 'order', closable: false }]
     return {
       id: '',
       imgUrl: '',
+      menuData: [],
       collapsed: false,
       newTabIndex: 0,
       panes,
-      activeKey: panes[0].key
+      activeKey: panes[0].key,
+      isRouterAlive: true
+    }
+  },
+  provide () {
+    return {
+      // 路由刷新方法
+      reload: this.reload
     }
   },
   mounted () {
+    this.getData()
     this.routePage('order')
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
   },
   methods: {
+    reload () {
+      this.isRouterAlive = false
+      this.$nextTick(function () {
+        this.isRouterAlive = true
+      })
+    },
+    getData () {
+      listHomeMenu().then(res => {
+        this.menuData = res.data
+      })
+    },
     openSetting (data) {
       switch (data) {
         case 'quit':
@@ -155,18 +166,8 @@ export default {
         }
       })
       if (flag === false) {
-        let tabTitle
-        switch (data) {
-          case 'order':
-            tabTitle = '物资采购'
-            break
-          case 'medicine':
-            tabTitle = '药品管理'
-            break
-          case 'storage':
-            tabTitle = '库存管理'
-            break
-        }
+        const tabArr = this.menuData.filter(item => item.menuType === 'store')
+        const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
         const panes = this.panes
         panes.push({
           title: tabTitle,
@@ -218,7 +219,7 @@ export default {
     position: absolute;
     overflow: hidden;
   }
-  #topBanner .logo {
+  #top-banner .logo {
     width: 120px;
     height: 31px;
     line-height: 31px;
@@ -230,22 +231,29 @@ export default {
     padding-left: 7px;
     float: left;
   }
-  .settingMenu{
+  .setting-menu{
     float: right;
     z-index: 1;
     margin: 12px 0px;
   }
-  .sideBar{
+  .side-bar{
     height: 100%;
   }
-  .sideBar .trigger {
+  .side-bar .trigger {
     font-size: 18px;
     line-height: 64px;
     padding: 0 30px;
     cursor: pointer;
     transition: color 0.3s;
   }
-  .sideBar .trigger:hover {
+  .side-bar .trigger:hover {
     color: #1890ff;
+  }
+  .layout-content {
+    margin: 0px 16px 24px 16px;
+    padding: 15px;
+    background: #fff;
+    overflow-y: auto;
+    overflow-x: hidden
   }
 </style>

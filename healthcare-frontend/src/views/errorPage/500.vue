@@ -7,9 +7,10 @@
     </template>
   </a-result>
 </template>
+
 <script>
 export default {
-  name: '500Error',
+  name: '500',
   data () {
     return {
       title: 'Server Error',

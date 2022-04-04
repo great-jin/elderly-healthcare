@@ -35,39 +35,30 @@
         </a-menu>
       </a-layout-header>
     </a-layout>
+
     <router-view />
   </div>
 </template>
 
 <script>
 import { listHomeMenu } from '@/api/homeMenu'
-const panes = [
-  { title: '数据大屏', key: 'chart', closable: false }
-]
 
 export default {
-  name: 'ServicePage',
+  name: 'MainPage',
   data () {
     return {
       id: '',
       imgUrl: '',
-      menuData: [],
-      collapsed: false,
-      newTabIndex: 0,
-      panes,
-      activeKey: panes[0].key,
-      isRouterAlive: true
+      menuData: []
     }
   },
   provide () {
     return {
-      // 路由刷新方法
       reload: this.reload
     }
   },
   mounted () {
     this.getData()
-    this.routePage('chart')
     this.id = this.$route.query.id
     this.imgUrl = localStorage.getItem('avatar')
   },
@@ -100,63 +91,6 @@ export default {
     },
     routeMenu (data) {
       this.$router.push(`/elderlyHealthcare/${data}`)
-    },
-    routePage (data) {
-      this.addTabs(data)
-    },
-    tabChange (data) {
-      this.$router.push(`/elderlyHealthcare/service/${data}`)
-    },
-    addTabs (data) {
-      let flag = false
-      // 遍历标签，重复不添加
-      this.panes.forEach((pane) => {
-        if (pane.key === data) {
-          flag = true
-          // 重新定位到对应的已添加标签
-          this.activeKey = data
-        }
-      })
-      if (flag === false) {
-        // 获取 Tab 标题
-        const tabArr = this.menuData.filter(item => item.menuType === 'service')
-        const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
-        const panes = this.panes
-        panes.push({
-          title: tabTitle,
-          key: data
-        })
-        this.panes = panes
-        this.activeKey = data
-        this.flag = false
-      }
-      this.tabChange(data)
-    },
-    onEdit (targetKey, action) {
-      this[action](targetKey)
-    },
-    remove (targetKey) {
-      // 删除自身回到第一个标签
-      if (targetKey === this.activeKey) {
-        this.routePage('chart')
-      }
-      let activeKey = this.activeKey
-      let lastIndex
-      this.panes.forEach((pane, i) => {
-        if (pane.key === targetKey) {
-          lastIndex = i - 1
-        }
-      })
-      const panes = this.panes.filter(pane => pane.key !== targetKey)
-      if (panes.length && activeKey === targetKey) {
-        if (lastIndex >= 0) {
-          activeKey = panes[lastIndex].key
-        } else {
-          activeKey = panes[0].key
-        }
-      }
-      this.panes = panes
-      this.activeKey = activeKey
     }
   }
 }
@@ -185,25 +119,5 @@ export default {
     float: right;
     z-index: 1;
     margin: 12px 0px;
-  }
-  .side-bar{
-    height: 100%;
-  }
-  .side-bar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .side-bar .trigger:hover {
-    color: #1890ff;
-  }
-  .layout-content {
-    margin: 0px 16px 24px 16px;
-    padding: 15px;
-    background: #fff;
-    overflow-y: auto;
-    overflow-x: hidden
   }
 </style>

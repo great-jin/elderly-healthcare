@@ -8,8 +8,9 @@
   </a-result>
 </template>
 <script>
+
 export default {
-  name: '404Error',
+  name: '404',
   data () {
     return {
       title: 'Not Found',

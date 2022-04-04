@@ -269,14 +269,14 @@ export default {
     margin: 5% auto;
     padding: 5px 20px;
     border-radius: 25px;
-    background: url("../../assets/log.png") no-repeat;
+    /*background: url("src/assets/log.png") no-repeat;*/
   }
   /* 登录背景 */
   .login-container {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url("../../assets/back.png") no-repeat;
+    /*background: url("src/assets/back.png") no-repeat;*/
     background-size: 100% 100%;
   }
   /* 标题 */

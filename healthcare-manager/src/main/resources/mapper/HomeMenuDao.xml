@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.HomeMenuDao">
+
+    <resultMap type="com.budailad.entity.HomeMenu" id="HomeMenuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="menuType" column="menu_type" jdbcType="VARCHAR"/>
+        <result property="menuIcon" column="menu_icon" jdbcType="VARCHAR"/>
+        <result property="menuTitle" column="menu_title" jdbcType="VARCHAR"/>
+        <result property="routerName" column="router_name" jdbcType="VARCHAR"/>
+        <result property="isShow" column="is_show" jdbcType="INTEGER"/>
+        <result property="menuKey" column="menu_key" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HomeMenuMap">
+        select id,
+               menu_type,
+               menu_icon,
+               menu_title,
+               router_name,
+               is_show,
+               menu_key
+        from home_menu
+        where id = #{id}
+    </select>
+
+    <!--条件查询-->
+    <select id="queryAll" resultMap="HomeMenuMap">
+        select
+        id, menu_type, menu_icon, menu_title, router_name, is_show, menu_key
+        from home_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="menuType != null and menuType != ''">
+                and menu_type = #{menuType}
+            </if>
+            <if test="menuIcon != null and menuIcon != ''">
+                and menu_icon = #{menuIcon}
+            </if>
+            <if test="menuTitle != null and menuTitle != ''">
+                and menu_title = #{menuTitle}
+            </if>
+            <if test="routerName != null and routerName != ''">
+                and router_name = #{routerName}
+            </if>
+            <if test="menuKey != null and menuKey != ''">
+                and menu_key = #{menuKey}
+            </if>
+            and is_show = 1
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HomeMenuMap">
+        select
+        id, menu_type, menu_icon, menu_title, router_name, is_show, menu_key
+        from home_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="menuType != null and menuType != ''">
+                and menu_type = #{menuType}
+            </if>
+            <if test="menuIcon != null and menuIcon != ''">
+                and menu_icon = #{menuIcon}
+            </if>
+            <if test="menuTitle != null and menuTitle != ''">
+                and menu_title = #{menuTitle}
+            </if>
+            <if test="routerName != null and routerName != ''">
+                and router_name = #{routerName}
+            </if>
+            <if test="isShow != null">
+                and is_show = #{isShow}
+            </if>
+            <if test="menuKey != null and menuKey != ''">
+                and menu_key = #{menuKey}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from home_menu
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="menuType != null and menuType != ''">
+                and menu_type = #{menuType}
+            </if>
+            <if test="menuIcon != null and menuIcon != ''">
+                and menu_icon = #{menuIcon}
+            </if>
+            <if test="menuTitle != null and menuTitle != ''">
+                and menu_title = #{menuTitle}
+            </if>
+            <if test="routerName != null and routerName != ''">
+                and router_name = #{routerName}
+            </if>
+            <if test="isShow != null">
+                and is_show = #{isShow}
+            </if>
+            <if test="menuKey != null and menuKey != ''">
+                and menu_key = #{menuKey}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into home_menu(menu_type, menu_icon, menu_title, router_name, is_show, menu_key)
+        values (#{menuType}, #{menuIcon}, #{menuTitle}, #{routerName}, #{isShow}, #{menuKey})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into home_menu(menu_type, menu_icon, menu_title, router_name, is_show, menu_key)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.menuType}, #{entity.menuIcon}, #{entity.menuTitle}, #{entity.routerName}, #{entity.isShow},
+            #{entity.menuKey})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into home_menu(menu_type, menu_icon, menu_title, router_name, is_show, menu_key)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.menuType}, #{entity.menuIcon}, #{entity.menuTitle}, #{entity.routerName}, #{entity.isShow},
+            #{entity.menuKey})
+        </foreach>
+        on duplicate key update
+        menu_type = values(menu_type),
+        menu_icon = values(menu_icon),
+        menu_title = values(menu_title),
+        router_name = values(router_name),
+        is_show = values(is_show),
+        menu_key = values(menu_key)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update home_menu
+        <set>
+            <if test="menuType != null and menuType != ''">
+                menu_type = #{menuType},
+            </if>
+            <if test="menuIcon != null and menuIcon != ''">
+                menu_icon = #{menuIcon},
+            </if>
+            <if test="menuTitle != null and menuTitle != ''">
+                menu_title = #{menuTitle},
+            </if>
+            <if test="routerName != null and routerName != ''">
+                router_name = #{routerName},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow},
+            </if>
+            <if test="menuKey != null and menuKey != ''">
+                menu_key = #{menuKey},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from home_menu
+        where id = #{id}
+    </delete>
+
+</mapper>
+
