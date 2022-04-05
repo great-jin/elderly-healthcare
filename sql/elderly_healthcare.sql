@@ -122,7 +122,7 @@ CREATE TABLE `vacate_info` (
   `staff_id` varchar(20) COMMENT '申请人编号',
   `staff_name` varchar(30) COMMENT '申请人姓名',
   `vacate_type` varchar(20) COMMENT '请假类别',
-  `vacate_reason` varchar(20) COMMENT '请假原因',
+  `vacate_reason` varchar(255) COMMENT '请假原因',
   `start_time` datetime COMMENT '开始时间',
   `end_time` datetime COMMENT '结束时间',
   `count_time` double COMMENT '请假天数',
@@ -219,7 +219,7 @@ CREATE TABLE `patient_info` (
 
 -- ----------------------------
 -- COMMENT '病人联系人信息表'
--- Table structure for patient_info
+-- Table structure for patient_contact
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_contact`;
 CREATE TABLE `patient_contact` (
@@ -255,7 +255,7 @@ CREATE TABLE `patient_case_info` (
 
 -- ----------------------------
 -- COMMENT '病人身体指标信息'
--- Table structure for patient_case_info
+-- Table structure for patient_body_info
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_body_info`;
 CREATE TABLE `patient_body_info` (
@@ -403,7 +403,7 @@ CREATE TABLE `asset_apply_info`  (
   `staff_id` varchar(20) COMMENT '申请人',
   `staff_name` varchar(30) COMMENT '申请人姓名',
   `apply_time` datetime COMMENT '申请时间',
-  `apply_reason` datetime COMMENT '申请原因',
+  `apply_reason` varchar(255) COMMENT '申请原因',
   `receive_name` varchar(30) COMMENT '收件人',
   `receive_phone` varchar(30) COMMENT '收件电话',
   `receive_address` varchar(100) COMMENT '收货地址',
@@ -433,7 +433,7 @@ CREATE TABLE `asset_apply_goods`  (
 
 -- ----------------------------
 -- COMMENT '登录表'
--- Table structure for staff_user
+-- Table structure for login_user
 -- ----------------------------
 DROP TABLE IF EXISTS `login_user`;
 CREATE TABLE `login_user`  (
@@ -482,8 +482,26 @@ CREATE TABLE `sys_logs`  (
   `log_info` varchar(500) COMMENT '日志信息',
   `log_level` int COMMENT '日志等级',
   `log_describe` text COMMENT '描述',
-  `in_time` datetime COMMENT '登记时间'
+  `in_time` datetime COMMENT '登记时间',
+  `is_handle` int COMMENT '是否处理'
 ); 
+
+
+-- ----------------------------
+-- COMMENT '系统菜单表'
+-- Table structure for home_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `home_menu`;
+CREATE TABLE `home_menu`  (
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `menu_key` varchar(50) COMMENT '菜单索引',
+  `menu_type` varchar(50) COMMENT '菜单类型',
+  `menu_icon` varchar(50) COMMENT '菜单图标',
+  `menu_title` varchar(50) COMMENT '菜单名称',
+  `router_name` varchar(50) COMMENT '路由地址',
+  `is_show` int(11) COMMENT '是否展示's
+);
+
 
 
 

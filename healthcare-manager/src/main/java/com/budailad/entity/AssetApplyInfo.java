@@ -34,7 +34,7 @@ public class AssetApplyInfo implements Serializable {
     /**
      * 申请原因
      */
-    private Date applyReason;
+    private String applyReason;
     /**
      * 收件人
      */
@@ -105,11 +105,11 @@ public class AssetApplyInfo implements Serializable {
         this.applyTime = applyTime;
     }
 
-    public Date getApplyReason() {
+    public String getApplyReason() {
         return applyReason;
     }
 
-    public void setApplyReason(Date applyReason) {
+    public void setApplyReason(String applyReason) {
         this.applyReason = applyReason;
     }
 

@@ -6,11 +6,11 @@ import java.io.Serializable;
 /**
  * (SysLogs)实体类
  *
- * @author Budai
- * @since 2022-03-11 16:21:08
+ * @author makejava
+ * @since 2022-04-05 21:09:32
  */
 public class SysLogs implements Serializable {
-    private static final long serialVersionUID = -21543575265610175L;
+    private static final long serialVersionUID = 264193914240423938L;
     /**
      * 编号
      */
@@ -32,13 +32,17 @@ public class SysLogs implements Serializable {
      */
     private Integer logLevel;
     /**
+     * 描述
+     */
+    private String logDescribe;
+    /**
      * 登记时间
      */
     private Date inTime;
     /**
-     * 描述
+     * 是否处理
      */
-    private String logDescribe;
+    private Integer isHandle;
 
 
     public String getLogId() {
@@ -81,6 +85,14 @@ public class SysLogs implements Serializable {
         this.logLevel = logLevel;
     }
 
+    public String getLogDescribe() {
+        return logDescribe;
+    }
+
+    public void setLogDescribe(String logDescribe) {
+        this.logDescribe = logDescribe;
+    }
+
     public Date getInTime() {
         return inTime;
     }
@@ -89,12 +101,12 @@ public class SysLogs implements Serializable {
         this.inTime = inTime;
     }
 
-    public String getLogDescribe() {
-        return logDescribe;
+    public Integer getIsHandle() {
+        return isHandle;
     }
 
-    public void setLogDescribe(String logDescribe) {
-        this.logDescribe = logDescribe;
+    public void setIsHandle(Integer isHandle) {
+        this.isHandle = isHandle;
     }
 
 }
