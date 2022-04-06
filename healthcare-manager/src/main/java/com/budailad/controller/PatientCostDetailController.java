@@ -1,5 +1,6 @@
 package com.budailad.controller;
 
+import com.budailad.entity.PatientContact;
 import com.budailad.entity.PatientCostDetail;
 import com.budailad.service.PatientCostDetailService;
 import org.springframework.data.domain.Page;
@@ -11,13 +12,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * (PaitentCostDetail)表控制层
+ * (PatientCostDetail)表控制层
  *
- * @author Budai
- * @since 2022-03-11 16:21:06
+ * @author makejava
+ * @since 2022-04-06 14:07:04
  */
 @RestController
-@RequestMapping(value = "/api/healthcare/patientCostDetail")
+@RequestMapping("/api/healthcare/patientCostDetail")
 public class PatientCostDetailController {
     /**
      * 服务对象

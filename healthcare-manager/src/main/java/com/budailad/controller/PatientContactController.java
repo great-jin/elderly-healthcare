@@ -76,7 +76,7 @@ public class PatientContactController {
      * @param patientContact 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<PatientContact> edit(PatientContact patientContact) {
         return ResponseEntity.ok(this.patientContactService.update(patientContact));
     }
@@ -87,7 +87,7 @@ public class PatientContactController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.patientContactService.deleteById(id));
     }

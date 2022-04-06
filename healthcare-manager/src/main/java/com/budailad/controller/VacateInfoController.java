@@ -1,9 +1,7 @@
 package com.budailad.controller;
 
 import com.budailad.entity.VacateInfo;
-import com.budailad.entity.WarehoseStorage;
 import com.budailad.service.VacateInfoService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -89,7 +87,7 @@ public class VacateInfoController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.vacateInfoService.deleteById(id));
     }

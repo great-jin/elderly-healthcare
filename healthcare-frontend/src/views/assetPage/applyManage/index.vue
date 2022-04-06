@@ -153,7 +153,7 @@
 <script>
 import moment from 'moment'
 import { listOrg } from '@/api/organizeInfo'
-import { listGoods } from '@/api/warehoseStorage'
+import { listGoods } from '@/api/warehouseStorage'
 
 export default {
   name: 'ApplyManage',

@@ -76,7 +76,7 @@ public class AssetApplyGoodsController {
      * @param assetApplyGoods 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<AssetApplyGoods> edit(AssetApplyGoods assetApplyGoods) {
         return ResponseEntity.ok(this.assetApplyGoodsService.update(assetApplyGoods));
     }
@@ -87,7 +87,7 @@ public class AssetApplyGoodsController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.assetApplyGoodsService.deleteById(id));
     }

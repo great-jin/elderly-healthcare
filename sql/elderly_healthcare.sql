@@ -11,7 +11,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `organize_info`;
 CREATE TABLE `organize_info` (
-  `organize_id` varchar(20) NOT NULL PRIMARY KEY COMMENT '编号',
+  `organize_id` varchar(20) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `organize_name` varchar(30) COMMENT '部门名',
   `organize_type` varchar(20) COMMENT '部门类型',
   `create_time` datetime COMMENT '创建时间',
@@ -28,7 +28,7 @@ CREATE TABLE `organize_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `staff_doctor`;
 CREATE TABLE `staff_doctor` (
-  `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `staff_id` varchar(20) COMMENT '员工编号',
   `staff_name` varchar(30) COMMENT '姓名',
   `staff_gender` varchar(10) COMMENT '性别',
@@ -50,7 +50,7 @@ CREATE TABLE `staff_doctor` (
 -- ----------------------------
 DROP TABLE IF EXISTS `staff_nurse`;
 CREATE TABLE `staff_nurse` (
-  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键ID',
   `staff_id` varchar(20) COMMENT '员工编号',
   `staff_name` varchar(30) COMMENT '姓名',
   `staff_gender` varchar(10) COMMENT '性别',
@@ -72,7 +72,7 @@ CREATE TABLE `staff_nurse` (
 -- ----------------------------
 DROP TABLE IF EXISTS `organize_staff`;
 CREATE TABLE `organize_staff` (
-  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键ID',
   `staff_id` varchar(20) COMMENT '员工编号',
   `staff_name` varchar(30) COMMENT '姓名',
   `staff_gender` varchar(10) COMMENT '性别',
@@ -116,7 +116,7 @@ CREATE TABLE `daily_task` (
 -- ----------------------------
 DROP TABLE IF EXISTS `vacate_info`;
 CREATE TABLE `vacate_info` (
-  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `organize_name` varchar(30) COMMENT '部门名',
   `organize_type` varchar(20) COMMENT '部门类型',
   `staff_id` varchar(20) COMMENT '申请人编号',
@@ -196,7 +196,7 @@ CREATE TABLE `register_template` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_info`;
 CREATE TABLE `patient_info` (
-  `patient_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `patient_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_name` varchar(30) COMMENT '姓名',
   `in_time` datetime COMMENT '登记时间',
   `patient_gender` varchar(30) COMMENT '性别',
@@ -223,7 +223,7 @@ CREATE TABLE `patient_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_contact`;
 CREATE TABLE `patient_contact` (
-  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '编号',
   `contact_name` varchar(50) COMMENT '姓名',
   `contact_phone` varchar(20) COMMENT '电话',
@@ -238,7 +238,7 @@ CREATE TABLE `patient_contact` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_case_info`;
 CREATE TABLE `patient_case_info` (
-  `case_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `case_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '病人编号',
   `patient_name` varchar(30) COMMENT '病人姓名',
   `nurse_id` varchar(20) COMMENT '护理员编号',
@@ -259,7 +259,7 @@ CREATE TABLE `patient_case_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_body_info`;
 CREATE TABLE `patient_body_info` (
-  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '病人编号',
   `patient_name` varchar(30) COMMENT '病人姓名',
   `body_temper` double COMMENT '体温(摄氏度)',
@@ -280,7 +280,7 @@ CREATE TABLE `patient_body_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `patient_case_files`;
 CREATE TABLE `patient_case_files` (
-  `file_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '文件ID',
+  `file_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '病人编号',
   `patient_name` varchar(30) COMMENT '病人姓名',
   `cast_id` varchar(36) COMMENT '病历编号',
@@ -295,24 +295,40 @@ CREATE TABLE `patient_case_files` (
 
 
 -- ----------------------------
--- COMMENT '消费记录'
--- Table structure for patient_cost_detail
+-- COMMENT '消费信息表'
+-- Table structure for patient_cost_info
 -- ----------------------------
-DROP TABLE IF EXISTS `patient_cost_detail`;
-CREATE TABLE `patient_cost_detail`  (
+DROP TABLE IF EXISTS `patient_cost_info`;
+CREATE TABLE `patient_cost_info`  (
   `cost_id` varchar(20) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `patient_id` varchar(36) COMMENT '病人编号',
   `patient_name` varchar(30) COMMENT '病人姓名',
   `doctor_id` varchar(30) COMMENT '医师Id',
   `doctor_name` varchar(30) COMMENT '医师名',
-  `cost_list` text COMMENT '清单',
   `in_time` datetime COMMENT '入院时间',
   `out_time` datetime COMMENT '出院时间',
   `cost_count` double COMMENT '总价',
   `is_pay` int COMMENT '是否结算',
   `pay_time` datetime COMMENT '付款时间',
   `comment` varchar(500) COMMENT '备注'
-); 
+);
+
+
+-- ----------------------------
+-- COMMENT '消费详情信息'
+-- Table structure for patient_cost_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `patient_cost_detail`;
+CREATE TABLE `patient_cost_detail`  (
+    `id` varchar(20) NOT NULL PRIMARY KEY COMMENT '主键ID',
+    `cost_id` varchar(20) COMMENT '消费关联字段',
+    `goods_type` varchar(50) COMMENT '类别',
+    `goods_name` varchar(50) COMMENT '名称',
+    `goods_price` double COMMENT '单价',
+    `goods_number` int COMMENT '数量',
+    `cost_count` double COMMENT '总价',
+    `comment` varchar(500) COMMENT '备注'
+);
 
 
 -- ----------------------------
@@ -352,10 +368,10 @@ CREATE TABLE `medicine_catalog`  (
 
 -- ----------------------------
 -- COMMENT '货物库存'
--- Table structure for warehose_storage
+-- Table structure for warehouse_storage
 -- ----------------------------
-DROP TABLE IF EXISTS `warehose_storage`;
-CREATE TABLE `warehose_storage`  (
+DROP TABLE IF EXISTS `warehouse_storage`;
+CREATE TABLE `warehouse_storage`  (
   `goods_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '货物编号',
   `goods_name` varchar(50) COMMENT '货物名',
   `goods_type` varchar(50) COMMENT '货物类别',
@@ -420,7 +436,7 @@ CREATE TABLE `asset_apply_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `asset_apply_goods`;
 CREATE TABLE `asset_apply_goods`  (
-  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `apply_id` varchar(36) COMMENT '申请订单编号',
   `goods_name` varchar(50) COMMENT '商品名',
   `goods_type` varchar(50) COMMENT '商品规格',
@@ -437,7 +453,7 @@ CREATE TABLE `asset_apply_goods`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `login_user`;
 CREATE TABLE `login_user`  (
-  `id` varchar(36) NOT NULL PRIMARY KEY,
+  `id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `staff_id` varchar(20) COMMENT '员工编号',
   `user_name` varchar(50) COMMENT '用户名',
   `user_pwd` varchar(50) COMMENT '密码',
@@ -476,7 +492,7 @@ CREATE TABLE `mail_info`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_logs`;
 CREATE TABLE `sys_logs`  (
-  `log_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '编号',
+  `log_id` varchar(36) NOT NULL PRIMARY KEY COMMENT '主键ID',
   `log_name` varchar(50) COMMENT '日志名称',
   `log_module` varchar(50) COMMENT '来源模块',
   `log_info` varchar(500) COMMENT '日志信息',
@@ -493,15 +509,31 @@ CREATE TABLE `sys_logs`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `home_menu`;
 CREATE TABLE `home_menu`  (
-  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `menu_key` varchar(50) COMMENT '菜单索引',
   `menu_type` varchar(50) COMMENT '菜单类型',
   `menu_icon` varchar(50) COMMENT '菜单图标',
   `menu_title` varchar(50) COMMENT '菜单名称',
   `router_name` varchar(50) COMMENT '路由地址',
-  `is_show` int(11) COMMENT '是否展示's
+  `is_show` int(11) COMMENT '是否展示'
 );
 
+
+-- ----------------------------
+-- COMMENT '系统文件配置表'
+-- Table structure for file_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_file_config`;
+CREATE TABLE `sys_file_config`  (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
+    `sys_type` varchar(50) COMMENT '系统类别',
+    `unit_type` varchar(50) COMMENT '单位类别',
+    `case_bucket` varchar(50) COMMENT '病例文件桶名',
+    `salary_bucket` varchar(50) COMMENT '工资文件桶名',
+    `avatar_bucket` varchar(50) COMMENT '头像文件桶名',
+    `storage_bucket` varchar(50) COMMENT '仓库文件桶名',
+    `comment` varchar(500) COMMENT '备注'
+);
 
 
 

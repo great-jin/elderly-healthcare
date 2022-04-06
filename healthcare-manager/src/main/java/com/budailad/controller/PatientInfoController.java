@@ -107,7 +107,7 @@ public class PatientInfoController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.patientInfoService.deleteById(id));
     }

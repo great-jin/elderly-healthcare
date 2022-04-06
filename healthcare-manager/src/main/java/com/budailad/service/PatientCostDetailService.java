@@ -7,20 +7,20 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 
 /**
- * (PaitentCostDetail)表服务接口
+ * (PatientCostDetail)表服务接口
  *
- * @author Budai
- * @since 2022-03-11 16:21:06
+ * @author makejava
+ * @since 2022-04-06 14:07:04
  */
 public interface PatientCostDetailService {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param costId 主键
+     * @param id 主键
      * @return 实例对象
      */
-    PatientCostDetail queryById(String costId);
+    PatientCostDetail queryById(String id);
 
     /**
      * 条件查询
@@ -58,9 +58,9 @@ public interface PatientCostDetailService {
     /**
      * 通过主键删除数据
      *
-     * @param costId 主键
+     * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String costId);
+    boolean deleteById(String id);
 
 }

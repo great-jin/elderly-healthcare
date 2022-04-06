@@ -48,8 +48,8 @@ public class HomeMenuController {
      * @param id 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<HomeMenu> queryById(@PathVariable("id") Integer id) {
+    @GetMapping("/get")
+    public ResponseEntity<HomeMenu> queryById(@RequestParam(value = "id") Integer id) {
         return ResponseEntity.ok(this.homeMenuService.queryById(id));
     }
 
@@ -59,7 +59,7 @@ public class HomeMenuController {
      * @param homeMenu 实体
      * @return 新增结果
      */
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<HomeMenu> add(HomeMenu homeMenu) {
         return ResponseEntity.ok(this.homeMenuService.insert(homeMenu));
     }
@@ -70,7 +70,7 @@ public class HomeMenuController {
      * @param homeMenu 实体
      * @return 编辑结果
      */
-    @PutMapping
+    @PostMapping("/update")
     public ResponseEntity<HomeMenu> edit(HomeMenu homeMenu) {
         return ResponseEntity.ok(this.homeMenuService.update(homeMenu));
     }
@@ -81,7 +81,7 @@ public class HomeMenuController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(Integer id) {
         return ResponseEntity.ok(this.homeMenuService.deleteById(id));
     }

@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class MinioUtil {
 
     @Autowired
-    private MinioClient client;
+    private MinioClient minioClient;
 
     /**
      * 判断 bucket 是否存在
@@ -27,7 +27,7 @@ public class MinioUtil {
      * @param bucketName
      */
     public boolean bucketExist(String bucketName) throws Exception {
-        return client.bucketExists(BucketExistsArgs.builder()
+        return minioClient.bucketExists(BucketExistsArgs.builder()
                 .bucket(bucketName)
                 .build());
     }
@@ -39,7 +39,7 @@ public class MinioUtil {
      */
     public void createBucket(String bucketName) throws Exception {
         if (!bucketExist(bucketName)) {
-            client.makeBucket(MakeBucketArgs.builder()
+            minioClient.makeBucket(MakeBucketArgs.builder()
                     .bucket(bucketName)
                     .build());
         }
@@ -52,7 +52,7 @@ public class MinioUtil {
      */
     public void removeBucket(String bucketName) throws Exception {
         if (bucketExist(bucketName)) {
-            client.removeBucket(RemoveBucketArgs.builder()
+            minioClient.removeBucket(RemoveBucketArgs.builder()
                     .bucket(bucketName)
                     .build());
         }
@@ -64,7 +64,7 @@ public class MinioUtil {
      * @param bucketName bucket名称
      */
     public Optional<Bucket> getBucket(String bucketName) throws Exception {
-        return client.listBuckets().stream()
+        return minioClient.listBuckets().stream()
                 .filter(b -> b.name().equals(bucketName))
                 .findFirst();
     }
@@ -75,7 +75,7 @@ public class MinioUtil {
      * @return
      */
     public List<Bucket> getAllBuckets() throws Exception {
-        return client.listBuckets();
+        return minioClient.listBuckets();
     }
 
     /**
@@ -92,7 +92,7 @@ public class MinioUtil {
         ObjectWriteResponse objectWriteResponse = null;
 
         // 上传
-        objectWriteResponse = client.putObject(
+        objectWriteResponse = minioClient.putObject(
                 PutObjectArgs.builder().bucket(bucketName)
                         .object(fileName.toString())
                         .stream(file.getInputStream(), file.getSize(), -1)
@@ -111,7 +111,7 @@ public class MinioUtil {
      * @return ⼆进制流
      */
     public InputStream getObject(String bucketName, String objectName) throws Exception {
-        return client.getObject(GetObjectArgs.builder()
+        return minioClient.getObject(GetObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
                 .build());
@@ -126,7 +126,7 @@ public class MinioUtil {
      */
     public void putObject(String bucketName, String objectName, InputStream stream) throws
             Exception {
-        client.putObject(PutObjectArgs.builder()
+        minioClient.putObject(PutObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
                 .stream(stream, stream.available(), -1)
@@ -145,7 +145,7 @@ public class MinioUtil {
      */
     public void putObject(String bucketName, String objectName, InputStream stream, long
             size, String contextType) throws Exception {
-        client.putObject(PutObjectArgs.builder()
+        minioClient.putObject(PutObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
                 .stream(stream, size, -1)
@@ -160,7 +160,7 @@ public class MinioUtil {
      * @param objectName ⽂件名称
      */
     public StatObjectResponse getObjectInfo(String bucketName, String objectName) throws Exception {
-        return client.statObject(StatObjectArgs.builder()
+        return minioClient.statObject(StatObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
                 .build());
@@ -173,7 +173,7 @@ public class MinioUtil {
      * @param objectName ⽂件名称
      */
     public void removeObject(String bucketName, String objectName) throws Exception {
-        client.removeObject(RemoveObjectArgs.builder()
+        minioClient.removeObject(RemoveObjectArgs.builder()
                 .bucket(bucketName)
                 .object(objectName)
                 .build());
@@ -188,7 +188,7 @@ public class MinioUtil {
      * @return url
      */
     public String getObjectURL(String bucketName, String objectName, Integer expires) throws Exception {
-        return client.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
+        return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
                 .method(Method.GET)
                 .bucket(bucketName)
                 .object(objectName)

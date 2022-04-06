@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.budailad.dao.SysFileConfigDao">
+
+    <resultMap type="com.budailad.entity.SysFileConfig" id="SysFileConfigMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="sysType" column="sys_type" jdbcType="VARCHAR"/>
+        <result property="unitType" column="unit_type" jdbcType="VARCHAR"/>
+        <result property="caseBucket" column="case_bucket" jdbcType="VARCHAR"/>
+        <result property="salaryBucket" column="salary_bucket" jdbcType="VARCHAR"/>
+        <result property="avatarBucket" column="avatar_bucket" jdbcType="VARCHAR"/>
+        <result property="storageBucket" column="storage_bucket" jdbcType="VARCHAR"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysFileConfigMap">
+        select id,
+               sys_type,
+               unit_type,
+               case_bucket,
+               salary_bucket,
+               avatar_bucket,
+               storage_bucket,
+               comment
+        from sys_file_config
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAll" resultMap="SysFileConfigMap">
+        select
+        id, sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket, comment
+        from sys_file_config
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="sysType != null and sysType != ''">
+                and sys_type = #{sysType}
+            </if>
+            <if test="unitType != null and unitType != ''">
+                and unit_type = #{unitType}
+            </if>
+            <if test="caseBucket != null and caseBucket != ''">
+                and case_bucket = #{caseBucket}
+            </if>
+            <if test="salaryBucket != null and salaryBucket != ''">
+                and salary_bucket = #{salaryBucket}
+            </if>
+            <if test="avatarBucket != null and avatarBucket != ''">
+                and avatar_bucket = #{avatarBucket}
+            </if>
+            <if test="storageBucket != null and storageBucket != ''">
+                and storage_bucket = #{storageBucket}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SysFileConfigMap">
+        select
+        id, sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket, comment
+        from sys_file_config
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="sysType != null and sysType != ''">
+                and sys_type = #{sysType}
+            </if>
+            <if test="unitType != null and unitType != ''">
+                and unit_type = #{unitType}
+            </if>
+            <if test="caseBucket != null and caseBucket != ''">
+                and case_bucket = #{caseBucket}
+            </if>
+            <if test="salaryBucket != null and salaryBucket != ''">
+                and salary_bucket = #{salaryBucket}
+            </if>
+            <if test="avatarBucket != null and avatarBucket != ''">
+                and avatar_bucket = #{avatarBucket}
+            </if>
+            <if test="storageBucket != null and storageBucket != ''">
+                and storage_bucket = #{storageBucket}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from sys_file_config
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="sysType != null and sysType != ''">
+                and sys_type = #{sysType}
+            </if>
+            <if test="unitType != null and unitType != ''">
+                and unit_type = #{unitType}
+            </if>
+            <if test="caseBucket != null and caseBucket != ''">
+                and case_bucket = #{caseBucket}
+            </if>
+            <if test="salaryBucket != null and salaryBucket != ''">
+                and salary_bucket = #{salaryBucket}
+            </if>
+            <if test="avatarBucket != null and avatarBucket != ''">
+                and avatar_bucket = #{avatarBucket}
+            </if>
+            <if test="storageBucket != null and storageBucket != ''">
+                and storage_bucket = #{storageBucket}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_file_config(sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket,
+                                    comment)
+        values (#{sysType}, #{unitType}, #{caseBucket}, #{salaryBucket}, #{avatarBucket}, #{storageBucket}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_file_config(sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket,
+        comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sysType}, #{entity.unitType}, #{entity.caseBucket}, #{entity.salaryBucket},
+            #{entity.avatarBucket}, #{entity.storageBucket}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_file_config(sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket,
+        comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.sysType}, #{entity.unitType}, #{entity.caseBucket}, #{entity.salaryBucket},
+            #{entity.avatarBucket}, #{entity.storageBucket}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        sys_type = values(sys_type),
+        unit_type = values(unit_type),
+        case_bucket = values(case_bucket),
+        salary_bucket = values(salary_bucket),
+        avatar_bucket = values(avatar_bucket),
+        storage_bucket = values(storage_bucket),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sys_file_config
+        <set>
+            <if test="sysType != null and sysType != ''">
+                sys_type = #{sysType},
+            </if>
+            <if test="unitType != null and unitType != ''">
+                unit_type = #{unitType},
+            </if>
+            <if test="caseBucket != null and caseBucket != ''">
+                case_bucket = #{caseBucket},
+            </if>
+            <if test="salaryBucket != null and salaryBucket != ''">
+                salary_bucket = #{salaryBucket},
+            </if>
+            <if test="avatarBucket != null and avatarBucket != ''">
+                avatar_bucket = #{avatarBucket},
+            </if>
+            <if test="storageBucket != null and storageBucket != ''">
+                storage_bucket = #{storageBucket},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sys_file_config
+        where id = #{id}
+    </delete>
+
+</mapper>
+

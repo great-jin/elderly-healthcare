@@ -1,8 +1,8 @@
 import request from './utils/axios'
 
-const prefix = '/api/healthcare/warehoseStorage'
+const prefix = '/api/healthcare/sysFileConfig'
 
-export function listGoods (params) {
+export function listMinioConfig (params) {
   return request({
     url: `${prefix}/list`,
     method: 'get',
@@ -10,14 +10,14 @@ export function listGoods (params) {
   })
 }
 
-export function getStorage (params) {
+export function getMinioConfig (params) {
   return request({
     url: `${prefix}/get?id=${params}`,
     method: 'get'
   })
 }
 
-export function addStorage (params) {
+export function addMinioConfig (params) {
   return request({
     url: `${prefix}/add`,
     method: 'post',
@@ -25,7 +25,7 @@ export function addStorage (params) {
   })
 }
 
-export function updateStorage (params) {
+export function updateMinioConfig (params) {
   return request({
     url: `${prefix}/update`,
     method: 'post',
@@ -33,7 +33,7 @@ export function updateStorage (params) {
   })
 }
 
-export function removeStorage (params) {
+export function removeMinioConfig (params) {
   return request({
     url: `${prefix}/delete`,
     method: 'post',

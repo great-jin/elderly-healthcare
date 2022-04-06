@@ -1,65 +1,56 @@
 package com.budailad.entity;
 
-import java.util.Date;
 import java.io.Serializable;
 
 /**
  * (PatientCostDetail)实体类
  *
- * @author Budai
- * @since 2022-03-31 20:35:08
+ * @author makejava
+ * @since 2022-04-06 14:07:04
  */
 public class PatientCostDetail implements Serializable {
-    private static final long serialVersionUID = 234179117044812745L;
+    private static final long serialVersionUID = -99623317379843838L;
     /**
      * 主键ID
      */
+    private String id;
+    /**
+     * 消费关联字段
+     */
     private String costId;
     /**
-     * 病人编号
+     * 类别
      */
-    private String patientId;
+    private String goodsType;
     /**
-     * 病人姓名
+     * 名称
      */
-    private String patientName;
+    private String goodsName;
     /**
-     * 医师Id
+     * 单价
      */
-    private String doctorId;
+    private Double goodsPrice;
     /**
-     * 医师名
+     * 数量
      */
-    private String doctorName;
-    /**
-     * 清单
-     */
-    private String costList;
-    /**
-     * 入院时间
-     */
-    private Date inTime;
-    /**
-     * 出院时间
-     */
-    private Date outTime;
+    private Integer goodsNumber;
     /**
      * 总价
      */
     private Double costCount;
     /**
-     * 是否结算
-     */
-    private Integer isPay;
-    /**
-     * 付款时间
-     */
-    private Date payTime;
-    /**
      * 备注
      */
     private String comment;
 
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCostId() {
         return costId;
@@ -69,60 +60,36 @@ public class PatientCostDetail implements Serializable {
         this.costId = costId;
     }
 
-    public String getPatientId() {
-        return patientId;
+    public String getGoodsType() {
+        return goodsType;
     }
 
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
+    public void setGoodsType(String goodsType) {
+        this.goodsType = goodsType;
     }
 
-    public String getPatientName() {
-        return patientName;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public String getDoctorId() {
-        return doctorId;
+    public Double getGoodsPrice() {
+        return goodsPrice;
     }
 
-    public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId;
+    public void setGoodsPrice(Double goodsPrice) {
+        this.goodsPrice = goodsPrice;
     }
 
-    public String getDoctorName() {
-        return doctorName;
+    public Integer getGoodsNumber() {
+        return goodsNumber;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
-    }
-
-    public String getCostList() {
-        return costList;
-    }
-
-    public void setCostList(String costList) {
-        this.costList = costList;
-    }
-
-    public Date getInTime() {
-        return inTime;
-    }
-
-    public void setInTime(Date inTime) {
-        this.inTime = inTime;
-    }
-
-    public Date getOutTime() {
-        return outTime;
-    }
-
-    public void setOutTime(Date outTime) {
-        this.outTime = outTime;
+    public void setGoodsNumber(Integer goodsNumber) {
+        this.goodsNumber = goodsNumber;
     }
 
     public Double getCostCount() {
@@ -131,22 +98,6 @@ public class PatientCostDetail implements Serializable {
 
     public void setCostCount(Double costCount) {
         this.costCount = costCount;
-    }
-
-    public Integer getIsPay() {
-        return isPay;
-    }
-
-    public void setIsPay(Integer isPay) {
-        this.isPay = isPay;
-    }
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
     }
 
     public String getComment() {

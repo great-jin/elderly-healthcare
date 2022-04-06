@@ -76,7 +76,7 @@ public class AssetApplyInfoController {
      * @param assetApplyInfo 实体
      * @return 编辑结果
      */
-    @PutMapping("/update")
+    @PostMapping("/update")
     public ResponseEntity<AssetApplyInfo> edit(AssetApplyInfo assetApplyInfo) {
         return ResponseEntity.ok(this.assetApplyInfoService.update(assetApplyInfo));
     }
@@ -87,7 +87,7 @@ public class AssetApplyInfoController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping("/delete")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.assetApplyInfoService.deleteById(id));
     }

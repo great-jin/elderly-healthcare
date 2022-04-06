@@ -4,13 +4,13 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (WarehoseStorage)实体类
+ * (WarehouseStorage)实体类
  *
- * @author Budai
- * @since 2022-03-11 16:21:05
+ * @author makejava
+ * @since 2022-04-06 14:07:04
  */
-public class WarehoseStorage implements Serializable {
-    private static final long serialVersionUID = 319073586519119883L;
+public class WarehouseStorage implements Serializable {
+    private static final long serialVersionUID = 352993816534807039L;
     /**
      * 货物编号
      */
@@ -28,14 +28,6 @@ public class WarehoseStorage implements Serializable {
      */
     private Double goodsPrice;
     /**
-     * 生产日期
-     */
-    private Date produceTime;
-    /**
-     * 生产厂商
-     */
-    private String produceVendor;
-    /**
      * 库存数量
      */
     private Integer goodsCount;
@@ -44,9 +36,9 @@ public class WarehoseStorage implements Serializable {
      */
     private Double warnLine;
     /**
-     * 备注
+     * 生产日期
      */
-    private String comment;
+    private Date produceTime;
     /**
      * 购买日期
      */
@@ -55,6 +47,14 @@ public class WarehoseStorage implements Serializable {
      * 购买人
      */
     private String purchaseStaff;
+    /**
+     * 生产厂商
+     */
+    private String produceVendor;
+    /**
+     * 备注
+     */
+    private String comment;
 
 
     public String getGoodsId() {
@@ -89,22 +89,6 @@ public class WarehoseStorage implements Serializable {
         this.goodsPrice = goodsPrice;
     }
 
-    public Date getProduceTime() {
-        return produceTime;
-    }
-
-    public void setProduceTime(Date produceTime) {
-        this.produceTime = produceTime;
-    }
-
-    public String getProduceVendor() {
-        return produceVendor;
-    }
-
-    public void setProduceVendor(String produceVendor) {
-        this.produceVendor = produceVendor;
-    }
-
     public Integer getGoodsCount() {
         return goodsCount;
     }
@@ -121,12 +105,12 @@ public class WarehoseStorage implements Serializable {
         this.warnLine = warnLine;
     }
 
-    public String getComment() {
-        return comment;
+    public Date getProduceTime() {
+        return produceTime;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setProduceTime(Date produceTime) {
+        this.produceTime = produceTime;
     }
 
     public Date getPurchaseTime() {
@@ -143,6 +127,22 @@ public class WarehoseStorage implements Serializable {
 
     public void setPurchaseStaff(String purchaseStaff) {
         this.purchaseStaff = purchaseStaff;
+    }
+
+    public String getProduceVendor() {
+        return produceVendor;
+    }
+
+    public void setProduceVendor(String produceVendor) {
+        this.produceVendor = produceVendor;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
 }
