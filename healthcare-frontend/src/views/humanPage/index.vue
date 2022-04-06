@@ -56,7 +56,7 @@
 <script>
 import { listHomeMenu } from '@/api/homeMenu'
 const panes = [
-  { title: '人员管理', key: 'staff', closable: false }
+  { title: '请假审批', key: 'vacate', closable: false }
 ]
 
 export default {
@@ -129,7 +129,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('staff')
+        this.routePage('vacate')
       }
       let activeKey = this.activeKey
       let lastIndex

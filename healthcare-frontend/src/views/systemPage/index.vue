@@ -1,15 +1,13 @@
 <template>
-  <router-view />
+
 </template>
 
 <script>
 export default {
-  name: 'App',
-  mounted () {
-    this.$router.push('/')
-  }
+  name: 'System'
 }
 </script>
 
 <style scoped>
+
 </style>
