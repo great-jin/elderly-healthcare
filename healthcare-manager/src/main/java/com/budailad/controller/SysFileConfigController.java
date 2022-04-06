@@ -43,9 +43,14 @@ public class SysFileConfigController {
         return bucketList;
     }
 
-    @GetMapping("/create")
+    @GetMapping("/createBucket")
     public void createBuckets(String bucketName) throws Exception {
         minioUtil.createBucket(bucketName);
+    }
+
+    @GetMapping("/deleteBucket")
+    public void deleteBuckets(String bucketName) throws Exception {
+        minioUtil.removeBucket(bucketName);
     }
 
     /**

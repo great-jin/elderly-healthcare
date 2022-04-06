@@ -19,7 +19,14 @@ export function getBuckets () {
 
 export function createBucket (params) {
   return request({
-    url: `${prefix}/create?bucketName=${params}`,
+    url: `${prefix}/createBucket?bucketName=${params}`,
+    method: 'get'
+  })
+}
+
+export function deleteBucket (params) {
+  return request({
+    url: `${prefix}/deleteBucket?bucketName=${params}`,
     method: 'get'
   })
 }
