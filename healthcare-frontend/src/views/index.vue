@@ -47,29 +47,16 @@ export default {
   name: 'MainPage',
   data () {
     return {
-      id: '',
       imgUrl: '',
       menuData: []
-    }
-  },
-  provide () {
-    return {
-      reload: this.reload
     }
   },
   mounted () {
     this.getData()
     this.routeMenu('service')
-    this.id = this.$route.query.id
     this.imgUrl = localStorage.getItem('avatar')
   },
   methods: {
-    reload () {
-      this.isRouterAlive = false
-      this.$nextTick(function () {
-        this.isRouterAlive = true
-      })
-    },
     getData () {
       listHomeMenu().then(res => {
         this.menuData = res.data
@@ -78,8 +65,8 @@ export default {
     openSetting (data) {
       switch (data) {
         case 'quit':
-          localStorage.removeItem('staffInfo')
           localStorage.removeItem('avatar')
+          localStorage.removeItem('loginUse')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'personal':

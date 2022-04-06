@@ -37,8 +37,8 @@
             </a-col>
             <a-col :span="8">
               <a-card title="Card title" :bordered="false" size="small">
-                <a-tag color="pink">pink</a-tag>
-                <a-tag color="pink">pink</a-tag>
+                <a-tag color="green">pink</a-tag>
+                <a-tag color="green">pink</a-tag>
               </a-card>
             </a-col>
           </a-row>
@@ -190,7 +190,7 @@ export default {
   mounted () {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
-    this.loginUser = JSON.parse(localStorage.getItem('staffInfo'))
+    this.loginUser = JSON.parse(localStorage.getItem('loginUse'))
     this.getData()
     this.taskCount()
     this.taskState('0')
@@ -273,8 +273,8 @@ export default {
           this.$router.push('/elderlyHealthcare/main')
           break
         case 'quit':
-          localStorage.removeItem('staffInfo')
           localStorage.removeItem('avatar')
+          localStorage.removeItem('loginUse')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'edit':

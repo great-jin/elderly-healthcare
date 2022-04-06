@@ -107,7 +107,7 @@ export default {
     return {
       top: 10,
       type: 'add',
-      staffInfo: {},
+      loginUse: {},
       form: {
         userName: '',
         gender: '',
@@ -136,7 +136,7 @@ export default {
     }
   },
   mounted () {
-    this.staffInfo = JSON.parse(localStorage.getItem('staffInfo'))
+    this.loginUse = JSON.parse(localStorage.getItem('loginUse'))
   },
   methods: {
     backHome () {

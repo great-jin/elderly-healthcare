@@ -16,14 +16,14 @@ const ExpiresTime = 86400000
 
 router.beforeEach((to, from, next) => {
   // 1. 状态判断
-  const token = JSON.parse(localStorage.getItem('staffInfo'))
+  const token = JSON.parse(localStorage.getItem('loginUse'))
   let isLogin = !(token == null || token.staffId == null || token.staffId === '')
   // 2. 判断登录时长
   if (isLogin) {
     const date = new Date().getTime()
     if (date - token.startTime > ExpiresTime) {
       // 登录时间超过一天需要重新登录
-      localStorage.removeItem('staffInfo')
+      localStorage.removeItem('loginUse')
       isLogin = false
       this.$message.info('登录过期，请重新登录')
     }

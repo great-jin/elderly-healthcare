@@ -9,14 +9,14 @@ import DataMonitor from '@/views/servicePage/dataMonitor/index'
 import DataAccess from '@/views/servicePage/dataAccess/index'
 import Patient from '@/views/servicePage/patientManage/index'
 import Task from '@/views/servicePage/taskManage/index'
-import SystemLog from '@/views/servicePage/systemLog/index'
 // 人力资源
 import Human from '@/views/humanPage/index'
 import Staff from '@/views/humanPage/staffManage/index'
 import Dispatch from '@/views/humanPage/dispatchManage/index'
 import Vacate from '@/views/humanPage/vacateManage/index'
 // 资产中心
-import Property from '@/views/assetPage/index'
+import Asset from '@/views/assetPage/index'
+import Cost from '@/views/assetPage/patientCostManage/index'
 import Apply from '@/views/assetPage/applyManage/index'
 import Salary from '@/views/assetPage/salaryManage/index'
 import Payment from '@/views/assetPage/paymentManage/index'
@@ -33,6 +33,9 @@ import UnAuth from '@/views/errorPage/403'
 import NotFound from '@/views/errorPage/404'
 import ServerFaild from '@/views/errorPage/500'
 // 系统管理
+import System from '@/views/systemPage/index'
+import SystemLog from '@/views/systemPage/systemLogs/index'
+import MinioConfig from '@/views/systemPage/minioConfig/index'
 
 export const RouteInfo = [
   {
@@ -104,9 +107,13 @@ export const RouteInfo = [
       }, {
         // 资产中心
         path: '/elderlyHealthcare/asset',
-        name: 'Property',
-        component: Property,
+        name: 'Asset',
+        component: Asset,
         children: [
+          {
+            path: '/elderlyHealthcare/asset/cost',
+            component: Cost
+          },
           {
             path: '/elderlyHealthcare/asset/apply',
             component: Apply
@@ -134,6 +141,21 @@ export const RouteInfo = [
           }, {
             path: '/elderlyHealthcare/store/medicine',
             component: Medicine
+          }
+        ]
+      }, {
+        // 系统管理
+        path: '/elderlyHealthcare/system',
+        name: 'System',
+        component: System,
+        children: [
+          {
+            path: '/elderlyHealthcare/system/minioConfig',
+            component: MinioConfig
+          },
+          {
+            path: '/elderlyHealthcare/system/logs',
+            component: SystemLog
           }
         ]
       }

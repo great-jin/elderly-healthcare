@@ -44,9 +44,8 @@ export function removeUser (params) {
 
 export function getAvatar (params) {
   return request({
-    url: `${prefix}/getAvatar`,
-    method: 'post',
-    data: params
+    url: `${prefix}/getAvatar?ID=${params}`,
+    method: 'get'
   })
 }
 

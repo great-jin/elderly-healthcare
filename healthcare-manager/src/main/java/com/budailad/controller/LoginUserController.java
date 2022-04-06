@@ -154,8 +154,8 @@ public class LoginUserController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/getAvatar")
-    public String getAvatar(@RequestParam(name = "staffId") String ID) throws Exception {
+    @GetMapping("/getAvatar")
+    public String getAvatar(String ID) throws Exception {
         LoginUser user = loginUserService.queryById(ID);
         return minioUtil.getObjectURL(user.getBucketAvatar(), user.getUserAvatar(), 7);
     }
@@ -165,7 +165,7 @@ public class LoginUserController {
      * @return
      * @throws Exception
      */
-    @PostMapping("/updateAvatar")
+    @GetMapping("/updateAvatar")
     public String updateAvatar(@RequestParam(name = "staffId") String ID) {
         // TODO: 2022/3/28 更换头像
 

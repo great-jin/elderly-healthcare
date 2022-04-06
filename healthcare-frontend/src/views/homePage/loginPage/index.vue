@@ -145,30 +145,26 @@ export default {
           if (_identity === this.generateCode) {
             // 前端数据加密
             values.userPwd = Encrypt(values.userPwd)
-            // 用户登录
             Login(values).then(res => {
               if (res.data === 1) {
                 this.loading = false
                 getUser(values.staffId).then(res => {
-                  // 记录用登录信息
+                  // 记录登录用户
                   res.data.startTime = new Date().getTime()
-                  localStorage.setItem('staffInfo', JSON.stringify(res.data))
+                  localStorage.setItem('loginUse', JSON.stringify(res.data))
                   // 获取用户头像
-                  const formData = new FormData()
-                  formData.append('staffId', values.staffId)
-                  getAvatar(formData).then(res => {
+                  getAvatar(values.staffId).then(res => {
                     localStorage.setItem('avatar', res.data)
-                    // 跳转首页
-                    this.$router.push({
-                      path: '/elderlyHealthcare/home',
-                      query: {
-                        id: values.staffId
-                      }
-                    })
                   })
+                  const authortiy = res.data.userPower
+                  if (authortiy > 0) {
+                    this.$router.push('/elderlyHealthcare/home')
+                  } else {
+                    this.$message.success('超级管理员')
+                  }
                 })
               } else {
-                this.$message.error('失败！')
+                this.$message.error('信息有误，请重试！')
                 this.form.resetFields()
               }
             })

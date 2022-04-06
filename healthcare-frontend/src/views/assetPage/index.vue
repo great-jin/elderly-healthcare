@@ -56,7 +56,7 @@
 <script>
 import { listHomeMenu } from '@/api/homeMenu'
 const panes = [
-  { title: '费用缴纳', key: 'payment', closable: false }
+  { title: '消费记录', key: 'cost', closable: false }
 ]
 
 export default {
@@ -79,7 +79,7 @@ export default {
   },
   mounted () {
     this.getData()
-    this.routePage('payment')
+    this.routePage('cost')
   },
   methods: {
     reload () {
@@ -90,6 +90,7 @@ export default {
     },
     getData () {
       listHomeMenu().then(res => {
+        console.log(res.data.filter(item => item.menuType === 'asset'))
         this.menuData = res.data
       })
     },
@@ -129,7 +130,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('medicine')
+        this.routePage('cost')
       }
       let activeKey = this.activeKey
       let lastIndex
