@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (SysLogs)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-05 21:09:32
  */
 public class SysLogs implements Serializable {

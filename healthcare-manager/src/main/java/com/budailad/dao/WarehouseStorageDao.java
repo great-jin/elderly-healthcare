@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * (WarehouseStorage)表数据库访问层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:07:04
  */
 @Mapper

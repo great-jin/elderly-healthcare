@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * (SysFileConfig)表控制层
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:11:13
  */
 @RestController
@@ -38,30 +38,40 @@ public class SysFileConfigController {
 
     @GetMapping("/getBuckets")
     public List<String> getBuckets() throws Exception {
-        Object object = redisService.get("healthcare:minioBuckets:all:bucket");
-        List<Bucket> buckets = (List<Bucket>) object;
-        if(buckets == null) {
-            buckets = minioUtil.getAllBuckets();
-            redisService.set("healthcare:minioBuckets:all:bucket", buckets, 1);
-        }
+        List<Bucket> buckets;
         List<String> bucketList = new ArrayList<>();
-        for (Bucket bucket : buckets) {
-            bucketList.add(bucket.name());
+        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        if (object == null) {
+            buckets = minioUtil.getAllBuckets();
+            for (Bucket bucket : buckets) {
+                bucketList.add(bucket.name());
+            }
+            redisService.set("healthcare:sysFileConfig:allbucket", bucketList, 1);
+        } else {
+            bucketList = (List<String>) object;
         }
+
         return bucketList;
     }
 
     @GetMapping("/createBucket")
-    public void createBuckets(String bucketName) throws Exception {
+    public boolean createBuckets(String bucketName) throws Exception {
+        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        if (object != null) {
+            redisService.delete("healthcare:sysFileConfig:allbucket");
+        }
         minioUtil.createBucket(bucketName);
-        redisService.delete("healthcare:minioBuckets:all:bucket");
-
+        return minioUtil.bucketExist(bucketName);
     }
 
     @GetMapping("/deleteBucket")
-    public void deleteBuckets(String bucketName) throws Exception {
+    public boolean deleteBuckets(String bucketName) throws Exception {
+        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        if (object != null) {
+            redisService.delete("healthcare:sysFileConfig:allbucket");
+        }
         minioUtil.removeBucket(bucketName);
-        redisService.delete("healthcare:minioBuckets:all:bucket");
+        return !minioUtil.bucketExist(bucketName);
     }
 
     /**

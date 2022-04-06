@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * (HomeMenu)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-04 12:12:46
  */
 public class HomeMenu implements Serializable {

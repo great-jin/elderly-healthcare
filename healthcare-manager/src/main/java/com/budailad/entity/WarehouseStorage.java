@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * (WarehouseStorage)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:07:04
  */
 public class WarehouseStorage implements Serializable {

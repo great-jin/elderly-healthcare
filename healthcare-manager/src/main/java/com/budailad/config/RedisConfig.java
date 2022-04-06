@@ -32,8 +32,6 @@ public class RedisConfig {
      */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory) {
-        RedisCacheConfiguration defaultCacheConfig = RedisCacheConfiguration.defaultCacheConfig();
-
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 // 设置缓存前缀
                 .prefixCacheNameWith("healthcare:")
@@ -42,73 +40,44 @@ public class RedisConfig {
                 // 设置 value 序列化
                 .serializeValuesWith(valuePair());
 
-        Set<String> cacheNames = new HashSet<>();
-        cacheNames.add("minio");
-        cacheNames.add("patient");
-
-        cacheNames.add("applyGoods");
-        cacheNames.add("applyInfo");
-        cacheNames.add("dailyTask");
-        cacheNames.add("employeeSalary");
-        cacheNames.add("illnessCatalog");
-        cacheNames.add("loginUser");
-        cacheNames.add("homeMenu");
-        cacheNames.add("mailInfo");
-        cacheNames.add("medicineCatalog");
-        cacheNames.add("orderGoods");
-        cacheNames.add("organizeInfo");
-        cacheNames.add("organizeStaff");
-        cacheNames.add("paitentCostDetail");
-        cacheNames.add("patientBodyInfo");
-        cacheNames.add("patientCaseFiles");
-        cacheNames.add("patientCaseInfo");
-        cacheNames.add("patientContact");
-        cacheNames.add("patientInfo");
-        cacheNames.add("registerTemplate");
-        cacheNames.add("salaryDetailFiles");
-        cacheNames.add("staffDoctor");
-        cacheNames.add("staffNurse");
-        cacheNames.add("sysLogs");
-        cacheNames.add("vacateInfo");
-        cacheNames.add("warehoseStorage");
-
         Map<String, RedisCacheConfiguration> redisCacheConfigurationMap = new HashMap<>();
         redisCacheConfigurationMap.put("minio", redisCacheConfiguration.entryTtl(Duration.ofDays(5)));
-        redisCacheConfigurationMap.put("patient", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
+        redisCacheConfigurationMap.put("patient", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
 
-        redisCacheConfigurationMap.put("applyGoods", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("applyInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("dailyTask", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("employeeSalary", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("illnessCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("loginUser", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("homeMenu", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("mailInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("medicineCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("orderGoods", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("organizeInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("organizeStaff", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("paitentCostDetail", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("patientBodyInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("patientCaseFiles", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("patientCaseInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("patientContact", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("patientInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("registerTemplate", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("salaryDetailFiles", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("staffDoctor", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("staffNurse", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("sysLogs", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("vacateInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
-        redisCacheConfigurationMap.put("warehoseStorage", redisCacheConfiguration.entryTtl(Duration.ofHours(10)));
+        redisCacheConfigurationMap.put("applyGoods", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("applyInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("dailyTask", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("employeeSalary", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("illnessCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("loginUser", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("homeMenu", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("mailInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("medicineCatalog", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("orderGoods", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("organizeInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("organizeStaff", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+
+        redisCacheConfigurationMap.put("patientCostDetail", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientBodyInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientCaseFiles", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientCaseInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientCaseDetail", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientContact", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("patientInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+
+        redisCacheConfigurationMap.put("registerTemplate", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("salaryDetailFiles", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("staffDoctor", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("staffNurse", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("sysFileConfig", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("sysLogs", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("vacateInfo", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
+        redisCacheConfigurationMap.put("warehouseStorage", redisCacheConfiguration.entryTtl(Duration.ofHours(12)));
 
         // 返回 Redis 缓存管理器
         return RedisCacheManager.builder(factory)
-                .cacheDefaults(defaultCacheConfig)
-                .initialCacheNames(cacheNames)
                 .withInitialCacheConfigurations(redisCacheConfigurationMap)
                 .build();
-
     }
 
     /**
@@ -153,7 +122,7 @@ public class RedisConfig {
 
     /**
      * 配置 值 序列化
-     *
+     * <p>
      * 使用 GenericJackson2JsonRedisSerializer 替换默认序列化
      */
     private RedisSerializationContext.SerializationPair<Object> valuePair() {

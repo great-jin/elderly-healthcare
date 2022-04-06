@@ -3,6 +3,7 @@ package com.budailad.service.impl;
 import com.budailad.entity.PatientCostInfo;
 import com.budailad.dao.PatientCostInfoDao;
 import com.budailad.service.PatientCostInfoService;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,10 +15,11 @@ import java.util.List;
 /**
  * (PatientCostInfo)表服务实现类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:07:05
  */
 @Service("patientCostInfoService")
+@CacheConfig(cacheNames = "patientCostInfo")
 public class PatientCostInfoServiceImpl implements PatientCostInfoService {
     @Resource
     private PatientCostInfoDao patientCostInfoDao;

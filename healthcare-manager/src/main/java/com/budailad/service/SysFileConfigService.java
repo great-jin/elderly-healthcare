@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * (SysFileConfig)表服务接口
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:11:13
  */
 public interface SysFileConfigService {

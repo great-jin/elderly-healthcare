@@ -192,18 +192,24 @@ export default {
       switch (data) {
         case 'new':
           if (this.newBucket !== '') {
-            createBucket(this.newBucket)
-            this.$message.success('新增成功')
-            this.newBucket = ''
+            createBucket(this.newBucket).then(res => {
+              if (res.data) {
+                this.$message.success('新增成功')
+                this.newBucket = ''
+              }
+            })
           } else {
             this.$message.error('请先输入存储桶名')
           }
           break
         case 'delete':
           if (this.deleteBucket !== undefined && this.deleteBucket !== '') {
-            deleteBucket(this.deleteBucket)
-            this.$message.success('删除成功')
-            this.deleteBucket = undefined
+            deleteBucket(this.deleteBucket).then(res => {
+              if (res.data) {
+                this.$message.success('删除成功')
+                this.deleteBucket = undefined
+              }
+            })
           } else {
             this.$message.error('请先选择存储桶')
           }
@@ -221,7 +227,9 @@ export default {
           this.$message.success('store')
           break
       }
-      this.getData()
+      setTimeout(() => {
+        this.getData()
+      })
     }
   }
 }

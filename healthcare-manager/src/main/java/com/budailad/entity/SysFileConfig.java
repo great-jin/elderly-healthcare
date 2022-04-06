@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * (SysFileConfig)实体类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:11:13
  */
 public class SysFileConfig implements Serializable {

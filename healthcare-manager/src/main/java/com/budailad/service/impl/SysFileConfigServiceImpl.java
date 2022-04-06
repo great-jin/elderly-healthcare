@@ -3,6 +3,10 @@ package com.budailad.service.impl;
 import com.budailad.entity.SysFileConfig;
 import com.budailad.dao.SysFileConfigDao;
 import com.budailad.service.SysFileConfigService;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,10 +18,11 @@ import java.util.List;
 /**
  * (SysFileConfig)表服务实现类
  *
- * @author makejava
+ * @author Budai
  * @since 2022-04-06 14:11:13
  */
 @Service("sysFileConfigService")
+@CacheConfig(cacheNames = "sysFileConfig")
 public class SysFileConfigServiceImpl implements SysFileConfigService {
     @Resource
     private SysFileConfigDao sysFileConfigDao;
@@ -40,6 +45,7 @@ public class SysFileConfigServiceImpl implements SysFileConfigService {
      * @return 查询结果
      */
     @Override
+    @Cacheable(key = "'list'")
     public List<SysFileConfig> queryAll(SysFileConfig sysFileConfig) {
         return this.sysFileConfigDao.queryAll(sysFileConfig);
     }
@@ -76,6 +82,9 @@ public class SysFileConfigServiceImpl implements SysFileConfigService {
      * @return 实例对象
      */
     @Override
+    @Caching(evict = {
+            @CacheEvict(key = "'list'")
+    })
     public SysFileConfig update(SysFileConfig sysFileConfig) {
         this.sysFileConfigDao.update(sysFileConfig);
         return this.queryById(sysFileConfig.getId());
