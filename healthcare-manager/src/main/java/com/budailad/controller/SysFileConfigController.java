@@ -1,9 +1,9 @@
 package com.budailad.controller;
 
-import com.budailad.entity.PatientCostInfo;
 import com.budailad.entity.SysFileConfig;
 import com.budailad.service.SysFileConfigService;
 import com.budailad.utils.MinioUtil;
+import com.budailad.utils.RedisService;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,11 +31,19 @@ public class SysFileConfigController {
     private SysFileConfigService sysFileConfigService;
 
     @Autowired
+    private RedisService redisService;
+
+    @Autowired
     private MinioUtil minioUtil;
 
     @GetMapping("/getBuckets")
     public List<String> getBuckets() throws Exception {
-        List<Bucket> buckets = minioUtil.getAllBuckets();
+        Object object = redisService.get("healthcare:minioBuckets:all:bucket");
+        List<Bucket> buckets = (List<Bucket>) object;
+        if(buckets == null) {
+            buckets = minioUtil.getAllBuckets();
+            redisService.set("healthcare:minioBuckets:all:bucket", buckets, 1);
+        }
         List<String> bucketList = new ArrayList<>();
         for (Bucket bucket : buckets) {
             bucketList.add(bucket.name());
@@ -46,11 +54,14 @@ public class SysFileConfigController {
     @GetMapping("/createBucket")
     public void createBuckets(String bucketName) throws Exception {
         minioUtil.createBucket(bucketName);
+        redisService.delete("healthcare:minioBuckets:all:bucket");
+
     }
 
     @GetMapping("/deleteBucket")
     public void deleteBuckets(String bucketName) throws Exception {
         minioUtil.removeBucket(bucketName);
+        redisService.delete("healthcare:minioBuckets:all:bucket");
     }
 
     /**
