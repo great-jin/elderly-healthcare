@@ -10,6 +10,20 @@ export function listMinioConfig (params) {
   })
 }
 
+export function getBuckets () {
+  return request({
+    url: `${prefix}/getBuckets`,
+    method: 'get'
+  })
+}
+
+export function createBucket (params) {
+  return request({
+    url: `${prefix}/create?bucketName=${params}`,
+    method: 'get'
+  })
+}
+
 export function getMinioConfig (params) {
   return request({
     url: `${prefix}/get?id=${params}`,

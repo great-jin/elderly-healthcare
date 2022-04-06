@@ -43,6 +43,11 @@ public class SysFileConfigController {
         return bucketList;
     }
 
+    @GetMapping("/create")
+    public void createBuckets(String bucketName) throws Exception {
+        minioUtil.createBucket(bucketName);
+    }
+
     /**
      * 条件查询
      *
