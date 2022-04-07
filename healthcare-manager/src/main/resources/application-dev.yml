@@ -71,3 +71,22 @@ minio:
   endpoint: http://47.100.200.104:9000
   accessKey: budai
   secretKey: budai7417..
+
+# 日志
+logging:
+  file:
+    name: healthcare.log
+    path: ./logInfo
+  # 配置单个日志文件大小
+  logback:
+    rollingpolicy:
+      # 应用程序启动时是否对进行日志归档清理，默认为 false，不清理
+      clean-history-on-start: false
+      # 用于创建日志档案的文件名模式
+      # file-name-pattern:
+      # 要保留的最大归档日志文件数量，默认为7个
+      max-history: 7
+      # 归档前日志文件的最大尺寸，默认为10MB
+      max-file-size: 10MB
+      # 日志档案在被删除前的最大容量，默认为0B
+      total-size-cap: 0B

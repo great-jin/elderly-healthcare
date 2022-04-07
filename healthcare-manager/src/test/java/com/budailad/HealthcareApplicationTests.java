@@ -1,44 +1,24 @@
 package com.budailad;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.budailad.utils.AESUtil.encrypt;
-import static com.budailad.utils.AESUtil.desEncrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+@SpringBootTest
 class HealthcareApplicationTests {
 
-    private static String KEY = "byouthinvincible";
-
-    private static String IV = "byouthinvincible";
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Test
-    void Encrypt() {
-        String data = "123";
-        try {
-            String str = new String(data.getBytes(),"UTF-8");
-
-            String enStr = encrypt(str, KEY, IV);
-            System.out.println("数据：" + data);
-            System.out.println("加密：" + enStr);
-
-            String deStr = desEncrypt(enStr, KEY, IV).trim();
-            System.out.println("解密：" + deStr);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void EncryptTest() {
-        try {
-            String frontEnPwd = "QVOPN3Ca3Xq9uFpS8iB0pw==";
-            String frontDePwd = desEncrypt(frontEnPwd, KEY, IV).trim();
-            System.out.println("解密：" + frontDePwd);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    void logTest() {
+        //日志级别 由低到高
+        logger.trace("trace 级别日志");
+        logger.debug("debug 级别日志");
+        logger.info("info 级别日志");
+        logger.warn("warn 级别日志");
+        logger.error("error 级别日志");
     }
 
 }

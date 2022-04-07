@@ -60,7 +60,11 @@ public class SysFileConfigController {
         if (object != null) {
             redisService.delete("healthcare:sysFileConfig:allbucket");
         }
-        minioUtil.createBucket(bucketName);
+        if(!minioUtil.bucketExist(bucketName)){
+            minioUtil.createBucket(bucketName);
+        }else {
+            return false;
+        }
         return minioUtil.bucketExist(bucketName);
     }
 
@@ -70,7 +74,11 @@ public class SysFileConfigController {
         if (object != null) {
             redisService.delete("healthcare:sysFileConfig:allbucket");
         }
-        minioUtil.removeBucket(bucketName);
+        if(!minioUtil.bucketExist(bucketName)){
+            minioUtil.removeBucket(bucketName);
+        }else {
+            return false;
+        }
         return !minioUtil.bucketExist(bucketName);
     }
 

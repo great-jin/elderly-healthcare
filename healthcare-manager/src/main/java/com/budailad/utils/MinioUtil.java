@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
@@ -37,11 +38,16 @@ public class MinioUtil {
      *
      * @param bucketName
      */
-    public void createBucket(String bucketName) throws Exception {
-        if (!bucketExist(bucketName)) {
-            minioClient.makeBucket(MakeBucketArgs.builder()
-                    .bucket(bucketName)
-                    .build());
+    public void createBucket(String bucketName) {
+        try {
+            if (!bucketExist(bucketName)) {
+                minioClient.makeBucket(MakeBucketArgs.builder()
+                        .bucket(bucketName)
+                        .build());
+            }
+        } catch (Exception e) {
+            log.error("Create bucket " + bucketName + "failed, " + e);
+            e.printStackTrace();
         }
     }
 

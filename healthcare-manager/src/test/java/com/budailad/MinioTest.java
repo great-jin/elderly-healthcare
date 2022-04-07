@@ -4,9 +4,7 @@ import io.minio.*;
 import io.minio.http.Method;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.concurrent.TimeUnit;
-
 
 public class MinioTest {
 
