@@ -2,6 +2,7 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientCaseInfo;
 import com.budailad.service.PatientCaseInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
  * @author Budai
  * @since 2022-03-24 15:54:01
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/healthcare/patientCaseInfo")
 public class PatientCaseInfoController {
@@ -33,6 +35,7 @@ public class PatientCaseInfoController {
      */
     @GetMapping("/list")
     public ResponseEntity<List<PatientCaseInfo>> queryAll(PatientCaseInfo patientCaseInfo) {
+        log.info("get PatientCaseInfo" + System.currentTimeMillis());
         return ResponseEntity.ok(this.patientCaseInfoService.queryAll(patientCaseInfo));
     }
 
