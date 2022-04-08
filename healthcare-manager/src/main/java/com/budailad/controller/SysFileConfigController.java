@@ -3,7 +3,7 @@ package com.budailad.controller;
 import com.budailad.entity.SysFileConfig;
 import com.budailad.service.SysFileConfigService;
 import com.budailad.utils.MinioUtil;
-import com.budailad.utils.RedisService;
+import com.budailad.utils.RedisUtils;
 import io.minio.messages.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +31,7 @@ public class SysFileConfigController {
     private SysFileConfigService sysFileConfigService;
 
     @Autowired
-    private RedisService redisService;
+    private RedisUtils redisUtils;
 
     @Autowired
     private MinioUtil minioUtil;
@@ -40,13 +40,13 @@ public class SysFileConfigController {
     public List<String> getBuckets() throws Exception {
         List<Bucket> buckets;
         List<String> bucketList = new ArrayList<>();
-        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        Object object = redisUtils.get("healthcare:sysFileConfig:allbucket");
         if (object == null) {
             buckets = minioUtil.getAllBuckets();
             for (Bucket bucket : buckets) {
                 bucketList.add(bucket.name());
             }
-            redisService.set("healthcare:sysFileConfig:allbucket", bucketList, 1);
+            redisUtils.set("healthcare:sysFileConfig:allbucket", bucketList, 1);
         } else {
             bucketList = (List<String>) object;
         }
@@ -56,9 +56,9 @@ public class SysFileConfigController {
 
     @GetMapping("/createBucket")
     public boolean createBuckets(String bucketName) throws Exception {
-        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        Object object = redisUtils.get("healthcare:sysFileConfig:allbucket");
         if (object != null) {
-            redisService.delete("healthcare:sysFileConfig:allbucket");
+            redisUtils.delete("healthcare:sysFileConfig:allbucket");
         }
         if(!minioUtil.bucketExist(bucketName)){
             minioUtil.createBucket(bucketName);
@@ -70,9 +70,9 @@ public class SysFileConfigController {
 
     @GetMapping("/deleteBucket")
     public boolean deleteBuckets(String bucketName) throws Exception {
-        Object object = redisService.get("healthcare:sysFileConfig:allbucket");
+        Object object = redisUtils.get("healthcare:sysFileConfig:allbucket");
         if (object != null) {
-            redisService.delete("healthcare:sysFileConfig:allbucket");
+            redisUtils.delete("healthcare:sysFileConfig:allbucket");
         }
         if(!minioUtil.bucketExist(bucketName)){
             minioUtil.removeBucket(bucketName);

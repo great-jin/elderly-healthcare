@@ -12,12 +12,10 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class RedisService {
+public class RedisUtils {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-
-    // =============================common============================
 
     /**
      * 指定缓存失效时间
@@ -92,17 +90,16 @@ public class RedisService {
     }
 
     /**
-     * 删除缓存
+     * 批量删除缓存
+     *
      * @param keys 可以传一个值 或多个
      */
-    /*@SuppressWarnings("unchecked")
-    public void del(Collection keys) {
-        if (org.apache.commons.collections4.CollectionUtils.isNotEmpty(keys)) {
+    @SuppressWarnings("unchecked")
+    public void deleteBatch(Collection keys) {
+        if (!CollectionUtils.isEmpty(keys)) {
             redisTemplate.delete(keys);
         }
-    }*/
-
-    // ============================String=============================
+    }
 
     /**
      * 普通缓存获取
@@ -495,7 +492,7 @@ public class RedisService {
     }
 
     /**
-     * 通过索引 获取list中的值
+     * 通过索引获取list中的值
      *
      * @param key   键
      * @param index 索引 index>=0时， 0 表头，1 第二个元素，依次类推；index<0时，-1，表尾，-2倒数第二个元素，依次类推

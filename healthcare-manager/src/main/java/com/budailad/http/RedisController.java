@@ -1,7 +1,7 @@
 package com.budailad.http;
 
 import com.budailad.model.Mail;
-import com.budailad.utils.RedisService;
+import com.budailad.utils.RedisUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,13 @@ import java.util.List;
 public class RedisController {
 
     @Autowired
-    private RedisService redisService;
+    private RedisUtils redisUtils;
 
     @GetMapping("/list")
     public List<Mail> get(@Param("accountID") String accountID) {
         List<Mail> MailList;
         // 先从Redis数据库读取数据
-        MailList = (List<Mail>) redisService.get("Mails:list");
+        MailList = (List<Mail>) redisUtils.get("Mails:list");
         // 如果未查询到数据再从MySQL中读取
         if (MailList == null) {
             // MailList = MailService.list();
@@ -27,7 +27,7 @@ public class RedisController {
                 return null;
             } else {
                 // 将查出来的数据存入Redis数据库
-                redisService.set("Mails:list", MailList, 5);
+                redisUtils.set("Mails:list", MailList, 5);
             }
         }
         return MailList;
