@@ -1,16 +1,19 @@
-package com.budailad.http;
+package com.budailad.test.http;
 
 import com.budailad.model.MinioFiles;
 import com.budailad.model.MinioRespond;
+import com.budailad.utils.MinioUtil;
 import io.minio.errors.MinioException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.budailad.utils.MinioUtil;
 
 import java.awt.print.PrinterException;
 import java.io.ByteArrayOutputStream;

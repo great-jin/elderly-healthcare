@@ -1,4 +1,4 @@
-package com.budailad;
+package com.budailad.utils;
 
 import org.junit.jupiter.api.Test;
 import static com.budailad.utils.AESUtil.encrypt;
@@ -6,9 +6,8 @@ import static com.budailad.utils.AESUtil.desEncrypt;
 
 class AESTest {
 
-    private static String KEY = "byouthinvincible";
-
     private static String IV = "byouthinvincible";
+    private static String KEY = "byouthinvincible";
 
     @Test
     void Encrypt() {

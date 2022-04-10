@@ -7,7 +7,8 @@ import Service from '@/views/servicePage/index'
 import DataChart from '@/views/servicePage/dataChart/index'
 import DataMonitor from '@/views/servicePage/dataMonitor/index'
 import DataAccess from '@/views/servicePage/dataAccess/index'
-import Patient from '@/views/servicePage/patientManage/index'
+import PatientInfo from '@/views/servicePage/patientManage/index'
+import CostAccess from '@/views/servicePage/costAccess/index'
 import Task from '@/views/servicePage/taskManage/index'
 // 人力资源
 import Human from '@/views/humanPage/index'
@@ -16,7 +17,7 @@ import Dispatch from '@/views/humanPage/dispatchManage/index'
 import Vacate from '@/views/humanPage/vacateManage/index'
 // 资产中心
 import Asset from '@/views/assetPage/index'
-import Cost from '@/views/assetPage/patientCostManage/index'
+import Cost from '@/views/assetPage/costManage/index'
 import Apply from '@/views/assetPage/applyManage/index'
 import Salary from '@/views/assetPage/salaryManage/index'
 import Payment from '@/views/assetPage/paymentManage/index'
@@ -78,7 +79,10 @@ export const RouteInfo = [
             component: DataAccess
           }, {
             path: '/elderlyHealthcare/service/patient',
-            component: Patient
+            component: PatientInfo
+          }, {
+            path: '/elderlyHealthcare/service/cost',
+            component: CostAccess
           }, {
             path: '/elderlyHealthcare/service/task',
             component: Task

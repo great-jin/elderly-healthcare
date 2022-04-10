@@ -1,4 +1,4 @@
-package com.budailad.task;
+package com.budailad.schedule;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

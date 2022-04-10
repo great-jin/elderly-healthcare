@@ -1,4 +1,4 @@
-package com.budailad;
+package com.budailad.utils;
 
 import io.minio.*;
 import io.minio.http.Method;
@@ -44,4 +44,5 @@ public class MinioTest {
 
         System.out.println(pathHEAD);
     }
+
 }

@@ -1,15 +1,15 @@
-package com.budailad.http;
+package com.budailad.test.http;
 
 import com.budailad.model.Mail;
 import com.budailad.utils.RedisUtils;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/test/Mails")
+@RequestMapping(value = "/test/redis")
 public class RedisController {
 
     @Autowired
@@ -20,6 +20,7 @@ public class RedisController {
         List<Mail> MailList;
         // 先从Redis数据库读取数据
         MailList = (List<Mail>) redisUtils.get("Mails:list");
+
         // 如果未查询到数据再从MySQL中读取
         if (MailList == null) {
             // MailList = MailService.list();

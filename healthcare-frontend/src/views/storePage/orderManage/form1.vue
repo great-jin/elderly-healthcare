@@ -1,29 +1,47 @@
 <template>
-  <a-form :form="form">
-    <a-form-item
-      label="用户名1"
-      :label-col="formItemLayout.labelCol"
-      :wrapper-col="formItemLayout.wrapperCol"
+  <a-form-model
+    ref="modelForm"
+    :model="formData"
+    :rules="rules"
+  >
+    <a-form-model-item
+      label="联系人"
+      prop="userName"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
     >
       <a-input
-        placeholder="请输入用户名"
-        v-decorator="['name', { rules: [{ required: true, message: '用户名不能为空!' }] }]"
+        v-model="formData.userName"
+        placeholder="请输入联系人"
       />
-    </a-form-item>
-    <a-form-item
-      label="用户密码1"
-      :label-col="formItemLayout.labelCol"
-      :wrapper-col="formItemLayout.wrapperCol"
+    </a-form-model-item>
+    <a-form-model-item
+      label="联系方式"
+      prop="telephone"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
     >
-      <a-input-password
-        placeholder="请输入密码"
-        v-decorator="['password', { rules: [{ required: true, message: '密码不能为空!' }] }]"
+      <a-input
+        v-model="formData.telephone"
+        placeholder="请输入联系方式"
       />
-    </a-form-item>
-    <a-form-item>
+    </a-form-model-item>
+    <a-form-model-item
+      label="详情备注"
+      prop="comment"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
+    >
+      <a-textarea
+        v-model="formData.comment"
+        type="text"
+        :rows="6"
+      />
+    </a-form-model-item>
+    <a-form-model-item>
       <a-button type="primary" @click="next">下一步</a-button>
-    </a-form-item>
-  </a-form>
+    </a-form-model-item>
+  </a-form-model>
 </template>
 
 <script>
@@ -31,16 +49,28 @@ export default {
   name: 'form1',
   data () {
     return {
-      formItemLayout: {
-        labelCol: { span: 7 },
-        wrapperCol: { span: 14 }
+      formData: {
+        userName: '',
+        telephone: '',
+        comment: ''
       },
-      form: this.$form.createForm(this)
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 7 }
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 13 }
+      }
     }
   },
   methods: {
     next () {
-      this.$emit('changeData', 1)
+      this.$refs.modelForm.validate(valid => {
+        if (valid) {
+          this.$emit('changeData', 1)
+        }
+      })
     }
   }
 }
