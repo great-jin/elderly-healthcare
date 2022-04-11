@@ -4,7 +4,8 @@ import com.budailad.model.MinioFiles;
 import com.budailad.model.MinioRespond;
 import com.budailad.utils.MinioUtil;
 import io.minio.errors.MinioException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,11 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
 
-@Slf4j
 @RestController
 @RequestMapping(value = "/api/healthcare/files")
 public class FilesController {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MinioUtil minioUtil;
@@ -44,7 +46,7 @@ public class FilesController {
                 tag = true;
             }
         } catch (Exception e) {
-            log.error("上传失败 : [{}]", Arrays.asList(e.getStackTrace()));
+            logger.error("上传失败 : [{}]", Arrays.asList(e.getStackTrace()));
         }
         return tag;
     }
