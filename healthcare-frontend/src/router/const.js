@@ -37,6 +37,7 @@ import ServerFaild from '@/views/errorPage/500'
 import System from '@/views/systemPage/index'
 import SystemLog from '@/views/systemPage/systemLogs/index'
 import MinioConfig from '@/views/systemPage/minioConfig/index'
+import Router from '@/views/systemPage/routerConfig/index'
 
 export const RouteInfo = [
   {
@@ -160,6 +161,10 @@ export const RouteInfo = [
           {
             path: '/elderlyHealthcare/system/logs',
             component: SystemLog
+          },
+          {
+            path: '/elderlyHealthcare/system/router',
+            component: Router
           }
         ]
       }

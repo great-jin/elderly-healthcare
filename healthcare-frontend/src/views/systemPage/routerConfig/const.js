@@ -1,0 +1,53 @@
+export const columns = (cxt) => {
+  // eslint-disable-next-line no-unused-vars
+  const h = cxt.$createElement
+  return [
+    {
+      title: '类型',
+      align: 'center',
+      dataIndex: 'menuType'
+    },
+    {
+      title: '图标',
+      align: 'center',
+      dataIndex: 'menuIcon',
+      customRender: (record) => {
+        if (record === null || record === '') {
+          return <span>无</span>
+        } else {
+          return <span>{record}</span>
+        }
+      }
+    },
+    {
+      title: '标题',
+      align: 'center',
+      dataIndex: 'menuTitle'
+    },
+    {
+      title: '路由地址',
+      align: 'center',
+      dataIndex: 'routerName',
+      customRender: (record) => {
+        return <span>/{record}</span>
+      }
+    },
+    {
+      title: '是否展示',
+      align: 'center',
+      dataIndex: 'isShow',
+      customRender: (record) => {
+        if (record === 1) {
+          return <a-tag color="blue">是</a-tag>
+        } else {
+          return <a-tag color="blue">否</a-tag>
+        }
+      }
+    },
+    {
+      title: '操作',
+      align: 'center',
+      scopedSlots: { customRender: 'action' }
+    }
+  ]
+}
