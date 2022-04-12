@@ -95,7 +95,6 @@ export default {
       })
     },
     titleOption (data) {
-      console.log(data)
       this.data = this.routerData.filter(item => item.menuType === data)
     },
     clickOption (type, data) {

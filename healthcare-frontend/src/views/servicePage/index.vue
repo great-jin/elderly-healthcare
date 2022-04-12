@@ -79,7 +79,7 @@ export default {
   },
   mounted () {
     this.getData()
-    this.routePage('chart')
+    this.routePage('/elderlyHealthcare/service/chart')
   },
   methods: {
     reload () {
@@ -97,16 +97,17 @@ export default {
       this.addTabs(data)
     },
     tabChange (data) {
-      this.$router.push(`/elderlyHealthcare/service/${data}`)
+      this.$router.push(data)
     },
     addTabs (data) {
+      const routerName = data.substring(data.lastIndexOf('/') + 1)
       let flag = false
       // 遍历标签，重复不添加
       this.panes.forEach((pane) => {
-        if (pane.key === data) {
+        if (pane.key === routerName) {
           flag = true
           // 重新定位到对应的已添加标签
-          this.activeKey = data
+          this.activeKey = routerName
         }
       })
       if (flag === false) {
@@ -115,11 +116,11 @@ export default {
         const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
         const panes = this.panes
         panes.push({
-          title: tabTitle,
-          key: data
+          key: routerName,
+          title: tabTitle
         })
         this.panes = panes
-        this.activeKey = data
+        this.activeKey = routerName
         this.flag = false
       }
       this.tabChange(data)
@@ -130,7 +131,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('chart')
+        this.routePage('/elderlyHealthcare/service/chart')
       }
       let activeKey = this.activeKey
       let lastIndex

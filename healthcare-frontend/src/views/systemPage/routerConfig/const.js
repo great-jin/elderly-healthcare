@@ -28,8 +28,13 @@ export const columns = (cxt) => {
       title: '路由地址',
       align: 'center',
       dataIndex: 'routerName',
-      customRender: (record) => {
-        return <span>/{record}</span>
+      ellipsis: true,
+      customCell: (record) => {
+        return {
+          attrs: {
+            title: record.name
+          }
+        }
       }
     },
     {

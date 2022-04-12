@@ -53,8 +53,8 @@ export default {
   },
   mounted () {
     this.getData()
-    this.routeMenu('service')
     this.imgUrl = localStorage.getItem('avatar')
+    this.$router.push('/elderlyHealthcare/service/chart')
   },
   methods: {
     getData () {
@@ -62,23 +62,16 @@ export default {
         this.menuData = res.data
       })
     },
-    openSetting (data) {
-      switch (data) {
-        case 'quit':
-          localStorage.removeItem('avatar')
-          localStorage.removeItem('loginUse')
-          this.$router.push('/elderlyHealthcare/login')
-          break
-        case 'personal':
-          this.$router.push('/elderlyHealthcare/home')
-          break
-        case 'question':
-          this.$router.push('/elderlyHealthcare/setting/question')
-          break
-      }
-    },
     routeMenu (data) {
-      this.$router.push(`/elderlyHealthcare/${data}`)
+      this.$router.push(data)
+    },
+    openSetting (data) {
+      const routerName = data.substring(data.lastIndexOf('/') + 1)
+      if (routerName === 'login') {
+        localStorage.removeItem('avatar')
+        localStorage.removeItem('loginUse')
+      }
+      this.$router.push(data)
     }
   }
 }

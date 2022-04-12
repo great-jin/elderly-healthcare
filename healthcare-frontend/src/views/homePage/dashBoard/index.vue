@@ -229,7 +229,7 @@ export default {
           this.$router.push('/elderlyHealthcare/service/task')
           break
         case 'unAudit' :
-          this.$router.push('/elderlyHealthcare/humanResource/vacate')
+          this.$router.push('/elderlyHealthcare/human/vacate')
           break
       }
     },

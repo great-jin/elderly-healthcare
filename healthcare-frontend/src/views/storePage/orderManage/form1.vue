@@ -54,6 +54,7 @@ export default {
         telephone: '',
         comment: ''
       },
+      rules: {},
       labelCol: {
         xs: { span: 24 },
         sm: { span: 7 }

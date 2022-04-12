@@ -43,9 +43,6 @@ export default {
   methods: {
     callback (key) {
       console.log(key)
-    },
-    onFinish () {
-      console.log('finished!')
     }
   }
 }

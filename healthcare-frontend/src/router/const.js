@@ -36,7 +36,7 @@ import ServerFaild from '@/views/errorPage/500'
 // 系统管理
 import System from '@/views/systemPage/index'
 import SystemLog from '@/views/systemPage/systemLogs/index'
-import MinioConfig from '@/views/systemPage/minioConfig/index'
+import Minio from '@/views/systemPage/minioConfig/index'
 import Router from '@/views/systemPage/routerConfig/index'
 
 export const RouteInfo = [
@@ -87,25 +87,22 @@ export const RouteInfo = [
           }, {
             path: '/elderlyHealthcare/service/task',
             component: Task
-          }, {
-            path: '/elderlyHealthcare/service/logs',
-            component: SystemLog
           }
         ]
       }, {
         // 人力资源
-        path: '/elderlyHealthcare/humanResource',
+        path: '/elderlyHealthcare/human',
         name: 'Human',
         component: Human,
         children: [
           {
-            path: '/elderlyHealthcare/humanResource/staff',
+            path: '/elderlyHealthcare/human/staff',
             component: Staff
           }, {
-            path: '/elderlyHealthcare/humanResource/dispatch',
+            path: '/elderlyHealthcare/human/dispatch',
             component: Dispatch
           }, {
-            path: '/elderlyHealthcare/humanResource/vacate',
+            path: '/elderlyHealthcare/human/vacate',
             component: Vacate
           }
         ]
@@ -155,8 +152,8 @@ export const RouteInfo = [
         component: System,
         children: [
           {
-            path: '/elderlyHealthcare/system/minioConfig',
-            component: MinioConfig
+            path: '/elderlyHealthcare/system/minio',
+            component: Minio
           },
           {
             path: '/elderlyHealthcare/system/logs',

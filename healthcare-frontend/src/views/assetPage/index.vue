@@ -79,7 +79,7 @@ export default {
   },
   mounted () {
     this.getData()
-    this.routePage('cost')
+    this.routePage('/elderlyHealthcare/asset/cost')
   },
   methods: {
     reload () {
@@ -90,39 +90,40 @@ export default {
     },
     getData () {
       listHomeMenu().then(res => {
-        console.log(res.data.filter(item => item.menuType === 'asset'))
         this.menuData = res.data
       })
     },
     routePage (data) {
       this.addTabs(data)
     },
+    tabChange (data) {
+      this.$router.push(data)
+    },
     addTabs (data) {
+      const routerName = data.substring(data.lastIndexOf('/') + 1)
       let flag = false
       // 遍历标签，重复不添加
       this.panes.forEach((pane) => {
-        if (pane.key === data) {
+        if (pane.key === routerName) {
           flag = true
           // 重新定位到对应的已添加标签
-          this.activeKey = data
+          this.activeKey = routerName
         }
       })
       if (flag === false) {
+        // 获取 Tab 标题
         const tabArr = this.menuData.filter(item => item.menuType === 'asset')
         const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
         const panes = this.panes
         panes.push({
-          title: tabTitle,
-          key: data
+          key: routerName,
+          title: tabTitle
         })
         this.panes = panes
-        this.activeKey = data
+        this.activeKey = routerName
         this.flag = false
       }
       this.tabChange(data)
-    },
-    tabChange (data) {
-      this.$router.push(`/elderlyHealthcare/asset/${data}`)
     },
     onEdit (targetKey, action) {
       this[action](targetKey)
@@ -130,7 +131,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('cost')
+        this.routePage('/elderlyHealthcare/asset/cost')
       }
       let activeKey = this.activeKey
       let lastIndex

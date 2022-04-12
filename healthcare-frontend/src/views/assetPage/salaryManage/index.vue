@@ -39,21 +39,21 @@
 </template>
 
 <script>
-import { columns, salaryData } from "./const";
+import { columns, salaryData } from './const'
 
 export default {
   name: 'SalaryManage',
-  data() {
+  data () {
     return {
       columns,
       salaryData
     }
   },
   methods: {
-    onSelect(keys) {
-      console.log(keys);
+    onSelect (keys) {
+      console.log(keys)
     },
-    async clickOption (type, record) {
+    clickOption (type, record) {
       switch (type) {
         case 'download':
           this.$message.info('下载')

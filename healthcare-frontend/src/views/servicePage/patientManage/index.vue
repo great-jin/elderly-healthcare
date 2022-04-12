@@ -109,12 +109,12 @@
 </template>
 
 <script>
-import { columns } from "./const";
-import patientDrawer from "./patientDrawer";
-import addPatientModal from "./addPatientModal";
-import { listNurse } from '@/api/staffNurse.js';
-import { listDoctor } from '@/api/staffDoctor.js';
-import { listCaseInfo } from '@/api/patientCaseInfo.js';
+import { columns } from './const'
+import patientDrawer from './patientDrawer'
+import addPatientModal from './addPatientModal'
+import { listNurse } from '@/api/staffNurse.js'
+import { listDoctor } from '@/api/staffDoctor.js'
+import { listCaseInfo } from '@/api/patientCaseInfo.js'
 import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
@@ -123,13 +123,13 @@ export default {
     patientDrawer,
     addPatientModal
   },
-  data() {
+  data () {
     return {
       zhCN,
       searchData: {
         patientId: undefined,
         nurseName: undefined,
-        doctorName: undefined,
+        doctorName: undefined
       },
       patientCaseData: [],
       pagination: {
@@ -155,25 +155,25 @@ export default {
       return columns(this)
     }
   },
-  mounted() {
+  mounted () {
     this.getData()
   },
   methods: {
-    getData() {
-      listCaseInfo().then(res =>{
+    getData () {
+      listCaseInfo().then(res => {
         this.patientCaseData = res.data
       })
     },
     searchOk () {
       const _searchInfo = this.searchData
-      listCaseInfo(_searchInfo).then(res =>{
+      listCaseInfo(_searchInfo).then(res => {
         this.patientCaseData = res.data
       })
     },
-    async refresh () {
-      await this.clickOption('reset')
+    refresh () {
+      this.clickOption('reset')
     },
-    async clickOption (type, data) {
+    clickOption (type, data) {
       switch (type) {
         case 'reset':
           this.$refs.searchForm.resetFields()
