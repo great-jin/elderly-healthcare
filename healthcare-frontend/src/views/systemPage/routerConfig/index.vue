@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <a-card title="路由配置">
+  <div :style="{padding: '15px'}">
       <a-radio-group
         default-value="top"
         style="margin-bottom: 20px"
@@ -21,7 +20,7 @@
         >
           <template slot="icon" slot-scope="menuIcon">
             <span v-if="menuIcon === null || menuIcon === ''">无</span>
-            <a-tag v-else color="blue">
+            <a-tag v-else color="green">
               <a-icon :type="menuIcon" />
             </a-tag>
           </template>
@@ -32,7 +31,6 @@
         </a-table>
       </a-config-provider>
       <routerModal ref="routerModal" />
-    </a-card>
   </div>
 </template>
 

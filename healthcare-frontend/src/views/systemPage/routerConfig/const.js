@@ -3,6 +3,11 @@ export const columns = (cxt) => {
   const h = cxt.$createElement
   return [
     {
+      title: '标题',
+      align: 'center',
+      dataIndex: 'menuTitle'
+    },
+    {
       title: '类型',
       align: 'center',
       dataIndex: 'menuType'
@@ -14,9 +19,16 @@ export const columns = (cxt) => {
       scopedSlots: { customRender: 'icon' }
     },
     {
-      title: '标题',
+      title: '是否展示',
       align: 'center',
-      dataIndex: 'menuTitle'
+      dataIndex: 'isShow',
+      customRender: (record) => {
+        if (record === 1) {
+          return <a-tag color="blue">是</a-tag>
+        } else {
+          return <a-tag color="blue">否</a-tag>
+        }
+      }
     },
     {
       title: '路由地址',
@@ -28,18 +40,6 @@ export const columns = (cxt) => {
           attrs: {
             title: record.name
           }
-        }
-      }
-    },
-    {
-      title: '是否展示',
-      align: 'center',
-      dataIndex: 'isShow',
-      customRender: (record) => {
-        if (record === 1) {
-          return <a-tag color="blue">是</a-tag>
-        } else {
-          return <a-tag color="blue">否</a-tag>
         }
       }
     },

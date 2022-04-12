@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <a-card title="流程" style="width: 100%; margin: 10px; padding: 15px">
-      <a-steps :current="current">
-        <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-      </a-steps>
-      <div class="steps-content">
-        <template v-if="current === 0">
-          <form1 @changeData="nextStep"></form1>
-        </template>
-        <template v-if="current === 1">
-          <form2 @changeData="nextStep"></form2>
-        </template>
-        <template v-if="current === 2">
-          <form3 @changeData="nextStep"></form3>
-        </template>
-      </div>
-    </a-card>
+  <div id="container">
+    <a-steps :current="current">
+      <a-step v-for="item in steps" :key="item" :title="item" />
+    </a-steps>
+    <div class="steps-content">
+      <template v-if="current === 0">
+        <form1 @changeData="nextStep"></form1>
+      </template>
+      <template v-if="current === 1">
+        <form2 @changeData="nextStep"></form2>
+      </template>
+      <template v-if="current === 2">
+        <form3 @changeData="nextStep"></form3>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -33,17 +31,7 @@ export default {
   data () {
     return {
       current: 0,
-      steps: [
-        {
-          title: 'First'
-        },
-        {
-          title: 'Second'
-        },
-        {
-          title: 'Last'
-        }
-      ]
+      steps: ['人员验证', '信息填写', '提交申请']
     }
   },
   methods: {
@@ -55,6 +43,9 @@ export default {
 </script>
 
 <style scoped>
+  #container{
+    padding: 15px
+  }
   .steps-content {
     margin-top: 16px;
     border: 1px dashed #e9e9e9;
