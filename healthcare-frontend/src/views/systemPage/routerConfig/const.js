@@ -11,13 +11,7 @@ export const columns = (cxt) => {
       title: '图标',
       align: 'center',
       dataIndex: 'menuIcon',
-      customRender: (record) => {
-        if (record === null || record === '') {
-          return <span>无</span>
-        } else {
-          return <span>{record}</span>
-        }
-      }
+      scopedSlots: { customRender: 'icon' }
     },
     {
       title: '标题',

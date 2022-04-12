@@ -2,11 +2,13 @@
   <div>
     <a-card title="路由配置">
       <a-radio-group
-        style="margin-bottom: 10px"
+        default-value="top"
+        style="margin-bottom: 20px"
       >
         <a-radio-button
           v-for="(option, index) in titleData"
           :key="index"
+          :value="option.key"
           @click="titleOption(option.key)"
         >{{option.title}}
         </a-radio-button>
@@ -17,6 +19,12 @@
           :data-source="data"
           :pagination="pagination"
         >
+          <template slot="icon" slot-scope="menuIcon">
+            <span v-if="menuIcon === null || menuIcon === ''">无</span>
+            <a-tag v-else color="blue">
+              <a-icon :type="menuIcon" />
+            </a-tag>
+          </template>
           <template slot="action" slot-scope="record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
             <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
@@ -47,25 +55,25 @@ export default {
       titleData: [
         {
           key: 'top',
-          title: '导航'
+          title: '导航模块'
         }, {
           key: 'setting',
-          title: '设置'
+          title: '设置模块'
         }, {
           key: 'service',
-          title: '服务'
+          title: '公共服务'
         }, {
           key: 'human',
-          title: '人事'
+          title: '人事模块'
         }, {
           key: 'asset',
-          title: '资产'
+          title: '资产模块'
         }, {
           key: 'store',
-          title: '后勤'
+          title: '后勤模块'
         }, {
           key: 'system',
-          title: '系统'
+          title: '系统模块'
         }
       ],
       pagination: {
@@ -85,13 +93,12 @@ export default {
   },
   mounted () {
     this.getData()
-    this.titleOption('top')
   },
   methods: {
     getData () {
       listHomeMenu().then(res => {
-        this.data = res.data
         this.routerData = res.data
+        this.data = this.routerData.filter(item => item.menuType === 'top')
       })
     },
     titleOption (data) {

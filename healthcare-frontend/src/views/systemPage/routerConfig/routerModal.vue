@@ -138,6 +138,7 @@ export default {
       this.type = type
       this.visible = true
       this.formData = data
+      console.log(data)
     },
     cancel () {
       this.visible = false
