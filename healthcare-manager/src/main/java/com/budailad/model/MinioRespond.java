@@ -1,11 +1,7 @@
 package com.budailad.model;
 
 import io.minio.ObjectWriteResponse;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
 public class MinioRespond {
 
     String originName;
@@ -14,4 +10,37 @@ public class MinioRespond {
 
     ObjectWriteResponse objectWriteResponse;
 
+    public MinioRespond() {
+
+    }
+
+    public MinioRespond(String originName, String fileName, ObjectWriteResponse objectWriteResponse) {
+        this.originName = originName;
+        this.fileName = fileName;
+        this.objectWriteResponse = objectWriteResponse;
+    }
+
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public ObjectWriteResponse getObjectWriteResponse() {
+        return objectWriteResponse;
+    }
+
+    public void setObjectWriteResponse(ObjectWriteResponse objectWriteResponse) {
+        this.objectWriteResponse = objectWriteResponse;
+    }
 }

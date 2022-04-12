@@ -1,11 +1,9 @@
 package com.budailad.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class LogInfo {
 
     Logger logger = LoggerFactory.getLogger(getClass());
@@ -26,11 +24,11 @@ public class LogInfo {
     @Test
     void Slf4jDemo() {
         //日志级别 由低到高
-        log.trace("trace 级别日志");
+        /*log.trace("trace 级别日志");
         log.debug("debug 级别日志");
         log.info("info 级别日志");
         log.warn("warn 级别日志");
-        log.error("error 级别日志");
+        log.error("error 级别日志");*/
     }
 
 }

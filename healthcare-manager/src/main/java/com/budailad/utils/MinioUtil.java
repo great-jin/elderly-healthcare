@@ -4,7 +4,8 @@ import com.budailad.model.MinioRespond;
 import io.minio.*;
 import io.minio.http.Method;
 import io.minio.messages.Bucket;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,12 +16,13 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-@Slf4j
 @Component
 public class MinioUtil {
 
     @Autowired
     private MinioClient minioClient;
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 判断 bucket 是否存在
@@ -46,7 +48,7 @@ public class MinioUtil {
                         .build());
             }
         } catch (Exception e) {
-            log.error("Create bucket " + bucketName + "failed, " + e);
+            logger.error("Create bucket " + bucketName + "failed, " + e);
             e.printStackTrace();
         }
     }
