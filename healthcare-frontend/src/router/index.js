@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // 页面路由信息
 import { RouteInfo } from './const'
+import { listHomeMenu } from '@/api/homeMenu'
 
 Vue.use(Router)
 
@@ -15,6 +16,12 @@ const router = new Router({
 const ExpiresTime = 86400000
 
 router.beforeEach((to, from, next) => {
+  const routerInfo = JSON.parse(localStorage.getItem('routerInfo'))
+  if (routerInfo) {
+    listHomeMenu().then(res => {
+      localStorage.setItem('routerInfo', JSON.stringify(res.data))
+    })
+  }
   // 1. 状态判断
   const token = JSON.parse(localStorage.getItem('loginUse'))
   let isLogin = !(token == null || token.staffId == null || token.staffId === '')

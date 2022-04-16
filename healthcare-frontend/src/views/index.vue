@@ -51,17 +51,12 @@ export default {
       menuData: []
     }
   },
-  mounted () {
-    this.getData()
+  created () {
+    this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
     this.imgUrl = localStorage.getItem('avatar')
     this.$router.push('/elderlyHealthcare/service/chart')
   },
   methods: {
-    getData () {
-      listHomeMenu().then(res => {
-        this.menuData = res.data
-      })
-    },
     routeMenu (data) {
       this.$router.push(data)
     },

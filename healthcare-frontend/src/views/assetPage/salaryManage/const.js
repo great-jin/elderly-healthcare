@@ -33,7 +33,8 @@ export const columns = [
     title: 'Action',
     key: 'operation',
     fixed: 'right',
-    width: 100,
+    align: 'center',
+    width: 170,
     scopedSlots: { customRender: 'action' }
   }
 ]

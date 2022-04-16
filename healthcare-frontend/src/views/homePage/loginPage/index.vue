@@ -102,10 +102,11 @@
 <script>
 import registerModal from './registerModal'
 import forgetModal from './forgetModal'
+import SIdentify from '@/views/utils/identify'
 import { Encrypt } from '@/utils/AES.js'
 import { Login, getUser } from '@/api/loginUser.js'
-import SIdentify from '@/views/utils/identify'
 import { getAvatar } from '@/api/loginUser'
+import { listHomeMenu } from '@/api/homeMenu'
 
 export default {
   name: 'LoginPage',
@@ -157,6 +158,9 @@ export default {
                     localStorage.setItem('avatar', res.data)
                   })
                   const authortiy = res.data.userPower
+                  listHomeMenu().then(res => {
+                    localStorage.setItem('routerInfo', JSON.stringify(res.data))
+                  })
                   if (authortiy > 0) {
                     this.$router.push('/elderlyHealthcare/home')
                   } else {

@@ -23,22 +23,24 @@
         </a-card>
         <div class="head-card">
           <a-row :gutter="16">
-            <a-col :span="8">
-              <a-card title="每日任务" :bordered="false" size="small">
-                <a-tag color="pink">未办：{{ count.act + count.delay }}</a-tag>
+            <a-col :span="6">
+              <a-card title="代办任务" :bordered="false" size="small">
+                <a-tag color="pink">代办：{{ count.act + count.delay }}</a-tag>
+              </a-card>
+            </a-col>
+            <a-col :span="6">
+              <a-card title="超时任务" :bordered="false" size="small">
                 <a-tag color="pink">超时：{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
-            <a-col :span="8">
-              <a-card title="病人总数" :bordered="false" size="small">
+            <a-col :span="6">
+              <a-card title="入住总人数" :bordered="false" size="small">
                 <a-tag color="green">健康：{{ count.delay }}</a-tag>
-                <a-tag color="orange">待检查：{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
-            <a-col :span="8">
-              <a-card title="Card title" :bordered="false" size="small">
-                <a-tag color="green">pink</a-tag>
-                <a-tag color="green">pink</a-tag>
+            <a-col :span="6">
+              <a-card title="待检测人员" :bordered="false" size="small">
+                <a-tag color="orange">待检查：{{ count.delay }}</a-tag>
               </a-card>
             </a-col>
           </a-row>
@@ -50,7 +52,7 @@
         </a-config-provider>
       </a-col>
     </a-row>
-    <a-row>
+    <a-row style="height: 80%">
       <a-col class="process" :span="14">
         <a-card
           title="进行中流程"
@@ -60,18 +62,19 @@
           <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
           <a-card-grid
             style="width:33.33%; text-align:center"
-            :key="i" v-for="(item, i) in processList.slice(0, 6)"
+            v-for="(item, i) in (processList.filter(item => item.isApprove !== 1)).slice(0, 6)"
+            :key="i"
           >
             <a-card
               :bordered="false"
               :body-style="{padding: 0}"
-              @click="clickOption('process', item)"
+              @click="clickOption('process', item, '0')"
             >
               <a-card-meta
-                :description="item.vacateReason.length<30 ? item.vacateReason : item.vacateReason.substr(0,20).concat('...')"
+                :description="item.vacateReason.length<10 ? item.vacateReason : item.vacateReason.substr(0,10).concat('...')"
               >
                 <div slot="title">
-                  <span>{{ item.vacateType }}</span>
+                  <span>{{ item.vacateType }} 申请</span>
                 </div>
               </a-card-meta>
             </a-card>
@@ -86,18 +89,19 @@
           <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
           <a-card-grid
             style="width:33.33%; text-align:center"
-            :key="i" v-for="(item, i) in processList.slice(0, 6)"
+            v-for="(item, i) in (processList.filter(item => item.isApprove === 0)).slice(0, 6)"
+            :key="i"
           >
             <a-card
               :bordered="false"
               :body-style="{padding: 0}"
-              @click="clickOption('process', item)"
+              @click="clickOption('process', item, '1')"
             >
               <a-card-meta
-                :description="item.vacateReason.length<30 ? item.vacateReason : item.vacateReason.substr(0,20).concat('...')"
+                :description="item.vacateReason.length<10 ? item.vacateReason : item.vacateReason.substr(0,10).concat('...')"
               >
                 <div slot="title">
-                  <span>{{ item.vacateType }}</span>
+                  <span>{{ item.vacateType }} 申请</span>
                 </div>
               </a-card-meta>
             </a-card>
@@ -131,7 +135,7 @@
               <a-list-item slot="renderItem" slot-scope="item" style="padding: 5px">
                 <a-tooltip>
                   <template slot="title">
-                    {{ item.taskName }} :  {{ item.taskContent }}
+                    {{ item.taskName }} : {{ item.taskContent }}
                   </template>
                   <a-list-item-meta
                     :description="item.taskContent.length<30 ? item.taskContent : item.taskContent.substr(0,30).concat('...')"
@@ -140,9 +144,17 @@
                     <a slot="title">{{ item.taskName }}</a>
                   </a-list-item-meta>
                 </a-tooltip>
-                <a slot="actions" @click="clickOption('more', item)">详情</a>
-                <a slot="actions" @click="clickOption('edit', item)">编辑</a>
-
+                <template slot="actions">
+                  <a-button type="link" @click="clickOption('detail', item)">查看</a-button>
+                  <a-popconfirm
+                    title="确认关闭任务"
+                    ok-text="是"
+                    cancel-text="否"
+                    @confirm="clickOption('done', item)"
+                  >
+                    <a-button type="link">完成</a-button>
+                  </a-popconfirm>
+                </template>
                 <taskModal ref="taskModal"/>
               </a-list-item>
             </a-list>
@@ -264,7 +276,7 @@ export default {
         }
       })
     },
-    clickOption (type, data) {
+    clickOption (type, data, topic) {
       switch (type) {
         case 'person':
           this.$router.push('/elderlyHealthcare/setting/personal')
@@ -277,14 +289,15 @@ export default {
           localStorage.removeItem('loginUse')
           this.$router.push('/elderlyHealthcare/login')
           break
-        case 'edit':
-          this.$refs.taskModal.paramReceive('edit', data)
+        case 'done':
+          this.$message.success('完成')
+          console.log(data)
           break
-        case 'more':
-          this.$refs.taskModal.paramReceive('more', data)
+        case 'detail':
+          this.$refs.taskModal.paramReceive(data)
           break
         case 'process':
-          this.$refs.processModal.paramReceive('process', data)
+          this.$refs.processModal.paramReceive('process', data, topic)
           break
       }
     }
@@ -293,56 +306,57 @@ export default {
 </script>
 
 <style scoped>
-  ::-webkit-scrollbar {
-    width: 0 !important;
-  }
-  ::-webkit-scrollbar {
-    width: 0 !important;height: 0;
-  }
-  #container{
-    padding: 7px 3px;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: #ECECEC;
-  }
-  .head-workspace{
-    padding: 10px 15px 0 10px;
-  }
-  .head-card{
-    margin-top: 20px;
-    padding: 5px;
-    background-color: #ececec;
-  }
-  .calendar{
-    width: 100%;
-    height: 305px;
-    border: 1px solid #d9d9d9;
-    border-radius: 4px;
-    margin-top: 10px;
-    background-color: white;
-  }
-  .process{
-    margin-top: 5px;
-    padding: 0px 10px;
-    max-height: 40%;
-    overflow: auto;
-  }
-  .task{
-    margin-top: 5px;
-    padding: 0px 10px;
-    max-height: 40%;
-    overflow: auto;
-  }
-  .task-list {
-    height: 365px;
-    overflow-y: auto;
-  }
-  .footer{
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    font-size: 15px;
-    background-color: #ECECEC;
-  }
+::-webkit-scrollbar {
+  width: 0 !important;
+}
+::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0;
+}
+#container {
+  padding: 7px 3px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #ECECEC;
+}
+.head-workspace {
+  padding: 10px 15px 0 10px;
+}
+.head-card {
+  margin-top: 20px;
+  padding: 5px;
+  background-color: #ececec;
+}
+.calendar {
+  width: 100%;
+  height: 305px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-top: 10px;
+  background-color: white;
+}
+.process {
+  margin-top: 5px;
+  padding: 0px 10px;
+  /*max-height: 40%;*/
+  overflow: auto;
+}
+.task {
+  margin-top: 5px;
+  padding: 0px 10px;
+  /*max-height: 40%;*/
+  overflow: auto;
+}
+.task-list {
+  min-height: 365px;
+  overflow-y: auto;
+}
+.footer {
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 15px;
+  background-color: #ECECEC;
+}
 </style>

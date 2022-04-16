@@ -54,7 +54,6 @@
 </template>
 
 <script>
-import { listHomeMenu } from '@/api/homeMenu'
 const panes = [
   { title: '物资采购', key: 'order', closable: false }
 ]
@@ -77,8 +76,8 @@ export default {
       reload: this.reload
     }
   },
-  mounted () {
-    this.getData()
+  created () {
+    this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
     this.routePage('/elderlyHealthcare/store/order')
   },
   methods: {
@@ -86,11 +85,6 @@ export default {
       this.isRouterAlive = false
       this.$nextTick(function () {
         this.isRouterAlive = true
-      })
-    },
-    getData () {
-      listHomeMenu().then(res => {
-        this.menuData = res.data
       })
     },
     routePage (data) {
