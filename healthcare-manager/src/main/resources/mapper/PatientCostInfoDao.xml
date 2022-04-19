@@ -73,6 +73,7 @@
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
             </if>
+            and is_pay = 0
         </where>
     </select>
 

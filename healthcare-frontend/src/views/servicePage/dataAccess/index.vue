@@ -26,11 +26,12 @@
                     v-for="cases in accessData"
                     :key="cases.patientId"
                     :value="cases.patientId"
-                  >{{ cases.patientName }}</a-select-option>
+                  >{{ cases.patientName }}
+                  </a-select-option>
                 </a-select>
               </a-form-model-item>
             </a-col>
-            <a-col :span="13" />
+            <a-col :span="13"/>
             <a-col :span="6">
               <a-button @click="searchCancel" class="task-search-button">重置</a-button>
               <a-button
@@ -38,26 +39,25 @@
                 type="primary"
                 class="task-search-button"
                 :style="{marginRight: '15px'}"
-              >查询</a-button>
+              >查询
+              </a-button>
             </a-col>
           </a-row>
         </a-form-model>
-        <a-config-provider :locale="zhCN">
-          <a-table
-            :columns="columns"
-            :data-source="accessData"
-            :pagination="pagination"
-          >
-            <template slot="action" slot-scope="record">
-              <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-              <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
-            </template>
-          </a-table>
-        </a-config-provider>
-        <patientDrawer ref="patientDrawer" />
+        <a-table
+          :columns="columns"
+          :data-source="accessData"
+          :pagination="pagination"
+        >
+          <template slot="action" slot-scope="record">
+            <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+          </template>
+        </a-table>
+        <patientDrawer ref="patientDrawer"/>
       </a-tab-pane>
       <a-tab-pane key="2" tab="入住登记">
-        <accessForm />
+        <accessForm/>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -68,7 +68,6 @@ import { columns } from './const'
 import accessForm from './accessForm'
 import patientDrawer from './patientDrawer'
 import { listPatientInfo } from '@/api/patientInfo'
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   name: 'dataAccess',
@@ -78,7 +77,6 @@ export default {
   },
   data () {
     return {
-      zhCN,
       searchData: {
         patientId: undefined
       },
@@ -133,9 +131,9 @@ export default {
 </script>
 
 <style scoped>
-  .task-search-button{
-    width: 100px;
-    float: right;
-    z-index: 1;
-  }
+.task-search-button {
+  width: 100px;
+  float: right;
+  z-index: 1;
+}
 </style>

@@ -17,6 +17,13 @@ export function getCostDetail (params) {
   })
 }
 
+export function getCost (params) {
+  return request({
+    url: `${prefix}/getCost?Id=${params}`,
+    method: 'get'
+  })
+}
+
 export function addCostDetail (params) {
   return request({
     url: `${prefix}/add`,

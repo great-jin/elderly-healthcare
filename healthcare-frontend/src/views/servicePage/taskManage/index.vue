@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 10px" >
+  <div style="padding: 10px">
     <a-form-model
       ref="searchForm"
       :model="searchData"
@@ -24,7 +24,8 @@
                 v-for="option in taskData"
                 :key="option.taskId"
                 :value="option.taskId"
-              >{{ option.taskName }}</a-select-option>
+              >{{ option.taskName }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -45,7 +46,8 @@
                 v-for="option in (taskData.map(item => item.patientName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
                 :key="option"
                 :value="option"
-              >{{ option }}</a-select-option>
+              >{{ option }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -66,7 +68,8 @@
                 v-for="option in (taskData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
                 :key="option"
                 :value="option"
-              >{{ option }}</a-select-option>
+              >{{ option }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -77,7 +80,8 @@
             type="primary"
             class="task-search-button"
             :style="{marginRight: '15px'}"
-          >查询</a-button>
+          >查询
+          </a-button>
         </a-col>
       </a-row>
     </a-form-model>
@@ -86,25 +90,25 @@
       type="primary"
       @click="clickOption('add', null)"
       style="margin-bottom: 20px"
-    >新建任务</a-button>
-    <a-config-provider :locale="zhCN">
-      <a-table
-        :columns="columns"
-        :data-source="taskData"
-        :pagination="pagination"
-      >
-        <a-button
-          slot="action"
-          slot-scope="record"
-          type="link"
-          @click="clickOption('edit', record)"
-        >编辑</a-button>
-        <span slot="expandedRowRender" slot-scope="record">
+    >新建任务
+    </a-button>
+    <a-table
+      :columns="columns"
+      :data-source="taskData"
+      :pagination="pagination"
+    >
+      <a-button
+        slot="action"
+        slot-scope="record"
+        type="link"
+        @click="clickOption('edit', record)"
+      >编辑
+      </a-button>
+      <span slot="expandedRowRender" slot-scope="record">
           <b>任务内容：</b>{{ record.taskContent }}
         </span>
-      </a-table>
-    </a-config-provider>
-    <taskModal ref="taskModal" />
+    </a-table>
+    <taskModal ref="taskModal"/>
   </div>
 </template>
 
@@ -112,7 +116,6 @@
 import { columns } from './const'
 import taskModal from './taskModal'
 import { listTask } from '@/api/dailyTask'
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   name: 'DailyTask',
@@ -121,7 +124,6 @@ export default {
   },
   data () {
     return {
-      zhCN,
       taskData: [],
       searchData: {
         taskId: undefined,
@@ -185,9 +187,9 @@ export default {
 </script>
 
 <style scoped>
-  .task-search-button{
-    width: 100px;
-    float: right;
-    z-index: 1;
-  }
+.task-search-button {
+  width: 100px;
+  float: right;
+  z-index: 1;
+}
 </style>

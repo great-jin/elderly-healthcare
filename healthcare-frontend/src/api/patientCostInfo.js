@@ -29,7 +29,7 @@ export function updateCostInfo (params) {
   return request({
     url: `${prefix}/update`,
     method: 'post',
-    data: params
+    params: params
   })
 }
 

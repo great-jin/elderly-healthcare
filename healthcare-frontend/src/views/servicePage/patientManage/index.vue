@@ -24,7 +24,8 @@
                 v-for="option in patientCaseData"
                 :key="option.patientId"
                 :value="option.patientId"
-              >{{ option.patientName }}</a-select-option>
+              >{{ option.patientName }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -45,7 +46,8 @@
                 v-for="option in (patientCaseData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
                 :key="option"
                 :value="option"
-              >{{ option }}</a-select-option>
+              >{{ option }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -66,7 +68,8 @@
                 v-for="option in (patientCaseData.map(item => item.doctorName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
                 :key="option"
                 :value="option"
-              >{{ option }}</a-select-option>
+              >{{ option }}
+              </a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -82,29 +85,28 @@
           type="primary"
           @click="clickOption('add', null)"
           style="margin-bottom: 15px; width: 100px"
-        >新增</a-button>
+        >新增
+        </a-button>
 
-        <addPatientModal ref="addPatientModal" />
+        <addPatientModal ref="addPatientModal"/>
       </a-col>
     </a-row>
 
-    <a-config-provider :locale="zhCN">
-      <a-table
-        :columns="columns"
-        :data-source="patientCaseData"
-        :bordered="false"
-        :scroll="{ x: 900 }"
-        :pagination="pagination"
-      >
-        <template slot="action" slot-scope="record">
-          <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-          <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
-          <a-button type="link" @click="clickOption('update', record)">更新</a-button>
+    <a-table
+      :columns="columns"
+      :data-source="patientCaseData"
+      :bordered="false"
+      :scroll="{ x: 900 }"
+      :pagination="pagination"
+    >
+      <template slot="action" slot-scope="record">
+        <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <a-button type="link" @click="clickOption('update', record)">更新</a-button>
 
-          <patientDrawer ref="patientDrawer" />
-        </template>
-      </a-table>
-    </a-config-provider>
+        <patientDrawer ref="patientDrawer"/>
+      </template>
+    </a-table>
   </div>
 </template>
 
@@ -112,10 +114,7 @@
 import { columns } from './const'
 import patientDrawer from './patientDrawer'
 import addPatientModal from './addPatientModal'
-import { listNurse } from '@/api/staffNurse.js'
-import { listDoctor } from '@/api/staffDoctor.js'
 import { listCaseInfo } from '@/api/patientCaseInfo.js'
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   inject: ['reload'],
@@ -125,7 +124,6 @@ export default {
   },
   data () {
     return {
-      zhCN,
       searchData: {
         patientId: undefined,
         nurseName: undefined,
@@ -198,9 +196,9 @@ export default {
 </script>
 
 <style scoped>
-  .task-search-button{
-    width: 100px;
-    float: right;
-    z-index: 1;
-  }
+.task-search-button {
+  width: 100px;
+  float: right;
+  z-index: 1;
+}
 </style>

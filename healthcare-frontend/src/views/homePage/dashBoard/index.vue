@@ -47,9 +47,7 @@
         </div>
       </a-col>
       <a-col :span="7">
-        <a-config-provider :locale="zhCN" class="calendar">
-          <a-calendar :fullscreen="false"/>
-        </a-config-provider>
+        <a-calendar :fullscreen="false"/>
       </a-col>
     </a-row>
     <a-row style="height: 80%">
@@ -177,7 +175,6 @@ import taskModal from './taskModal'
 import processModal from './processModal'
 import { listTask } from '@/api/dailyTask'
 import { listVacateInfo } from '@/api/vacateInfo'
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   name: 'HomePage',
@@ -187,7 +184,6 @@ export default {
   },
   data () {
     return {
-      zhCN,
       imgUrl: '',
       count: {
         act: '',
@@ -309,10 +305,12 @@ export default {
 ::-webkit-scrollbar {
   width: 0 !important;
 }
+
 ::-webkit-scrollbar {
   width: 0 !important;
   height: 0;
 }
+
 #container {
   padding: 7px 3px;
   height: 100%;
@@ -320,14 +318,17 @@ export default {
   overflow-y: auto;
   background-color: #ECECEC;
 }
+
 .head-workspace {
   padding: 10px 15px 0 10px;
 }
+
 .head-card {
   margin-top: 20px;
   padding: 5px;
   background-color: #ececec;
 }
+
 .calendar {
   width: 100%;
   height: 305px;
@@ -336,22 +337,26 @@ export default {
   margin-top: 10px;
   background-color: white;
 }
+
 .process {
   margin-top: 5px;
   padding: 0px 10px;
   /*max-height: 40%;*/
   overflow: auto;
 }
+
 .task {
   margin-top: 5px;
   padding: 0px 10px;
   /*max-height: 40%;*/
   overflow: auto;
 }
+
 .task-list {
   min-height: 365px;
   overflow-y: auto;
 }
+
 .footer {
   height: 80px;
   line-height: 80px;

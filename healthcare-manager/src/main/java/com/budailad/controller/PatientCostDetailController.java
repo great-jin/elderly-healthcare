@@ -2,7 +2,9 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientContact;
 import com.budailad.entity.PatientCostDetail;
+import com.budailad.entity.PatientCostInfo;
 import com.budailad.service.PatientCostDetailService;
+import com.budailad.service.PatientCostInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class PatientCostDetailController {
     @Resource
     private PatientCostDetailService patientCostDetailService;
 
+    @Resource
+    private PatientCostInfoService patientCostInfoService;
+
     /**
      * 条件查询
      *
@@ -34,6 +39,20 @@ public class PatientCostDetailController {
      */
     @GetMapping("/list")
     public ResponseEntity<List<PatientCostDetail>> queryAll(PatientCostDetail patientCostDetail) {
+        return ResponseEntity.ok(this.patientCostDetailService.queryAll(patientCostDetail));
+    }
+
+    @GetMapping("/getCost")
+    public ResponseEntity<List<PatientCostDetail>> getPatientCost(String Id) {
+        // 查询病人消费表信息编号
+        PatientCostInfo costInfo = new PatientCostInfo();
+        costInfo.setPatientId(Id);
+        List<PatientCostInfo> infoList = patientCostInfoService.queryAll(costInfo);
+        String costId = infoList.get(0).getCostId();
+
+        // 根据编号查询所有消费记录
+        PatientCostDetail patientCostDetail = new PatientCostDetail();
+        patientCostDetail.setCostId(costId);
         return ResponseEntity.ok(this.patientCostDetailService.queryAll(patientCostDetail));
     }
 

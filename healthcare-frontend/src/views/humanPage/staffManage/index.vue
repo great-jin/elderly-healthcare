@@ -34,22 +34,21 @@
       <a-button
         style="float: left; z-index: 1; margin: 10px"
         type="primary"
-      >新增</a-button>
+      >新增
+      </a-button>
       <a-auto-complete
         placeholder="输入查询账号"
         :allowClear="true"
         style="width: 200px; float: right; z-index: 1; margin: 10px"
       />
 
-      <a-config-provider :locale="zhCN">
-        <a-table
-          :columns="columns"
-          :data-source="staffData"
-          :pagination="pagination"
-        >
-          <a slot="action" slot-scope="record" href="javascript:;">操作</a>
-        </a-table>
-      </a-config-provider>
+      <a-table
+        :columns="columns"
+        :data-source="staffData"
+        :pagination="pagination"
+      >
+        <a slot="action" slot-scope="record" href="javascript:;">操作</a>
+      </a-table>
     </div>
 
   </div>
@@ -57,12 +56,10 @@
 
 <script>
 import { columns, staffData } from './const'
-import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
 
 export default {
   data () {
     return {
-      zhCN,
       columns,
       staffData,
       nurseList: [
@@ -113,16 +110,17 @@ export default {
 </script>
 
 <style>
-   .tree{
-     width: 20%;
-     float: left;
-     z-index: 1;
-     border: #1890ff 2px solid
-   }
-   .table{
-     width: 80%;
-     float: right;
-     z-index: 1;
-     border: #1890ff 2px solid
-   }
+.tree {
+  width: 20%;
+  float: left;
+  z-index: 1;
+  border: #1890ff 2px solid
+}
+
+.table {
+  width: 80%;
+  float: right;
+  z-index: 1;
+  border: #1890ff 2px solid
+}
 </style>
