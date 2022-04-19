@@ -55,7 +55,7 @@
 
 <script>
 const panes = [
-  { title: '消费记录', key: 'cost', closable: false }
+  { title: '费用缴纳', key: 'payment', closable: false }
 ]
 
 export default {
@@ -78,7 +78,7 @@ export default {
   },
   created () {
     this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
-    this.routePage('/elderlyHealthcare/asset/cost')
+    this.routePage('/elderlyHealthcare/asset/payment')
   },
   methods: {
     reload () {
@@ -125,7 +125,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('/elderlyHealthcare/asset/cost')
+        this.routePage('/elderlyHealthcare/asset/payment')
       }
       let activeKey = this.activeKey
       let lastIndex

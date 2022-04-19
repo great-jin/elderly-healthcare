@@ -17,7 +17,6 @@ import Dispatch from '@/views/humanPage/dispatchManage/index'
 import Vacate from '@/views/humanPage/vacateManage/index'
 // 资产中心
 import Asset from '@/views/assetPage/index'
-import Cost from '@/views/assetPage/costManage/index'
 import Apply from '@/views/assetPage/applyManage/index'
 import Salary from '@/views/assetPage/salaryManage/index'
 import Payment from '@/views/assetPage/paymentManage/index'
@@ -112,10 +111,6 @@ export const RouteInfo = [
         name: 'Asset',
         component: Asset,
         children: [
-          {
-            path: '/elderlyHealthcare/asset/cost',
-            component: Cost
-          },
           {
             path: '/elderlyHealthcare/asset/apply',
             component: Apply

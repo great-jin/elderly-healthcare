@@ -28,33 +28,36 @@
         />
       </a-row>
     </a-col>
-    <a-col :span="10" :style="{padding: '55px 30px'}">
+    <a-col :span="10" :style="{padding: '10px 30px'}">
+      <a-row :style="{textAlign: 'center', paddingBottom: '25px'}">
+        <span class="pay-title">消费缴纳</span>
+      </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <h4>总价：
+        <span><strong>总价：</strong>
           <a-input-number
             v-model="payment.totall"
             :disabled="true"
             style="width: 80%"
           />
-        </h4>
+        </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <h4>实收：
+        <span><strong>实收：</strong>
           <a-input-number
             v-model="payment.receive"
             @change="payCharge"
             style="width: 80%"
           />
-        </h4>
+        </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <h4>找零：
+        <span><strong>找零：</strong>
           <a-input-number
             v-model="payment.charge"
             :disabled="true"
             style="width: 80%"
           />
-        </h4>
+        </span>
       </a-row>
       <a-row :style="{textAlign: 'center'}">
         <a-button type="primary" @click="ok">确认</a-button>
@@ -153,4 +156,9 @@ export default {
 </script>
 
 <style>
+.pay-title{
+  color: #1890ff;
+  font-size: 20px;
+  font-weight: 600;
+}
 </style>
