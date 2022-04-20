@@ -46,5 +46,10 @@ export const payColumns = [
     title: '总价',
     align: 'center',
     dataIndex: 'costCount'
+  },
+  {
+    title: '操作',
+    align: 'center',
+    scopedSlots: { customRender: 'action' }
   }
 ]

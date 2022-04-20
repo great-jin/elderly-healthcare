@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import GoodsDrawer from './goodsDrawer'
+import GoodsDrawer from './costDrawer'
 import { columns } from './const'
 import Empty from '@/views/utils/empty'
 import { listGoods } from '@/api/warehouseStorage'
@@ -154,10 +154,10 @@ export default {
       this.$message.success('ok')
     },
     see () {
-      if (this.patientList !== undefined) {
+      if (this.patientId !== undefined) {
         this.$refs.goodsDrawer.paramReceive(this.patientId)
       } else {
-        this.$message.error('选择病人')
+        this.$message.error('请先选择病人')
       }
     },
     cancel () {
