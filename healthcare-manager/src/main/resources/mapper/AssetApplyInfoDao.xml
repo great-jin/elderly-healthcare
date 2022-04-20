@@ -11,7 +11,7 @@
         <result property="applyReason" column="apply_reason" jdbcType="TIMESTAMP"/>
         <result property="receiveName" column="receive_name" jdbcType="VARCHAR"/>
         <result property="receivePhone" column="receive_phone" jdbcType="VARCHAR"/>
-        <result property="receiveAdress" column="receive_adress" jdbcType="VARCHAR"/>
+        <result property="receiveAddress" column="receive_address" jdbcType="VARCHAR"/>
         <result property="costMoney" column="cost_money" jdbcType="VARCHAR"/>
         <result property="currentState" column="current_state" jdbcType="INTEGER"/>
         <result property="isFinished" column="is_finished" jdbcType="INTEGER"/>
@@ -28,7 +28,7 @@
                apply_reason,
                receive_name,
                receive_phone,
-               receive_adress,
+               receive_address,
                cost_money,
                current_state,
                is_finished,
@@ -41,7 +41,7 @@
     <select id="queryAllByLimit" resultMap="AssetApplyInfoMap">
         select
         apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
-        receive_adress, cost_money, current_state, is_finished, comment
+        receive_address, cost_money, current_state, is_finished, comment
         from asset_apply_info
         <where>
             <if test="applyId != null and applyId != ''">
@@ -68,8 +68,8 @@
             <if test="receivePhone != null and receivePhone != ''">
                 and receive_phone = #{receivePhone}
             </if>
-            <if test="receiveAdress != null and receiveAdress != ''">
-                and receive_adress = #{receiveAdress}
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
             </if>
             <if test="costMoney != null">
                 and cost_money = #{costMoney}
@@ -91,7 +91,7 @@
     <select id="queryAll" resultMap="AssetApplyInfoMap">
         select
         apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
-        receive_adress, cost_money, current_state, is_finished, comment
+        receive_address, cost_money, current_state, is_finished, comment
         from asset_apply_info
         <where>
             <if test="applyId != null and applyId != ''">
@@ -118,8 +118,8 @@
             <if test="receivePhone != null and receivePhone != ''">
                 and receive_phone = #{receivePhone}
             </if>
-            <if test="receiveAdress != null and receiveAdress != ''">
-                and receive_adress = #{receiveAdress}
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
             </if>
             <if test="costMoney != null">
                 and cost_money = #{costMoney}
@@ -165,8 +165,8 @@
             <if test="receivePhone != null and receivePhone != ''">
                 and receive_phone = #{receivePhone}
             </if>
-            <if test="receiveAdress != null and receiveAdress != ''">
-                and receive_adress = #{receiveAdress}
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
             </if>
             <if test="costMoney != null">
                 and cost_money = #{costMoney}
@@ -186,29 +186,29 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="applyId" useGeneratedKeys="true">
         insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
-                                     receive_phone, receive_adress, cost_money, current_state, is_finished, comment)
+                                     receive_phone, receive_address, cost_money, current_state, is_finished, comment)
         values (#{organizeUnit}, #{organizeName}, #{staffId}, #{applyTime}, #{applyReason}, #{receiveName},
-                #{receivePhone}, #{receiveAdress}, #{costMoney}, #{currentState}, #{isFinished}, #{comment})
+                #{receivePhone}, #{receiveAddress}, #{costMoney}, #{currentState}, #{isFinished}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="applyId" useGeneratedKeys="true">
         insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
-        receive_phone, receive_adress, cost_money, current_state, is_finished, comment)
+        receive_phone, receive_address, cost_money, current_state, is_finished, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.organizeUnit}, #{entity.organizeName}, #{entity.staffId}, #{entity.applyTime},
-            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAdress},
+            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAddress},
             #{entity.costMoney}, #{entity.currentState}, #{entity.isFinished}, #{entity.comment})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="applyId" useGeneratedKeys="true">
         insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
-        receive_phone, receive_adress, cost_money, current_state, is_finished, comment)
+        receive_phone, receive_address, cost_money, current_state, is_finished, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.organizeUnit}, #{entity.organizeName}, #{entity.staffId}, #{entity.applyTime},
-            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAdress},
+            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAddress},
             #{entity.costMoney}, #{entity.currentState}, #{entity.isFinished}, #{entity.comment})
         </foreach>
         on duplicate key update
@@ -219,7 +219,7 @@
         apply_reason = values(apply_reason),
         receive_name = values(receive_name),
         receive_phone = values(receive_phone),
-        receive_adress = values(receive_adress),
+        receive_address = values(receive_address),
         cost_money = values(cost_money),
         current_state = values(current_state),
         is_finished = values(is_finished),
@@ -251,8 +251,8 @@
             <if test="receivePhone != null and receivePhone != ''">
                 receive_phone = #{receivePhone},
             </if>
-            <if test="receiveAdress != null and receiveAdress != ''">
-                receive_adress = #{receiveAdress},
+            <if test="receiveAddress != null and receiveAddress != ''">
+                receive_address = #{receiveAddress},
             </if>
             <if test="costMoney != null">
                 cost_money = #{costMoney},

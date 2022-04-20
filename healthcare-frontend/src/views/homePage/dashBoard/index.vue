@@ -287,7 +287,6 @@ export default {
           break
         case 'done':
           this.$message.success('完成')
-          console.log(data)
           break
         case 'detail':
           this.$refs.taskModal.paramReceive(data)

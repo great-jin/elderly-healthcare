@@ -12,7 +12,7 @@
         <result property="staffAge" column="staff_age" jdbcType="INTEGER"/>
         <result property="staffPhone" column="staff_phone" jdbcType="VARCHAR"/>
         <result property="staffEmail" column="staff_email" jdbcType="VARCHAR"/>
-        <result property="staffAdress" column="staff_adress" jdbcType="VARCHAR"/>
+        <result property="staffAddress" column="staff_address" jdbcType="VARCHAR"/>
         <result property="organizeId" column="organize_id" jdbcType="VARCHAR"/>
         <result property="staffPosition" column="staff_position" jdbcType="VARCHAR"/>
         <result property="entryTime" column="entry_time" jdbcType="TIMESTAMP"/>
@@ -29,7 +29,7 @@
                staff_age,
                staff_phone,
                staff_email,
-               staff_adress,
+               staff_address,
                organize_id,
                staff_position,
                entry_time
@@ -41,7 +41,7 @@
     <select id="queryAllByLimit" resultMap="StaffNurseMap">
         select
         id, staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone, staff_email,
-        staff_adress, organize_id, staff_position, entry_time
+        staff_address, organize_id, staff_position, entry_time
         from staff_nurse
         <where>
             <if test="id != null">
@@ -71,8 +71,8 @@
             <if test="staffEmail != null and staffEmail != ''">
                 and staff_email = #{staffEmail}
             </if>
-            <if test="staffAdress != null and staffAdress != ''">
-                and staff_adress = #{staffAdress}
+            <if test="staffAddress != null and staffAddress != ''">
+                and staff_address = #{staffAddress}
             </if>
             <if test="organizeId != null and organizeId != ''">
                 and organize_id = #{organizeId}
@@ -91,7 +91,7 @@
     <select id="queryAll" resultMap="StaffNurseMap">
         select
         id, staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone, staff_email,
-        staff_adress, organize_id, staff_position, entry_time
+        staff_address, organize_id, staff_position, entry_time
         from staff_nurse
         <where>
             <if test="id != null">
@@ -121,8 +121,8 @@
             <if test="staffEmail != null and staffEmail != ''">
                 and staff_email = #{staffEmail}
             </if>
-            <if test="staffAdress != null and staffAdress != ''">
-                and staff_adress = #{staffAdress}
+            <if test="staffAddress != null and staffAddress != ''">
+                and staff_address = #{staffAddress}
             </if>
             <if test="organizeId != null and organizeId != ''">
                 and organize_id = #{organizeId}
@@ -168,8 +168,8 @@
             <if test="staffEmail != null and staffEmail != ''">
                 and staff_email = #{staffEmail}
             </if>
-            <if test="staffAdress != null and staffAdress != ''">
-                and staff_adress = #{staffAdress}
+            <if test="staffAddress != null and staffAddress != ''">
+                and staff_address = #{staffAddress}
             </if>
             <if test="organizeId != null and organizeId != ''">
                 and organize_id = #{organizeId}
@@ -186,29 +186,29 @@
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
         insert into staff_nurse(staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone,
-                                staff_email, staff_adress, organize_id, staff_position, entry_time)
+                                staff_email, staff_address, organize_id, staff_position, entry_time)
         values (#{staffId}, #{staffName}, #{staffGender}, #{isResigned}, #{resignTime}, #{staffAge}, #{staffPhone},
-                #{staffEmail}, #{staffAdress}, #{organizeId}, #{staffPosition}, #{entryTime})
+                #{staffEmail}, #{staffAddress}, #{organizeId}, #{staffPosition}, #{entryTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into staff_nurse(staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone,
-        staff_email, staff_adress, organize_id, staff_position, entry_time)
+        staff_email, staff_address, organize_id, staff_position, entry_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.staffId}, #{entity.staffName}, #{entity.staffGender}, #{entity.isResigned}, #{entity.resignTime},
-            #{entity.staffAge}, #{entity.staffPhone}, #{entity.staffEmail}, #{entity.staffAdress}, #{entity.organizeId},
+            #{entity.staffAge}, #{entity.staffPhone}, #{entity.staffEmail}, #{entity.staffAddress}, #{entity.organizeId},
             #{entity.staffPosition}, #{entity.entryTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
         insert into staff_nurse(staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone,
-        staff_email, staff_adress, organize_id, staff_position, entry_time)
+        staff_email, staff_address, organize_id, staff_position, entry_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.staffId}, #{entity.staffName}, #{entity.staffGender}, #{entity.isResigned}, #{entity.resignTime},
-            #{entity.staffAge}, #{entity.staffPhone}, #{entity.staffEmail}, #{entity.staffAdress}, #{entity.organizeId},
+            #{entity.staffAge}, #{entity.staffPhone}, #{entity.staffEmail}, #{entity.staffAddress}, #{entity.organizeId},
             #{entity.staffPosition}, #{entity.entryTime})
         </foreach>
         on duplicate key update
@@ -220,7 +220,7 @@
         staff_age = values(staff_age),
         staff_phone = values(staff_phone),
         staff_email = values(staff_email),
-        staff_adress = values(staff_adress),
+        staff_address = values(staff_address),
         organize_id = values(organize_id),
         staff_position = values(staff_position),
         entry_time = values(entry_time)
@@ -254,8 +254,8 @@
             <if test="staffEmail != null and staffEmail != ''">
                 staff_email = #{staffEmail},
             </if>
-            <if test="staffAdress != null and staffAdress != ''">
-                staff_adress = #{staffAdress},
+            <if test="staffAddress != null and staffAddress != ''">
+                staff_address = #{staffAddress},
             </if>
             <if test="organizeId != null and organizeId != ''">
                 organize_id = #{organizeId},

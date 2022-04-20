@@ -134,8 +134,6 @@ export default {
           costId: this.costId,
           isPay: 1
         }
-        console.log(this.costId)
-        console.log(_info)
         updateCostInfo(_info).then(res => {
           if (res.data !== null) {
             this.$message.success('ok')

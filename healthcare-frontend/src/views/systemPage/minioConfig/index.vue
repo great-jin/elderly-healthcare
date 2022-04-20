@@ -145,7 +145,6 @@ export default {
       })
       listMinioConfig().then(res => {
         this.buckets = res.data[0]
-        console.log('aaaa', res.data[0])
       })
     },
     clickOption (data) {

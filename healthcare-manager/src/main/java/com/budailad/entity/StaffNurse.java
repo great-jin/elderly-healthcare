@@ -48,7 +48,7 @@ public class StaffNurse implements Serializable {
     /**
      * 住址
      */
-    private String staffAdress;
+    private String staffAddress;
     /**
      * 部门编号
      */
@@ -135,12 +135,12 @@ public class StaffNurse implements Serializable {
         this.staffEmail = staffEmail;
     }
 
-    public String getStaffAdress() {
-        return staffAdress;
+    public String getStaffAddress() {
+        return staffAddress;
     }
 
-    public void setStaffAdress(String staffAdress) {
-        this.staffAdress = staffAdress;
+    public void setStaffAddress(String staffAddress) {
+        this.staffAddress = staffAddress;
     }
 
     public String getOrganizeId() {

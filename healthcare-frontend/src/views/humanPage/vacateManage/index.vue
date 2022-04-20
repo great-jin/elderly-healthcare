@@ -7,8 +7,15 @@
       <a-tab-pane key="2" tab="信息填写" style="padding: 5px 10px">
         <a-descriptions bordered>
           <a-descriptions-item label="申请部门" :span="2">
-            <a-select placeholder="请选择部门" style="width: 100%; min-width: 100px">
-              <a-select-option v-for="org in organize" :key="org.organizeId" :value="org.organizeName">
+            <a-select
+              placeholder="请选择部门"
+              style="width: 100%; min-width: 100px"
+            >
+              <a-select-option
+                v-for="org in organize"
+                :key="org.organizeId"
+                :value="org.organizeName"
+              >
                 {{ org.organizeName }}
               </a-select-option>
             </a-select>
@@ -18,15 +25,15 @@
           </a-descriptions-item>
           <a-descriptions-item label="请假类别" :span="24">
             <a-radio-group>
-              <a-radio value="1" style="margin: 10px 25px">事假</a-radio>
-              <a-radio value="2" style="margin: 10px 25px">调休</a-radio>
-              <a-radio value="3" style="margin: 10px 25px">病假</a-radio>
-              <a-radio value="4" style="margin: 10px 38px">丧假</a-radio>
+              <a-radio value="事假" style="margin: 10px 25px">事假</a-radio>
+              <a-radio value="调休" style="margin: 10px 25px">调休</a-radio>
+              <a-radio value="病假" style="margin: 10px 25px">病假</a-radio>
+              <a-radio value="丧假" style="margin: 10px 38px">丧假</a-radio>
               <br />
-              <a-radio value="5" style="margin: 10px 25px">婚假</a-radio>
-              <a-radio value="6" style="margin: 10px 25px">产假</a-radio>
-              <a-radio value="7" style="margin: 10px 25px">探亲假</a-radio>
-              <a-radio value="8" style="margin: 10px 25px">其他</a-radio>
+              <a-radio value="婚假" style="margin: 10px 25px">婚假</a-radio>
+              <a-radio value="产假" style="margin: 10px 25px">产假</a-radio>
+              <a-radio value="探亲假" style="margin: 10px 25px">探亲假</a-radio>
+              <a-radio value="其他" style="margin: 10px 25px">其他</a-radio>
             </a-radio-group>
           </a-descriptions-item>
           <a-descriptions-item label="申请原因" :span="24">
@@ -48,7 +55,7 @@
         </a-descriptions>
         <a-row style="margin-top: 20px">
           <a-col :span="24" :style="{ textAlign: 'center' }">
-            <a-button type="primary" >完成</a-button>
+            <a-button type="primary" @click="ok">完成</a-button>
             <a-button type="primary" :style="{ marginLeft: '100px' }">取消</a-button>
           </a-col>
         </a-row>
@@ -61,6 +68,8 @@
 import moment from 'moment'
 import vacateList from './vacateList'
 import { listOrg } from '@/api/organizeInfo'
+import { listGoods } from '@/api/warehouseStorage'
+import { addVacateInfo } from '@/api/vacateInfo'
 
 export default {
   name: 'index',
@@ -69,19 +78,35 @@ export default {
   },
   data () {
     return {
-      organize: [],
       dayCount: '',
-      applyInfo: {}
+      applyInfo: {},
+      organize: [],
+      goodsInfo: []
     }
   },
-  mounted () {
-    listOrg().then(res => {
-      this.organize = res.data
-    })
+  created () {
+    this.getData()
   },
   methods: {
     callback (key) {
       console.log(key)
+    },
+    getData () {
+      listOrg().then(res => {
+        this.organize = res.data
+      })
+      listGoods.then(res => {
+        this.goodsInfo = res.data
+      })
+    },
+    ok () {
+      addVacateInfo(this.applyInfo).then(res => {
+        if (res.data) {
+          this.$message.success('提交成功')
+        } else {
+          this.$message.error('提交失败，请重试')
+        }
+      })
     },
     onChange (date) {
       this.dayCount = (date[1]._d - date[0]._d) / 86400000

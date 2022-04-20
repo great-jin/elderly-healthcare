@@ -19,7 +19,7 @@
         <result property="bloodFat" column="blood_fat" jdbcType="VARCHAR"/>
         <result property="bodyDetail" column="body_detail" jdbcType="VARCHAR"/>
         <result property="patientPhone" column="patient_phone" jdbcType="VARCHAR"/>
-        <result property="patientAddress" column="patient_address" jdbcType="VARCHAR"/>
+        <result property="patientAdddress" column="patient_adddress" jdbcType="VARCHAR"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -41,7 +41,7 @@
                blood_fat,
                body_detail,
                patient_phone,
-               patient_address,
+               patient_adddress,
                comment
         from patient_info
         where patient_id = #{patientId}
@@ -52,7 +52,7 @@
         select
         patient_id, patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight, eye_left,
         eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail, patient_phone,
-        patient_address, comment
+        patient_adddress, comment
         from patient_info
         <where>
             <if test="patientId != null and patientId != ''">
@@ -103,8 +103,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientAddress != null and patientAddress != ''">
-                and patient_address = #{patientAddress}
+            <if test="patientAdddress != null and patientAdddress != ''">
+                and patient_adddress = #{patientAdddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -118,7 +118,7 @@
         select
         patient_id, patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight, eye_left,
         eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail, patient_phone,
-        patient_address, comment
+        patient_adddress, comment
         from patient_info
         <where>
             <if test="patientId != null and patientId != ''">
@@ -169,8 +169,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientAddress != null and patientAddress != ''">
-                and patient_address = #{patientAddress}
+            <if test="patientAdddress != null and patientAdddress != ''">
+                and patient_adddress = #{patientAdddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -231,8 +231,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientAddress != null and patientAddress != ''">
-                and patient_address = #{patientAddress}
+            <if test="patientAdddress != null and patientAdddress != ''">
+                and patient_adddress = #{patientAdddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -244,22 +244,22 @@
     <insert id="insert" keyProperty="patientId" useGeneratedKeys="true">
         insert into patient_info(patient_id, patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight,
                                  eye_left, eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat,
-                                 body_detail, patient_phone, patient_address, comment)
+                                 body_detail, patient_phone, patient_adddress, comment)
         values (#{patientId}, #{patientName}, #{inTime}, #{patientGender}, #{patientAge}, #{patientHeight}, #{patientWeight},
                 #{eyeLeft}, #{eyeRight}, #{bodyTemper}, #{heartBeat}, #{bloodPressure}, #{bloodGlucose}, #{bloodFat},
-                #{bodyDetail}, #{patientPhone}, #{patientAddress}, #{comment})
+                #{bodyDetail}, #{patientPhone}, #{patientAdddress}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="patientId" useGeneratedKeys="true">
         insert into patient_info(patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight,
         eye_left, eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail,
-        patient_phone, patient_address, comment)
+        patient_phone, patient_adddress, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.patientName}, #{entity.inTime}, #{entity.patientGender}, #{entity.patientAge},
             #{entity.patientHeight}, #{entity.patientWeight}, #{entity.eyeLeft}, #{entity.eyeRight},
             #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure}, #{entity.bloodGlucose},
-            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAddress},
+            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAdddress},
             #{entity.comment})
         </foreach>
     </insert>
@@ -267,13 +267,13 @@
     <insert id="insertOrUpdateBatch" keyProperty="patientId" useGeneratedKeys="true">
         insert into patient_info(patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight,
         eye_left, eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail,
-        patient_phone, patient_address, comment)
+        patient_phone, patient_adddress, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.patientName}, #{entity.inTime}, #{entity.patientGender}, #{entity.patientAge},
             #{entity.patientHeight}, #{entity.patientWeight}, #{entity.eyeLeft}, #{entity.eyeRight},
             #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure}, #{entity.bloodGlucose},
-            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAddress},
+            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAdddress},
             #{entity.comment})
         </foreach>
         on duplicate key update
@@ -292,7 +292,7 @@
         blood_fat = values(blood_fat),
         body_detail = values(body_detail),
         patient_phone = values(patient_phone),
-        patient_address = values(patient_address),
+        patient_adddress = values(patient_adddress),
         comment = values(comment)
     </insert>
 
@@ -345,8 +345,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 patient_phone = #{patientPhone},
             </if>
-            <if test="patientAddress != null and patientAddress != ''">
-                patient_address = #{patientAddress},
+            <if test="patientAdddress != null and patientAdddress != ''">
+                patient_adddress = #{patientAdddress},
             </if>
             <if test="comment != null and comment != ''">
                 comment = #{comment},

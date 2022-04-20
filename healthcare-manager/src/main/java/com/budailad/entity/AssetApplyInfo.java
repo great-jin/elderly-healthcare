@@ -46,7 +46,7 @@ public class AssetApplyInfo implements Serializable {
     /**
      * 收货地址
      */
-    private String receiveAdress;
+    private String receiveAddress;
     /**
      * 总金额
      */
@@ -129,12 +129,12 @@ public class AssetApplyInfo implements Serializable {
         this.receivePhone = receivePhone;
     }
 
-    public String getReceiveAdress() {
-        return receiveAdress;
+    public String getReceiveAddress() {
+        return receiveAddress;
     }
 
-    public void setReceiveAdress(String receiveAdress) {
-        this.receiveAdress = receiveAdress;
+    public void setReceiveAddress(String receiveAddress) {
+        this.receiveAddress = receiveAddress;
     }
 
     public Object getCostMoney() {

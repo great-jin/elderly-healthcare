@@ -1,115 +1,73 @@
 export const columns = [
   {
-    title: 'Full Name', width: 100, dataIndex: 'name', key: 'name', fixed: 'left'
+    title: '员工编号',
+    dataIndex: 'staffId',
+    fixed: 'left',
+    align: 'center'
   },
   {
-    title: 'Age', width: 100, dataIndex: 'age', key: 'age', fixed: 'left'
+    title: '姓名',
+    dataIndex: 'staffName',
+    fixed: 'left',
+    align: 'center'
   },
   {
-    title: 'Column 1', dataIndex: 'address', key: '1'
+    title: '性别',
+    dataIndex: 'staffGender',
+    align: 'center'
   },
   {
-    title: 'Column 2', dataIndex: 'address', key: '2'
+    title: '年龄',
+    dataIndex: 'staffAge',
+    align: 'center'
   },
   {
-    title: 'Column 3', dataIndex: 'address', key: '3'
+    title: '电话',
+    dataIndex: 'staffPhone',
+    align: 'center',
+    ellipsis: true
   },
   {
-    title: 'Column 4', dataIndex: 'address', key: '4'
+    title: '邮箱',
+    dataIndex: 'staffEmail',
+    align: 'center',
+    ellipsis: true
   },
   {
-    title: 'Column 5', dataIndex: 'address', key: '5'
+    title: '住址',
+    dataIndex: 'staffAddress',
+    align: 'center',
+    ellipsis: true
   },
   {
-    title: 'Column 6', dataIndex: 'address', key: '6'
+    title: '部门编号',
+    dataIndex: 'organizeId',
+    align: 'center'
   },
   {
-    title: 'Column 7', dataIndex: 'address', key: '7'
+    title: '职位',
+    dataIndex: 'staffPosition',
+    align: 'center'
   },
   {
-    title: 'Column 8', dataIndex: 'address', key: '8'
+    title: '入职时间',
+    dataIndex: 'entryTime',
+    align: 'center'
   },
   {
-    title: 'Action',
-    key: 'operation',
+    title: '是否离职',
+    dataIndex: 'isResigned',
+    align: 'center'
+  },
+  {
+    title: '离职时间',
+    dataIndex: 'resignTime',
+    align: 'center'
+  },
+  {
+    title: '操作',
     fixed: 'right',
     align: 'center',
-    width: 170,
     scopedSlots: { customRender: 'action' }
-  }
-]
-
-export const salaryData = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York Park'
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '3',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '4',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '5',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '6',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '7',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '8',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '9',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '10',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '11',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
-  },
-  {
-    key: '12',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park'
   }
 ]

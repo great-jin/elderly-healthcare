@@ -505,7 +505,6 @@ export default {
       })
       listPatientContact(object).then(res => {
         this.form.contactList = res.data
-        console.log('contactList', res.data)
       })
     },
     cancel () {

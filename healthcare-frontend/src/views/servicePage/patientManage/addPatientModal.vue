@@ -273,11 +273,9 @@ export default {
       })
       listNurse().then(res => {
         this.nurseList = res.data
-        console.log('nurseList', res.data)
       })
       listDoctor().then(res => {
         this.doctorList = res.data
-        console.log('doctorList', res.data)
       })
     },
     cancel () {

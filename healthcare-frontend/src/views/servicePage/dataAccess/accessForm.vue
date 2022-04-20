@@ -462,7 +462,6 @@ export default {
       if (_len > 0) {
         this.$refs.registerForm.validate(valid => {
           if (valid) {
-            console.log(this.form)
             addPatientInfo(this.form).then(res => {
               if (res.data) {
                 this.$message.success('添加成功')
