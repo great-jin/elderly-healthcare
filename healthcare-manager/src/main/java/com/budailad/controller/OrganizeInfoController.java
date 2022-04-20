@@ -66,7 +66,7 @@ public class OrganizeInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<OrganizeInfo> add(OrganizeInfo organizeInfo) {
+    public ResponseEntity<OrganizeInfo> add(@RequestBody OrganizeInfo organizeInfo) {
         return ResponseEntity.ok(this.organizeInfoService.insert(organizeInfo));
     }
 
@@ -77,7 +77,7 @@ public class OrganizeInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<OrganizeInfo> edit(OrganizeInfo organizeInfo) {
+    public ResponseEntity<OrganizeInfo> edit(@RequestBody OrganizeInfo organizeInfo) {
         return ResponseEntity.ok(this.organizeInfoService.update(organizeInfo));
     }
 

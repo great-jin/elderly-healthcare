@@ -66,7 +66,7 @@ public class MedicineCatalogController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<MedicineCatalog> add(MedicineCatalog medicineCatalog) {
+    public ResponseEntity<MedicineCatalog> add(@RequestBody MedicineCatalog medicineCatalog) {
         return ResponseEntity.ok(this.medicineCatalogService.insert(medicineCatalog));
     }
 
@@ -77,7 +77,7 @@ public class MedicineCatalogController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<MedicineCatalog> edit(MedicineCatalog medicineCatalog) {
+    public ResponseEntity<MedicineCatalog> edit(@RequestBody MedicineCatalog medicineCatalog) {
         return ResponseEntity.ok(this.medicineCatalogService.update(medicineCatalog));
     }
 

@@ -174,9 +174,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="caseId" useGeneratedKeys="true">
-        insert into patient_case_info(patient_id, patient_name, nurse_id, nurse_name, doctor_id, doctor_name,
+        insert into patient_case_info(case_id, patient_id, patient_name, nurse_id, nurse_name, doctor_id, doctor_name,
                                       case_describe, in_time, is_leave, out_time, comment)
-        values (#{patientId}, #{patientName}, #{nurseId}, #{nurseName}, #{doctorId}, #{doctorName}, #{caseDescribe},
+        values (#{caseId}, #{patientId}, #{patientName}, #{nurseId}, #{nurseName}, #{doctorId}, #{doctorName}, #{caseDescribe},
                 #{inTime}, #{isLeave}, #{outTime}, #{comment})
     </insert>
 

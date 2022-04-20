@@ -50,7 +50,7 @@
         <a-calendar :fullscreen="false"/>
       </a-col>
     </a-row>
-    <a-row style="height: 80%">
+    <a-row>
       <a-col class="process" :span="14">
         <a-card
           title="进行中流程"

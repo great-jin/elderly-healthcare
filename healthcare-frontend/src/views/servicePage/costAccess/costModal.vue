@@ -23,6 +23,7 @@
         <span><strong>数量：</strong>
           <a-input-number
             v-model="goodsInfo.goodsNumber"
+            :min="0"
             @change="changeCount"
             style="width: 82%"
           />

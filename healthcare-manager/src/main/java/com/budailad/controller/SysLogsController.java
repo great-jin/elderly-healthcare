@@ -66,7 +66,7 @@ public class SysLogsController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<SysLogs> add(SysLogs sysLogs) {
+    public ResponseEntity<SysLogs> add(@RequestBody SysLogs sysLogs) {
         return ResponseEntity.ok(this.sysLogsService.insert(sysLogs));
     }
 
@@ -77,7 +77,7 @@ public class SysLogsController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<SysLogs> edit(SysLogs sysLogs) {
+    public ResponseEntity<SysLogs> edit(@RequestBody SysLogs sysLogs) {
         return ResponseEntity.ok(this.sysLogsService.update(sysLogs));
     }
 

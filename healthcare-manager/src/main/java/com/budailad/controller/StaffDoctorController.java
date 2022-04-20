@@ -66,7 +66,7 @@ public class StaffDoctorController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<StaffDoctor> add(StaffDoctor staffDoctor) {
+    public ResponseEntity<StaffDoctor> add(@RequestBody StaffDoctor staffDoctor) {
         return ResponseEntity.ok(this.staffDoctorService.insert(staffDoctor));
     }
 
@@ -77,7 +77,7 @@ public class StaffDoctorController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<StaffDoctor> edit(StaffDoctor staffDoctor) {
+    public ResponseEntity<StaffDoctor> edit(@RequestBody StaffDoctor staffDoctor) {
         return ResponseEntity.ok(this.staffDoctorService.update(staffDoctor));
     }
 

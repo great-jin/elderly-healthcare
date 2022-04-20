@@ -11,6 +11,7 @@
       ref="registerForm"
       :model="form"
       :rules="rules"
+      :disabled="isMore"
     >
       <a-divider orientation="center">
         基本信息
@@ -27,6 +28,7 @@
               v-model="form.patientName"
               placeholder="请输入姓名"
               :maxLength="25"
+              :disabled="isMore"
             />
           </a-form-model-item>
         </a-col>
@@ -42,6 +44,7 @@
               placeholder="请选择性别"
               :default-value="undefined"
               :allowClear="true"
+              :disabled="isMore"
               style="width: 100%"
             >
               <a-select-option value="男">男</a-select-option>
@@ -63,6 +66,7 @@
               placeholder="请输入年龄"
               :min="1"
               :max="100"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -79,6 +83,7 @@
               placeholder="请输入身高"
               suffix="CM"
               :allowClear="true"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -97,6 +102,7 @@
               placeholder="请输入体重"
               suffix="KG"
               :allowClear="true"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -111,6 +117,7 @@
             <a-date-picker
               v-model="form.inTime"
               placeholder="请选择登记时间"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -127,6 +134,7 @@
             <a-input
               v-model="form.patientPhone"
               placeholder="请输入联系电话"
+              :disabled="isMore"
               :allowClear="true"
             />
           </a-form-model-item>
@@ -141,6 +149,7 @@
             <a-input
               v-model="form.patientAddress"
               placeholder="请输入家庭住址"
+              :disabled="isMore"
               :allowClear="true"
             />
           </a-form-model-item>
@@ -158,6 +167,7 @@
             <a-textarea
               v-model="form.comment"
               type="text"
+              :disabled="isMore"
               :rows="4"
             />
           </a-form-model-item>
@@ -180,6 +190,7 @@
               placeholder="请输入体温"
               suffix="℃"
               :allowClear="true"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -196,6 +207,7 @@
               placeholder="请输入心率"
               suffix="/min"
               :allowClear="true"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -214,6 +226,7 @@
               placeholder="请输入血压"
               suffix="mmHg"
               :maxLength="25"
+              :disabled="isMore"
               :allowClear="true"
             />
           </a-form-model-item>
@@ -229,6 +242,7 @@
               v-model="form.bloodGlucose"
               placeholder="请输入血糖"
               :allowClear="true"
+              :disabled="isMore"
               :maxLength="25"
             />
           </a-form-model-item>
@@ -248,6 +262,7 @@
               suffix="mmo/L"
               :maxLength="25"
               :allowClear="true"
+              :disabled="isMore"
             />
           </a-form-model-item>
         </a-col>
@@ -263,6 +278,7 @@
               placeholder="请输入左眼视力"
               :min="30"
               :max="200"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -281,6 +297,7 @@
               placeholder="请输入右眼视力"
               :min="30"
               :max="200"
+              :disabled="isMore"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -300,6 +317,7 @@
               placeholder="请输入详情描述"
               type="text"
               :rows="6"
+              :disabled="isMore"
             />
           </a-form-model-item>
         </a-col>
@@ -311,7 +329,7 @@
       <div>
         <a-row style="margin-bottom: 15px; margin-left: 5px">
           <a-col :span="12">
-            <a-button type="primary" @click="addContact">新增</a-button>
+            <a-button v-if="!isMore" type="primary" @click="addContact">新增</a-button>
           </a-col>
         </a-row>
         <a-row
@@ -332,6 +350,7 @@
                 v-model="item.contactName"
                 placeholder="请输入联系人"
                 :allowClear="true"
+                :disabled="isMore"
                 :maxLength="25"
               />
             </a-form-model-item>
@@ -348,12 +367,14 @@
                 v-model="item.contactPhone"
                 placeholder="请输入联系方式"
                 :allowClear="true"
+                :disabled="isMore"
                 :maxLength="25"
               />
             </a-form-model-item>
           </a-col>
           <a-col :span="2">
             <a-icon
+              v-if="!isMore"
               type="minus-circle-o"
               @click="() => remove(item)"
               class="dynamic-delete-button"
@@ -362,7 +383,7 @@
         </a-row>
       </div>
       <div :style="{ marginTop: '40px' }">
-        <a-row>
+        <a-row v-if="!isMore" >
           <a-col :span="24" :style="{ textAlign: 'center' }">
             <a-button type="primary" @click="ok">保存</a-button>
             <a-button type="primary" :style="{ marginLeft: '50px' }" @click="cancel">取消</a-button>
@@ -374,7 +395,7 @@
 </template>
 
 <script>
-import { listPatientInfo } from '@/api/patientInfo'
+import { listPatientInfo, updatePatientInfo } from '@/api/patientInfo'
 import { listPatientContact } from '@/api/patientContact'
 
 export default {
@@ -383,6 +404,7 @@ export default {
     return {
       type: '',
       visible: false,
+      isMore: false,
       form: {
         patientName: '',
         patientGender: undefined,
@@ -468,6 +490,9 @@ export default {
   methods: {
     paramReceive (type, data) {
       this.type = type
+      if (type === 'more') {
+        this.isMore = true
+      }
       this.visible = true
       this.getData(data.patientId)
     },
@@ -480,10 +505,12 @@ export default {
       })
       listPatientContact(object).then(res => {
         this.form.contactList = res.data
+        console.log('contactList', res.data)
       })
     },
     cancel () {
       this.visible = false
+      this.isMore = false
       this.$refs.registerForm.resetFields()
     },
     ok () {
@@ -491,7 +518,14 @@ export default {
       if (_len > 0) {
         this.$refs.registerForm.validate(valid => {
           if (valid) {
-            console.log(this.form)
+            updatePatientInfo(this.form).then(res => {
+              if (res.data) {
+                this.$message.success('修改成功')
+                this.cancel()
+              } else {
+                this.$message.error('修改失败，请重试')
+              }
+            })
           }
         })
       } else {

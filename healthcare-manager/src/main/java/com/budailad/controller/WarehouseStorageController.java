@@ -67,7 +67,7 @@ public class WarehouseStorageController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<WarehouseStorage> add(WarehouseStorage warehouseStorage) {
+    public ResponseEntity<WarehouseStorage> add(@RequestBody WarehouseStorage warehouseStorage) {
         return ResponseEntity.ok(this.warehouseStorageService.insert(warehouseStorage));
     }
 
@@ -78,7 +78,7 @@ public class WarehouseStorageController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<WarehouseStorage> edit(WarehouseStorage warehouseStorage) {
+    public ResponseEntity<WarehouseStorage> edit(@RequestBody WarehouseStorage warehouseStorage) {
         return ResponseEntity.ok(this.warehouseStorageService.update(warehouseStorage));
     }
 

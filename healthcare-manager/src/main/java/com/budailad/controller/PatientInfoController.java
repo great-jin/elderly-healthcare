@@ -73,10 +73,14 @@ public class PatientInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<Boolean> add(PatientInfo patientInfo) {
+    public ResponseEntity<Boolean> add(@RequestBody PatientInfo patientInfo) {
+        patientInfo.setPatientId(UUID.randomUUID().toString());
+        // 获取病人联系人信息
         List<PatientContact> contactList = new ArrayList<>();
         for (PatientContact contact : patientInfo.getContactList()) {
             contact.setId(UUID.randomUUID().toString());
+            contact.setPatientId(patientInfo.getPatientId());
+            contact.setIsDeleted(0);
             contactList.add(contact);
         }
         boolean tag = false;
@@ -97,8 +101,31 @@ public class PatientInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<PatientInfo> edit(PatientInfo patientInfo) {
-        return ResponseEntity.ok(this.patientInfoService.update(patientInfo));
+    public Boolean edit(@RequestBody PatientInfo patientInfo) {
+        boolean tag = false;
+        // 删除旧联系人数据重新添加
+        PatientContact contact = new PatientContact();
+        contact.setPatientId(patientInfo.getPatientId());
+        List<PatientContact> contactAdd = patientContactService.queryAll(contact);
+        for (PatientContact con : contactAdd) {
+            patientContactService.deleteById(con.getId());
+        }
+        List<PatientContact> contactEdit = patientInfo.getContactList();
+        contactEdit.forEach(co -> {
+            co.setId(UUID.randomUUID().toString());
+            co.setPatientId(patientInfo.getPatientId());
+        });
+        int i = patientContactService.insertBatch(contactEdit);
+
+        if (i > 0) {
+            // 更新信息
+            PatientInfo patientInfo1 = patientInfoService.update(patientInfo);
+            if (patientInfo1 != null) {
+                tag = true;
+            }
+        }
+
+        return tag;
     }
 
     /**

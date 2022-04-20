@@ -27,6 +27,7 @@ export const columns = cxt => {
       title: '病人编号',
       dataIndex: 'patientId',
       align: 'center',
+      ellipsis: true,
       scopedSlots: { customRender: 'patientId' }
     },
     {

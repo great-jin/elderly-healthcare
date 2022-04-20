@@ -123,7 +123,7 @@ public class SysFileConfigController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<SysFileConfig> add(SysFileConfig sysFileConfig) {
+    public ResponseEntity<SysFileConfig> add(@RequestBody SysFileConfig sysFileConfig) {
         return ResponseEntity.ok(this.sysFileConfigService.insert(sysFileConfig));
     }
 
@@ -134,7 +134,7 @@ public class SysFileConfigController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<SysFileConfig> edit(SysFileConfig sysFileConfig) {
+    public ResponseEntity<SysFileConfig> edit(@RequestBody SysFileConfig sysFileConfig) {
         return ResponseEntity.ok(this.sysFileConfigService.update(sysFileConfig));
     }
 

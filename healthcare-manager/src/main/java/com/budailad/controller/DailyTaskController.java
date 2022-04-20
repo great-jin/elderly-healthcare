@@ -67,7 +67,7 @@ public class DailyTaskController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<DailyTask> add(DailyTask dailyTask) {
+    public ResponseEntity<DailyTask> add(@RequestBody DailyTask dailyTask) {
         return ResponseEntity.ok(this.dailyTaskService.insert(dailyTask));
     }
 
@@ -78,7 +78,7 @@ public class DailyTaskController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<DailyTask> edit(DailyTask dailyTask) {
+    public ResponseEntity<DailyTask> edit(@RequestBody DailyTask dailyTask) {
         return ResponseEntity.ok(this.dailyTaskService.update(dailyTask));
     }
 

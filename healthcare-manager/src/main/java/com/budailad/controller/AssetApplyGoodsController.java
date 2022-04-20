@@ -66,7 +66,7 @@ public class AssetApplyGoodsController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<AssetApplyGoods> add(AssetApplyGoods assetApplyGoods) {
+    public ResponseEntity<AssetApplyGoods> add(@RequestBody AssetApplyGoods assetApplyGoods) {
         return ResponseEntity.ok(this.assetApplyGoodsService.insert(assetApplyGoods));
     }
 
@@ -77,7 +77,7 @@ public class AssetApplyGoodsController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<AssetApplyGoods> edit(AssetApplyGoods assetApplyGoods) {
+    public ResponseEntity<AssetApplyGoods> edit(@RequestBody AssetApplyGoods assetApplyGoods) {
         return ResponseEntity.ok(this.assetApplyGoodsService.update(assetApplyGoods));
     }
 

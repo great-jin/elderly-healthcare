@@ -47,6 +47,8 @@
         <span><strong>数量：</strong>
           <a-input-number
             v-model="goodsInfo.orderNum"
+            :min="0"
+            :disabled="goodsInfo.goodsName===''"
             @change="changeCount"
             style="width: 82%"
           />
@@ -71,8 +73,8 @@
         </span>
       </a-row>
       <a-row :style="{textAlign: 'center'}">
-        <a-button type="primary" @click="ok">确认</a-button>
-        <a-button type="primary" @click="see" style="margin-left: 25px">查看</a-button>
+        <a-button type="primary" @click="see">查看</a-button>
+        <a-button type="primary" @click="ok" style="margin-left: 25px">确认</a-button>
         <a-button type="primary" @click="cancel" style="margin-left: 25px">清空</a-button>
         <GoodsDrawer ref="goodsDrawer"/>
       </a-row>
@@ -151,10 +153,20 @@ export default {
       this.goodsInfo.orderCount = Number(this.goodsInfo.goodsPrice) * Number(value)
     },
     ok () {
-      this.$message.success('ok')
+      if (this.patientId !== undefined) {
+        if (this.goodsInfo.orderCount instanceof Number && this.goodsInfo.orderCount > 0) {
+          // 提交新消费记录
+          this.$message.error('ok')
+        } else {
+          this.$message.error('请选择数量')
+        }
+      } else {
+        this.$message.error('请先选择病人')
+      }
     },
     see () {
       if (this.patientId !== undefined) {
+        // 根据病人编号查看已有消费
         this.$refs.goodsDrawer.paramReceive(this.patientId)
       } else {
         this.$message.error('请先选择病人')

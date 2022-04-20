@@ -66,7 +66,7 @@ public class VacateInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<VacateInfo> add(VacateInfo vacateInfo) {
+    public ResponseEntity<VacateInfo> add(@RequestBody VacateInfo vacateInfo) {
         return ResponseEntity.ok(this.vacateInfoService.insert(vacateInfo));
     }
 
@@ -77,7 +77,7 @@ public class VacateInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<VacateInfo> edit(VacateInfo vacateInfo) {
+    public ResponseEntity<VacateInfo> edit(@RequestBody VacateInfo vacateInfo) {
         return ResponseEntity.ok(this.vacateInfoService.update(vacateInfo));
     }
 

@@ -66,7 +66,7 @@ public class OrganizeStaffController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<OrganizeStaff> add(OrganizeStaff organizeStaff) {
+    public ResponseEntity<OrganizeStaff> add(@RequestBody OrganizeStaff organizeStaff) {
         return ResponseEntity.ok(this.organizeStaffService.insert(organizeStaff));
     }
 
@@ -77,7 +77,7 @@ public class OrganizeStaffController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<OrganizeStaff> edit(OrganizeStaff organizeStaff) {
+    public ResponseEntity<OrganizeStaff> edit(@RequestBody OrganizeStaff organizeStaff) {
         return ResponseEntity.ok(this.organizeStaffService.update(organizeStaff));
     }
 

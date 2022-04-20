@@ -66,7 +66,7 @@ public class MailInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<MailInfo> add(MailInfo mailInfo) {
+    public ResponseEntity<MailInfo> add(@RequestBody MailInfo mailInfo) {
         return ResponseEntity.ok(this.mailInfoService.insert(mailInfo));
     }
 
@@ -77,7 +77,7 @@ public class MailInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<MailInfo> edit(MailInfo mailInfo) {
+    public ResponseEntity<MailInfo> edit(@RequestBody MailInfo mailInfo) {
         return ResponseEntity.ok(this.mailInfoService.update(mailInfo));
     }
 

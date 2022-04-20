@@ -66,7 +66,7 @@ public class RegisterTemplateController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<RegisterTemplate> add(RegisterTemplate registerTemplate) {
+    public ResponseEntity<RegisterTemplate> add(@RequestBody RegisterTemplate registerTemplate) {
         return ResponseEntity.ok(this.registerTemplateService.insert(registerTemplate));
     }
 
@@ -77,7 +77,7 @@ public class RegisterTemplateController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<RegisterTemplate> edit(RegisterTemplate registerTemplate) {
+    public ResponseEntity<RegisterTemplate> edit(@RequestBody RegisterTemplate registerTemplate) {
         return ResponseEntity.ok(this.registerTemplateService.update(registerTemplate));
     }
 

@@ -57,7 +57,7 @@
         <patientDrawer ref="patientDrawer"/>
       </a-tab-pane>
       <a-tab-pane key="2" tab="入住登记">
-        <accessForm/>
+        <accessForm />
       </a-tab-pane>
     </a-tabs>
   </div>

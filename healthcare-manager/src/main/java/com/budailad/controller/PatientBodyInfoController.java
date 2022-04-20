@@ -69,7 +69,7 @@ public class PatientBodyInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientBodyInfo> add(PatientBodyInfo patientBodyInfo) {
+    public ResponseEntity<PatientBodyInfo> add(@RequestBody PatientBodyInfo patientBodyInfo) {
         return ResponseEntity.ok(this.patientBodyInfoService.insert(patientBodyInfo));
     }
 
@@ -91,7 +91,7 @@ public class PatientBodyInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<PatientBodyInfo> edit(PatientBodyInfo patientBodyInfo) {
+    public ResponseEntity<PatientBodyInfo> edit(@RequestBody PatientBodyInfo patientBodyInfo) {
         return ResponseEntity.ok(this.patientBodyInfoService.update(patientBodyInfo));
     }
 

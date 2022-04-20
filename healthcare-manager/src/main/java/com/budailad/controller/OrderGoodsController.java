@@ -66,7 +66,7 @@ public class OrderGoodsController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<OrderGoods> add(OrderGoods orderGoods) {
+    public ResponseEntity<OrderGoods> add(@RequestBody OrderGoods orderGoods) {
         return ResponseEntity.ok(this.orderGoodsService.insert(orderGoods));
     }
 
@@ -77,7 +77,7 @@ public class OrderGoodsController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<OrderGoods> edit(OrderGoods orderGoods) {
+    public ResponseEntity<OrderGoods> edit(@RequestBody OrderGoods orderGoods) {
         return ResponseEntity.ok(this.orderGoodsService.update(orderGoods));
     }
 

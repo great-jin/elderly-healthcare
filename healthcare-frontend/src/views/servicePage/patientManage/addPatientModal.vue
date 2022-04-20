@@ -9,7 +9,6 @@
       <a-button key="back" @click="cancel">取消</a-button>
       <a-button key="submit" type="primary" @click="ok">确定</a-button>
     </template>
-
     <a-form-model
       ref="ruleForm"
       :model="form"
@@ -42,6 +41,7 @@
               placeholder="请选择病人"
               :allowClear="true"
               :disabled="isEdit"
+              @change="changeSelect('patient', form.patientName)"
             >
               <a-select-option
                 v-for="cases in patientList"
@@ -78,11 +78,12 @@
               v-model="form.nurseName"
               placeholder="请选择护理员"
               :allowClear="true"
+              @change="changeSelect('nurse', form.nurseName)"
             >
               <a-select-option
                 v-for="cases in nurseList"
                 :key="cases.staffId"
-                :value="cases.staffId"
+                :value="cases.staffName"
               >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
@@ -114,11 +115,12 @@
               v-model="form.doctorName"
               placeholder="请选择主治医师"
               :allowClear="true"
+              @change="changeSelect('doctor', form.doctorName)"
             >
               <a-select-option
                 v-for="cases in doctorList"
                 :key="cases.staffId"
-                :value="cases.staffId"
+                :value="cases.staffName"
               >{{ cases.staffName }}</a-select-option>
             </a-select>
           </a-form-model-item>
@@ -260,20 +262,22 @@ export default {
       this.type = type
       this.visible = true
       if (type === 'edit') {
-        this.idEdit = true
         this.form = data
+        this.idEdit = true
       }
       this.getData()
     },
     getData () {
+      listPatientInfo().then(res => {
+        this.patientList = res.data
+      })
       listNurse().then(res => {
         this.nurseList = res.data
+        console.log('nurseList', res.data)
       })
       listDoctor().then(res => {
         this.doctorList = res.data
-      })
-      listPatientInfo().then(res => {
-        this.patientList = res.data
+        console.log('doctorList', res.data)
       })
     },
     cancel () {
@@ -290,8 +294,9 @@ export default {
               addCaseInfo(this.form).then(res => {
                 if (res.data !== null) {
                   this.$message.success('添加成功')
+                  this.cancel()
                 } else {
-                  this.$message.error('新增失败')
+                  this.$message.error('新增失败, 请重试')
                 }
               })
               break
@@ -299,15 +304,28 @@ export default {
               updateCaseInfo(this.form).then(res => {
                 if (res.data !== null) {
                   this.$message.success('修改成功')
+                  this.cancel()
                 } else {
-                  this.$message.error('修改失败')
+                  this.$message.error('修改失败, 请重试')
                 }
               })
               break
           }
-          this.cancel()
         }
       })
+    },
+    changeSelect (type, data) {
+      switch (type) {
+        case 'patient':
+          this.form.patientId = (this.patientList.filter(item => item.patientName === data)[0]).patientId
+          break
+        case 'nurse':
+          this.form.nurseId = (this.nurseList.filter(item => item.staffName === data)[0]).staffId
+          break
+        case 'doctor':
+          this.form.doctorId = (this.doctorList.filter(item => item.staffName === data)[0]).staffId
+          break
+      }
     }
   }
 }

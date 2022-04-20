@@ -60,7 +60,7 @@ public class HomeMenuController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<HomeMenu> add(HomeMenu homeMenu) {
+    public ResponseEntity<HomeMenu> add(@RequestBody HomeMenu homeMenu) {
         return ResponseEntity.ok(this.homeMenuService.insert(homeMenu));
     }
 
@@ -71,7 +71,7 @@ public class HomeMenuController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<HomeMenu> edit(HomeMenu homeMenu) {
+    public ResponseEntity<HomeMenu> edit(@RequestBody HomeMenu homeMenu) {
         return ResponseEntity.ok(this.homeMenuService.update(homeMenu));
     }
 

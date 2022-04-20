@@ -66,7 +66,7 @@ public class AssetApplyInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<AssetApplyInfo> add(AssetApplyInfo assetApplyInfo) {
+    public ResponseEntity<AssetApplyInfo> add(@RequestBody AssetApplyInfo assetApplyInfo) {
         return ResponseEntity.ok(this.assetApplyInfoService.insert(assetApplyInfo));
     }
 
@@ -77,7 +77,7 @@ public class AssetApplyInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<AssetApplyInfo> edit(AssetApplyInfo assetApplyInfo) {
+    public ResponseEntity<AssetApplyInfo> edit(@RequestBody AssetApplyInfo assetApplyInfo) {
         return ResponseEntity.ok(this.assetApplyInfoService.update(assetApplyInfo));
     }
 

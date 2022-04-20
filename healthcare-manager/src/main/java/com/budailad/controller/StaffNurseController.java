@@ -73,7 +73,7 @@ public class StaffNurseController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<StaffNurse> add(StaffNurse staffNurse) {
+    public ResponseEntity<StaffNurse> add(@RequestBody StaffNurse staffNurse) {
         return ResponseEntity.ok(this.staffNurseService.insert(staffNurse));
     }
 
@@ -84,7 +84,7 @@ public class StaffNurseController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<StaffNurse> edit(StaffNurse staffNurse) {
+    public ResponseEntity<StaffNurse> edit(@RequestBody StaffNurse staffNurse) {
         return ResponseEntity.ok(this.staffNurseService.update(staffNurse));
     }
 

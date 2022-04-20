@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (PatientCaseInfo)表控制层
@@ -66,7 +67,8 @@ public class PatientCaseInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientCaseInfo> add(PatientCaseInfo patientCaseInfo) {
+    public ResponseEntity<PatientCaseInfo> add(@RequestBody PatientCaseInfo patientCaseInfo) {
+        patientCaseInfo.setCaseId(UUID.randomUUID().toString());
         return ResponseEntity.ok(this.patientCaseInfoService.insert(patientCaseInfo));
     }
 
@@ -77,7 +79,7 @@ public class PatientCaseInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<PatientCaseInfo> edit(PatientCaseInfo patientCaseInfo) {
+    public ResponseEntity<PatientCaseInfo> edit(@RequestBody PatientCaseInfo patientCaseInfo) {
         return ResponseEntity.ok(this.patientCaseInfoService.update(patientCaseInfo));
     }
 

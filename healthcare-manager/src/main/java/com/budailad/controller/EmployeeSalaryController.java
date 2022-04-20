@@ -66,7 +66,7 @@ public class EmployeeSalaryController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<EmployeeSalary> add(EmployeeSalary employeeSalary) {
+    public ResponseEntity<EmployeeSalary> add(@RequestBody EmployeeSalary employeeSalary) {
         return ResponseEntity.ok(this.employeeSalaryService.insert(employeeSalary));
     }
 
@@ -77,7 +77,7 @@ public class EmployeeSalaryController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<EmployeeSalary> edit(EmployeeSalary employeeSalary) {
+    public ResponseEntity<EmployeeSalary> edit(@RequestBody EmployeeSalary employeeSalary) {
         return ResponseEntity.ok(this.employeeSalaryService.update(employeeSalary));
     }
 
