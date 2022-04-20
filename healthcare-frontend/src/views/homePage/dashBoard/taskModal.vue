@@ -19,7 +19,7 @@
         label="任务编号"
         v-if="taskInfo.taskId !== null"
       >
-        {{ taskInfo.taskId.substr(0, 8) }}
+        {{ taskInfo.taskId}}
       </a-descriptions-item>
       <a-descriptions-item label="创建时间">
         <a-date-picker

@@ -136,7 +136,7 @@ export default {
     }
   },
   mounted () {
-    this.loginUse = JSON.parse(localStorage.getItem('loginUse'))
+    this.loginUse = JSON.parse(localStorage.getItem('loginUser'))
   },
   methods: {
     backHome () {

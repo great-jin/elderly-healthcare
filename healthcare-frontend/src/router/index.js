@@ -23,14 +23,14 @@ router.beforeEach((to, from, next) => {
     })
   }
   // 1. 状态判断
-  const token = JSON.parse(localStorage.getItem('loginUse'))
+  const token = JSON.parse(localStorage.getItem('loginUser'))
   let isLogin = !(token == null || token.staffId == null || token.staffId === '')
   // 2. 判断登录时长
   if (isLogin) {
     const date = new Date().getTime()
     if (date - token.startTime > ExpiresTime) {
       // 登录时间超过一天需要重新登录
-      localStorage.removeItem('loginUse')
+      localStorage.removeItem('loginUser')
       isLogin = false
       this.$message.info('登录过期，请重新登录')
     }

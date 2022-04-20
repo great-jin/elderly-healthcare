@@ -46,8 +46,8 @@
           </a-row>
         </div>
       </a-col>
-      <a-col :span="7">
-        <a-calendar :fullscreen="false"/>
+      <a-col :span="7" class="calendar">
+        <a-calendar :fullscreen="false" />
       </a-col>
     </a-row>
     <a-row>
@@ -69,7 +69,7 @@
               @click="clickOption('process', item, '0')"
             >
               <a-card-meta
-                :description="item.vacateReason.length<10 ? item.vacateReason : item.vacateReason.substr(0,10).concat('...')"
+                :description="item.vacateReason"
               >
                 <div slot="title">
                   <span>{{ item.vacateType }} 申请</span>
@@ -96,7 +96,7 @@
               @click="clickOption('process', item, '1')"
             >
               <a-card-meta
-                :description="item.vacateReason.length<10 ? item.vacateReason : item.vacateReason.substr(0,10).concat('...')"
+                :description="item.vacateReason"
               >
                 <div slot="title">
                   <span>{{ item.vacateType }} 申请</span>
@@ -136,7 +136,7 @@
                     {{ item.taskName }} : {{ item.taskContent }}
                   </template>
                   <a-list-item-meta
-                    :description="item.taskContent.length<30 ? item.taskContent : item.taskContent.substr(0,30).concat('...')"
+                    :description="item.taskContent.length"
                     :data-tips="item.taskContent"
                   >
                     <a slot="title">{{ item.taskName }}</a>
@@ -198,7 +198,7 @@ export default {
   mounted () {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
-    this.loginUser = JSON.parse(localStorage.getItem('loginUse'))
+    this.loginUser = JSON.parse(localStorage.getItem('loginUser'))
     this.getData()
     this.taskCount()
     this.taskState('0')
@@ -282,7 +282,7 @@ export default {
           break
         case 'quit':
           localStorage.removeItem('avatar')
-          localStorage.removeItem('loginUse')
+          localStorage.removeItem('loginUser')
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'done':
@@ -329,19 +329,14 @@ export default {
 }
 
 .calendar {
-  width: 100%;
-  height: 305px;
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  margin-top: 10px;
   background-color: white;
 }
 
 .process {
   margin-top: 5px;
   padding: 0px 10px;
-  /*max-height: 40%;*/
   overflow: auto;
+  /*max-height: 40%;*/
 }
 
 .task {

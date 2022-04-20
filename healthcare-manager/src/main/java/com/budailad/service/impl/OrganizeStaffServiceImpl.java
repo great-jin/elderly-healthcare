@@ -46,7 +46,6 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff) {
         return this.organizeStaffDao.queryAll(organizeStaff);
     }

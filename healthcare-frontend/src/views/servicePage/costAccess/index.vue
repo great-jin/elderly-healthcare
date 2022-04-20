@@ -7,31 +7,30 @@
       <a-row :style="{marginBottom: '25px'}">
         <a-col :span="12">
           <span><strong>病号：</strong>
-          <a-select
-            v-model="patientId"
-            :disabled="true"
-            placeholder="请选择病人"
-            style="width: 65%"
-          />
-        </span>
+            <a-select
+              v-model="patientId"
+              :disabled="true"
+              placeholder="请选择病人"
+              style="width: 65%"
+            />
+          </span>
         </a-col>
         <a-col :span="12">
           <span><strong>病人：</strong>
-          <a-select
-            v-model="patientId"
-            :allowClear="true"
-            placeholder="请选择病人"
-            @change="changePatient"
-            style="width: 65%"
-          >
-            <a-select-option
-              v-for="cases in patientList"
-              :key="cases.patientId"
-              :value="cases.patientId"
-            >{{ cases.patientName }}
-            </a-select-option>
-          </a-select>
-        </span>
+            <a-select
+              v-model="patientId"
+              :allowClear="true"
+              placeholder="请选择病人"
+              style="width: 65%"
+            >
+              <a-select-option
+                v-for="cases in patientList"
+                :key="cases.patientId"
+                :value="cases.patientId"
+              >{{ cases.patientName }}
+              </a-select-option>
+            </a-select>
+          </span>
         </a-col>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
@@ -44,21 +43,21 @@
         </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
+        <span><strong>单价：</strong>
+          <a-input-number
+            v-model="goodsInfo.goodsPrice"
+            :disabled="true"
+            style="width: 82%"
+          />
+        </span>
+      </a-row>
+      <a-row :style="{marginBottom: '25px'}">
         <span><strong>数量：</strong>
           <a-input-number
             v-model="goodsInfo.orderNum"
             :min="0"
             :disabled="goodsInfo.goodsName===''"
             @change="changeCount"
-            style="width: 82%"
-          />
-        </span>
-      </a-row>
-      <a-row :style="{marginBottom: '25px'}">
-        <span><strong>单价：</strong>
-          <a-input-number
-            v-model="goodsInfo.goodsPrice"
-            :disabled="true"
             style="width: 82%"
           />
         </span>
@@ -80,6 +79,37 @@
       </a-row>
     </a-col>
     <a-col :span="13" :style="{padding: '10px'}">
+      <a-row :style="{margin: '0 0 15px 5px'}">
+        <a-col :span="12">
+          <span><strong>产品类别：</strong>
+            <a-select
+              v-model="goodsType"
+              :allowClear="true"
+              placeholder="请选择类别"
+              style="width: 50%"
+            >
+              <a-select-option
+                v-for="item in catalogList"
+                :key="item"
+                :value="item"
+              >{{ item }}
+              </a-select-option>
+            </a-select>
+          </span>
+        </a-col>
+        <a-col :span="12">
+          <a-button
+            type="primary"
+            @click="refresh"
+            style="float: right; z-index: 1"
+          >取消</a-button>
+          <a-button
+            type="primary"
+            @click="search"
+            style="float: right; z-index: 1; margin-right: 10px"
+          >查询</a-button>
+        </a-col>
+      </a-row>
       <a-row>
         <a-table
           :columns="columns"
@@ -113,6 +143,9 @@ export default {
       columns,
       data: [],
       patientList: [],
+      goodsType: undefined,
+      catalogList: [],
+      goodsList: [],
       patientId: undefined,
       goodsInfo: {
         goodsName: '',
@@ -140,17 +173,29 @@ export default {
   methods: {
     getData () {
       listGoods().then(res => {
-        this.data = res.data
+        this.goodsList = res.data
+        this.data = this.goodsList
+        // 获取所有产品类别并去重
+        const typeList = this.data.map(item => item.goodsType)
+        const result = typeList.filter(function (element, index, array) {
+          return array.indexOf(element) === index
+        })
+        this.catalogList = result
       })
       listCostInfo().then(res => {
         this.patientList = res.data
       })
     },
-    changePatient (value) {
-
-    },
     changeCount (value) {
       this.goodsInfo.orderCount = Number(this.goodsInfo.goodsPrice) * Number(value)
+    },
+    search () {
+      // 按产品类别过滤数据
+      this.data = this.goodsList.filter(item => item.goodsType === this.goodsType)
+    },
+    refresh () {
+      this.goodsType = undefined
+      this.data = this.goodsList
     },
     ok () {
       if (this.patientId !== undefined) {

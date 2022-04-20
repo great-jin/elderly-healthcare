@@ -46,7 +46,6 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<StaffDoctor> queryAll(StaffDoctor staffDoctor) {
         return this.staffDoctorDao.queryAll(staffDoctor);
     }

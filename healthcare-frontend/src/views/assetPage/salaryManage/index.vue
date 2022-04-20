@@ -1,55 +1,66 @@
 <template>
   <div>
-    <div class="tree">
-      <a-directory-tree @select="onSelect" multiple default-expand-all>
-        <a-tree-node key="0" title="医护部门">
-          <a-tree-node key="0-1" title="医师" is-leaf/>
-          <a-tree-node key="0-2" title="护理员" is-leaf/>
-        </a-tree-node>
-        <a-tree-node key="1" title="其他部门">
-          <a-tree-node key="1-1" title="人事" is-leaf/>
-          <a-tree-node key="1-2" title="后勤" is-leaf/>
-          <a-tree-node key="1-3" title="其他" is-leaf/>
-        </a-tree-node>
-      </a-directory-tree>
-    </div>
-
-    <div class="table">
-      <a-button
-        style="float: left; z-index: 1; margin: 10px"
-        type="primary"
-      >新增
-      </a-button>
-      <a-auto-complete
-        placeholder="输入员工编号"
-        :allowClear="true"
-        style="width: 200px; float: right; z-index: 1; margin: 10px"
-      />
-      <a-table
-        :columns="columns"
-        :data-source="salaryData"
-        :pagination="pagination"
-        :scroll="{ x: 1300}"
-      >
-        <template slot="action" slot-scope="text, record">
-          <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-          <a-button type="link" @click="clickOption('download', record)">下载</a-button>
-        </template>
-      </a-table>
-    </div>
-
+    <a-row>
+      <a-col :span="3" :style="{paddingLeft: '10px'}">
+        <a-directory-tree
+          @select="onSelect"
+          default-expand-all
+        >
+          <a-tree-node key="0" title="医护部门">
+            <a-tree-node key="doctor" title="医师" is-leaf/>
+            <a-tree-node key="nurse" title="护理员" is-leaf/>
+          </a-tree-node>
+          <a-tree-node key="1" title="其他部门">
+            <a-tree-node key="human" title="人事" is-leaf/>
+            <a-tree-node key="logistics" title="后勤" is-leaf/>
+            <a-tree-node key="other" title="其他" is-leaf/>
+          </a-tree-node>
+        </a-directory-tree>
+      </a-col>
+      <a-col :span="1">
+      </a-col>
+      <a-col :span="20" :style="{paddingLeft: '15px'}">
+        <a-button
+          style="float: left; z-index: 1; margin: 10px"
+          type="primary"
+        >新增
+        </a-button>
+        <a-auto-complete
+          placeholder="输入员工编号"
+          :allowClear="true"
+          style="width: 200px; float: right; z-index: 1; margin: 10px"
+        />
+        <a-table
+          :columns="columns"
+          :data-source="data"
+          :pagination="pagination"
+          :scroll="{ x: 1300}"
+        >
+          <template slot="action" slot-scope="text, record">
+            <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+            <a-button type="link" @click="clickOption('download', record)">下载</a-button>
+          </template>
+        </a-table>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
 <script>
-import { columns, salaryData } from './const'
+import { columns } from './const'
+import { listNurse } from '@/api/staffNurse'
+import { listDoctor } from '@/api/staffDoctor'
+import { listOrganizeStaff } from '@/api/organizeStaff'
 
 export default {
   name: 'SalaryManage',
   data () {
     return {
       columns,
-      salaryData,
+      data: [],
+      nurseList: [],
+      doctorList: [],
+      otherStaff: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -60,9 +71,42 @@ export default {
       }
     }
   },
+  created () {
+    this.getData()
+  },
   methods: {
+    getData () {
+      listNurse().then(res => {
+        this.nurseList = res.data
+      })
+      listDoctor().then(res => {
+        this.doctorList = res.data
+      })
+      listOrganizeStaff().then(res => {
+        this.otherStaff = res.data
+      })
+    },
     onSelect (keys) {
       console.log(keys)
+      let result = []
+      switch (keys[0]) {
+        case 'doctor':
+          result = this.nurseList
+          break
+        case 'nurse':
+          result = this.doctorList
+          break
+        case 'human':
+          result = this.otherStaff.filter(item => item.organizeId === 'human')
+          break
+        case 'logistics':
+          result = this.otherStaff.filter(item => item.organizeId === 'logistics')
+          break
+        case 'other':
+          result = this.otherStaff.filter(item => item.organizeId !== 'human' && item.organizeId !== 'logistics')
+          break
+      }
+      this.data = result
     },
     clickOption (type, record) {
       switch (type) {
@@ -79,19 +123,4 @@ export default {
 </script>
 
 <style>
-.tree {
-  width: 15%;
-  float: left;
-  z-index: 1;
-  padding-top: 15px;
-  padding-left: 10px;
-  /*border: #1890ff 2px solid*/
-}
-
-.table {
-  width: 83%;
-  float: right;
-  z-index: 1;
-  /*border: #1890ff 2px solid*/
-}
 </style>

@@ -34,7 +34,7 @@ export default {
     },
     download () {
       const formData = new FormData()
-      const token = JSON.parse(localStorage.getItem('loginUse'))
+      const token = JSON.parse(localStorage.getItem('loginUser'))
       formData.append('staffId', token.staffId)
       download(formData)
     }

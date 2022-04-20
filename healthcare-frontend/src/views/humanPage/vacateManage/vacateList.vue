@@ -1,16 +1,16 @@
 <template>
   <a-list
-    class="demo-loadmore-list"
     :loading="loading"
+    :data-source="myVacate"
     item-layout="horizontal"
-    :data-source="data"
     style="padding: 0px 20px"
+    class="demo-loadmore-list"
   >
     <a-list-item slot="renderItem" slot-scope="item">
       <a-list-item-meta
-        :description="item.desc"
+        :description="item.vacateReason"
       >
-        <span slot="title">{{ item.title }}</span>
+        <span slot="title">{{ item.vacateType }} 申请</span>
       </a-list-item-meta>
       <a-button slot="actions" type="link" @click="showProcess(item)">查看进度</a-button>
       <processModal ref="processModal" />
@@ -20,6 +20,7 @@
 
 <script>
 import processModal from './processModal'
+import { listVacateInfo } from '@/api/vacateInfo'
 
 export default {
   components: {
@@ -28,20 +29,7 @@ export default {
   data () {
     return {
       loading: false,
-      data: [
-        {
-          desc: 'this is desc',
-          title: 'hello'
-        },
-        {
-          desc: 'this is desc',
-          title: 'hello'
-        },
-        {
-          desc: 'this is desc',
-          title: 'hello'
-        }
-      ]
+      myVacate: []
     }
   },
   mounted () {
@@ -49,6 +37,10 @@ export default {
   },
   methods: {
     getData () {
+      const loginUser = JSON.parse(localStorage.getItem('loginUser'))
+      listVacateInfo({ staffId: loginUser.staffId }).then(res => {
+        this.myVacate = res.data
+      })
     },
     showProcess (data) {
       this.$refs.processModal.paramReceive(data)

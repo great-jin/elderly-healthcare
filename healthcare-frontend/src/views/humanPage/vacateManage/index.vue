@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="我的流程">
+      <a-tab-pane key="1" tab="我的流程" style="padding: 0px 10px">
         <vacateList ref="vacateList" />
       </a-tab-pane>
       <a-tab-pane key="2" tab="信息填写" style="padding: 5px 10px">

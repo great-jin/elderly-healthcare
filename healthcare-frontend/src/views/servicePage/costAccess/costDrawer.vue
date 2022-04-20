@@ -6,25 +6,14 @@
     :visible="visible"
     @close="cancel"
   >
-    <a-row :style="{marginBottom: '25px'}">
-      <a-col :span="12">
-          <span><strong>病号：</strong>
-          <a-select
-            v-model="patient.patientId"
-            :disabled="true"
-            style="width: 65%"
-          />
-        </span>
-      </a-col>
-      <a-col :span="12">
-          <span><strong>病人：</strong>
-          <a-select
-            v-model="patient.patientName"
-            :disabled="true"
-            style="width: 65%"
-          />
-        </span>
-      </a-col>
+    <a-row :style="{marginBottom: '25px', marginLeft: '5px'}">
+      <span><strong>病号：</strong>
+        <a-select
+          v-model="patientId"
+          :disabled="true"
+          style="width: 32%"
+        />
+      </span>
     </a-row>
     <a-table
       :columns="payColumns"
@@ -65,10 +54,7 @@ export default {
       visible: false,
       payColumns,
       data: [],
-      patient: {
-        patientId: '',
-        patientName: ''
-      },
+      patientId: '',
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -86,7 +72,7 @@ export default {
     paramReceive (data) {
       this.visible = true
       this.getData(data)
-      this.patient.patientId = data
+      this.patientId = data
     },
     getData (data) {
       getCost(data).then(res => {

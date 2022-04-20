@@ -1,11 +1,11 @@
 export const columns = [
   {
-    title: '名称',
+    title: '产品名',
     align: 'center',
     dataIndex: 'goodsName'
   },
   {
-    title: '类别',
+    title: '产品类别',
     align: 'center',
     dataIndex: 'goodsType'
   },
@@ -23,12 +23,12 @@ export const columns = [
 
 export const payColumns = [
   {
-    title: '名称',
+    title: '产品名',
     align: 'center',
     dataIndex: 'goodsName'
   },
   {
-    title: '类别',
+    title: '产品类别',
     align: 'center',
     dataIndex: 'goodsType'
   },

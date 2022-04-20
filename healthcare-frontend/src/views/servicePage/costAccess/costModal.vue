@@ -9,9 +9,9 @@
       <a-button key="submit" type="primary" @click="ok">确定</a-button>
       <a-button key="back" @click="cancel">取消</a-button>
     </template>
-    <div>
+    <div :style="{padding: '0 25px'}">
       <a-row :style="{marginBottom: '25px'}">
-        <span><strong>名称：</strong>
+        <span><strong>产品名称：</strong>
           <a-input-number
             v-model="goodsInfo.goodsName"
             :disabled="true"
@@ -20,7 +20,7 @@
         </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <span><strong>数量：</strong>
+        <span><strong>消费数量：</strong>
           <a-input-number
             v-model="goodsInfo.goodsNumber"
             :min="0"
@@ -30,7 +30,7 @@
         </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <span><strong>单价：</strong>
+        <span><strong>产品单价：</strong>
           <a-input-number
             v-model="goodsInfo.goodsPrice"
             :disabled="true"
@@ -39,7 +39,7 @@
         </span>
       </a-row>
       <a-row :style="{marginBottom: '25px'}">
-        <span><strong>合计：</strong>
+        <span><strong>合计金额：</strong>
           <a-input-number
             v-model="goodsInfo.costCount"
             :disabled="true"

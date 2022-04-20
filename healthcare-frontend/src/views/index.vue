@@ -64,7 +64,7 @@ export default {
       const routerName = data.substring(data.lastIndexOf('/') + 1)
       if (routerName === 'login') {
         localStorage.removeItem('avatar')
-        localStorage.removeItem('loginUse')
+        localStorage.removeItem('loginUser')
         localStorage.removeItem('routerInfo')
       }
       this.$router.push(data)

@@ -152,7 +152,7 @@ export default {
                 getUser(values.staffId).then(res => {
                   // 记录登录用户
                   res.data.startTime = new Date().getTime()
-                  localStorage.setItem('loginUse', JSON.stringify(res.data))
+                  localStorage.setItem('loginUser', JSON.stringify(res.data))
                   // 获取用户头像
                   getAvatar(values.staffId).then(res => {
                     localStorage.setItem('avatar', res.data)
