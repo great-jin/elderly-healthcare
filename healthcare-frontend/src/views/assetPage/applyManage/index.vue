@@ -62,28 +62,28 @@
           </a-descriptions-item>
 
           <a-descriptions-item label="设备信息" :span="24">
-            <a-row>
+            <a-row :style="{paddingLeft:'10px'}">
               <a-col :span="2" class="apply-title">序号</a-col>
               <a-col :span="4" class="apply-title">设备名称</a-col>
-              <a-col :span="3" class="apply-title">设备规格</a-col>
-              <a-col :span="3" class="apply-title">设备单价</a-col>
-              <a-col :span="3" class="apply-title">申请数量</a-col>
-              <a-col :span="3" class="apply-title">总额</a-col>
-              <a-col :span="4" class="apply-title">备注</a-col>
+              <a-col :span="4" class="apply-title">设备规格</a-col>
+              <a-col :span="4" class="apply-title">设备单价</a-col>
+              <a-col :span="4" class="apply-title">申请数量</a-col>
+              <a-col :span="4" class="apply-title">总额</a-col>
               <a-col :span="2" @click="addDevice" class="apply-title" style="color: #1890FF">新增</a-col>
             </a-row>
             <a-row
               v-for="(item, index) in applyInfo.applyGoodsList"
               :key="index"
-              style="margin-bottom: 5px"
+              style="margin-bottom: 5px; padding-left: 10px"
             >
               <a-col :span="2" style="padding: 0px 5px">
                 <div class="apply-index">{{ index }}</div>
               </a-col>
-              <a-col :span="4" style="padding: 0px 10px">
+              <a-col :span="4" style="padding: 0px 15px">
                 <a-select
                   v-model="item.goodsName"
                   placeholder="请选择产品"
+                  @change="onChange('goods',index)"
                   style="width: 100%; min-width: 100px"
                 >
                   <a-select-option
@@ -95,40 +95,36 @@
                   </a-select-option>
                 </a-select>
               </a-col>
-              <a-col :span="3" style="padding: 0px 10px">
+              <a-col :span="4" style="padding: 0px 15px">
                 <a-input
                   v-model="item.goodsType"
+                  :disabled="true"
                   placeholder="请选择规格"
                 />
               </a-col>
-              <a-col :span=3 style="padding: 0px 10px">
+              <a-col :span="4" style="padding: 0px 15px">
                 <a-input-number
                   v-model="item.goodsPrice"
                   placeholder="单价"
-                  prefix="￥"
                   :disabled="true"
+                  style="width: 100%"
                 />
               </a-col>
-              <a-col :span="3" style="padding: 0px 10px;">
+              <a-col :span="4" style="padding: 0px 10px;">
                 <a-input-number
                   v-model="item.applyCount"
                   placeholder="请选择数量"
                   :min="1"
+                  @change="onChange('num',index)"
                   style="width: 100%"
                 />
               </a-col>
-              <a-col :span="3" style="padding: 0px 10px">
+              <a-col :span="4" style="padding: 0px 15px">
                 <a-input-number
                   v-model="item.costMoney"
                   placeholder="总额"
-                  prefix="￥"
                   :disabled="true"
-                />
-              </a-col>
-              <a-col :span="4" style="padding: 0px 10px">
-                <a-input
-                  v-model="item.comment"
-                  placeholder="请输入备注"
+                  style="width: 100%"
                 />
               </a-col>
               <a-col :span="2" class="apply-title">
@@ -197,7 +193,7 @@ export default {
       applyInfo: {
         applyGoodsList: []
       },
-      account: '1000'
+      account: 0
     }
   },
   mounted () {
@@ -228,10 +224,26 @@ export default {
         }
       })
     },
+    onChange (type, index) {
+      switch (type) {
+        case 'goods':
+          const goods = (this.goodsList.filter(item => item.goodsName === this.applyInfo.applyGoodsList[index].goodsName))[0]
+          this.applyInfo.applyGoodsList[index].goodsType = goods.goodsType
+          this.applyInfo.applyGoodsList[index].goodsPrice = goods.goodsPrice
+          break
+        case 'num':
+          const _count = this.applyInfo.applyGoodsList[index].goodsPrice * this.applyInfo.applyGoodsList[index].applyCount
+          this.applyInfo.applyGoodsList[index].costMoney = _count
+          this.applyInfo.applyGoodsList.forEach(money => {
+            this.account += money.costMoney
+          })
+          break
+      }
+    },
     addDevice () {
       this.applyInfo.applyGoodsList.push({
         uuid: this.guid(),
-        goodsName: '',
+        goodsName: undefined,
         goodsType: '',
         goodsPrice: 0,
         applyCount: 0,
