@@ -6,8 +6,9 @@
       </a-tab-pane>
       <a-tab-pane key="2" tab="信息填写" style="padding: 5px 10px">
         <a-descriptions bordered>
-          <a-descriptions-item label="申请部门" :span="2">
+          <a-descriptions-item label="申请部门">
             <a-select
+              v-model="applyInfo.organizeName"
               placeholder="请选择部门"
               style="width: 100%; min-width: 100px"
             >
@@ -20,11 +21,22 @@
               </a-select-option>
             </a-select>
           </a-descriptions-item>
-          <a-descriptions-item label="申请人" :span="2">
-            <a-input placeholder="请输入姓名" />
+          <a-descriptions-item label="员工编号">
+            <a-input
+              v-model="applyInfo.staffId"
+              placeholder="请输入姓名"
+            />
+          </a-descriptions-item>
+          <a-descriptions-item label="申请人">
+            <a-input
+              v-model="applyInfo.staffName"
+              placeholder="请输入姓名"
+            />
           </a-descriptions-item>
           <a-descriptions-item label="请假类别" :span="24">
-            <a-radio-group>
+            <a-radio-group
+              v-model="applyInfo.vacateType"
+            >
               <a-radio value="事假" style="margin: 10px 25px">事假</a-radio>
               <a-radio value="调休" style="margin: 10px 25px">调休</a-radio>
               <a-radio value="病假" style="margin: 10px 25px">病假</a-radio>
@@ -38,8 +50,9 @@
           </a-descriptions-item>
           <a-descriptions-item label="申请原因" :span="24">
             <a-textarea
+              v-model="applyInfo.vacateReason"
               type="text"
-              :rows="4"
+              :rows="6"
               placeholder="请输入申请原因"
             />
           </a-descriptions-item>
@@ -68,7 +81,6 @@
 import moment from 'moment'
 import vacateList from './vacateList'
 import { listOrg } from '@/api/organizeInfo'
-import { listGoods } from '@/api/warehouseStorage'
 import { addVacateInfo } from '@/api/vacateInfo'
 
 export default {
@@ -79,9 +91,8 @@ export default {
   data () {
     return {
       dayCount: '',
-      applyInfo: {},
       organize: [],
-      goodsInfo: []
+      applyInfo: {}
     }
   },
   created () {
@@ -95,21 +106,22 @@ export default {
       listOrg().then(res => {
         this.organize = res.data
       })
-      listGoods.then(res => {
-        this.goodsInfo = res.data
-      })
     },
     ok () {
       addVacateInfo(this.applyInfo).then(res => {
         if (res.data) {
           this.$message.success('提交成功')
+          this.applyInfo = {}
         } else {
           this.$message.error('提交失败，请重试')
         }
       })
     },
     onChange (date) {
+      this.applyInfo.startTime = date[0]._d
+      this.applyInfo.endTime = date[1]._d
       this.dayCount = (date[1]._d - date[0]._d) / 86400000
+      this.applyInfo.countTime = this.dayCount
     },
     disabledDate (current) {
       return current && current < moment().endOf('day')

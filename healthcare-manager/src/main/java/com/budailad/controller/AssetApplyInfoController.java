@@ -1,6 +1,8 @@
 package com.budailad.controller;
 
+import com.budailad.entity.AssetApplyGoods;
 import com.budailad.entity.AssetApplyInfo;
+import com.budailad.service.AssetApplyGoodsService;
 import com.budailad.service.AssetApplyInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (AssetApplyInfo)表控制层
@@ -24,6 +27,12 @@ public class AssetApplyInfoController {
      */
     @Resource
     private AssetApplyInfoService assetApplyInfoService;
+
+    /**
+     * 服务对象
+     */
+    @Resource
+    private AssetApplyGoodsService assetApplyGoodsService;
 
     /**
      * 条件查询
@@ -66,8 +75,22 @@ public class AssetApplyInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<AssetApplyInfo> add(@RequestBody AssetApplyInfo assetApplyInfo) {
-        return ResponseEntity.ok(this.assetApplyInfoService.insert(assetApplyInfo));
+    public ResponseEntity<Boolean> add(@RequestBody AssetApplyInfo assetApplyInfo) {
+        assetApplyInfo.setApplyId(UUID.randomUUID().toString());
+        List<AssetApplyGoods> applyGoodsList = assetApplyInfo.getApplyGoodsList();
+        // 申请货物关联申请表
+        applyGoodsList.forEach(item -> {
+            item.setId(UUID.randomUUID().toString());
+            item.setApplyId(assetApplyInfo.getApplyId());
+        });
+        int i = assetApplyGoodsService.insertBatch(applyGoodsList);
+        boolean tag = false;
+        if (i > 0) {
+            if (assetApplyInfoService.insert(assetApplyInfo) != null) {
+                tag = true;
+            }
+        }
+        return ResponseEntity.ok(tag);
     }
 
     /**

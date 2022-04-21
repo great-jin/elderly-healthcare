@@ -133,10 +133,10 @@
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into asset_apply_goods(apply_id, goods_name, goods_type, goods_price, apply_count, cost_money, comment)
+        insert into asset_apply_goods(id, apply_id, goods_name, goods_type, goods_price, apply_count, cost_money, comment)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.applyId}, #{entity.goodsName}, #{entity.goodsType}, #{entity.goodsPrice}, #{entity.applyCount},
+            (#{entity.id}, #{entity.applyId}, #{entity.goodsName}, #{entity.goodsType}, #{entity.goodsPrice}, #{entity.applyCount},
             #{entity.costMoney}, #{entity.comment})
         </foreach>
     </insert>

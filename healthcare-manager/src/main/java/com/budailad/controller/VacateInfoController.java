@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (VacateInfo)表控制层
@@ -28,7 +29,7 @@ public class VacateInfoController {
     /**
      * 条件查询
      *
-     * @param vacateInfo  筛选条件
+     * @param vacateInfo 筛选条件
      * @return 查询结果
      */
     @GetMapping("/list")
@@ -66,8 +67,13 @@ public class VacateInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<VacateInfo> add(@RequestBody VacateInfo vacateInfo) {
-        return ResponseEntity.ok(this.vacateInfoService.insert(vacateInfo));
+    public ResponseEntity<Boolean> add(@RequestBody VacateInfo vacateInfo) {
+        boolean tag = false;
+        vacateInfo.setId(UUID.randomUUID().toString());
+        if (vacateInfoService.insert(vacateInfo) != null) {
+            tag = true;
+        }
+        return ResponseEntity.ok(tag);
     }
 
     /**

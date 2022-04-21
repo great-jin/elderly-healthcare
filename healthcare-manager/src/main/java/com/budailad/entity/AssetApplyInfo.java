@@ -2,6 +2,7 @@ package com.budailad.entity;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * (AssetApplyInfo)实体类
@@ -63,7 +64,19 @@ public class AssetApplyInfo implements Serializable {
      * 备注
      */
     private String comment;
+    /**
+     * 申请产品列表
+     */
+    private List<AssetApplyGoods> applyGoodsList;
 
+
+    public List<AssetApplyGoods> getApplyGoodsList() {
+        return applyGoodsList;
+    }
+
+    public void setApplyGoodsList(List<AssetApplyGoods> applyGoodsList) {
+        this.applyGoodsList = applyGoodsList;
+    }
 
     public String getApplyId() {
         return applyId;

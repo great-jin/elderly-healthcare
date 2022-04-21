@@ -4,24 +4,42 @@
       <a-tab-pane key="1" tab="信息填写">
         <a-descriptions title="资产申请" style="padding: 0px 10px" bordered>
           <a-descriptions-item label="申请单位">
-            <a-select placeholder="请选择单位" style="width: 100%; min-width: 100px">
-              <a-select-option v-for="org in organize" :key="org.organizeId" :value="org.organizeName">
+            <a-select
+              v-model="applyInfo.organizeUnit"
+              placeholder="请选择单位"
+              style="width: 100%; min-width: 100px"
+            >
+              <a-select-option
+                v-for="org in organize"
+                :key="org.organizeId"
+                :value="org.organizeName">
                 {{ org.organizeName }}
               </a-select-option>
             </a-select>
           </a-descriptions-item>
           <a-descriptions-item label="申请部门">
-            <a-select placeholder="请选择部门" style="width: 100%; min-width: 100px">
-              <a-select-option v-for="org in organize" :key="org.organizeId" :value="org.organizeName">
+            <a-select
+              v-model="applyInfo.organizeName"
+              placeholder="请选择部门"
+              style="width: 100%; min-width: 100px"
+            >
+              <a-select-option
+                v-for="org in organize"
+                :key="org.organizeId"
+                :value="org.organizeName">
                 {{ org.organizeName }}
               </a-select-option>
             </a-select>
           </a-descriptions-item>
           <a-descriptions-item label="申请人">
-            <a-input placeholder="请输入姓名" />
+            <a-input
+              v-model="applyInfo.staffId"
+              placeholder="请输入姓名"
+            />
           </a-descriptions-item>
           <a-descriptions-item label="申请时间">
             <a-date-picker
+              v-model="applyInfo.applyTime"
               :disabled-date="disabledDate"
               style="width: 100%"
             />
@@ -36,6 +54,7 @@
           </a-descriptions-item>
           <a-descriptions-item label="申请原因" :span="24">
             <a-textarea
+              v-model="applyInfo.applyReason"
               type="text"
               :rows="4"
               placeholder="请输入申请原因"
@@ -54,7 +73,7 @@
               <a-col :span="2" @click="addDevice" class="apply-title" style="color: #1890FF">新增</a-col>
             </a-row>
             <a-row
-              v-for="(item, index) in applyInfo.orderList"
+              v-for="(item, index) in applyInfo.applyGoodsList"
               :key="index"
               style="margin-bottom: 5px"
             >
@@ -63,24 +82,28 @@
               </a-col>
               <a-col :span="4" style="padding: 0px 10px">
                 <a-select
-                  v-model="item.device"
-                  placeholder="请选择设备"
+                  v-model="item.goodsName"
+                  placeholder="请选择产品"
                   style="width: 100%; min-width: 100px"
                 >
-                  <a-select-option v-for="goods in goodsList" :key="goods.goodsId" :value="goods.goodsName">
+                  <a-select-option
+                    v-for="goods in goodsList"
+                    :key="goods.goodsId"
+                    :value="goods.goodsName"
+                  >
                     {{ goods.goodsName }}
                   </a-select-option>
                 </a-select>
               </a-col>
               <a-col :span="3" style="padding: 0px 10px">
                 <a-input
-                  v-model="item.type"
+                  v-model="item.goodsType"
                   placeholder="请选择规格"
                 />
               </a-col>
               <a-col :span=3 style="padding: 0px 10px">
-                <a-input
-                  v-model="item.price"
+                <a-input-number
+                  v-model="item.goodsPrice"
                   placeholder="单价"
                   prefix="￥"
                   :disabled="true"
@@ -88,15 +111,15 @@
               </a-col>
               <a-col :span="3" style="padding: 0px 10px;">
                 <a-input-number
-                  v-model="item.amount"
+                  v-model="item.applyCount"
                   placeholder="请选择数量"
                   :min="1"
                   style="width: 100%"
                 />
               </a-col>
               <a-col :span="3" style="padding: 0px 10px">
-                <a-input
-                  v-model="item.money"
+                <a-input-number
+                  v-model="item.costMoney"
                   placeholder="总额"
                   prefix="￥"
                   :disabled="true"
@@ -119,13 +142,22 @@
           </a-descriptions-item>
 
           <a-descriptions-item label="收件人">
-            <a-input placeholder="请输入收件人" />
+            <a-input
+              v-model="applyInfo.receiveName"
+              placeholder="请输入收件人"
+            />
           </a-descriptions-item>
           <a-descriptions-item label="收件电话">
-            <a-input placeholder="请输入收件电话" />
+            <a-input
+              v-model="applyInfo.receivePhone"
+              placeholder="请输入收件电话"
+            />
           </a-descriptions-item>
           <a-descriptions-item label="收件地址">
-            <a-input placeholder="请输入收件地址" />
+            <a-input
+              v-model="applyInfo.receiveAddress"
+              placeholder="请输入收件地址"
+            />
           </a-descriptions-item>
           <a-descriptions-item label="总金额" :span="24">
             <span>￥&nbsp;&nbsp;&nbsp;&nbsp;{{account}}&nbsp;&nbsp;&nbsp;&nbsp;RMB</span>&nbsp;
@@ -154,6 +186,7 @@
 import moment from 'moment'
 import { listOrg } from '@/api/organizeInfo'
 import { listGoods } from '@/api/warehouseStorage'
+import { addApplyInfo } from '@/api/assetApplyInfo'
 
 export default {
   name: 'ApplyManage',
@@ -162,16 +195,16 @@ export default {
       organize: [],
       goodsList: [],
       applyInfo: {
-        orderList: []
+        applyGoodsList: []
       },
       account: '1000'
     }
   },
   mounted () {
-    this.getDict()
+    this.getData()
   },
   methods: {
-    getDict () {
+    getData () {
       listOrg().then(res => {
         this.organize = res.data
       })
@@ -186,21 +219,28 @@ export default {
       return current && current < moment().endOf('day')
     },
     ok () {
-      console.log(this.applyInfo.orderList)
+      addApplyInfo(this.applyInfo).then(res => {
+        if (res.data) {
+          this.$message.success('提交成功')
+          this.applyInfo = {}
+        } else {
+          this.$message.error('提交失败，请重试')
+        }
+      })
     },
     addDevice () {
-      this.applyInfo.orderList.push({
+      this.applyInfo.applyGoodsList.push({
         uuid: this.guid(),
-        device: '',
-        type: '',
-        price: '',
-        amount: '',
-        money: '',
+        goodsName: '',
+        goodsType: '',
+        goodsPrice: 0,
+        applyCount: 0,
+        costMoney: 0,
         comment: ''
       })
     },
     remove (item) {
-      this.applyInfo.orderList = this.applyInfo.orderList.filter(op => (op.uuid !== item.uuid))
+      this.applyInfo.applyGoodsList = this.applyInfo.applyGoodsList.filter(op => (op.uuid !== item.uuid))
     },
     guid () {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

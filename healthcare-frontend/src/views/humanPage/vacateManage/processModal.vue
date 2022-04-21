@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import moment from '_moment@2.29.1@moment'
+import moment from 'moment'
 
 export default {
   name: 'ProcessModal',

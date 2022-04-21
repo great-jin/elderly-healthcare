@@ -77,6 +77,11 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
         return assetApplyGoods;
     }
 
+    @Override
+    public int insertBatch(List<AssetApplyGoods> applyGoodsList) {
+        return this.assetApplyGoodsDao.insertBatch(applyGoodsList);
+    }
+
     /**
      * 修改数据
      *

@@ -196,9 +196,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into vacate_info(organize_name, organize_type, staff_id, staff_name, vacate_type, vacate_reason,
+        insert into vacate_info(id, organize_name, organize_type, staff_id, staff_name, vacate_type, vacate_reason,
                                 start_time, end_time, count_time, auditor_id, auditor_name, is_approve, comment)
-        values (#{organizeName}, #{organizeType}, #{staffId}, #{staffName}, #{vacateType}, #{vacateReason},
+        values (#{id}, #{organizeName}, #{organizeType}, #{staffId}, #{staffName}, #{vacateType}, #{vacateReason},
                 #{startTime}, #{endTime}, #{countTime}, #{auditorId}, #{auditorName}, #{isApprove}, #{comment})
     </insert>
 

@@ -185,9 +185,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="applyId" useGeneratedKeys="true">
-        insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
+        insert into asset_apply_info(apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
                                      receive_phone, receive_address, cost_money, current_state, is_finished, comment)
-        values (#{organizeUnit}, #{organizeName}, #{staffId}, #{applyTime}, #{applyReason}, #{receiveName},
+        values (#{applyId}, #{organizeUnit}, #{organizeName}, #{staffId}, #{applyTime}, #{applyReason}, #{receiveName},
                 #{receivePhone}, #{receiveAddress}, #{costMoney}, #{currentState}, #{isFinished}, #{comment})
     </insert>
 

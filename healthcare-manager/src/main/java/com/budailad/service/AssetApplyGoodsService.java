@@ -47,6 +47,9 @@ public interface AssetApplyGoodsService {
      */
     AssetApplyGoods insert(AssetApplyGoods assetApplyGoods);
 
+
+    int insertBatch(List<AssetApplyGoods> applyGoodsList);
+
     /**
      * 修改数据
      *
