@@ -1,15 +1,26 @@
 <template>
   <div>
-    <h1>库存管理</h1>
+    <GoodsModal ref="goodsModal" />
   </div>
 </template>
 
 <script>
+import { columns } from './const'
+import GoodsModal from './goodsModal'
+
 export default {
   name: 'index',
+  components: {
+    GoodsModal
+  },
   data () {
     return {
       values: ''
+    }
+  },
+  computed: {
+    columns () {
+      return columns(this)
     }
   },
   methods: {
