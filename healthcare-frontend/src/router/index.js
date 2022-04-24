@@ -17,7 +17,7 @@ const ExpiresTime = 86400000
 
 router.beforeEach((to, from, next) => {
   const routerInfo = JSON.parse(localStorage.getItem('routerInfo'))
-  if (routerInfo.length === 0) {
+  if (routerInfo == null || routerInfo.length === 0) {
     listHomeMenu().then(res => {
       localStorage.setItem('routerInfo', JSON.stringify(res.data))
     })

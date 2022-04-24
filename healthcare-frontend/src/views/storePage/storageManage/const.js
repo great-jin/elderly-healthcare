@@ -7,22 +7,85 @@ export const columns = (cxt) => {
     {
       title: '编号',
       align: 'center',
-      dataIndex: 'patientId',
+      fixed: 'left',
+      dataIndex: 'goodsId',
       customRender: (record) => {
-        return <span>{record.substr(0, 8)}</span>
+        return <span>{record.substring(0, 8)}</span>
       }
     },
     {
-      title: '备注',
+      title: '产品名',
+      fixed: 'left',
+      width: 120,
       align: 'center',
-      dataIndex: 'comment',
+      dataIndex: 'goodsName'
+    },
+    {
+      title: '产品类别',
+      align: 'center',
+      dataIndex: 'goodsType'
+    },
+    {
+      title: '单价',
+      align: 'center',
+      dataIndex: 'goodsPrice'
+    },
+    {
+      title: '库存',
+      align: 'center',
+      dataIndex: 'goodsCount'
+    },
+    {
+      title: '预警线',
+      align: 'center',
+      dataIndex: 'warnLine'
+    },
+    {
+      title: '购买人',
+      align: 'center',
+      dataIndex: 'purchaseStaff'
+    },
+    {
+      title: '购买日期',
+      align: 'center',
+      dataIndex: 'purchaseTime',
       customRender: (record) => {
-        if (record === null || record === '') {
-          return <span>无</span>
-        } else {
-          return <span>{record}</span>
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
+        return <span>{_time}</span>
+      }
+    },
+    {
+      title: '生产日期',
+      align: 'center',
+      dataIndex: 'produceTime',
+      customRender: (record) => {
+        const _time = record !== null ? moment(record).format('YYYY-MM-DD') : '无'
+        return <span>{_time}</span>
+      }
+    },
+    {
+      title: '生产厂商',
+      align: 'center',
+      dataIndex: 'produceVendor',
+      customRender: (record) => {
+        if (record !== null) {
+          return <span>{record.substring(0, 10)}</span>
+        }
+      },
+      customCell: (record) => {
+        return {
+          attrs: {
+            title: record.produceVendor
+          }
         }
       }
+    },
+    {
+      title: '操作',
+      width: 170,
+      fixed: 'right',
+      align: 'center',
+      scopedSlots: { customRender: 'action' }
     }
   ]
 }

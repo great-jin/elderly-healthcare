@@ -38,7 +38,8 @@
         >
           <template slot="action" slot-scope="text, record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-            <a-button type="link" @click="clickOption('download', record)">下载</a-button>
+            <a-button type="link" @click="clickOption('open', record)">开通</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
           </template>
         </a-table>
       </a-col>
@@ -113,8 +114,11 @@ export default {
         case 'more':
           this.$message.info('详情')
           break
-        case 'download':
-          this.$message.info('下载')
+        case 'edit':
+          this.$message.info('编辑')
+          break
+        case 'open':
+          this.$message.info('开通')
           break
       }
     }

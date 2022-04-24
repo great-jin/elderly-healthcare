@@ -41,8 +41,6 @@
 </template>
 
 <script>
-import { listHomeMenu } from '@/api/homeMenu'
-
 export default {
   name: 'MainPage',
   data () {

@@ -224,7 +224,11 @@ export default {
       return {
         on: {
           click: () => {
-            this.goodsInfo = record
+            if (this.patientId !== undefined) {
+              this.goodsInfo = record
+            } else {
+              this.$message.error('请先选择病人')
+            }
           }
         }
       }
