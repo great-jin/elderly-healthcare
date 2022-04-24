@@ -1,60 +1,34 @@
 <template>
-  <div id="app">
-    <div style="background: #ECECEC; padding: 5px">
-      <a-row :gutter="16">
-        <a-col :span="8">
-          <a-card>
-            <a-statistic
-              title="Feedback"
-              :value="11.28"
-              :precision="2"
-              suffix="%"
-              :value-style="{ color: '#3f8600' }"
-              style="margin-right: 50px"
-            >
-              <template #prefix>
-                <a-icon type="arrow-up" />
-              </template>
-            </a-statistic>
-          </a-card>
-        </a-col>
-        <a-col :span="8">
-          <a-progress :percent="30" />
-          <a-progress :percent="30" />
-          <a-progress :percent="30" />
-          <a-progress :percent="30" />
-          <a-progress :percent="30" />
-        </a-col>
-        <a-col :span="8">
-          <a-card>
-            <a-statistic
-              title="Idle"
-              :value="9.3"
-              :precision="2"
-              suffix="%"
-              class="demo-class"
-              :value-style="{ color: '#cf1322' }"
-            >
-              <template #prefix>
-                <a-icon type="arrow-down" />
-              </template>
-            </a-statistic>
-          </a-card>
-        </a-col>
-      </a-row>
-    </div>
+  <div>
+    <a-row style="margin-bottom: 15px; font-weight: 600">
+      <a-col :span="24" style="text-align: center"><h2>数据详情</h2></a-col>
+    </a-row>
+    <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
+      <a-col :span="12"><pieChart /></a-col>
+      <a-col :span="12"><lineChart /></a-col>
+    </a-row>
   </div>
 </template>
 
 <script>
+import pieChart from './pieChart'
+import lineChart from './lineChart'
+
 export default {
-  data () {
-    return {
-      fileName: '',
-      fileBucket: ''
+  name: 'DataChart',
+  props: {
+    width: {
+      type: String,
+      default: null
+    },
+    height: {
+      type: String,
+      default: null
     }
   },
-  methods: {
+  components: {
+    pieChart,
+    lineChart
   }
 }
 </script>
