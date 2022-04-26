@@ -12,7 +12,7 @@
       >
         <template slot="action" slot-scope="record">
           <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-          <a-button type="link" @click="clickOption('edit', record)">详情</a-button>
+          <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
           <GoodsModal ref="goodsModal" />
         </template>
       </a-table>

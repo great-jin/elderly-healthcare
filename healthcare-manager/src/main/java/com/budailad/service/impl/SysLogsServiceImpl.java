@@ -46,7 +46,6 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<SysLogs> queryAll(SysLogs sysLogs) {
         return this.sysLogsDao.queryAll(sysLogs);
     }
@@ -71,7 +70,6 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public SysLogs insert(SysLogs sysLogs) {
         this.sysLogsDao.insert(sysLogs);
         return sysLogs;
@@ -85,7 +83,6 @@ public class SysLogsServiceImpl implements SysLogsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#sysLogs.logId")
     })
     public SysLogs update(SysLogs sysLogs) {
@@ -101,7 +98,6 @@ public class SysLogsServiceImpl implements SysLogsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#logId")
     })
     public boolean deleteById(String logId) {

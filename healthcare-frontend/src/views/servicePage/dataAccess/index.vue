@@ -6,7 +6,7 @@
           ref="searchForm"
           :model="searchData"
           labelAlign="left"
-          style="margin-bottom: 10px; font-weight: bold"
+          style="font-weight: bold"
         >
           <a-row style="padding-left: 10px">
             <a-col :span="5">
@@ -48,10 +48,11 @@
           :columns="columns"
           :data-source="accessData"
           :pagination="pagination"
+          :style="{padding: '0 15px'}"
         >
           <template slot="action" slot-scope="record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
           </template>
         </a-table>
         <patientDrawer ref="patientDrawer"/>

@@ -3,7 +3,7 @@
     <a-row>
       <a-col :span="3" :style="{paddingLeft: '10px'}">
         <a-directory-tree
-          @select="onSelect"
+          @select="treeSelect"
           default-expand-all
         >
           <a-tree-node key="0" title="医护部门">
@@ -21,6 +21,7 @@
       </a-col>
       <a-col :span="20" :style="{paddingLeft: '15px'}">
         <a-button
+          @click="clickOption('add',null)"
           style="float: left; z-index: 1; margin: 10px"
           type="primary"
         >新增
@@ -34,30 +35,41 @@
           :columns="columns"
           :data-source="data"
           :pagination="pagination"
-          :scroll="{ x: 1300}"
+          :scroll="{ x: 1600}"
         >
           <template slot="action" slot-scope="text, record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
             <a-button type="link" @click="clickOption('open', record)">开通</a-button>
-            <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
           </template>
         </a-table>
       </a-col>
     </a-row>
+
+    <AddModal ref="addModal" />
+    <InfoDrawer ref="infoDrawer" />
+    <AccountModal ref="accountModal" />
   </div>
 </template>
 
 <script>
 import { columns } from './const'
+import AddModal from './addModal'
+import InfoDrawer from './infoDrawer'
+import AccountModal from './accountModal'
 import { listNurse } from '@/api/staffNurse'
 import { listDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff } from '@/api/organizeStaff'
 
 export default {
   name: 'SalaryManage',
+  components: {
+    AddModal,
+    InfoDrawer,
+    AccountModal
+  },
   data () {
     return {
-      columns,
       data: [],
       nurseList: [],
       doctorList: [],
@@ -72,6 +84,11 @@ export default {
       }
     }
   },
+  computed: {
+    columns () {
+      return columns(this)
+    }
+  },
   created () {
     this.getData()
   },
@@ -82,20 +99,21 @@ export default {
       })
       listDoctor().then(res => {
         this.doctorList = res.data
+        this.treeSelect(['doctor'])
       })
       listOrganizeStaff().then(res => {
         this.otherStaff = res.data
       })
     },
-    onSelect (keys) {
-      console.log(keys)
+    treeSelect (keys) {
       let result = []
       switch (keys[0]) {
+        case '0':
         case 'doctor':
-          result = this.nurseList
+          result = this.doctorList
           break
         case 'nurse':
-          result = this.doctorList
+          result = this.nurseList
           break
         case 'human':
           result = this.otherStaff.filter(item => item.organizeId === 'human')
@@ -103,22 +121,24 @@ export default {
         case 'logistics':
           result = this.otherStaff.filter(item => item.organizeId === 'logistics')
           break
+        case '1':
         case 'other':
           result = this.otherStaff.filter(item => item.organizeId !== 'human' && item.organizeId !== 'logistics')
           break
       }
       this.data = result
     },
-    clickOption (type, record) {
+    clickOption (type, data) {
       switch (type) {
-        case 'more':
-          this.$message.info('详情')
+        case 'add':
+          this.$refs.addModal.paramReceive()
           break
+        case 'more':
         case 'edit':
-          this.$message.info('编辑')
+          this.$refs.infoDrawer.paramReceive(type, data)
           break
         case 'open':
-          this.$message.info('开通')
+          this.$refs.accountModal.paramReceive(type, data)
           break
       }
     }

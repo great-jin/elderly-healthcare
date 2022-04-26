@@ -43,7 +43,6 @@ public class HomeMenuServiceImpl implements HomeMenuService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<HomeMenu> queryAll(HomeMenu homeMenu) {
         return this.homeMenuDao.queryAll(homeMenu);
     }

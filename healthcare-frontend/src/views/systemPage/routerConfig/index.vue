@@ -25,7 +25,7 @@
       </template>
       <template slot="action" slot-scope="record">
         <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-        <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
       </template>
     </a-table>
     <routerModal ref="routerModal"/>

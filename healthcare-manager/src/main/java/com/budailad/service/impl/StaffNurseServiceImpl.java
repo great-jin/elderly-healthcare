@@ -70,7 +70,6 @@ public class StaffNurseServiceImpl implements StaffNurseService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public StaffNurse insert(StaffNurse staffNurse) {
         this.staffNurseDao.insert(staffNurse);
         return staffNurse;
@@ -84,7 +83,6 @@ public class StaffNurseServiceImpl implements StaffNurseService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#staffNurse.id")
     })
     public StaffNurse update(StaffNurse staffNurse) {
@@ -100,7 +98,6 @@ public class StaffNurseServiceImpl implements StaffNurseService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#id")
     })
     public boolean deleteById(Integer id) {

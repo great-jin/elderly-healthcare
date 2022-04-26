@@ -46,7 +46,6 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<OrganizeInfo> queryAll(OrganizeInfo organizeInfo) {
         return this.organizeInfoDao.queryAll(organizeInfo);
     }
@@ -71,7 +70,6 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public OrganizeInfo insert(OrganizeInfo organizeInfo) {
         this.organizeInfoDao.insert(organizeInfo);
         return organizeInfo;
@@ -85,7 +83,6 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#organizeInfo.organizeId")
     })
     public OrganizeInfo update(OrganizeInfo organizeInfo) {
@@ -101,7 +98,6 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#organizeId")
     })
     public boolean deleteById(String organizeId) {

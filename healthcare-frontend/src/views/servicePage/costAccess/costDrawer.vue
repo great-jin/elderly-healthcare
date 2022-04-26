@@ -30,7 +30,7 @@
       :pagination="pagination"
     >
       <template slot="action" slot-scope="record">
-        <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
         <a-popconfirm
           title="是否确认删除该条消费记录"
           ok-text="是"

@@ -46,7 +46,6 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles) {
         return this.patientCaseFilesDao.queryAll(patientCaseFiles);
     }
@@ -71,7 +70,6 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public PatientCaseFiles insert(PatientCaseFiles patientCaseFiles) {
         this.patientCaseFilesDao.insert(patientCaseFiles);
         return patientCaseFiles;
@@ -85,7 +83,6 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#patientCaseFiles.fileId")
     })
     public PatientCaseFiles update(PatientCaseFiles patientCaseFiles) {
@@ -101,7 +98,6 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#fileId")
     })
     public boolean deleteById(String fileId) {

@@ -46,7 +46,6 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<MailInfo> queryAll(MailInfo mailInfo) {
         return this.mailInfoDao.queryAll(mailInfo);
     }
@@ -71,7 +70,6 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public MailInfo insert(MailInfo mailInfo) {
         this.mailInfoDao.insert(mailInfo);
         return mailInfo;
@@ -85,7 +83,6 @@ public class MailInfoServiceImpl implements MailInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#mailInfo.mailId")
     })
     public MailInfo update(MailInfo mailInfo) {
@@ -101,7 +98,6 @@ public class MailInfoServiceImpl implements MailInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#mailId")
     })
     public boolean deleteById(String mailId) {

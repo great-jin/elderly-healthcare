@@ -46,7 +46,6 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<PatientContact> queryAll(PatientContact patientContact) {
         return this.patientContactDao.queryAll(patientContact);
     }
@@ -71,7 +70,6 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public PatientContact insert(PatientContact patientContact) {
         this.patientContactDao.insert(patientContact);
         return patientContact;
@@ -96,7 +94,6 @@ public class PatientContactServiceImpl implements PatientContactService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#patientContact.id")
     })
     public PatientContact update(PatientContact patientContact) {
@@ -112,7 +109,6 @@ public class PatientContactServiceImpl implements PatientContactService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#id")
     })
     public boolean deleteById(String id) {

@@ -3,7 +3,7 @@
     <a-row>
       <a-col :span="3" :style="{paddingLeft: '10px'}">
         <a-directory-tree
-          @select="onSelect"
+          @select="treeSelect"
           default-expand-all
         >
           <a-tree-node key="0" title="医护部门">
@@ -34,11 +34,12 @@
           :columns="columns"
           :data-source="data"
           :pagination="pagination"
-          :scroll="{ x: 1300}"
+          :scroll="{ x: 1500}"
         >
           <template slot="action" slot-scope="text, record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
             <a-button type="link" @click="clickOption('download', record)">下载</a-button>
+            <SalaryModal ref="salaryModal" />
           </template>
         </a-table>
       </a-col>
@@ -48,15 +49,18 @@
 
 <script>
 import { columns } from './const'
+import SalaryModal from './salaryModal'
 import { listNurse } from '@/api/staffNurse'
 import { listDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff } from '@/api/organizeStaff'
 
 export default {
   name: 'SalaryManage',
+  components: {
+    SalaryModal
+  },
   data () {
     return {
-      columns,
       data: [],
       nurseList: [],
       doctorList: [],
@@ -71,6 +75,11 @@ export default {
       }
     }
   },
+  computed: {
+    columns () {
+      return columns(this)
+    }
+  },
   created () {
     this.getData()
   },
@@ -81,20 +90,22 @@ export default {
       })
       listDoctor().then(res => {
         this.doctorList = res.data
+        console.log(this.doctorList)
+        this.treeSelect(['doctor'])
       })
       listOrganizeStaff().then(res => {
         this.otherStaff = res.data
       })
     },
-    onSelect (keys) {
-      console.log(keys)
+    treeSelect (keys) {
       let result = []
       switch (keys[0]) {
+        case '0':
         case 'doctor':
-          result = this.nurseList
+          result = this.doctorList
           break
         case 'nurse':
-          result = this.doctorList
+          result = this.nurseList
           break
         case 'human':
           result = this.otherStaff.filter(item => item.organizeId === 'human')
@@ -102,16 +113,17 @@ export default {
         case 'logistics':
           result = this.otherStaff.filter(item => item.organizeId === 'logistics')
           break
+        case '1':
         case 'other':
           result = this.otherStaff.filter(item => item.organizeId !== 'human' && item.organizeId !== 'logistics')
           break
       }
       this.data = result
     },
-    clickOption (type, record) {
+    clickOption (type, data) {
       switch (type) {
         case 'more':
-          this.$message.info('详情')
+          this.$refs.salaryModal.paramReceive(data)
           break
         case 'download':
           this.$message.info('下载')

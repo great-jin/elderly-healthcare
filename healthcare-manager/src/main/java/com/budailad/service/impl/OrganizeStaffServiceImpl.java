@@ -70,7 +70,6 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public OrganizeStaff insert(OrganizeStaff organizeStaff) {
         this.organizeStaffDao.insert(organizeStaff);
         return organizeStaff;
@@ -84,7 +83,6 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#organizeStaff.id")
     })
     public OrganizeStaff update(OrganizeStaff organizeStaff) {
@@ -100,7 +98,6 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#id")
     })
     public boolean deleteById(Integer id) {

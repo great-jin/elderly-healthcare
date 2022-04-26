@@ -45,7 +45,6 @@ public class SysFileConfigServiceImpl implements SysFileConfigService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<SysFileConfig> queryAll(SysFileConfig sysFileConfig) {
         return this.sysFileConfigDao.queryAll(sysFileConfig);
     }

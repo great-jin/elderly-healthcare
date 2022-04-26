@@ -46,7 +46,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<OrderGoods> queryAll(OrderGoods orderGoods) {
         return this.orderGoodsDao.queryAll(orderGoods);
     }
@@ -71,7 +70,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public OrderGoods insert(OrderGoods orderGoods) {
         this.orderGoodsDao.insert(orderGoods);
         return orderGoods;
@@ -85,7 +83,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#orderGoods.orderId")
     })
     public OrderGoods update(OrderGoods orderGoods) {
@@ -101,7 +98,6 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#orderId")
     })
     public boolean deleteById(String orderId) {

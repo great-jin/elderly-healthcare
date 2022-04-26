@@ -46,7 +46,6 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<SalaryDetailFiles> queryAll(SalaryDetailFiles salaryDetailFiles) {
         return this.salaryDetailFilesDao.queryAll(salaryDetailFiles);
     }
@@ -71,7 +70,6 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public SalaryDetailFiles insert(SalaryDetailFiles salaryDetailFiles) {
         this.salaryDetailFilesDao.insert(salaryDetailFiles);
         return salaryDetailFiles;
@@ -85,7 +83,6 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#salaryDetailFiles.fileId")
     })
     public SalaryDetailFiles update(SalaryDetailFiles salaryDetailFiles) {
@@ -101,7 +98,6 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#fileId")
     })
     public boolean deleteById(String fileId) {

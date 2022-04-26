@@ -46,7 +46,6 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<AssetApplyGoods> queryAll(AssetApplyGoods assetApplyGoods) {
         return this.assetApplyGoodsDao.queryAll(assetApplyGoods);
     }
@@ -71,7 +70,6 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public AssetApplyGoods insert(AssetApplyGoods assetApplyGoods) {
         this.assetApplyGoodsDao.insert(assetApplyGoods);
         return assetApplyGoods;
@@ -90,7 +88,6 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#assetApplyGoods.id")
     })
     public AssetApplyGoods update(AssetApplyGoods assetApplyGoods) {
@@ -106,7 +103,6 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#id")
     })
     public boolean deleteById(String id) {

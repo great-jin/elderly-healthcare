@@ -1,8 +1,6 @@
 <template>
   <div>
-    <a-button-group
-      :style="{ marginBottom: '5px' }"
-    >
+    <a-button-group>
       <a-button @click="clickOption('0')">未审批</a-button>
       <a-button @click="clickOption('1')">已审批</a-button>
     </a-button-group>

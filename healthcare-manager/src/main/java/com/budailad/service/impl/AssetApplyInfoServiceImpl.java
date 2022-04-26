@@ -46,7 +46,6 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo) {
         return this.assetApplyInfoDao.queryAll(assetApplyInfo);
     }
@@ -71,7 +70,6 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public AssetApplyInfo insert(AssetApplyInfo assetApplyInfo) {
         this.assetApplyInfoDao.insert(assetApplyInfo);
         return assetApplyInfo;
@@ -85,7 +83,6 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#assetApplyInfo.applyId")
     })
     public AssetApplyInfo update(AssetApplyInfo assetApplyInfo) {
@@ -101,7 +98,6 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#applyId")
     })
     public boolean deleteById(String applyId) {

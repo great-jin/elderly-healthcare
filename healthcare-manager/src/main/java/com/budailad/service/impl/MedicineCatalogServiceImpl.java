@@ -46,7 +46,6 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog) {
         return this.medicineCatalogDao.queryAll(medicineCatalog);
     }
@@ -71,7 +70,6 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public MedicineCatalog insert(MedicineCatalog medicineCatalog) {
         this.medicineCatalogDao.insert(medicineCatalog);
         return medicineCatalog;
@@ -85,7 +83,6 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#medicineCatalog.drugId")
     })
     public MedicineCatalog update(MedicineCatalog medicineCatalog) {
@@ -101,7 +98,6 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#drugId")
     })
     public boolean deleteById(String drugId) {

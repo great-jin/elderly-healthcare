@@ -46,7 +46,6 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 查询结果
      */
     @Override
-    @Cacheable(key = "'list'")
     public List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate) {
         return this.registerTemplateDao.queryAll(registerTemplate);
     }
@@ -71,7 +70,6 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 实例对象
      */
     @Override
-    @CacheEvict(key = "'list'")
     public RegisterTemplate insert(RegisterTemplate registerTemplate) {
         this.registerTemplateDao.insert(registerTemplate);
         return registerTemplate;
@@ -85,7 +83,6 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#registerTemplate.tempId")
     })
     public RegisterTemplate update(RegisterTemplate registerTemplate) {
@@ -101,7 +98,6 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      */
     @Override
     @Caching(evict = {
-            @CacheEvict(key = "'list'"),
             @CacheEvict(key = "#tempId")
     })
     public boolean deleteById(String tempId) {

@@ -88,7 +88,7 @@
         >新增
         </a-button>
 
-        <addPatientModal ref="addPatientModal"/>
+        <AddPatientModal ref="addPatientModal"/>
       </a-col>
     </a-row>
 
@@ -101,10 +101,11 @@
     >
       <template slot="action" slot-scope="record">
         <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-        <a-button type="link" @click="clickOption('edit', record)">编辑</a-button>
+        <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
         <a-button type="link" @click="clickOption('update', record)">更新</a-button>
 
-        <patientDrawer ref="patientDrawer"/>
+        <DataDrawer ref="dataDrawer"/>
+        <PatientDrawer ref="patientDrawer"/>
       </template>
     </a-table>
   </div>
@@ -112,15 +113,17 @@
 
 <script>
 import { columns } from './const'
-import patientDrawer from './patientDrawer'
-import addPatientModal from './addPatientModal'
+import DataDrawer from './dataDrawer'
+import PatientDrawer from './patientDrawer'
+import AddPatientModal from './addPatientModal'
 import { listCaseInfo } from '@/api/patientCaseInfo.js'
 
 export default {
   inject: ['reload'],
   components: {
-    patientDrawer,
-    addPatientModal
+    DataDrawer,
+    PatientDrawer,
+    AddPatientModal
   },
   data () {
     return {
@@ -187,7 +190,7 @@ export default {
           this.$refs.patientDrawer.paramReceive(type, data)
           break
         case 'more':
-          this.$refs.patientDrawer.paramReceive(type, data)
+          this.$refs.dataDrawer.paramReceive(data)
           break
       }
     }
