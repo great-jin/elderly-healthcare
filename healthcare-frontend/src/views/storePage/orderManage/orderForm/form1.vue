@@ -5,14 +5,14 @@
     :rules="rules"
   >
     <a-form-model-item
-      label="联系人"
+      label="采购人员"
       prop="userName"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
       <a-input
         v-model="formData.userName"
-        placeholder="请输入联系人"
+        placeholder="请输入姓名"
       />
     </a-form-model-item>
     <a-form-model-item

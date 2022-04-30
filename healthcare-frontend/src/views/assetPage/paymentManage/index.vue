@@ -126,23 +126,27 @@ export default {
       })
     },
     payCharge (value) {
-      this.payment.charge = Number(this.payment.totall) - Number(value)
+      this.payment.charge = Number(value) - Number(this.payment.totall)
     },
     ok () {
-      if (this.payment.charge >= 0) {
-        const _info = {
-          costId: this.costId,
-          isPay: 1
-        }
-        updateCostInfo(_info).then(res => {
-          if (res.data !== null) {
-            this.$message.success('ok')
-            this.data = []
-            this.cancel()
+      if (this.patientId !== undefined) {
+        if (this.payment.charge >= 0) {
+          const _info = {
+            costId: this.costId,
+            isPay: 1
           }
-        })
+          updateCostInfo(_info).then(res => {
+            if (res.data !== null) {
+              this.$message.success('缴费成功')
+              this.data = []
+              this.cancel()
+            }
+          })
+        } else {
+          this.$message.error('金额不足, 缴费失败')
+        }
       } else {
-        this.$message.error('error')
+        this.$message.error('请先选择病人')
       }
     },
     cancel () {

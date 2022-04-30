@@ -5,12 +5,10 @@
     width="40%"
     @cancel="cancel"
   >
-
     <template slot="footer">
       <a-button key="submit" type="primary" @click="ok">确定</a-button>
       <a-button key="back" @click="cancel">取消</a-button>
     </template>
-
     <div>
       Put content in here
     </div>

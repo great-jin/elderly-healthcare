@@ -1,6 +1,6 @@
 <template>
   <a-row style="overflow-x: hidden; overflow-y: auto">
-    <a-col :span="4" style="background-color: white">
+    <a-col :span="6" style="background-color: white">
       <a-tree
         :show-line="showLine"
         :show-icon="showIcon"
@@ -26,7 +26,7 @@
         </a-tree-node>
       </a-tree>
     </a-col>
-    <a-col :span="20">
+    <a-col :span="18">
       <a-form-model
         ref="modelForm"
         :model="formData"
@@ -35,27 +35,29 @@
         <a-row>
           <a-col :span="12">
             <a-form-model-item
-              label="联系人"
+              label="商品名称"
               prop="userName"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
                 v-model="formData.userName"
-                placeholder="请输入联系人"
+                placeholder="商品名称"
+                :disabled="true"
               />
             </a-form-model-item>
           </a-col>
           <a-col :span="12">
             <a-form-model-item
-              label="联系方式"
+              label="商品类别"
               prop="telephone"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
                 v-model="formData.telephone"
-                placeholder="请输入联系方式"
+                placeholder="商品类别"
+                :disabled="true"
               />
             </a-form-model-item>
           </a-col>
@@ -63,27 +65,30 @@
         <a-row>
           <a-col :span="12">
             <a-form-model-item
-              label="联系人"
+              label="商品单价"
               prop="userName"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
                 v-model="formData.userName"
-                placeholder="请输入联系人"
+                placeholder="商品单价"
+                :disabled="true"
               />
             </a-form-model-item>
           </a-col>
           <a-col :span="12">
             <a-form-model-item
-              label="联系方式"
+              label="采购数量"
               prop="telephone"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input
+              <a-input-number
                 v-model="formData.telephone"
-                placeholder="请输入联系方式"
+                placeholder="采购数量"
+                :min="0"
+                style="width: 100%"
               />
             </a-form-model-item>
           </a-col>
@@ -91,55 +96,29 @@
         <a-row>
           <a-col :span="12">
             <a-form-model-item
-              label="联系人"
+              label="采购日期"
               prop="userName"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input
+              <a-date-picker
                 v-model="formData.userName"
-                placeholder="请输入联系人"
+                placeholder="采购日期"
+                style="width: 100%"
               />
             </a-form-model-item>
           </a-col>
           <a-col :span="12">
             <a-form-model-item
-              label="联系方式"
+              label="商品总价"
               prop="telephone"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
                 v-model="formData.telephone"
-                placeholder="请输入联系方式"
-              />
-            </a-form-model-item>
-          </a-col>
-        </a-row>
-        <a-row>
-          <a-col :span="12">
-            <a-form-model-item
-              label="联系人"
-              prop="userName"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="formData.userName"
-                placeholder="请输入联系人"
-              />
-            </a-form-model-item>
-          </a-col>
-          <a-col :span="12">
-            <a-form-model-item
-              label="联系方式"
-              prop="telephone"
-              :labelCol="labelCol"
-              :wrapperCol="wrapperCol"
-            >
-              <a-input
-                v-model="formData.telephone"
-                placeholder="请输入联系方式"
+                placeholder="商品总价"
+                :disabled=true
               />
             </a-form-model-item>
           </a-col>
@@ -152,7 +131,7 @@
         <a-button
           type="primary"
           @click="next(2)"
-        >下一步</a-button>
+        >提&nbsp;&nbsp;&nbsp;&nbsp;交</a-button>
       </a-form-model>
     </a-col>
   </a-row>

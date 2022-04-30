@@ -39,7 +39,7 @@
         >
           <template slot="action" slot-scope="text, record">
             <a-button type="link" @click="clickOption('more', record)">详情</a-button>
-            <a-button type="link" @click="clickOption('open', record)">开通</a-button>
+            <a-button type="link" @click="clickOption('power', record)">授权</a-button>
             <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
           </template>
         </a-table>
@@ -54,8 +54,8 @@
 
 <script>
 import { columns } from './const'
-import AddModal from './addModal'
-import InfoDrawer from './infoDrawer'
+import AddModal from './addStaff/addModal'
+import InfoDrawer from './addStaff/infoDrawer'
 import AccountModal from './accountModal'
 import { listNurse } from '@/api/staffNurse'
 import { listDoctor } from '@/api/staffDoctor'
@@ -137,7 +137,7 @@ export default {
         case 'edit':
           this.$refs.infoDrawer.paramReceive(type, data)
           break
-        case 'open':
+        case 'power':
           this.$refs.accountModal.paramReceive(type, data)
           break
       }

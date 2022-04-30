@@ -13,7 +13,6 @@ import Task from '@/views/servicePage/taskManage/index'
 // 人力资源
 import Human from '@/views/humanPage/index'
 import Staff from '@/views/humanPage/staffManage/index'
-import Dispatch from '@/views/humanPage/dispatchManage/index'
 import Vacate from '@/views/humanPage/vacateManage/index'
 // 资产中心
 import Asset from '@/views/assetPage/index'
@@ -32,11 +31,18 @@ import Question from '@/views/settingPage/questionSetting/index'
 import UnAuth from '@/views/errorPage/403'
 import NotFound from '@/views/errorPage/404'
 import ServerFaild from '@/views/errorPage/500'
+
+// 后台管理
+import Root from '@/views/rootPage/index'
+// 审批管理
+import Process from '@/views/rootPage/humanManage/index'
+import Audit from '@/views/rootPage/humanManage/auditManage/index'
+import User from '@/views/rootPage/humanManage/userManage/index'
 // 系统管理
-import System from '@/views/systemPage/index'
-import SystemLog from '@/views/systemPage/systemLogs/index'
-import Minio from '@/views/systemPage/minioConfig/index'
-import Router from '@/views/systemPage/routerConfig/index'
+import System from '@/views/rootPage/systemManage/index'
+import SystemLog from '@/views/rootPage/systemManage/systemLogs/index'
+import Minio from '@/views/rootPage/systemManage/minioConfig/index'
+import Router from '@/views/rootPage/systemManage/routerConfig/index'
 
 export const RouteInfo = [
   {
@@ -98,9 +104,6 @@ export const RouteInfo = [
             path: '/elderlyHealthcare/human/staff',
             component: Staff
           }, {
-            path: '/elderlyHealthcare/human/dispatch',
-            component: Dispatch
-          }, {
             path: '/elderlyHealthcare/human/vacate',
             component: Vacate
           }
@@ -140,7 +143,31 @@ export const RouteInfo = [
             component: Medicine
           }
         ]
-      }, {
+      }
+    ]
+  },
+  {
+    path: '/elderlyHealthcare/root',
+    name: 'Root',
+    component: Root,
+    children: [
+      {
+        // 流程审批
+        path: '/elderlyHealthcare/process',
+        name: 'Process',
+        component: Process,
+        children: [
+          {
+            path: '/elderlyHealthcare/process/audit',
+            component: Audit
+          },
+          {
+            path: '/elderlyHealthcare/process/user',
+            component: User
+          }
+        ]
+      },
+      {
         // 系统管理
         path: '/elderlyHealthcare/system',
         name: 'System',

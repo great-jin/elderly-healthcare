@@ -1,8 +1,11 @@
 <template>
   <div>
-    <a-tabs type="card" @change="callback">
-      <a-tab-pane key="1" tab="信息填写">
-        <a-descriptions title="资产申请" style="padding: 0px 10px" bordered>
+    <a-tabs type="card">
+      <a-tab-pane key="1" tab="申请提交">
+        <a-descriptions
+          style="padding: 0px 10px"
+          bordered
+        >
           <a-descriptions-item label="申请单位">
             <a-select
               v-model="applyInfo.organizeUnit"
@@ -60,7 +63,6 @@
               placeholder="请输入申请原因"
             />
           </a-descriptions-item>
-
           <a-descriptions-item label="设备信息" :span="24">
             <a-row :style="{paddingLeft:'10px'}">
               <a-col :span="2" class="apply-title">序号</a-col>
@@ -136,27 +138,25 @@
               </a-col>
             </a-row>
           </a-descriptions-item>
-
           <a-descriptions-item label="收件人">
             <a-input
               v-model="applyInfo.receiveName"
               placeholder="请输入收件人"
             />
           </a-descriptions-item>
-          <a-descriptions-item label="收件电话">
+          <a-descriptions-item label="收件电话" :span="2">
             <a-input
               v-model="applyInfo.receivePhone"
               placeholder="请输入收件电话"
             />
           </a-descriptions-item>
           <a-descriptions-item label="收件地址">
-            <a-input
+            <a-textarea
               v-model="applyInfo.receiveAddress"
+              type="text"
+              :rows="2"
               placeholder="请输入收件地址"
             />
-          </a-descriptions-item>
-          <a-descriptions-item label="总金额" :span="24">
-            <span>￥&nbsp;&nbsp;&nbsp;&nbsp;{{account}}&nbsp;&nbsp;&nbsp;&nbsp;RMB</span>&nbsp;
           </a-descriptions-item>
         </a-descriptions>
         <a-row style="margin-top: 20px">
@@ -166,13 +166,8 @@
           </a-col>
         </a-row>
       </a-tab-pane>
-
-      <a-tab-pane key="2" tab="流程日志" style="padding: 20px 30px">
-        <a-steps direction="vertical" :current="1">
-          <a-step title="Finished" description="This is a description." />
-          <a-step title="In Progress" description="This is a description." />
-          <a-step title="Waiting" description="This is a description." />
-        </a-steps>
+      <a-tab-pane key="2" tab="我的申请">
+        <MyApply />
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -180,36 +175,36 @@
 
 <script>
 import moment from 'moment'
+import MyApply from "./applyInfp/myApply";
 import { listOrg } from '@/api/organizeInfo'
 import { listGoods } from '@/api/warehouseStorage'
 import { addApplyInfo } from '@/api/assetApplyInfo'
 
 export default {
   name: 'ApplyManage',
+  components:{
+    MyApply
+  },
   data () {
     return {
       organize: [],
       goodsList: [],
       applyInfo: {
         applyGoodsList: []
-      },
-      account: 0
+      }
     }
   },
   mounted () {
     this.getData()
   },
   methods: {
-    getData () {
-      listOrg().then(res => {
+    async getData () {
+      await listOrg().then(res => {
         this.organize = res.data
       })
-      listGoods().then(res => {
+      await listGoods().then(res => {
         this.goodsList = res.data
       })
-    },
-    callback (key) {
-      console.log(key)
     },
     disabledDate (current) {
       return current && current < moment().endOf('day')
@@ -234,9 +229,6 @@ export default {
         case 'num':
           const _count = this.applyInfo.applyGoodsList[index].goodsPrice * this.applyInfo.applyGoodsList[index].applyCount
           this.applyInfo.applyGoodsList[index].costMoney = _count
-          this.applyInfo.applyGoodsList.forEach(money => {
-            this.account += money.costMoney
-          })
           break
       }
     },

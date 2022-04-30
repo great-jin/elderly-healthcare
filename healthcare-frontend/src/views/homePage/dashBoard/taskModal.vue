@@ -9,17 +9,17 @@
       <a-button key="back" @click="cancel()">取消</a-button>
     </template>
     <a-descriptions bordered>
-      <a-descriptions-item label="负责病人">
-        {{ taskInfo.patientName }}
-      </a-descriptions-item>
-      <a-descriptions-item label="任务名称">
-        {{ taskInfo.taskName }}
-      </a-descriptions-item>
       <a-descriptions-item
         label="任务编号"
         v-if="taskInfo.taskId !== null"
       >
-        {{ taskInfo.taskId}}
+        {{ taskInfo.taskId.substring(0, 8)}}
+      </a-descriptions-item>
+      <a-descriptions-item label="任务名称">
+        {{ taskInfo.taskName }}
+      </a-descriptions-item>
+      <a-descriptions-item label="负责病人">
+        {{ taskInfo.patientName }}
       </a-descriptions-item>
       <a-descriptions-item label="创建时间">
         <a-date-picker

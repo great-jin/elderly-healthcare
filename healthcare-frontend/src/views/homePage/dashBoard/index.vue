@@ -3,7 +3,7 @@
     <a-row style="margin-right: 15px">
       <a-col class="head-workspace" :span="17">
         <a-card
-          title="工作台"
+          title="我的工作台"
           style="width: 100%"
           :bordered="false"
           hoverable
@@ -51,7 +51,59 @@
       </a-col>
     </a-row>
     <a-row>
-      <a-col class="process" :span="14">
+      <a-col class="task" :span="13">
+        <div style="padding: 5px;">
+          <a-card title="代办任务" size="default" style="width: 100%">
+            <a-radio-group
+              default-value="代办"
+              style="margin-bottom: 10px"
+              defaultValue="0"
+            >
+              <a-radio-button value="0" @click="taskState('0')">
+                代办({{ count.act }})
+              </a-radio-button>
+              <a-radio-button value="1" @click="taskState('1')">
+                超时({{ count.delay }})
+              </a-radio-button>
+              <a-radio-button value="2" @click="taskState('2')">
+                已办({{ count.done }})
+              </a-radio-button>
+            </a-radio-group>
+            <a-list
+              class="task-list"
+              item-layout="horizontal"
+              :data-source="taskData"
+            >
+              <a-list-item slot="renderItem" slot-scope="item" style="padding: 5px">
+                <a-tooltip>
+                  <template slot="title">
+                    {{ item.taskName }} : {{ item.taskContent }}
+                  </template>
+                  <a-list-item-meta
+                    :description="item.taskContent.length"
+                    :data-tips="item.taskContent"
+                  >
+                    <a slot="title">{{ item.taskName }}</a>
+                  </a-list-item-meta>
+                </a-tooltip>
+                <template slot="actions">
+                  <a-button type="link" @click="clickOption('detail', item)">查看</a-button>
+                  <a-popconfirm
+                    title="确认关闭任务"
+                    ok-text="是"
+                    cancel-text="否"
+                    @confirm="clickOption('done', item)"
+                  >
+                    <a-button type="link">完成</a-button>
+                  </a-popconfirm>
+                </template>
+                <taskModal ref="taskModal"/>
+              </a-list-item>
+            </a-list>
+          </a-card>
+        </div>
+      </a-col>
+      <a-col class="process" :span="11">
         <a-card
           title="进行中流程"
           :body-style="{padding: 0}"
@@ -106,58 +158,6 @@
           </a-card-grid>
           <processModal ref="processModal"/>
         </a-card>
-      </a-col>
-      <a-col class="task" :span="10">
-        <div style="padding: 5px;">
-          <a-card title="代办任务" size="default" style="width: 100%">
-            <a-radio-group
-              default-value="代办"
-              style="margin-bottom: 10px"
-              defaultValue="0"
-            >
-              <a-radio-button value="0" @click="taskState('0')">
-                代办({{ count.act }})
-              </a-radio-button>
-              <a-radio-button value="1" @click="taskState('1')">
-                超时({{ count.delay }})
-              </a-radio-button>
-              <a-radio-button value="2" @click="taskState('2')">
-                已办({{ count.done }})
-              </a-radio-button>
-            </a-radio-group>
-            <a-list
-              class="task-list"
-              item-layout="horizontal"
-              :data-source="taskData"
-            >
-              <a-list-item slot="renderItem" slot-scope="item" style="padding: 5px">
-                <a-tooltip>
-                  <template slot="title">
-                    {{ item.taskName }} : {{ item.taskContent }}
-                  </template>
-                  <a-list-item-meta
-                    :description="item.taskContent.length"
-                    :data-tips="item.taskContent"
-                  >
-                    <a slot="title">{{ item.taskName }}</a>
-                  </a-list-item-meta>
-                </a-tooltip>
-                <template slot="actions">
-                  <a-button type="link" @click="clickOption('detail', item)">查看</a-button>
-                  <a-popconfirm
-                    title="确认关闭任务"
-                    ok-text="是"
-                    cancel-text="否"
-                    @confirm="clickOption('done', item)"
-                  >
-                    <a-button type="link">完成</a-button>
-                  </a-popconfirm>
-                </template>
-                <taskModal ref="taskModal"/>
-              </a-list-item>
-            </a-list>
-          </a-card>
-        </div>
       </a-col>
     </a-row>
     <a-row :span="24">

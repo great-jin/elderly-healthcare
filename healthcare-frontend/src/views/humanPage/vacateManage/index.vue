@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-tabs type="card" @change="callback">
+    <a-tabs type="card">
       <a-tab-pane key="1" tab="我的流程" style="padding: 0px 10px">
         <vacateList ref="vacateList" />
       </a-tab-pane>
@@ -99,9 +99,6 @@ export default {
     this.getData()
   },
   methods: {
-    callback (key) {
-      console.log(key)
-    },
     getData () {
       listOrg().then(res => {
         this.organize = res.data

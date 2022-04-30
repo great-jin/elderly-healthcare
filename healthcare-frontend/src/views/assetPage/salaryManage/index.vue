@@ -6,11 +6,9 @@
           @select="treeSelect"
           default-expand-all
         >
-          <a-tree-node key="0" title="医护部门">
+          <a-tree-node key="0" title="部门">
             <a-tree-node key="doctor" title="医师" is-leaf/>
-            <a-tree-node key="nurse" title="护理员" is-leaf/>
-          </a-tree-node>
-          <a-tree-node key="1" title="其他部门">
+            <a-tree-node key="nurse" title="护士" is-leaf/>
             <a-tree-node key="human" title="人事" is-leaf/>
             <a-tree-node key="logistics" title="后勤" is-leaf/>
             <a-tree-node key="other" title="其他" is-leaf/>
@@ -20,11 +18,6 @@
       <a-col :span="1">
       </a-col>
       <a-col :span="20" :style="{paddingLeft: '15px'}">
-        <a-button
-          style="float: left; z-index: 1; margin: 10px"
-          type="primary"
-        >新增
-        </a-button>
         <a-auto-complete
           placeholder="输入员工编号"
           :allowClear="true"
@@ -84,23 +77,21 @@ export default {
     this.getData()
   },
   methods: {
-    getData () {
-      listNurse().then(res => {
+    async getData () {
+      await listNurse().then(res => {
         this.nurseList = res.data
       })
-      listDoctor().then(res => {
+      await listDoctor().then(res => {
         this.doctorList = res.data
-        console.log(this.doctorList)
-        this.treeSelect(['doctor'])
       })
-      listOrganizeStaff().then(res => {
+      await listOrganizeStaff().then(res => {
         this.otherStaff = res.data
       })
+      this.treeSelect(['doctor'])
     },
     treeSelect (keys) {
       let result = []
       switch (keys[0]) {
-        case '0':
         case 'doctor':
           result = this.doctorList
           break
@@ -113,7 +104,6 @@ export default {
         case 'logistics':
           result = this.otherStaff.filter(item => item.organizeId === 'logistics')
           break
-        case '1':
         case 'other':
           result = this.otherStaff.filter(item => item.organizeId !== 'human' && item.organizeId !== 'logistics')
           break

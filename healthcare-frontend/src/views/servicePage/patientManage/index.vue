@@ -102,7 +102,7 @@
       <template slot="action" slot-scope="record">
         <a-button type="link" @click="clickOption('more', record)">详情</a-button>
         <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
-        <a-button type="link" @click="clickOption('update', record)">更新</a-button>
+        <a-button type="link" @click="clickOption('update', record)">记录</a-button>
 
         <DataDrawer ref="dataDrawer"/>
         <PatientDrawer ref="patientDrawer"/>
@@ -113,8 +113,8 @@
 
 <script>
 import { columns } from './const'
-import DataDrawer from './dataDrawer'
-import PatientDrawer from './patientDrawer'
+import DataDrawer from './addBodyInfo/dataDrawer'
+import PatientDrawer from './addBodyInfo/patientDrawer'
 import AddPatientModal from './addPatientModal'
 import { listCaseInfo } from '@/api/patientCaseInfo.js'
 

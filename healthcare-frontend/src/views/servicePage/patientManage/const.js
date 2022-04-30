@@ -91,12 +91,6 @@ export const columns = cxt => {
       }
     },
     {
-      title: '描述',
-      dataIndex: 'caseDescribe',
-      align: 'center',
-      ellipsis: true
-    },
-    {
       title: '操作',
       align: 'center',
       fixed: 'right',

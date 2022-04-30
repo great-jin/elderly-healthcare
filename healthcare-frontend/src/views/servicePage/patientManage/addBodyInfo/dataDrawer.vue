@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import LineChart from './lineChart'
+import LineChart from './chart/lineChart'
 export default {
   name: 'CaseInfo',
   props: {
