@@ -77,7 +77,8 @@ export default {
     }
   },
   created () {
-    this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
+    const _menu = JSON.parse(localStorage.getItem('routerInfo'))
+    this.menuData = _menu.filter(item => item.isShow === 1)
     this.routePage('/elderlyHealthcare/service/chart')
   },
   methods: {

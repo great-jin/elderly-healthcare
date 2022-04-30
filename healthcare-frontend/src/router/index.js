@@ -35,10 +35,12 @@ router.beforeEach((to, from, next) => {
       this.$message.info('登录过期，请重新登录')
     }
   }
-  // 3. 是否为登录页
+  // 3. 访问登录页
   if (to.path === '/elderlyHealthcare/login') {
-    // 3.1. 已登录则回首页，未登录放行
-    isLogin ? next('/elderlyHealthcare/home') : next()
+    // 3.1. 未登录放行，已登录则回首页
+    if (!isLogin) {
+      next()
+    }
   } else {
     // 3.2 已登录则放行，未登录转登录页
     isLogin ? next() : next('/elderlyHealthcare/login')

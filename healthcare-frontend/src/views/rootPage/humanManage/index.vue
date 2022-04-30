@@ -17,7 +17,7 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu-item
-          v-for="option in menuData.filter(item => item.menuType === 'system')"
+          v-for="option in menuData.filter(item => item.menuType === 'process')"
           :key="option.menuKey"
           @click="routePage(option.routerName)"
         >
@@ -55,7 +55,7 @@
 
 <script>
 const panes = [
-  { title: '文件配置', key: 'minio', closable: false }
+  { title: '流程审批', key: 'audit', closable: false }
 ]
 
 export default {
@@ -77,8 +77,9 @@ export default {
     }
   },
   created () {
-    this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
-    this.routePage('/elderlyHealthcare/system/minio')
+    const _menu = JSON.parse(localStorage.getItem('routerInfo'))
+    this.menuData = _menu.filter(item => item.isShow === 2)
+    this.routePage('/elderlyHealthcare/process/audit')
   },
   methods: {
     reload () {
@@ -106,7 +107,7 @@ export default {
       })
       if (flag === false) {
         // 获取 Tab 标题
-        const tabArr = this.menuData.filter(item => item.menuType === 'system')
+        const tabArr = this.menuData.filter(item => item.menuType === 'process')
         const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
         const panes = this.panes
         panes.push({
@@ -125,7 +126,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('/elderlyHealthcare/system/minio')
+        this.routePage('/elderlyHealthcare/process/audit')
       }
       let activeKey = this.activeKey
       let lastIndex

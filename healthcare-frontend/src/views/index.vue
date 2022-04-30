@@ -50,6 +50,8 @@ export default {
     }
   },
   created () {
+    const _menu = JSON.parse(localStorage.getItem('routerInfo'))
+    this.menuData = _menu.filter(item => item.isShow === 1)
     this.menuData = JSON.parse(localStorage.getItem('routerInfo'))
     this.imgUrl = localStorage.getItem('avatar')
     this.$router.push('/elderlyHealthcare/service/chart')

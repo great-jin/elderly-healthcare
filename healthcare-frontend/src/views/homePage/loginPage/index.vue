@@ -157,14 +157,13 @@ export default {
                   getAvatar(values.staffId).then(res => {
                     localStorage.setItem('avatar', res.data)
                   })
-                  const authortiy = res.data.userPower
                   listHomeMenu().then(res => {
                     localStorage.setItem('routerInfo', JSON.stringify(res.data))
                   })
-                  if (authortiy > 0) {
+                  if (res.data.userPower === 1) {
                     this.$router.push('/elderlyHealthcare/home')
                   } else {
-                    this.$message.success('超级管理员')
+                    this.$router.push('/elderlyHealthcare/root')
                   }
                 })
               } else {
