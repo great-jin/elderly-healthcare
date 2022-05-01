@@ -29,7 +29,7 @@ public interface WarehouseStorageService {
      * @param warehouseStorage 筛选条件
      * @return 查询结果
      */
-    List<WarehouseStorage> queryAll(WarehouseStorage warehouseStorage);
+    List<WarehouseStorage> conditionQuery(WarehouseStorage warehouseStorage);
 
     /**
      * 分页查询

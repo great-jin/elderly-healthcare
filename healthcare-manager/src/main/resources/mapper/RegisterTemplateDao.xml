@@ -47,7 +47,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="RegisterTemplateMap">
+    <select id="conditionQuery" resultMap="RegisterTemplateMap">
         select
         temp_id, temp_ill, temp_time, comment, temp_level
         from register_template

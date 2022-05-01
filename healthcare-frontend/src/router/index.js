@@ -38,9 +38,7 @@ router.beforeEach((to, from, next) => {
   // 3. 访问登录页
   if (to.path === '/elderlyHealthcare/login') {
     // 3.1. 未登录放行，已登录则回首页
-    if (!isLogin) {
-      next()
-    }
+    isLogin ? next('/elderlyHealthcare/home') : next()
   } else {
     // 3.2 已登录则放行，未登录转登录页
     isLogin ? next() : next('/elderlyHealthcare/login')

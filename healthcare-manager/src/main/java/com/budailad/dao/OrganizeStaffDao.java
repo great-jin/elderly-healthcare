@@ -30,7 +30,7 @@ public interface OrganizeStaffDao {
      * @param organizeStaff 筛选条件
      * @return 查询结果
      */
-    List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff);
+    List<OrganizeStaff> conditionQuery(OrganizeStaff organizeStaff);
 
     /**
      * 查询指定行数据

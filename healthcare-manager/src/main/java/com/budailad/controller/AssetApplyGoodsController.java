@@ -32,8 +32,8 @@ public class AssetApplyGoodsController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<AssetApplyGoods>> queryAll(AssetApplyGoods assetApplyGoods) {
-        return ResponseEntity.ok(this.assetApplyGoodsService.queryAll(assetApplyGoods));
+    public ResponseEntity<List<AssetApplyGoods>> conditionQuery(AssetApplyGoods assetApplyGoods) {
+        return ResponseEntity.ok(this.assetApplyGoodsService.conditionQuery(assetApplyGoods));
     }
 
     /**

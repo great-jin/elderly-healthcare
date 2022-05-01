@@ -30,7 +30,7 @@ public interface SysLogsDao {
      * @param sysLogs     筛选条件
      * @return 查询结果
      */
-    List<SysLogs> queryAll(SysLogs sysLogs);
+    List<SysLogs> conditionQuery(SysLogs sysLogs);
 
     /**
      * 查询指定行数据

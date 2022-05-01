@@ -28,7 +28,7 @@ public interface MedicineCatalogService {
      * @param medicineCatalog 筛选条件
      * @return 查询结果
      */
-    List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog);
+    List<MedicineCatalog> conditionQuery(MedicineCatalog medicineCatalog);
 
     /**
      * 分页查询

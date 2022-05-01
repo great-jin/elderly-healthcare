@@ -52,7 +52,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="PatientContactMap">
+    <select id="conditionQuery" resultMap="PatientContactMap">
         select
         id, patient_id, contact_name, contact_phone, is_deleted, comment
         from patient_contact

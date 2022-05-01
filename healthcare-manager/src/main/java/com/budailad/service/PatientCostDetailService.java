@@ -28,7 +28,7 @@ public interface PatientCostDetailService {
      * @param patientCostDetail 筛选条件
      * @return 查询结果
      */
-    List<PatientCostDetail> queryAll(PatientCostDetail patientCostDetail);
+    List<PatientCostDetail> conditionQuery(PatientCostDetail patientCostDetail);
 
     /**
      * 分页查询

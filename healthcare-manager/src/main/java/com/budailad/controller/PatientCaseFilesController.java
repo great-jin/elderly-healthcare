@@ -32,8 +32,8 @@ public class PatientCaseFilesController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientCaseFiles>> queryAll(PatientCaseFiles patientCaseFiles) {
-        return ResponseEntity.ok(this.patientCaseFilesService.queryAll(patientCaseFiles));
+    public ResponseEntity<List<PatientCaseFiles>> conditionQuery(PatientCaseFiles patientCaseFiles) {
+        return ResponseEntity.ok(this.patientCaseFilesService.conditionQuery(patientCaseFiles));
     }
 
     /**

@@ -28,7 +28,7 @@ public interface SysFileConfigService {
      * @param sysFileConfig 筛选条件
      * @return 查询结果
      */
-    List<SysFileConfig> queryAll(SysFileConfig sysFileConfig);
+    List<SysFileConfig> conditionQuery(SysFileConfig sysFileConfig);
 
     /**
      * 分页查询

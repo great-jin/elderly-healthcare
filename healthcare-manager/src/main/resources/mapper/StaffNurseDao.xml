@@ -88,7 +88,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="StaffNurseMap">
+    <select id="conditionQuery" resultMap="StaffNurseMap">
         select
         id, staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone, staff_email,
         staff_address, organize_id, staff_position, entry_time

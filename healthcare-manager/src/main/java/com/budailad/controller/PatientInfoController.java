@@ -39,8 +39,8 @@ public class PatientInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientInfo>> queryAll(PatientInfo patientInfo) {
-        return ResponseEntity.ok(this.patientInfoService.queryAll(patientInfo));
+    public ResponseEntity<List<PatientInfo>> conditionQuery(PatientInfo patientInfo) {
+        return ResponseEntity.ok(this.patientInfoService.conditionQuery(patientInfo));
     }
 
     /**
@@ -106,7 +106,7 @@ public class PatientInfoController {
         // 删除旧联系人数据重新添加
         PatientContact contact = new PatientContact();
         contact.setPatientId(patientInfo.getPatientId());
-        List<PatientContact> contactAdd = patientContactService.queryAll(contact);
+        List<PatientContact> contactAdd = patientContactService.conditionQuery(contact);
         for (PatientContact con : contactAdd) {
             patientContactService.deleteById(con.getId());
         }

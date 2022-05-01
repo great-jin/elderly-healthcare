@@ -4,11 +4,12 @@
       :columns="columns"
       :data-source="data"
       :pagination="pagination"
-      :scroll="{ x: 1200 }"
+      :scroll="{ x: 1100 }"
     >
       <template slot="action" slot-scope="record">
         <a-button type="link" @click="clickOption('more', record)">详情</a-button>
         <a-button type="link" @click="clickOption('edit', record)">详情</a-button>
+
         <MedicineModal ref="medicineModal" />
       </template>
     </a-table>

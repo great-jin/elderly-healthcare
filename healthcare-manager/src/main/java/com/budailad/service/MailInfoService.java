@@ -28,7 +28,7 @@ public interface MailInfoService {
      * @param mailInfo    筛选条件
      * @return 查询结果
      */
-    List<MailInfo> queryAll(MailInfo mailInfo);
+    List<MailInfo> conditionQuery(MailInfo mailInfo);
 
     /**
      * 分页查询

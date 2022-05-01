@@ -42,8 +42,8 @@ public class PatientCostDetailServiceImpl implements PatientCostDetailService {
      * @return 查询结果
      */
     @Override
-    public List<PatientCostDetail> queryAll(PatientCostDetail patientCostDetail) {
-        return this.patientCostDetailDao.queryAll(patientCostDetail);
+    public List<PatientCostDetail> conditionQuery(PatientCostDetail patientCostDetail) {
+        return this.patientCostDetailDao.conditionQuery(patientCostDetail);
     }
 
     /**

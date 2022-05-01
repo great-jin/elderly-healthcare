@@ -32,8 +32,8 @@ public class OrganizeInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<OrganizeInfo>> queryAll(OrganizeInfo organizeInfo) {
-        return ResponseEntity.ok(this.organizeInfoService.queryAll(organizeInfo));
+    public ResponseEntity<List<OrganizeInfo>> conditionQuery(OrganizeInfo organizeInfo) {
+        return ResponseEntity.ok(this.organizeInfoService.conditionQuery(organizeInfo));
     }
 
     /**

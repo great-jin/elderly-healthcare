@@ -30,7 +30,7 @@ public interface PatientCaseFilesDao {
      * @param patientCaseFiles 筛选条件
      * @return 查询结果
      */
-    List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles);
+    List<PatientCaseFiles> conditionQuery(PatientCaseFiles patientCaseFiles);
 
     /**
      * 查询指定行数据

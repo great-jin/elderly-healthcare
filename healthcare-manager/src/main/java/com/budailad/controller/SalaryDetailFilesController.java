@@ -32,8 +32,8 @@ public class SalaryDetailFilesController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<SalaryDetailFiles>> queryAll(SalaryDetailFiles salaryDetailFiles) {
-        return ResponseEntity.ok(this.salaryDetailFilesService.queryAll(salaryDetailFiles));
+    public ResponseEntity<List<SalaryDetailFiles>> conditionQuery(SalaryDetailFiles salaryDetailFiles) {
+        return ResponseEntity.ok(this.salaryDetailFilesService.conditionQuery(salaryDetailFiles));
     }
 
     /**

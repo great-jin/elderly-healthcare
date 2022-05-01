@@ -30,7 +30,7 @@ public interface AssetApplyInfoDao {
      * @param assetApplyInfo 筛选条件
      * @return 查询结果
      */
-    List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo);
+    List<AssetApplyInfo> conditionQuery(AssetApplyInfo assetApplyInfo);
 
     /**
      * 查询指定行数据

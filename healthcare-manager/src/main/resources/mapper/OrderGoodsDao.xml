@@ -36,7 +36,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="OrderGoodsMap">
+    <select id="conditionQuery" resultMap="OrderGoodsMap">
         select
         order_id, order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time, staff_id,
         staff_name, delivery_time, comment

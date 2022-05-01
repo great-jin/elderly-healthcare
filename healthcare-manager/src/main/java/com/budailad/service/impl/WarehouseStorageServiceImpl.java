@@ -40,8 +40,8 @@ public class WarehouseStorageServiceImpl implements WarehouseStorageService {
      * @return 查询结果
      */
     @Override
-    public List<WarehouseStorage> queryAll(WarehouseStorage warehouseStorage) {
-        return this.warehouseStorageDao.queryAll(warehouseStorage);
+    public List<WarehouseStorage> conditionQuery(WarehouseStorage warehouseStorage) {
+        return this.warehouseStorageDao.conditionQuery(warehouseStorage);
     }
 
     /**

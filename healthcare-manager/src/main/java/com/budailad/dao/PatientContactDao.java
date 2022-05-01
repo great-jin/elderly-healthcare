@@ -30,7 +30,7 @@ public interface PatientContactDao {
      * @param patientContact 筛选条件
      * @return 查询结果
      */
-    List<PatientContact> queryAll(PatientContact patientContact);
+    List<PatientContact> conditionQuery(PatientContact patientContact);
 
     /**
      * 查询指定行数据

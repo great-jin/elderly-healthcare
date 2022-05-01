@@ -62,7 +62,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="OrganizeInfoMap">
+    <select id="conditionQuery" resultMap="OrganizeInfoMap">
         select
         organize_id, organize_name, organize_type, create_time, man_count, staff_id, organize_leader, comment
         from organize_info

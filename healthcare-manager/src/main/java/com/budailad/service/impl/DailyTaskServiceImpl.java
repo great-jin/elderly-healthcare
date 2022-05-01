@@ -46,8 +46,8 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 查询结果
      */
     @Override
-    public List<DailyTask> queryAll(DailyTask dailyTask) {
-        return this.dailyTaskDao.queryAll(dailyTask);
+    public List<DailyTask> conditionQuery(DailyTask dailyTask) {
+        return this.dailyTaskDao.conditionQuery(dailyTask);
     }
 
     /**

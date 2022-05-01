@@ -62,7 +62,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="AssetApplyGoodsMap">
+    <select id="conditionQuery" resultMap="AssetApplyGoodsMap">
         select
         id, apply_id, goods_name, goods_type, goods_price, apply_count, cost_money, comment
         from asset_apply_goods

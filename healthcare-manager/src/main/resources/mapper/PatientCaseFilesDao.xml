@@ -34,7 +34,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="PatientCaseFilesMap">
+    <select id="conditionQuery" resultMap="PatientCaseFilesMap">
         select
         file_id, patient_id, patient_name, cast_id, file_type, file_name, minio_bucket, minio_path, upload_time,
         update_time, is_deleted

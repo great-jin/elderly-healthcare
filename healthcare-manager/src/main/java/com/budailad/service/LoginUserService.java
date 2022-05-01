@@ -28,7 +28,7 @@ public interface LoginUserService {
      * @param loginUser   筛选条件
      * @return 查询结果
      */
-    List<LoginUser> queryAll(LoginUser loginUser);
+    List<LoginUser> conditionQuery(LoginUser loginUser);
 
     /**
      * 分页查询

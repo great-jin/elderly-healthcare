@@ -30,7 +30,7 @@ public interface StaffNurseDao {
      * @param staffNurse  筛选条件
      * @return 查询结果
      */
-    List<StaffNurse> queryAll(StaffNurse staffNurse);
+    List<StaffNurse> conditionQuery(StaffNurse staffNurse);
 
     /**
      * 查询指定行数据

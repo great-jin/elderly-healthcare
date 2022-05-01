@@ -28,7 +28,7 @@ public interface RegisterTemplateService {
      * @param registerTemplate 筛选条件
      * @return 查询结果
      */
-    List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate);
+    List<RegisterTemplate> conditionQuery(RegisterTemplate registerTemplate);
 
     /**
      * 分页查询

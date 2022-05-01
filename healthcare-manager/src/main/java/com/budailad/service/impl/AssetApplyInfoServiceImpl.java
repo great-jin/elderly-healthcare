@@ -46,8 +46,8 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
      * @return 查询结果
      */
     @Override
-    public List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo) {
-        return this.assetApplyInfoDao.queryAll(assetApplyInfo);
+    public List<AssetApplyInfo> conditionQuery(AssetApplyInfo assetApplyInfo) {
+        return this.assetApplyInfoDao.conditionQuery(assetApplyInfo);
     }
 
     /**

@@ -8,13 +8,14 @@
     @close="cancel"
   >
     <div>
-      <LineChart />
+      <LineChart :patientId="patientId"/>
     </div>
   </a-drawer>
 </template>
 
 <script>
-import LineChart from './chart/lineChart'
+import LineChart from './chart/line1Chart'
+
 export default {
   name: 'CaseInfo',
   props: {
@@ -32,16 +33,14 @@ export default {
   },
   data () {
     return {
-      visible: false
+      visible: false,
+      patientId: ''
     }
   },
   methods: {
     paramReceive (data) {
       this.visible = true
-      console.log(data)
-    },
-    getData () {
-
+      this.patientId = data
     },
     cancel () {
       this.visible = false

@@ -46,8 +46,8 @@ public class PatientInfoServiceImpl implements PatientInfoService {
      * @return 查询结果
      */
     @Override
-    public List<PatientInfo> queryAll(PatientInfo patientInfo) {
-        return this.patientInfoDao.queryAll(patientInfo);
+    public List<PatientInfo> conditionQuery(PatientInfo patientInfo) {
+        return this.patientInfoDao.conditionQuery(patientInfo);
     }
 
     /**

@@ -78,7 +78,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="MedicineCatalogMap">
+    <select id="conditionQuery" resultMap="MedicineCatalogMap">
         select
         drug_id, drug_name, drug_type, drug_price, goods_count, produce_time, overdue_time, is_overdue, produce_vendor,
         comment, goods_id

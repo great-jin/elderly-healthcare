@@ -32,8 +32,8 @@ public class OrderGoodsController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<OrderGoods>> queryAll(OrderGoods orderGoods) {
-        return ResponseEntity.ok(this.orderGoodsService.queryAll(orderGoods));
+    public ResponseEntity<List<OrderGoods>> conditionQuery(OrderGoods orderGoods) {
+        return ResponseEntity.ok(this.orderGoodsService.conditionQuery(orderGoods));
     }
 
     /**

@@ -33,8 +33,8 @@ public class VacateInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<VacateInfo>> queryAll(VacateInfo vacateInfo) {
-        return ResponseEntity.ok(this.vacateInfoService.queryAll(vacateInfo));
+    public ResponseEntity<List<VacateInfo>> conditionQuery(VacateInfo vacateInfo) {
+        return ResponseEntity.ok(this.vacateInfoService.conditionQuery(vacateInfo));
     }
 
     /**

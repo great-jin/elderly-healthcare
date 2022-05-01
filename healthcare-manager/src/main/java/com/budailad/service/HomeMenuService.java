@@ -28,7 +28,7 @@ public interface HomeMenuService {
      * @param homeMenu
      * @return
      */
-    List<HomeMenu> queryAll(HomeMenu homeMenu);
+    List<HomeMenu> conditionQuery(HomeMenu homeMenu);
 
     /**
      * 分页查询

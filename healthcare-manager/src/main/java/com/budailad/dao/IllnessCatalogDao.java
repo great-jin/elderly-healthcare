@@ -30,7 +30,7 @@ public interface IllnessCatalogDao {
      * @param illnessCatalog 筛选条件
      * @return 查询结果
      */
-    List<IllnessCatalog> queryAll(IllnessCatalog illnessCatalog);
+    List<IllnessCatalog> conditionQuery(IllnessCatalog illnessCatalog);
 
     /**
      * 查询指定行数据

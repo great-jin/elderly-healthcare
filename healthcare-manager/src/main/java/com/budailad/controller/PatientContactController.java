@@ -32,8 +32,8 @@ public class PatientContactController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientContact>> queryAll(PatientContact patientContact) {
-        return ResponseEntity.ok(this.patientContactService.queryAll(patientContact));
+    public ResponseEntity<List<PatientContact>> conditionQuery(PatientContact patientContact) {
+        return ResponseEntity.ok(this.patientContactService.conditionQuery(patientContact));
     }
 
     /**

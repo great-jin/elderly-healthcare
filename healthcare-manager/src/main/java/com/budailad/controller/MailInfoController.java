@@ -32,8 +32,8 @@ public class MailInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<MailInfo>> queryAll(MailInfo mailInfo) {
-        return ResponseEntity.ok(this.mailInfoService.queryAll(mailInfo));
+    public ResponseEntity<List<MailInfo>> conditionQuery(MailInfo mailInfo) {
+        return ResponseEntity.ok(this.mailInfoService.conditionQuery(mailInfo));
     }
 
     /**

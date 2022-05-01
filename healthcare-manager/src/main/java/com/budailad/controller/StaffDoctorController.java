@@ -32,8 +32,8 @@ public class StaffDoctorController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<StaffDoctor>> queryAll(StaffDoctor staffDoctor) {
-        return ResponseEntity.ok(this.staffDoctorService.queryAll(staffDoctor));
+    public ResponseEntity<List<StaffDoctor>> conditionQuery(StaffDoctor staffDoctor) {
+        return ResponseEntity.ok(this.staffDoctorService.conditionQuery(staffDoctor));
     }
 
     /**

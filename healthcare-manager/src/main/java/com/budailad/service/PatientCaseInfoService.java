@@ -28,7 +28,7 @@ public interface PatientCaseInfoService {
      * @param patientCaseInfo
      * @return
      */
-    List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo);
+    List<PatientCaseInfo> conditionQuery(PatientCaseInfo patientCaseInfo);
 
     /**
      * 分页查询

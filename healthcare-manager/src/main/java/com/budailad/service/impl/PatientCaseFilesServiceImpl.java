@@ -46,8 +46,8 @@ public class PatientCaseFilesServiceImpl implements PatientCaseFilesService {
      * @return 查询结果
      */
     @Override
-    public List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles) {
-        return this.patientCaseFilesDao.queryAll(patientCaseFiles);
+    public List<PatientCaseFiles> conditionQuery(PatientCaseFiles patientCaseFiles) {
+        return this.patientCaseFilesDao.conditionQuery(patientCaseFiles);
     }
 
     /**

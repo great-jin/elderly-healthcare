@@ -46,8 +46,8 @@ public class SysLogsServiceImpl implements SysLogsService {
      * @return 查询结果
      */
     @Override
-    public List<SysLogs> queryAll(SysLogs sysLogs) {
-        return this.sysLogsDao.queryAll(sysLogs);
+    public List<SysLogs> conditionQuery(SysLogs sysLogs) {
+        return this.sysLogsDao.conditionQuery(sysLogs);
     }
 
     /**

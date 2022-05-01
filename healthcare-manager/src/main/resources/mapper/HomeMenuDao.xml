@@ -26,7 +26,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="HomeMenuMap">
+    <select id="conditionQuery" resultMap="HomeMenuMap">
         select
         id, menu_type, menu_icon, menu_title, router_name, is_show, menu_key
         from home_menu

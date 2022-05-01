@@ -28,7 +28,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="SysLogsMap">
+    <select id="conditionQuery" resultMap="SysLogsMap">
         select
         log_id, log_name, log_module, log_info, log_level, log_describe, in_time, is_handle
         from sys_logs

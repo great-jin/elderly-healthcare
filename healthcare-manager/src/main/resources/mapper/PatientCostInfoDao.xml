@@ -34,7 +34,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAll" resultMap="PatientCostInfoMap">
+    <select id="conditionQuery" resultMap="PatientCostInfoMap">
         select
         cost_id, patient_id, patient_name, doctor_id, doctor_name, in_time, out_time, cost_count, is_pay, pay_time,
         comment

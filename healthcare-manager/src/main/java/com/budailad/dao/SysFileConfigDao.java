@@ -30,7 +30,7 @@ public interface SysFileConfigDao {
      * @param sysFileConfig 查询条件
      * @return 对象列表
      */
-    List<SysFileConfig> queryAll(SysFileConfig sysFileConfig);
+    List<SysFileConfig> conditionQuery(SysFileConfig sysFileConfig);
 
     /**
      * 查询指定行数据

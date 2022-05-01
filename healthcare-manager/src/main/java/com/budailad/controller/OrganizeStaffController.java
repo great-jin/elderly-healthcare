@@ -32,8 +32,8 @@ public class OrganizeStaffController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<OrganizeStaff>> queryAll(OrganizeStaff organizeStaff) {
-        return ResponseEntity.ok(this.organizeStaffService.queryAll(organizeStaff));
+    public ResponseEntity<List<OrganizeStaff>> conditionQuery(OrganizeStaff organizeStaff) {
+        return ResponseEntity.ok(this.organizeStaffService.conditionQuery(organizeStaff));
     }
 
     /**

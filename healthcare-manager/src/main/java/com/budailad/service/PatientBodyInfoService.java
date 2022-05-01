@@ -28,7 +28,7 @@ public interface PatientBodyInfoService {
      * @param patientBodyInfo 筛选条件
      * @return 查询结果
      */
-    List<PatientBodyInfo> queryAll(PatientBodyInfo patientBodyInfo);
+    List<PatientBodyInfo> conditionQuery(PatientBodyInfo patientBodyInfo);
 
     /**
      * 分页查询

@@ -28,7 +28,7 @@ public interface DailyTaskService {
      * @param dailyTask   筛选条件
      * @return 查询结果
      */
-    List<DailyTask> queryAll(DailyTask dailyTask);
+    List<DailyTask> conditionQuery(DailyTask dailyTask);
 
     /**
      * 分页查询

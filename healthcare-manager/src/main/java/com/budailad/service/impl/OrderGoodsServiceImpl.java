@@ -46,8 +46,8 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 查询结果
      */
     @Override
-    public List<OrderGoods> queryAll(OrderGoods orderGoods) {
-        return this.orderGoodsDao.queryAll(orderGoods);
+    public List<OrderGoods> conditionQuery(OrderGoods orderGoods) {
+        return this.orderGoodsDao.conditionQuery(orderGoods);
     }
 
     /**

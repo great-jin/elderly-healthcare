@@ -43,8 +43,8 @@ public class HomeMenuServiceImpl implements HomeMenuService {
      * @return 查询结果
      */
     @Override
-    public List<HomeMenu> queryAll(HomeMenu homeMenu) {
-        return this.homeMenuDao.queryAll(homeMenu);
+    public List<HomeMenu> conditionQuery(HomeMenu homeMenu) {
+        return this.homeMenuDao.conditionQuery(homeMenu);
     }
 
     /**

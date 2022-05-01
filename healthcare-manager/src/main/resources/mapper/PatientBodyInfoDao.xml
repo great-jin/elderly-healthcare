@@ -36,7 +36,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="PatientBodyInfoMap">
+    <select id="conditionQuery" resultMap="PatientBodyInfoMap">
         select
         id, patient_id, patient_name, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, drug_info,
         body_detail, in_time, comment

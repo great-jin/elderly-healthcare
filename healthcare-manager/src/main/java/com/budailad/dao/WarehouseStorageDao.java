@@ -30,7 +30,7 @@ public interface WarehouseStorageDao {
      * @param warehouseStorage 查询条件
      * @return 对象列表
      */
-    List<WarehouseStorage> queryAll(WarehouseStorage warehouseStorage);
+    List<WarehouseStorage> conditionQuery(WarehouseStorage warehouseStorage);
 
     /**
      * 查询指定行数据

@@ -190,7 +190,7 @@ export default {
           this.$refs.patientDrawer.paramReceive(type, data)
           break
         case 'more':
-          this.$refs.dataDrawer.paramReceive(data)
+          this.$refs.dataDrawer.paramReceive(data.patientId)
           break
       }
     }

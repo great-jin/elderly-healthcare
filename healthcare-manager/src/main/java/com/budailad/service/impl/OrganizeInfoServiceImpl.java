@@ -46,8 +46,8 @@ public class OrganizeInfoServiceImpl implements OrganizeInfoService {
      * @return 查询结果
      */
     @Override
-    public List<OrganizeInfo> queryAll(OrganizeInfo organizeInfo) {
-        return this.organizeInfoDao.queryAll(organizeInfo);
+    public List<OrganizeInfo> conditionQuery(OrganizeInfo organizeInfo) {
+        return this.organizeInfoDao.conditionQuery(organizeInfo);
     }
 
     /**

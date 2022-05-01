@@ -28,7 +28,7 @@ public interface OrganizeInfoService {
      * @param organizeInfo 筛选条件
      * @return 查询结果
      */
-    List<OrganizeInfo> queryAll(OrganizeInfo organizeInfo);
+    List<OrganizeInfo> conditionQuery(OrganizeInfo organizeInfo);
 
     /**
      * 分页查询

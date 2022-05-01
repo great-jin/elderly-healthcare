@@ -33,8 +33,8 @@ public class DailyTaskController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<DailyTask>> queryAll(DailyTask dailyTask) {
-        return ResponseEntity.ok(this.dailyTaskService.queryAll(dailyTask));
+    public ResponseEntity<List<DailyTask>> conditionQuery(DailyTask dailyTask) {
+        return ResponseEntity.ok(this.dailyTaskService.conditionQuery(dailyTask));
     }
 
     /**

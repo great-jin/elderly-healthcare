@@ -33,8 +33,8 @@ public class WarehouseStorageController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<WarehouseStorage>> queryAll(WarehouseStorage warehouseStorage) {
-        return ResponseEntity.ok(this.warehouseStorageService.queryAll(warehouseStorage));
+    public ResponseEntity<List<WarehouseStorage>> conditionQuery(WarehouseStorage warehouseStorage) {
+        return ResponseEntity.ok(this.warehouseStorageService.conditionQuery(warehouseStorage));
     }
 
     /**

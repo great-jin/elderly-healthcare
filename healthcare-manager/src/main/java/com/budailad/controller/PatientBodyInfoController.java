@@ -35,8 +35,22 @@ public class PatientBodyInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientBodyInfo>> queryAll(PatientBodyInfo patientBodyInfo) {
-        return ResponseEntity.ok(this.patientBodyInfoService.queryAll(patientBodyInfo));
+    public ResponseEntity<List<PatientBodyInfo>> conditionQuery(PatientBodyInfo patientBodyInfo) {
+        return ResponseEntity.ok(this.patientBodyInfoService.conditionQuery(patientBodyInfo));
+    }
+
+    /**
+     * 获取图标数据
+     *
+     * @param patientId
+     * @return
+     */
+    @GetMapping("/getChar")
+    public void getCharData(String patientId) {
+        PatientBodyInfo patient = new PatientBodyInfo();
+        patient.setPatientId(patientId);
+        List<PatientBodyInfo> infoList = patientBodyInfoService.conditionQuery(patient);
+
     }
 
     /**

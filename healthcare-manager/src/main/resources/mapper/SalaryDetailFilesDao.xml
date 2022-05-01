@@ -36,7 +36,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="SalaryDetailFilesMap">
+    <select id="conditionQuery" resultMap="SalaryDetailFilesMap">
         select
         file_id, salary_id, staff_id, staff_name, file_type, file_name, minio_bucket, minio_path, upload_time,
         update_time, is_deleted, comment

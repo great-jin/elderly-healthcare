@@ -38,8 +38,8 @@ public class HomeMenuController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<HomeMenu>> queryAll(HomeMenu homeMenu) {
-        return ResponseEntity.ok(this.homeMenuService.queryAll(homeMenu));
+    public ResponseEntity<List<HomeMenu>> conditionQuery(HomeMenu homeMenu) {
+        return ResponseEntity.ok(this.homeMenuService.conditionQuery(homeMenu));
     }
 
     /**

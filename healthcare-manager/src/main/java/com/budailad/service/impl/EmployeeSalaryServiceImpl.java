@@ -46,8 +46,8 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 查询结果
      */
     @Override
-    public List<EmployeeSalary> queryAll(EmployeeSalary employeeSalary) {
-        return this.employeeSalaryDao.queryAll(employeeSalary);
+    public List<EmployeeSalary> conditionQuery(EmployeeSalary employeeSalary) {
+        return this.employeeSalaryDao.conditionQuery(employeeSalary);
     }
 
     /**

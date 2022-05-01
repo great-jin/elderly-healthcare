@@ -30,7 +30,7 @@ public interface VacateInfoDao {
      * @param vacateInfo  筛选条件
      * @return 查询结果
      */
-    List<VacateInfo> queryAll(VacateInfo vacateInfo);
+    List<VacateInfo> conditionQuery(VacateInfo vacateInfo);
 
     /**
      * 查询指定行数据

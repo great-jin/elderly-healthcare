@@ -67,7 +67,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="MailInfoMap">
+    <select id="conditionQuery" resultMap="MailInfoMap">
         select
         mail_id, staff_id, sender_name, sender_mail, receiver_name, receiver_mail, send_time, is_sended, comment
         from mail_info

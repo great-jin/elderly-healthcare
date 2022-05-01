@@ -46,8 +46,8 @@ public class VacateInfoServiceImpl implements VacateInfoService {
      * @return 查询结果
      */
     @Override
-    public List<VacateInfo> queryAll(VacateInfo vacateInfo) {
-        return this.vacateInfoDao.queryAll(vacateInfo);
+    public List<VacateInfo> conditionQuery(VacateInfo vacateInfo) {
+        return this.vacateInfoDao.conditionQuery(vacateInfo);
     }
 
     /**

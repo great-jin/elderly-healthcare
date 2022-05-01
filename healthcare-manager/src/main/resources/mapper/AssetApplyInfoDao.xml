@@ -88,7 +88,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="AssetApplyInfoMap">
+    <select id="conditionQuery" resultMap="AssetApplyInfoMap">
         select
         apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
         receive_address, cost_money, current_state, is_finished, comment

@@ -52,7 +52,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="IllnessCatalogMap">
+    <select id="conditionQuery" resultMap="IllnessCatalogMap">
         select
         ill_id, ill_type, ill_name, comment, ill_describe, ill_index
         from illness_catalog

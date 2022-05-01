@@ -32,8 +32,8 @@ public class IllnessCatalogController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<IllnessCatalog>> queryAll(IllnessCatalog illnessCatalog) {
-        return ResponseEntity.ok(this.illnessCatalogService.queryAll(illnessCatalog));
+    public ResponseEntity<List<IllnessCatalog>> conditionQuery(IllnessCatalog illnessCatalog) {
+        return ResponseEntity.ok(this.illnessCatalogService.conditionQuery(illnessCatalog));
     }
 
     /**

@@ -28,7 +28,7 @@ public interface EmployeeSalaryService {
      * @param employeeSalary 筛选条件
      * @return 查询结果
      */
-    List<EmployeeSalary> queryAll(EmployeeSalary employeeSalary);
+    List<EmployeeSalary> conditionQuery(EmployeeSalary employeeSalary);
 
     /**
      * 分页查询

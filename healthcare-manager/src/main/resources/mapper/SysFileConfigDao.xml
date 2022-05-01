@@ -28,7 +28,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAll" resultMap="SysFileConfigMap">
+    <select id="conditionQuery" resultMap="SysFileConfigMap">
         select
         id, sys_type, unit_type, case_bucket, salary_bucket, avatar_bucket, storage_bucket, comment
         from sys_file_config

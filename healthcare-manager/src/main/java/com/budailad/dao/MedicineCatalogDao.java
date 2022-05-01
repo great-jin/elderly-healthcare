@@ -30,7 +30,7 @@ public interface MedicineCatalogDao {
      * @param medicineCatalog 筛选条件
      * @return 查询结果
      */
-    List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog);
+    List<MedicineCatalog> conditionQuery(MedicineCatalog medicineCatalog);
 
     /**
      * 查询指定行数据

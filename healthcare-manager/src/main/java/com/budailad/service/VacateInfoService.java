@@ -28,7 +28,7 @@ public interface VacateInfoService {
      * @param vacateInfo  筛选条件
      * @return 查询结果
      */
-    List<VacateInfo> queryAll(VacateInfo vacateInfo);
+    List<VacateInfo> conditionQuery(VacateInfo vacateInfo);
 
     /**
      * 分页查询

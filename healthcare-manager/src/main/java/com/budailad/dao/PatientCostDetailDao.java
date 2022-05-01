@@ -30,7 +30,7 @@ public interface PatientCostDetailDao {
      * @param patientCostDetail 查询条件
      * @return 对象列表
      */
-    List<PatientCostDetail> queryAll(PatientCostDetail patientCostDetail);
+    List<PatientCostDetail> conditionQuery(PatientCostDetail patientCostDetail);
 
     /**
      * 查询指定行数据

@@ -30,7 +30,7 @@ public interface OrderGoodsDao {
      * @param orderGoods  筛选条件
      * @return 查询结果
      */
-    List<OrderGoods> queryAll(OrderGoods orderGoods);
+    List<OrderGoods> conditionQuery(OrderGoods orderGoods);
 
     /**
      * 查询指定行数据

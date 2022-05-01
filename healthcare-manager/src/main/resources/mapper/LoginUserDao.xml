@@ -88,7 +88,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="LoginUserMap">
+    <select id="conditionQuery" resultMap="LoginUserMap">
         select
         id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled, register_time,
         update_time, destroy_time, comment, bucket_avatar

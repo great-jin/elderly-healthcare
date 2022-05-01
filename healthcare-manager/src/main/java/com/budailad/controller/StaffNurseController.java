@@ -33,14 +33,14 @@ public class StaffNurseController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<StaffNurse>> queryAll(StaffNurse staffNurse) {
-        return ResponseEntity.ok(this.staffNurseService.queryAll(staffNurse));
+    public ResponseEntity<List<StaffNurse>> conditionQuery(StaffNurse staffNurse) {
+        return ResponseEntity.ok(this.staffNurseService.conditionQuery(staffNurse));
     }
 
 
     @GetMapping("/getTree")
     public ResponseEntity<List<StaffNurse>> getTree(StaffNurse staffNurse) {
-        return ResponseEntity.ok(this.staffNurseService.queryAll(staffNurse));
+        return ResponseEntity.ok(this.staffNurseService.conditionQuery(staffNurse));
     }
 
     /**

@@ -46,8 +46,8 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
      * @return 查询结果
      */
     @Override
-    public List<AssetApplyGoods> queryAll(AssetApplyGoods assetApplyGoods) {
-        return this.assetApplyGoodsDao.queryAll(assetApplyGoods);
+    public List<AssetApplyGoods> conditionQuery(AssetApplyGoods assetApplyGoods) {
+        return this.assetApplyGoodsDao.conditionQuery(assetApplyGoods);
     }
 
     /**

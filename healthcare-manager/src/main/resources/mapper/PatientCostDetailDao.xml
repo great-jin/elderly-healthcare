@@ -28,7 +28,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAll" resultMap="PatientCostDetailMap">
+    <select id="conditionQuery" resultMap="PatientCostDetailMap">
         select
         id, cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment
         from patient_cost_detail

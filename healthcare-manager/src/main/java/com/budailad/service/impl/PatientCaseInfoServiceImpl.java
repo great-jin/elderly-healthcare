@@ -46,8 +46,8 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return
      */
     @Override
-    public List<PatientCaseInfo> queryAll(PatientCaseInfo patientCaseInfo) {
-        return patientCaseInfoDao.queryAll(patientCaseInfo);
+    public List<PatientCaseInfo> conditionQuery(PatientCaseInfo patientCaseInfo) {
+        return patientCaseInfoDao.conditionQuery(patientCaseInfo);
     }
 
     /**

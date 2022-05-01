@@ -46,8 +46,8 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
      * @return 查询结果
      */
     @Override
-    public List<StaffDoctor> queryAll(StaffDoctor staffDoctor) {
-        return this.staffDoctorDao.queryAll(staffDoctor);
+    public List<StaffDoctor> conditionQuery(StaffDoctor staffDoctor) {
+        return this.staffDoctorDao.conditionQuery(staffDoctor);
     }
 
     /**

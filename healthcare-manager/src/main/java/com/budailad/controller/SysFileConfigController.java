@@ -89,8 +89,8 @@ public class SysFileConfigController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<SysFileConfig>> queryAll(SysFileConfig sysFileConfig) {
-        return ResponseEntity.ok(this.sysFileConfigService.queryAll(sysFileConfig));
+    public ResponseEntity<List<SysFileConfig>> conditionQuery(SysFileConfig sysFileConfig) {
+        return ResponseEntity.ok(this.sysFileConfigService.conditionQuery(sysFileConfig));
     }
 
     /**

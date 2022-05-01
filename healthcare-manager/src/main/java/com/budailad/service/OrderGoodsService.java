@@ -28,7 +28,7 @@ public interface OrderGoodsService {
      * @param orderGoods  筛选条件
      * @return 查询结果
      */
-    List<OrderGoods> queryAll(OrderGoods orderGoods);
+    List<OrderGoods> conditionQuery(OrderGoods orderGoods);
 
     /**
      * 分页查询

@@ -40,7 +40,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="VacateInfoMap">
+    <select id="conditionQuery" resultMap="VacateInfoMap">
         select
         id, organize_name, organize_type, staff_id, staff_name, vacate_type, vacate_reason, start_time, end_time,
         count_time, auditor_id, auditor_name, is_approve, comment

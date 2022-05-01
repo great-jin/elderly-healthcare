@@ -46,8 +46,8 @@ public class PatientContactServiceImpl implements PatientContactService {
      * @return 查询结果
      */
     @Override
-    public List<PatientContact> queryAll(PatientContact patientContact) {
-        return this.patientContactDao.queryAll(patientContact);
+    public List<PatientContact> conditionQuery(PatientContact patientContact) {
+        return this.patientContactDao.conditionQuery(patientContact);
     }
 
     /**

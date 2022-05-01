@@ -114,7 +114,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="PatientInfoMap">
+    <select id="conditionQuery" resultMap="PatientInfoMap">
         select
         patient_id, patient_name, in_time, patient_gender, patient_age, patient_height, patient_weight, eye_left,
         eye_right, body_temper, heart_beat, blood_pressure, blood_glucose, blood_fat, body_detail, patient_phone,

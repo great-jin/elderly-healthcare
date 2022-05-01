@@ -46,8 +46,8 @@ public class MailInfoServiceImpl implements MailInfoService {
      * @return 查询结果
      */
     @Override
-    public List<MailInfo> queryAll(MailInfo mailInfo) {
-        return this.mailInfoDao.queryAll(mailInfo);
+    public List<MailInfo> conditionQuery(MailInfo mailInfo) {
+        return this.mailInfoDao.conditionQuery(mailInfo);
     }
 
     /**

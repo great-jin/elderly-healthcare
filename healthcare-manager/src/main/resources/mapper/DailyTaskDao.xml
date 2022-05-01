@@ -38,7 +38,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="DailyTaskMap">
+    <select id="conditionQuery" resultMap="DailyTaskMap">
         select
         task_id, task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time, is_delay,
         update_time, is_finished, finish_time, comment

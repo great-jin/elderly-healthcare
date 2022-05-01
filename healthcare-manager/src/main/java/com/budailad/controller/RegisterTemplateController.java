@@ -32,8 +32,8 @@ public class RegisterTemplateController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<RegisterTemplate>> queryAll(RegisterTemplate registerTemplate) {
-        return ResponseEntity.ok(this.registerTemplateService.queryAll(registerTemplate));
+    public ResponseEntity<List<RegisterTemplate>> conditionQuery(RegisterTemplate registerTemplate) {
+        return ResponseEntity.ok(this.registerTemplateService.conditionQuery(registerTemplate));
     }
 
     /**

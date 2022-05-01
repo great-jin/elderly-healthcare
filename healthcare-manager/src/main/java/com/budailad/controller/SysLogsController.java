@@ -32,8 +32,8 @@ public class SysLogsController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<SysLogs>> queryAll(SysLogs sysLogs) {
-        return ResponseEntity.ok(this.sysLogsService.queryAll(sysLogs));
+    public ResponseEntity<List<SysLogs>> conditionQuery(SysLogs sysLogs) {
+        return ResponseEntity.ok(this.sysLogsService.conditionQuery(sysLogs));
     }
 
     /**

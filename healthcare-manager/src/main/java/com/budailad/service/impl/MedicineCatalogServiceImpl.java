@@ -46,8 +46,8 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
      * @return 查询结果
      */
     @Override
-    public List<MedicineCatalog> queryAll(MedicineCatalog medicineCatalog) {
-        return this.medicineCatalogDao.queryAll(medicineCatalog);
+    public List<MedicineCatalog> conditionQuery(MedicineCatalog medicineCatalog) {
+        return this.medicineCatalogDao.conditionQuery(medicineCatalog);
     }
 
     /**

@@ -38,7 +38,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="EmployeeSalaryMap">
+    <select id="conditionQuery" resultMap="EmployeeSalaryMap">
         select
         salary_id, organize_id, organize_name, staff_id, staff_name, work_date, work_days, off_days, deduct_count,
         insurance_count, allowance_count, salary_count, comment

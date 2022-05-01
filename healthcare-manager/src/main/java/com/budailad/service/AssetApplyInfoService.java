@@ -28,7 +28,7 @@ public interface AssetApplyInfoService {
      * @param assetApplyInfo 筛选条件
      * @return 查询结果
      */
-    List<AssetApplyInfo> queryAll(AssetApplyInfo assetApplyInfo);
+    List<AssetApplyInfo> conditionQuery(AssetApplyInfo assetApplyInfo);
 
     /**
      * 分页查询

@@ -28,7 +28,7 @@ public interface HomeMenuDao {
      * @param homeMenu 查询条件
      * @return 对象列表
      */
-    List<HomeMenu> queryAll(HomeMenu homeMenu);
+    List<HomeMenu> conditionQuery(HomeMenu homeMenu);
 
     /**
      * 查询指定行数据

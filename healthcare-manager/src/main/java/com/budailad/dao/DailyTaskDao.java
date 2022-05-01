@@ -30,7 +30,7 @@ public interface DailyTaskDao {
      * @param dailyTask   筛选条件
      * @return 查询结果
      */
-    List<DailyTask> queryAll(DailyTask dailyTask);
+    List<DailyTask> conditionQuery(DailyTask dailyTask);
 
     /**
      * 查询指定行数据
@@ -46,7 +46,7 @@ public interface DailyTaskDao {
      * 
      * @return
      */
-    List<DailyTask> queryAll();
+    List<DailyTask> conditionQuery();
 
     /**
      * 统计总行数

@@ -38,8 +38,8 @@ public class PatientCostDetailController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientCostDetail>> queryAll(PatientCostDetail patientCostDetail) {
-        return ResponseEntity.ok(this.patientCostDetailService.queryAll(patientCostDetail));
+    public ResponseEntity<List<PatientCostDetail>> conditionQuery(PatientCostDetail patientCostDetail) {
+        return ResponseEntity.ok(this.patientCostDetailService.conditionQuery(patientCostDetail));
     }
 
     @GetMapping("/getCost")
@@ -47,13 +47,13 @@ public class PatientCostDetailController {
         // 查询病人消费表信息编号
         PatientCostInfo costInfo = new PatientCostInfo();
         costInfo.setPatientId(Id);
-        List<PatientCostInfo> infoList = patientCostInfoService.queryAll(costInfo);
+        List<PatientCostInfo> infoList = patientCostInfoService.conditionQuery(costInfo);
         String costId = infoList.get(0).getCostId();
 
         // 根据编号查询所有消费记录
         PatientCostDetail patientCostDetail = new PatientCostDetail();
         patientCostDetail.setCostId(costId);
-        return ResponseEntity.ok(this.patientCostDetailService.queryAll(patientCostDetail));
+        return ResponseEntity.ok(this.patientCostDetailService.conditionQuery(patientCostDetail));
     }
 
     /**

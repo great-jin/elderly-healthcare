@@ -28,7 +28,7 @@ public interface PatientCaseFilesService {
      * @param patientCaseFiles 筛选条件
      * @return 查询结果
      */
-    List<PatientCaseFiles> queryAll(PatientCaseFiles patientCaseFiles);
+    List<PatientCaseFiles> conditionQuery(PatientCaseFiles patientCaseFiles);
 
     /**
      * 分页查询

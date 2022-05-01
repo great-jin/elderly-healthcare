@@ -34,7 +34,7 @@
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAll" resultMap="WarehouseStorageMap">
+    <select id="conditionQuery" resultMap="WarehouseStorageMap">
         select
         goods_id, goods_name, goods_type, goods_price, goods_count, warn_line, produce_time, purchase_time,
         purchase_staff, produce_vendor, comment

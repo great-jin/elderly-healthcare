@@ -28,7 +28,7 @@ public interface AssetApplyGoodsService {
      * @param assetApplyGoods 筛选条件
      * @return 查询结果
      */
-    List<AssetApplyGoods> queryAll(AssetApplyGoods assetApplyGoods);
+    List<AssetApplyGoods> conditionQuery(AssetApplyGoods assetApplyGoods);
 
     /**
      * 分页查询

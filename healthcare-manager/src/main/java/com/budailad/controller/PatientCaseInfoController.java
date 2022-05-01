@@ -33,8 +33,8 @@ public class PatientCaseInfoController {
      * @return
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientCaseInfo>> queryAll(PatientCaseInfo patientCaseInfo) {
-        return ResponseEntity.ok(this.patientCaseInfoService.queryAll(patientCaseInfo));
+    public ResponseEntity<List<PatientCaseInfo>> conditionQuery(PatientCaseInfo patientCaseInfo) {
+        return ResponseEntity.ok(this.patientCaseInfoService.conditionQuery(patientCaseInfo));
     }
 
     /**

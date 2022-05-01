@@ -45,8 +45,8 @@ public class SysFileConfigServiceImpl implements SysFileConfigService {
      * @return 查询结果
      */
     @Override
-    public List<SysFileConfig> queryAll(SysFileConfig sysFileConfig) {
-        return this.sysFileConfigDao.queryAll(sysFileConfig);
+    public List<SysFileConfig> conditionQuery(SysFileConfig sysFileConfig) {
+        return this.sysFileConfigDao.conditionQuery(sysFileConfig);
     }
 
     /**

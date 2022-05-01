@@ -46,8 +46,8 @@ public class RegisterTemplateServiceImpl implements RegisterTemplateService {
      * @return 查询结果
      */
     @Override
-    public List<RegisterTemplate> queryAll(RegisterTemplate registerTemplate) {
-        return this.registerTemplateDao.queryAll(registerTemplate);
+    public List<RegisterTemplate> conditionQuery(RegisterTemplate registerTemplate) {
+        return this.registerTemplateDao.conditionQuery(registerTemplate);
     }
 
     /**

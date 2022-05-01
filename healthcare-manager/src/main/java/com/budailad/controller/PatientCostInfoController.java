@@ -33,8 +33,8 @@ public class PatientCostInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<PatientCostInfo>> queryAll(PatientCostInfo patientCostInfo) {
-        return ResponseEntity.ok(this.patientCostInfoService.queryAll(patientCostInfo));
+    public ResponseEntity<List<PatientCostInfo>> conditionQuery(PatientCostInfo patientCostInfo) {
+        return ResponseEntity.ok(this.patientCostInfoService.conditionQuery(patientCostInfo));
     }
 
     /**

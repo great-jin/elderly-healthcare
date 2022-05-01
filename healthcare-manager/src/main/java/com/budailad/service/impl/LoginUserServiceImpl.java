@@ -45,8 +45,8 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 查询结果
      */
     @Override
-    public List<LoginUser> queryAll(LoginUser loginUser) {
-        return this.loginUserDao.queryAll(loginUser);
+    public List<LoginUser> conditionQuery(LoginUser loginUser) {
+        return this.loginUserDao.conditionQuery(loginUser);
     }
 
     /**

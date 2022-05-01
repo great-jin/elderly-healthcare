@@ -41,8 +41,8 @@ public class AssetApplyInfoController {
      * @return 查询结果
      */
     @GetMapping("/list")
-    public ResponseEntity<List<AssetApplyInfo>> queryAll(AssetApplyInfo assetApplyInfo) {
-        return ResponseEntity.ok(this.assetApplyInfoService.queryAll(assetApplyInfo));
+    public ResponseEntity<List<AssetApplyInfo>> conditionQuery(AssetApplyInfo assetApplyInfo) {
+        return ResponseEntity.ok(this.assetApplyInfoService.conditionQuery(assetApplyInfo));
     }
 
     /**

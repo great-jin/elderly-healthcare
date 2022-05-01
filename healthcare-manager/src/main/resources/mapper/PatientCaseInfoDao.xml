@@ -36,7 +36,7 @@
     </select>
 
     <!--条件查询-->
-    <select id="queryAll" resultMap="PatientCaseInfoMap">
+    <select id="conditionQuery" resultMap="PatientCaseInfoMap">
         select
         case_id, patient_id, patient_name, nurse_id, nurse_name, doctor_id, doctor_name, case_describe, in_time,
         is_leave, out_time, comment

@@ -46,8 +46,8 @@ public class IllnessCatalogServiceImpl implements IllnessCatalogService {
      * @return 查询结果
      */
     @Override
-    public List<IllnessCatalog> queryAll(IllnessCatalog illnessCatalog) {
-        return this.illnessCatalogDao.queryAll(illnessCatalog);
+    public List<IllnessCatalog> conditionQuery(IllnessCatalog illnessCatalog) {
+        return this.illnessCatalogDao.conditionQuery(illnessCatalog);
     }
 
     /**

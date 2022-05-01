@@ -46,8 +46,8 @@ public class SalaryDetailFilesServiceImpl implements SalaryDetailFilesService {
      * @return 查询结果
      */
     @Override
-    public List<SalaryDetailFiles> queryAll(SalaryDetailFiles salaryDetailFiles) {
-        return this.salaryDetailFilesDao.queryAll(salaryDetailFiles);
+    public List<SalaryDetailFiles> conditionQuery(SalaryDetailFiles salaryDetailFiles) {
+        return this.salaryDetailFilesDao.conditionQuery(salaryDetailFiles);
     }
 
     /**

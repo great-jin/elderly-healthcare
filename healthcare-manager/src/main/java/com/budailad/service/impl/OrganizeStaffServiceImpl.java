@@ -46,8 +46,8 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 查询结果
      */
     @Override
-    public List<OrganizeStaff> queryAll(OrganizeStaff organizeStaff) {
-        return this.organizeStaffDao.queryAll(organizeStaff);
+    public List<OrganizeStaff> conditionQuery(OrganizeStaff organizeStaff) {
+        return this.organizeStaffDao.conditionQuery(organizeStaff);
     }
 
     /**
