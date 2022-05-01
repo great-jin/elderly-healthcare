@@ -1,11 +1,9 @@
 <template>
   <div>
-    <a-row style="margin-bottom: 15px; font-weight: 600">
-      <a-col :span="24" style="text-align: center"><h2>数据详情</h2></a-col>
-    </a-row>
+    <br/>
     <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
-      <a-col :span="8"><pie2Chart /></a-col>
       <a-col :span="8"><pie1Chart /></a-col>
+      <a-col :span="8"><pie2Chart /></a-col>
       <a-col :span="8"><pie3Chart /></a-col>
     </a-row>
     <a-row style="width: 100%; height: 100%;">

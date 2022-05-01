@@ -46,26 +46,20 @@ export default {
           {
             name: 'Access From',
             type: 'pie',
-            radius: ['40%', '55%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 2
-            },
-            label: {
-              show: false,
-              position: 'center'
-            },
-            labelLine: {
-              show: false
-            },
+            radius: '45%',
             data: [
               { value: 1048, name: 'Search Engine' },
               { value: 735, name: 'Direct' },
               { value: 580, name: 'Email' },
               { value: 484, name: 'Union Ads' }
-            ]
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
           }
         ]
       }

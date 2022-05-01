@@ -8,13 +8,13 @@
     @close="cancel"
   >
     <div>
-      <LineChart :patientId="patientId"/>
+      <LineChart v-if="flag" :patientId="patientId"/>
     </div>
   </a-drawer>
 </template>
 
 <script>
-import LineChart from './chart/line1Chart'
+import LineChart from './infoChart'
 
 export default {
   name: 'CaseInfo',
@@ -34,16 +34,19 @@ export default {
   data () {
     return {
       visible: false,
-      patientId: ''
+      patientId: '',
+      flag: false
     }
   },
   methods: {
     paramReceive (data) {
       this.visible = true
+      this.flag = true
       this.patientId = data
     },
     cancel () {
       this.visible = false
+      this.flag = false
     }
   }
 }

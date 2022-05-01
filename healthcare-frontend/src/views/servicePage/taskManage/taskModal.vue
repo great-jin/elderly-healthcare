@@ -94,15 +94,32 @@
       <a-row :gutter="2">
         <a-col :span="12">
           <a-form-model-item
-            label="创建时间"
+            label="开始时间"
             prop="createdTime"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
             <a-date-picker
               v-model="form.createdTime"
-              placeholder="请选择创建时间"
+              placeholder="请选择开始时间"
+              style="width: 100%"
             />
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="12">
+          <a-form-model-item
+            label="是否完成"
+            prop="isFinished"
+            :labelCol="labelCol"
+            :wrapperCol="wrapperCol"
+          >
+            <a-radio-group
+              v-model="form.isFinished"
+              :default-value="0"
+            >
+              <a-radio :value="0">否</a-radio>
+              <a-radio :value="1">是</a-radio>
+            </a-radio-group>
           </a-form-model-item>
         </a-col>
       </a-row>
@@ -127,9 +144,9 @@
       <a-row>
         <a-col :span="24">
           <a-form-model-item
-            label="任务备注"
+            label="详情备注"
             prop="comment"
-            placeholder="任务备注"
+            placeholder="详情备注"
             :labelCol="{ xs: { span: 21 }, sm: { span: 3 } }"
             :wrapperCol="{ xs: { span: 24 }, sm: { span: 16 } }"
             style="width: 116%"
@@ -164,24 +181,28 @@ export default {
         patientName: undefined,
         staffName: undefined,
         createdTime: '',
+        isFinished: 0,
         taskContent: '',
         comment: ''
       },
       rules: {
         taskId: [
-          { required: true, message: '请输入任务名', trigger: 'change' }
+          { required: true, message: '任务编号', trigger: 'change' }
         ],
         taskName: [
           { required: true, message: '请输入任务名', trigger: 'change' }
         ],
         patientName: [
-          { required: true, message: '请选择负责人', trigger: 'change' }
+          { required: true, message: '请选择病人', trigger: 'change' }
         ],
         staffName: [
           { required: true, message: '请选择负责人', trigger: 'change' }
         ],
         createdTime: [
-          { required: true, message: '请选择负责病人', trigger: 'change' }
+          { required: true, message: '请选择开始时间', trigger: 'change' }
+        ],
+        isFinished: [
+          { required: true, message: '请选择是否完成', trigger: 'change' }
         ],
         taskContent: [
           { required: true, message: '请输入任务内容', trigger: 'blur' },

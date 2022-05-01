@@ -1,6 +1,5 @@
 package com.budailad.controller;
 
-import com.budailad.entity.PatientContact;
 import com.budailad.entity.PatientCostDetail;
 import com.budailad.entity.PatientCostInfo;
 import com.budailad.service.PatientCostDetailService;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (PatientCostDetail)表控制层
@@ -22,14 +22,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/healthcare/patientCostDetail")
 public class PatientCostDetailController {
+
+    @Resource
+    private PatientCostInfoService patientCostInfoService;
+
     /**
      * 服务对象
      */
     @Resource
     private PatientCostDetailService patientCostDetailService;
-
-    @Resource
-    private PatientCostInfoService patientCostInfoService;
 
     /**
      * 条件查询
@@ -86,8 +87,16 @@ public class PatientCostDetailController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientCostDetail> add(@RequestBody PatientCostDetail patientCostDetail) {
-        return ResponseEntity.ok(this.patientCostDetailService.insert(patientCostDetail));
+    public boolean add(@RequestParam(value = "patientId") String patientId,
+                       @RequestBody PatientCostDetail patientCostDetail) {
+        PatientCostInfo costInfo = new PatientCostInfo();
+        costInfo.setPatientId(patientId);
+        costInfo = (patientCostInfoService.conditionQuery(costInfo)).get(0);
+        String costID = costInfo.getCostId();
+        patientCostDetail.setId(UUID.randomUUID().toString());
+        patientCostDetail.setCostId(costID);
+        int i = patientCostDetailService.insert(patientCostDetail);
+        return i > 0;
     }
 
     /**

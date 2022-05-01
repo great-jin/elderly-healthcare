@@ -66,9 +66,8 @@ public class PatientCostInfoServiceImpl implements PatientCostInfoService {
      * @return 实例对象
      */
     @Override
-    public PatientCostInfo insert(PatientCostInfo patientCostInfo) {
-        this.patientCostInfoDao.insert(patientCostInfo);
-        return patientCostInfo;
+    public int insert(PatientCostInfo patientCostInfo) {
+        return this.patientCostInfoDao.insert(patientCostInfo);
     }
 
     /**

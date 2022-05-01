@@ -290,7 +290,7 @@ export default {
           switch (this.type) {
             case 'add':
               addCaseInfo(this.form).then(res => {
-                if (res.data !== null) {
+                if (res.data) {
                   this.$message.success('添加成功')
                   this.cancel()
                 } else {
@@ -300,7 +300,7 @@ export default {
               break
             case 'edit':
               updateCaseInfo(this.form).then(res => {
-                if (res.data !== null) {
+                if (res.data) {
                   this.$message.success('修改成功')
                   this.cancel()
                 } else {

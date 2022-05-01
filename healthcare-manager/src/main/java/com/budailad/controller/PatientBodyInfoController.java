@@ -5,13 +5,12 @@ import com.budailad.entity.PatientCaseInfo;
 import com.budailad.service.PatientBodyInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * (PatientBodyInfo)表控制层
@@ -46,11 +45,24 @@ public class PatientBodyInfoController {
      * @return
      */
     @GetMapping("/getChar")
-    public void getCharData(String patientId) {
+    public List<PatientBodyInfo> getCharData(@RequestParam(value = "patientId") String patientId) {
         PatientBodyInfo patient = new PatientBodyInfo();
         patient.setPatientId(patientId);
         List<PatientBodyInfo> infoList = patientBodyInfoService.conditionQuery(patient);
-
+        // 获取当前时间前第七天时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 8);
+        Date sevenDay = calendar.getTime();
+        // 获取最新七天身体数据
+        List<PatientBodyInfo> resultList = new ArrayList<>();
+        infoList.forEach(item -> {
+            if ((item.getInTime()).after(sevenDay)) {
+                resultList.add(item);
+            }
+        });
+        // 按照登记时间升序排列
+        resultList.sort(Comparator.comparing(PatientBodyInfo::getInTime));
+        return resultList;
     }
 
     /**

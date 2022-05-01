@@ -1,7 +1,9 @@
 package com.budailad.controller;
 
 import com.budailad.entity.PatientCaseInfo;
+import com.budailad.entity.PatientCostInfo;
 import com.budailad.service.PatientCaseInfoService;
+import com.budailad.service.PatientCostInfoService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,10 @@ public class PatientCaseInfoController {
      */
     @Resource
     private PatientCaseInfoService patientCaseInfoService;
+
+
+    @Resource
+    private PatientCostInfoService patientCostInfoService;
 
     /**
      * 条件查询
@@ -67,9 +73,21 @@ public class PatientCaseInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientCaseInfo> add(@RequestBody PatientCaseInfo patientCaseInfo) {
+    public ResponseEntity<Boolean> add(@RequestBody PatientCaseInfo patientCaseInfo) {
+        // 生成消费记录
+        PatientCostInfo costInfo = new PatientCostInfo();
+        costInfo.setCostId(UUID.randomUUID().toString());
+        costInfo.setPatientId(patientCaseInfo.getPatientId());
+        costInfo.setPatientName(patientCaseInfo.getPatientName());
+        costInfo.setDoctorId(patientCaseInfo.getDoctorId());
+        costInfo.setDoctorName(patientCaseInfo.getDoctorName());
+        costInfo.setInTime(patientCaseInfo.getInTime());
+        costInfo.setIsPay(0);
+        int i = patientCostInfoService.insert(costInfo);
+        // 分配医师护士
         patientCaseInfo.setCaseId(UUID.randomUUID().toString());
-        return ResponseEntity.ok(this.patientCaseInfoService.insert(patientCaseInfo));
+        int j = patientCaseInfoService.insert(patientCaseInfo);
+        return ResponseEntity.ok(i > 0 && j > 0);
     }
 
     /**
@@ -79,8 +97,9 @@ public class PatientCaseInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<PatientCaseInfo> edit(@RequestBody PatientCaseInfo patientCaseInfo) {
-        return ResponseEntity.ok(this.patientCaseInfoService.update(patientCaseInfo));
+    public ResponseEntity<Boolean> edit(@RequestBody PatientCaseInfo patientCaseInfo) {
+        int i = patientCaseInfoService.update(patientCaseInfo);
+        return ResponseEntity.ok(i > 0);
     }
 
     /**

@@ -45,7 +45,7 @@ public interface PatientCostInfoService {
      * @param patientCostInfo 实例对象
      * @return 实例对象
      */
-    PatientCostInfo insert(PatientCostInfo patientCostInfo);
+    int insert(PatientCostInfo patientCostInfo);
 
     /**
      * 修改数据

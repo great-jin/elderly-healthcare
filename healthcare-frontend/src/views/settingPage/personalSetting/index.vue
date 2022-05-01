@@ -3,7 +3,7 @@
     <a-col :span="4" class="side">
       <a-button
         type="dashed"
-        @click="backHome"
+        @click="quit"
         style="width: 100%; margin-bottom: 30px"
       >
         <a-icon type="arrow-left" />
@@ -139,8 +139,8 @@ export default {
     this.loginUse = JSON.parse(localStorage.getItem('loginUser'))
   },
   methods: {
-    backHome () {
-      this.$router.push('/elderlyHealthcare/home')
+    quit () {
+      this.$router.go(-1)
     },
     ok () {
       this.$refs.registerForm.validate(valid => {

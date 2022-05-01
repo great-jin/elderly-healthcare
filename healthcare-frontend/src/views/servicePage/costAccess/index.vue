@@ -73,7 +73,7 @@
       </a-row>
       <a-row :style="{textAlign: 'center'}">
         <a-button type="primary" @click="see">查看</a-button>
-        <a-button type="primary" @click="ok" style="margin-left: 25px">确认</a-button>
+        <a-button type="primary" @click="ok" style="margin-left: 25px">登记</a-button>
         <a-button type="primary" @click="cancel" style="margin-left: 25px">清空</a-button>
         <GoodsDrawer ref="goodsDrawer"/>
       </a-row>
@@ -131,6 +131,7 @@ import { columns } from './const'
 import Empty from '@/views/utils/empty'
 import { listGoods } from '@/api/warehouseStorage'
 import { listCostInfo } from '@/api/patientCostInfo'
+import { addCostDetail } from '@/api/patientCostDetail'
 
 export default {
   name: 'PaymentManage',
@@ -148,6 +149,7 @@ export default {
       goodsList: [],
       patientId: undefined,
       goodsInfo: {
+        patientId: '',
         goodsName: '',
         goodsType: '',
         goodsPrice: '',
@@ -199,9 +201,15 @@ export default {
     },
     ok () {
       if (this.patientId !== undefined) {
-        if (this.goodsInfo.orderCount instanceof Number && this.goodsInfo.orderCount > 0) {
+        if (Number.isFinite(this.goodsInfo.orderCount) && this.goodsInfo.orderCount > 0) {
           // 提交新消费记录
-          this.$message.error('ok')
+          this.goodsInfo.patientId = this.patientId
+          addCostDetail(this.goodsInfo).then(res => {
+            if (res.data !== null) {
+              this.$message.success('ok')
+              this.goodsInfo = {}
+            }
+          })
         } else {
           this.$message.error('请选择数量')
         }

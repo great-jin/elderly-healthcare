@@ -9,28 +9,6 @@
       <a-row style="padding-left: 5px">
         <a-col :span="5">
           <a-form-model-item
-            label="任务"
-            prop="taskId"
-            :label-col="labelCol"
-            :wrapper-col="wrapperCol"
-          >
-            <a-select
-              v-model="searchData.taskId"
-              :allowClear="true"
-              placeholder="请选择任务名"
-              style="padding: 0 5px"
-            >
-              <a-select-option
-                v-for="option in taskData"
-                :key="option.taskId"
-                :value="option.taskId"
-              >{{ option.taskName }}
-              </a-select-option>
-            </a-select>
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="5">
-          <a-form-model-item
             label="病人"
             prop="patientName"
             :label-col="labelCol"
@@ -70,6 +48,23 @@
                 :value="option"
               >{{ option }}
               </a-select-option>
+            </a-select>
+          </a-form-model-item>
+        </a-col>
+        <a-col :span="5">
+          <a-form-model-item
+            label="是否完成"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-select
+              v-model="searchData.isFinished"
+              :allowClear="true"
+              placeholder="是否完成"
+              style="padding: 0 5px"
+            >
+              <a-select-option key="0" :value="0">否</a-select-option>
+              <a-select-option key="1" :value="1">是</a-select-option>
             </a-select>
           </a-form-model-item>
         </a-col>
@@ -126,9 +121,9 @@ export default {
     return {
       taskData: [],
       searchData: {
-        taskId: undefined,
         nurseName: undefined,
-        patientName: undefined
+        patientName: undefined,
+        isFinished: undefined
       },
       pagination: {
         total: 0,
@@ -140,11 +135,11 @@ export default {
       },
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 5 }
+        sm: { span: 6 }
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 18 }
+        sm: { span: 16 }
       }
     }
   },

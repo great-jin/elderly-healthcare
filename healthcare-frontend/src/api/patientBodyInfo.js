@@ -17,6 +17,13 @@ export function getBodyInfo (params) {
   })
 }
 
+export function getCharData (params) {
+  return request({
+    url: `${prefix}/getChar?patientId=${params}`,
+    method: 'get'
+  })
+}
+
 export function addBodyInfo (params) {
   return request({
     url: `${prefix}/add`,

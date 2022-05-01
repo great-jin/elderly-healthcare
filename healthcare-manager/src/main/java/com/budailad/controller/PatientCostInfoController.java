@@ -67,8 +67,8 @@ public class PatientCostInfoController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<PatientCostInfo> add(@RequestBody PatientCostInfo patientCostInfo) {
-        return ResponseEntity.ok(this.patientCostInfoService.insert(patientCostInfo));
+    public ResponseEntity<Boolean> add(@RequestBody PatientCostInfo patientCostInfo) {
+        return ResponseEntity.ok(this.patientCostInfoService.insert(patientCostInfo)>0);
     }
 
     /**

@@ -70,9 +70,8 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
      * @return 实例对象
      */
     @Override
-    public PatientCaseInfo insert(PatientCaseInfo patientCaseInfo) {
-        this.patientCaseInfoDao.insert(patientCaseInfo);
-        return patientCaseInfo;
+    public int insert(PatientCaseInfo patientCaseInfo) {
+        return this.patientCaseInfoDao.insert(patientCaseInfo);
     }
 
     /**
@@ -85,9 +84,8 @@ public class PatientCaseInfoServiceImpl implements PatientCaseInfoService {
     @Caching(evict = {
             @CacheEvict(key = "#patientCaseInfo.caseId")
     })
-    public PatientCaseInfo update(PatientCaseInfo patientCaseInfo) {
-        this.patientCaseInfoDao.update(patientCaseInfo);
-        return this.queryById(patientCaseInfo.getCaseId());
+    public int update(PatientCaseInfo patientCaseInfo) {
+        return this.patientCaseInfoDao.update(patientCaseInfo);
     }
 
     /**

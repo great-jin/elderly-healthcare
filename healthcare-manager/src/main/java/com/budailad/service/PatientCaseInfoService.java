@@ -45,7 +45,7 @@ public interface PatientCaseInfoService {
      * @param patientCaseInfo 实例对象
      * @return 实例对象
      */
-    PatientCaseInfo insert(PatientCaseInfo patientCaseInfo);
+    int insert(PatientCaseInfo patientCaseInfo);
 
     /**
      * 修改数据
@@ -53,7 +53,7 @@ public interface PatientCaseInfoService {
      * @param patientCaseInfo 实例对象
      * @return 实例对象
      */
-    PatientCaseInfo update(PatientCaseInfo patientCaseInfo);
+    int update(PatientCaseInfo patientCaseInfo);
 
     /**
      * 通过主键删除数据

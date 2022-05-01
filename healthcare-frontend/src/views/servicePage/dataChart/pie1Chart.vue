@@ -28,7 +28,7 @@ export default {
       const graph = this.$echarts.init(document.getElementById('pie1'))
       const option = {
         title: {
-          text: '员工分布',
+          text: '年龄分布',
           left: 'center',
           top: 'bottom',
           textStyle: {
