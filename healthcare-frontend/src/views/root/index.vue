@@ -18,6 +18,9 @@
             <a-avatar size="large" :src="imgUrl"/>
             <a-menu slot="overlay">
               <a-menu-item @click="quit">
+                <span>前台页面</span>
+              </a-menu-item>
+              <a-menu-item @click="quit">
                 <span>退出登录</span>
               </a-menu-item>
             </a-menu>

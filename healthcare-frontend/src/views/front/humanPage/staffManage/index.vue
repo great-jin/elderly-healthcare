@@ -38,19 +38,21 @@
           :scroll="{ x: 1600}"
         >
           <template slot="action" slot-scope="text, record">
-            <a-button type="link" @click="clickOption('power', record)">授权</a-button>
+            <a-button type="link" @click="clickOption('more', record)">详情</a-button>
+            <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
           </template>
         </a-table>
       </a-col>
     </a-row>
 
-    <PowerModal ref="powerModal" />
+    <InfoDrawer ref="infoDrawer" />
+    <AccountModal ref="accountModal" />
   </div>
 </template>
 
 <script>
 import { columns } from './const'
-import PowerModal from './powerModal'
+import InfoDrawer from './infoDrawer'
 import { listNurse } from '@/api/staffNurse'
 import { listDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff } from '@/api/organizeStaff'
@@ -58,7 +60,7 @@ import { listOrganizeStaff } from '@/api/organizeStaff'
 export default {
   name: 'StaffManage',
   components: {
-    PowerModal
+    InfoDrawer
   },
   data () {
     return {
@@ -124,9 +126,12 @@ export default {
     },
     clickOption (type, data) {
       switch (type) {
-        case 'power':
-          this.$refs.powerModal.paramReceive(type, data)
+        case 'add':
+          this.$refs.infoDrawer.paramReceive(type, null, null)
+          break
+        case 'more':
         case 'edit':
+          this.$refs.infoDrawer.paramReceive(type, this.treeKeys, data.staffId)
           break
       }
     }

@@ -45,7 +45,7 @@ public interface LoginUserService {
      * @param loginUser 实例对象
      * @return 实例对象
      */
-    LoginUser insert(LoginUser loginUser);
+    int insert(LoginUser loginUser);
 
     /**
      * 修改数据

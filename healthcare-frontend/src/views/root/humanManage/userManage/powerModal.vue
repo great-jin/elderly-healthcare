@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="账号开通"
+    :title="type==='power' ? '账号开通' : '账号变更'"
     :visible="visible"
     width="40%"
     @cancel="cancel"
@@ -22,7 +22,8 @@
       >
         <a-input
           v-model="formData.staffId"
-          placeholder="请输入联系人"
+          :disabled="true"
+          placeholder="请输入账号"
         />
       </a-form-model-item>
       <a-form-model-item
@@ -42,20 +43,20 @@
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input
+        <a-input-password
           v-model="formData.userPwd"
           placeholder="请输入密码"
         />
       </a-form-model-item>
       <a-form-model-item
         label="确认密码"
-        prop="userPwd"
+        prop="userPwd1"
         :labelCol="labelCol"
         :wrapperCol="wrapperCol"
       >
-        <a-input
+        <a-input-password
           v-model="formData.userPwd1"
-          placeholder="请输入密码"
+          placeholder="请再次输入密码"
         />
       </a-form-model-item>
       <a-form-model-item
@@ -92,7 +93,7 @@
 
 <script>
 import { Encrypt } from '@/utils/AES.js'
-import { addUser } from '@/api/loginUser'
+import { addUser, getUser } from '@/api/loginUser'
 
 export default {
   name: 'AccountModal',
@@ -142,8 +143,16 @@ export default {
     paramReceive (type, data) {
       this.type = type
       this.visible = true
-      this.formData.staffId = data.staffId
-      this.formData.userName = data.staffName
+      if (type === 'power') {
+        this.formData.staffId = data.staffId
+        this.formData.userName = data.staffName
+      }
+      if (type === 'edit') {
+        getUser(data.staffId).then(res => {
+          this.formData = res.data
+          this.formData.userPwd1 = res.data.userPwd
+        })
+      }
     },
     cancel () {
       this.visible = false
@@ -155,9 +164,11 @@ export default {
           console.log(this.formData)
           if (this.formData.userPwd === this.formData.userPwd1) {
             this.formData.userPwd = Encrypt(this.formData.userPwd)
+            this.formData.userPwd1 = this.formData.userPwd
             addUser(this.formData).then(res => {
               if (res.data === 1) {
                 this.$message.success('账号开通成功')
+                this.cancel()
               }
             })
           } else {

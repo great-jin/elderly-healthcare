@@ -53,7 +53,7 @@ public interface VacateInfoService {
      * @param vacateInfo 实例对象
      * @return 实例对象
      */
-    VacateInfo update(VacateInfo vacateInfo);
+    int update(VacateInfo vacateInfo);
 
     /**
      * 通过主键删除数据

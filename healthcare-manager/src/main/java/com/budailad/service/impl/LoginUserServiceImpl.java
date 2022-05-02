@@ -33,7 +33,6 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
-    @Cacheable(key = "#id")
     public LoginUser queryById(String id) {
         return this.loginUserDao.queryById(id);
     }
@@ -69,9 +68,8 @@ public class LoginUserServiceImpl implements LoginUserService {
      * @return 实例对象
      */
     @Override
-    public LoginUser insert(LoginUser loginUser) {
-        this.loginUserDao.insert(loginUser);
-        return loginUser;
+    public int insert(LoginUser loginUser) {
+        return loginUserDao.insert(loginUser);
     }
 
     /**

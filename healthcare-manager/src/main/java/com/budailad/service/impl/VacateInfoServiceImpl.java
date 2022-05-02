@@ -85,9 +85,8 @@ public class VacateInfoServiceImpl implements VacateInfoService {
     @Caching(evict = {
             @CacheEvict(key = "#vacateInfo.id")
     })
-    public VacateInfo update(VacateInfo vacateInfo) {
-        this.vacateInfoDao.update(vacateInfo);
-        return this.queryById(vacateInfo.getId());
+    public int update(VacateInfo vacateInfo) {
+        return this.vacateInfoDao.update(vacateInfo);
     }
 
     /**

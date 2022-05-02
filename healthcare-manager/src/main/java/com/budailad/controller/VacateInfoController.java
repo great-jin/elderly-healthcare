@@ -83,8 +83,8 @@ public class VacateInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<VacateInfo> edit(@RequestBody VacateInfo vacateInfo) {
-        return ResponseEntity.ok(this.vacateInfoService.update(vacateInfo));
+    public ResponseEntity<Boolean> edit(@RequestBody VacateInfo vacateInfo) {
+        return ResponseEntity.ok(this.vacateInfoService.update(vacateInfo) > 0);
     }
 
     /**

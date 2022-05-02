@@ -4,8 +4,9 @@
     :width="contentWidth"
     :height="contentHeight"
     style="float: right; margin-right: 10px"
-  ></canvas>
+  />
 </template>
+
 <script>
 export default {
   name: 'SIdentify',

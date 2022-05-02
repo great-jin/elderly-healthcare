@@ -74,7 +74,7 @@ public class LoginUserController {
         LoginUser resultUser = loginUserService.queryById(user.getStaffId());
         if (resultUser != null) {
             // 后端数据解密
-            String backEnPwd = new String(resultUser.getUserPwd().getBytes(),"UTF-8");
+            String backEnPwd = new String(resultUser.getUserPwd().getBytes(), "UTF-8");
             String backDePwd = desEncrypt(backEnPwd, KEY_BACK, IV_BACK).trim();
 
             if (frontDePwd.equals(backDePwd)) {
@@ -91,38 +91,28 @@ public class LoginUserController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public int add(@RequestBody LoginUser loginUser) throws Exception {
+    public boolean add(@RequestBody LoginUser loginUser) throws Exception {
+        boolean tag = false;
         LoginUser userResult = loginUserService.queryById(loginUser.getStaffId());
         // 判断用户是否已存在
         if (userResult == null) {
             // 获取前端加密数据进行解密
             String frontEnPwd = loginUser.getUserPwd();
             String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
-
             // 对解密数据二次加密
-            String backByte = new String(frontDePwd.getBytes(),"UTF-8");
+            String backByte = new String(frontDePwd.getBytes(), "UTF-8");
             String backEnPwd = encrypt(backByte, KEY_BACK, IV_BACK);
             loginUser.setUserPwd(backEnPwd);
-
             // 数据补充
             loginUser.setId(UUID.randomUUID().toString());
-            loginUser.setOrganizeId("1");
-            loginUser.setUserAvatar("1.jpg");
-            loginUser.setUserPower(0);
-            loginUser.setIsDisabled(0);
             loginUser.setRegisterTime(new Date());
             loginUser.setUpdateTime(null);
             loginUser.setDestroyTime(null);
             loginUser.setComment(null);
 
-            LoginUser user = loginUserService.insert(loginUser);
-            if(user != null) {
-                return 1;
-            }
-        } else {
-            return 2;
+            tag =  loginUserService.insert(loginUser) > 0;
         }
-        return 0;
+        return tag;
     }
 
     /**

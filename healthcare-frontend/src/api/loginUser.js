@@ -5,8 +5,7 @@ const prefix = '/api/healthcare/loginUser'
 export function getUser (params) {
   return request({
     url: `${prefix}/get?id=${params}`,
-    method: 'get',
-    params: params
+    method: 'get'
   })
 }
 
