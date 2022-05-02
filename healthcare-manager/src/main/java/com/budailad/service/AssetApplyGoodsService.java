@@ -64,6 +64,14 @@ public interface AssetApplyGoodsService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    int deleteById(String id);
+
+    /**
+     * 根据关联字段删除
+     *
+     * @param applyId
+     * @return
+     */
+    int deleteByApplyId(String applyId);
 
 }

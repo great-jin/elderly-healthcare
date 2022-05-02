@@ -23,12 +23,12 @@ router.beforeEach((to, from, next) => {
     })
   }
   // 1. 状态判断
-  const token = JSON.parse(localStorage.getItem('loginUser'))
-  let isLogin = !(token == null || token.staffId == null || token.staffId === '')
+  const user = JSON.parse(localStorage.getItem('loginUser'))
+  let isLogin = !(user == null || user.staffId == null || user.staffId === '')
   // 2. 判断登录时长
   if (isLogin) {
     const date = new Date().getTime()
-    if (date - token.startTime > ExpiresTime) {
+    if (date - user.startTime > ExpiresTime) {
       // 登录时间超过一天需要重新登录
       localStorage.removeItem('loginUser')
       isLogin = false
@@ -41,7 +41,18 @@ router.beforeEach((to, from, next) => {
     isLogin ? next('/elderlyHealthcare/home') : next()
   } else {
     // 3.2 已登录则放行，未登录转登录页
-    isLogin ? next() : next('/elderlyHealthcare/login')
+    if (isLogin) {
+      // 已登录判断权限
+      const power = user.userPower
+      if (to.path.includes('root') && power !== 0) {
+        // 非管理员用户访问后台重定向至登录页
+        next('/elderlyHealthcare/login')
+      } else {
+        next()
+      }
+    } else {
+      next('/elderlyHealthcare/login')
+    }
   }
 })
 

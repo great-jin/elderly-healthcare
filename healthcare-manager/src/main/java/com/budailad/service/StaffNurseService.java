@@ -53,7 +53,7 @@ public interface StaffNurseService {
      * @param staffNurse 实例对象
      * @return 实例对象
      */
-    StaffNurse update(StaffNurse staffNurse);
+    int update(StaffNurse staffNurse);
 
     /**
      * 通过主键删除数据

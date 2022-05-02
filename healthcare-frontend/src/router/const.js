@@ -153,36 +153,36 @@ export const RouteInfo = [
     children: [
       {
         // 流程审批
-        path: '/elderlyHealthcare/process',
+        path: '/elderlyHealthcare/root/process',
         name: 'Process',
         component: Process,
         children: [
           {
-            path: '/elderlyHealthcare/process/audit',
+            path: '/elderlyHealthcare/root/process/audit',
             component: Audit
           },
           {
-            path: '/elderlyHealthcare/process/user',
+            path: '/elderlyHealthcare/root/process/user',
             component: User
           }
         ]
       },
       {
         // 系统管理
-        path: '/elderlyHealthcare/system',
+        path: '/elderlyHealthcare/root/system',
         name: 'System',
         component: System,
         children: [
           {
-            path: '/elderlyHealthcare/system/minio',
+            path: '/elderlyHealthcare/root/system/minio',
             component: Minio
           },
           {
-            path: '/elderlyHealthcare/system/logs',
+            path: '/elderlyHealthcare/root/system/logs',
             component: SystemLog
           },
           {
-            path: '/elderlyHealthcare/system/router',
+            path: '/elderlyHealthcare/root/system/router',
             component: Router
           }
         ]

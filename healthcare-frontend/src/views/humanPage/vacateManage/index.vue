@@ -24,7 +24,7 @@
           <a-descriptions-item label="员工编号">
             <a-input
               v-model="applyInfo.staffId"
-              placeholder="请输入姓名"
+              placeholder="请输入员工编号"
             />
           </a-descriptions-item>
           <a-descriptions-item label="申请人">

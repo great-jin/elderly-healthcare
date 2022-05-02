@@ -27,8 +27,12 @@ export default {
   },
   data () {
     return {
-      data: [],
-      columns
+      data: []
+    }
+  },
+  computed: {
+    columns () {
+      return columns(this)
     }
   },
   created () {
@@ -50,9 +54,11 @@ export default {
           this.$refs.detailModal.paramReceive(data)
           break
         case 'delete':
-          removeApplyInfo(data).then(res => {
+          const _data = new FormData()
+          _data.append('applyId', data)
+          removeApplyInfo(_data).then(res => {
             if (res.data) {
-              this.$message.success('撤销成功')
+              this.$message.success('成功撤销申请')
             } else {
               this.$message.error('撤销失败，请重试')
             }

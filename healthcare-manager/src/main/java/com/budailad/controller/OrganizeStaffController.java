@@ -77,8 +77,8 @@ public class OrganizeStaffController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<OrganizeStaff> edit(@RequestBody OrganizeStaff organizeStaff) {
-        return ResponseEntity.ok(this.organizeStaffService.update(organizeStaff));
+    public ResponseEntity<Boolean> edit(@RequestBody OrganizeStaff organizeStaff) {
+        return ResponseEntity.ok(this.organizeStaffService.update(organizeStaff) > 0);
     }
 
     /**

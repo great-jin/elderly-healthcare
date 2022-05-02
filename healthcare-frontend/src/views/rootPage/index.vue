@@ -43,7 +43,7 @@ export default {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
     this.menuData = _menu.filter(item => item.isShow === 2)
     this.imgUrl = localStorage.getItem('avatar')
-    this.$router.push('/elderlyHealthcare/process/audit')
+    this.$router.push('/elderlyHealthcare/root/process/audit')
   },
   methods: {
     routeMenu (data) {
@@ -75,7 +75,7 @@ export default {
   font-size: 18px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px 28px 16px 0;
-  padding-left: 7px;
+  padding-left: 25px;
   float: left;
 }
 .setting-menu{

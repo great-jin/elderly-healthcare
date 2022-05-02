@@ -107,12 +107,14 @@ public class AssetApplyInfoController {
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param applyId
      * @return 删除是否成功
      */
     @PostMapping("/delete")
-    public ResponseEntity<Boolean> deleteById(String id) {
-        return ResponseEntity.ok(this.assetApplyInfoService.deleteById(id));
+    public ResponseEntity<Boolean> deleteById(String applyId) {
+        int i = assetApplyGoodsService.deleteByApplyId(applyId);
+        int j = this.assetApplyInfoService.deleteById(applyId);
+        return ResponseEntity.ok(i > 0 & j > 0);
     }
 
 }

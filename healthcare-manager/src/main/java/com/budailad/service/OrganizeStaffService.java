@@ -53,7 +53,7 @@ public interface OrganizeStaffService {
      * @param organizeStaff 实例对象
      * @return 实例对象
      */
-    OrganizeStaff update(OrganizeStaff organizeStaff);
+    int update(OrganizeStaff organizeStaff);
 
     /**
      * 通过主键删除数据

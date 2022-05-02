@@ -85,9 +85,8 @@ public class StaffDoctorServiceImpl implements StaffDoctorService {
     @Caching(evict = {
             @CacheEvict(key = "#staffDoctor.id")
     })
-    public StaffDoctor update(StaffDoctor staffDoctor) {
-        this.staffDoctorDao.update(staffDoctor);
-        return this.queryById(staffDoctor.getId());
+    public int update(StaffDoctor staffDoctor) {
+        return this.staffDoctorDao.update(staffDoctor);
     }
 
     /**

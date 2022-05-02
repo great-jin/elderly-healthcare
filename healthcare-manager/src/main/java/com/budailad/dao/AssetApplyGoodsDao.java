@@ -90,5 +90,13 @@ public interface AssetApplyGoodsDao {
      */
     int deleteById(String id);
 
+    /**
+     * 关联字段删除
+     *
+     * @param ApplyId
+     * @return
+     */
+    int deleteByApplyId(String ApplyId);
+
 }
 

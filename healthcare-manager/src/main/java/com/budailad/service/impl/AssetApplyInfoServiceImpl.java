@@ -100,7 +100,7 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
     @Caching(evict = {
             @CacheEvict(key = "#applyId")
     })
-    public boolean deleteById(String applyId) {
-        return this.assetApplyInfoDao.deleteById(applyId) > 0;
+    public int deleteById(String applyId) {
+        return this.assetApplyInfoDao.deleteById(applyId);
     }
 }

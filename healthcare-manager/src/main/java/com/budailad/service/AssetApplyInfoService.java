@@ -61,6 +61,6 @@ public interface AssetApplyInfoService {
      * @param applyId 主键
      * @return 是否成功
      */
-    boolean deleteById(String applyId);
+    int deleteById(String applyId);
 
 }

@@ -85,9 +85,8 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
     @Caching(evict = {
             @CacheEvict(key = "#organizeStaff.id")
     })
-    public OrganizeStaff update(OrganizeStaff organizeStaff) {
-        this.organizeStaffDao.update(organizeStaff);
-        return this.queryById(organizeStaff.getId());
+    public int update(OrganizeStaff organizeStaff) {
+        return this.organizeStaffDao.update(organizeStaff);
     }
 
     /**

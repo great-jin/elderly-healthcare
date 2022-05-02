@@ -194,5 +194,12 @@
         where id = #{id}
     </delete>
 
+    <!--通过主键删除-->
+    <delete id="deleteByApplyId">
+        delete
+        from asset_apply_goods
+        where apply_id = #{applyId}
+    </delete>
+
 </mapper>
 

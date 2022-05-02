@@ -77,8 +77,8 @@ public class StaffDoctorController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<StaffDoctor> edit(@RequestBody StaffDoctor staffDoctor) {
-        return ResponseEntity.ok(this.staffDoctorService.update(staffDoctor));
+    public ResponseEntity<Boolean> edit(@RequestBody StaffDoctor staffDoctor) {
+        return ResponseEntity.ok(this.staffDoctorService.update(staffDoctor) > 0 );
     }
 
     /**

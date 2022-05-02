@@ -79,7 +79,7 @@ export default {
   created () {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
     this.menuData = _menu.filter(item => item.isShow === 2)
-    this.routePage('/elderlyHealthcare/system/minio')
+    this.routePage('/elderlyHealthcare/root/system/minio')
   },
   methods: {
     reload () {
@@ -126,7 +126,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('/elderlyHealthcare/system/minio')
+        this.routePage('/elderlyHealthcare/root/system/minio')
       }
       let activeKey = this.activeKey
       let lastIndex

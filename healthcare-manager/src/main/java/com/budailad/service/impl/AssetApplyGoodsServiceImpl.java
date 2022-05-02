@@ -105,7 +105,18 @@ public class AssetApplyGoodsServiceImpl implements AssetApplyGoodsService {
     @Caching(evict = {
             @CacheEvict(key = "#id")
     })
-    public boolean deleteById(String id) {
-        return this.assetApplyGoodsDao.deleteById(id) > 0;
+    public int deleteById(String id) {
+        return this.assetApplyGoodsDao.deleteById(id);
+    }
+
+    /**
+     * 根据关联字段删除
+     *
+     * @param applyId
+     * @return
+     */
+    @Override
+    public int deleteByApplyId(String applyId) {
+        return this.assetApplyGoodsDao.deleteByApplyId(applyId);
     }
 }

@@ -28,9 +28,9 @@ public class StaffNurseController {
     /**
      * 条件查询
      *
-     * @param staffNurse  筛选条件
-     * @ pageRequest 分页对象
+     * @param staffNurse 筛选条件
      * @return 查询结果
+     * @ pageRequest 分页对象
      */
     @GetMapping("/list")
     public ResponseEntity<List<StaffNurse>> conditionQuery(StaffNurse staffNurse) {
@@ -84,8 +84,8 @@ public class StaffNurseController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<StaffNurse> edit(@RequestBody StaffNurse staffNurse) {
-        return ResponseEntity.ok(this.staffNurseService.update(staffNurse));
+    public ResponseEntity<Boolean> edit(@RequestBody StaffNurse staffNurse) {
+        return ResponseEntity.ok(this.staffNurseService.update(staffNurse) > 0);
     }
 
     /**

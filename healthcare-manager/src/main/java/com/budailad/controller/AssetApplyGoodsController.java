@@ -89,7 +89,7 @@ public class AssetApplyGoodsController {
      */
     @PostMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
-        return ResponseEntity.ok(this.assetApplyGoodsService.deleteById(id));
+        return ResponseEntity.ok(this.assetApplyGoodsService.deleteById(id) > 0);
     }
 
 }

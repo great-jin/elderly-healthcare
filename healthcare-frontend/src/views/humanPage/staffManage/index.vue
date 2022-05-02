@@ -46,7 +46,6 @@
       </a-col>
     </a-row>
 
-    <AddModal ref="addModal" />
     <InfoDrawer ref="infoDrawer" />
     <AccountModal ref="accountModal" />
   </div>
@@ -54,23 +53,22 @@
 
 <script>
 import { columns } from './const'
-import AddModal from './addStaff/addModal'
-import InfoDrawer from './addStaff/infoDrawer'
-import AccountModal from './accountModal'
+import InfoDrawer from './infoDrawer'
+import AccountModal from './addStaff/accountModal'
 import { listNurse } from '@/api/staffNurse'
 import { listDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff } from '@/api/organizeStaff'
 
 export default {
-  name: 'SalaryManage',
+  name: 'StaffManage',
   components: {
-    AddModal,
     InfoDrawer,
     AccountModal
   },
   data () {
     return {
       data: [],
+      treeKeys: '',
       nurseList: [],
       doctorList: [],
       otherStaff: [],
@@ -106,6 +104,7 @@ export default {
       })
     },
     treeSelect (keys) {
+      this.treeKeys = keys[0]
       let result = []
       switch (keys[0]) {
         case '0':
@@ -130,15 +129,15 @@ export default {
     },
     clickOption (type, data) {
       switch (type) {
+        case 'power':
+          this.$refs.accountModal.paramReceive(type, data)
+          break
         case 'add':
-          this.$refs.addModal.paramReceive()
+          this.$refs.infoDrawer.paramReceive(type, null, null)
           break
         case 'more':
         case 'edit':
-          this.$refs.infoDrawer.paramReceive(type, data)
-          break
-        case 'power':
-          this.$refs.accountModal.paramReceive(type, data)
+          this.$refs.infoDrawer.paramReceive(type, this.treeKeys, data.staffId)
           break
       }
     }
