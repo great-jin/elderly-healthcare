@@ -17,10 +17,10 @@
           <a-dropdown class="setting-menu">
             <a-avatar size="large" :src="imgUrl"/>
             <a-menu slot="overlay">
-              <a-menu-item @click="quit">
+              <a-menu-item @click="clickOption('front')">
                 <span>前台页面</span>
               </a-menu-item>
-              <a-menu-item @click="quit">
+              <a-menu-item @click="clickOption('quit')">
                 <span>退出登录</span>
               </a-menu-item>
             </a-menu>
@@ -52,11 +52,18 @@ export default {
     routeMenu (data) {
       this.$router.push(data)
     },
-    quit () {
-      localStorage.removeItem('avatar')
-      localStorage.removeItem('loginUser')
-      localStorage.removeItem('routerInfo')
-      this.$router.push('/elderlyHealthcare/login')
+    clickOption (type) {
+      switch (type) {
+        case 'front':
+          this.$router.push('/elderlyHealthcare/home')
+          break
+        case 'quit':
+          localStorage.removeItem('avatar')
+          localStorage.removeItem('loginUser')
+          localStorage.removeItem('routerInfo')
+          this.$router.push('/elderlyHealthcare/login')
+          break
+      }
     }
   }
 }

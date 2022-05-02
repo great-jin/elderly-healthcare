@@ -1,7 +1,19 @@
 <template>
-  <div>
-    <a-row>
-
+  <div :style="{padding: '10px 20px'}">
+    <a-row :style="{marginBottom: '20px'}">
+      <a-col :span="14">
+        <h3>产品类别</h3>
+      </a-col>
+      <a-col :span="10">
+        <a-button
+          type="primary"
+          style="z-index: 1; float: right; margin-left: 10px"
+        >重置</a-button>
+        <a-button
+          type="primary"
+          style="z-index: 1; float: right"
+        >查询</a-button>
+      </a-col>
     </a-row>
     <a-row>
       <a-table
