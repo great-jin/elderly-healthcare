@@ -1,6 +1,6 @@
 <template>
-  <div style="margin: auto 0">
-    <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
+  <div>
+    <a-row style="width: 100%; height: 100%;">
       <a-col :span="8"><pie2Chart /></a-col>
       <a-col :span="16"><pie1Chart /></a-col>
     </a-row>

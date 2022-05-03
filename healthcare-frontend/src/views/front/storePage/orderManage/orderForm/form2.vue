@@ -2,27 +2,18 @@
   <a-row style="overflow-x: hidden; overflow-y: auto">
     <a-col :span="6" style="background-color: white">
       <a-tree
-        :show-line="showLine"
-        :show-icon="showIcon"
-        :default-expanded-keys="['0-0-0', '0-0-1', '0-0-2']"
+        @select="onClick"
+        :default-expanded-keys="['0']"
       >
-        <a-tree-node key="0-0">
-          <span slot="title" style="color: #1890ff">parent 1</span>
-
-          <a-tree-node key="0-0-0" title="parent 1-0">
-            <a-tree-node key="0-0-0-0" title="leaf"/>
-            <a-tree-node key="0-0-0-1" title="leaf"/>
-            <a-tree-node key="0-0-0-2" title="leaf"/>
-          </a-tree-node>
-
-          <a-tree-node key="0-0-1" title="parent 1-1">
-            <a-tree-node key="0-0-1-0" title="leaf"/>
-          </a-tree-node>
-
-          <a-tree-node key="0-0-2" title="parent 1-2">
-            <a-tree-node key="0-0-2-0" title="leaf"/>
-            <a-tree-node key="0-0-2-1" title="leaf"/>
-          </a-tree-node>
+        <a-tree-node
+          key="0"
+          title="资产名称"
+        >
+          <a-tree-node
+            v-for="item in goodsList"
+            :key="item.goodsId"
+            :title="item.goodsName"
+          />
         </a-tree-node>
       </a-tree>
     </a-col>
@@ -36,12 +27,12 @@
           <a-col :span="12">
             <a-form-model-item
               label="商品名称"
-              prop="userName"
+              prop="goodsName"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
-                v-model="formData.userName"
+                v-model="formData.goodsName"
                 placeholder="商品名称"
                 :disabled="true"
               />
@@ -50,12 +41,12 @@
           <a-col :span="12">
             <a-form-model-item
               label="商品类别"
-              prop="telephone"
+              prop="goodsType"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
-                v-model="formData.telephone"
+                v-model="formData.goodsType"
                 placeholder="商品类别"
                 :disabled="true"
               />
@@ -66,12 +57,12 @@
           <a-col :span="12">
             <a-form-model-item
               label="商品单价"
-              prop="userName"
+              prop="goodsPrice"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
-                v-model="formData.userName"
+                v-model="formData.goodsPrice"
                 placeholder="商品单价"
                 :disabled="true"
               />
@@ -80,15 +71,16 @@
           <a-col :span="12">
             <a-form-model-item
               label="采购数量"
-              prop="telephone"
+              prop="orderCount"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input-number
-                v-model="formData.telephone"
+                v-model="formData.orderCount"
                 placeholder="采购数量"
                 :min="0"
                 style="width: 100%"
+                @change="onChange"
               />
             </a-form-model-item>
           </a-col>
@@ -97,12 +89,12 @@
           <a-col :span="12">
             <a-form-model-item
               label="采购日期"
-              prop="userName"
+              prop="orderTime"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-date-picker
-                v-model="formData.userName"
+                v-model="formData.orderTime"
                 placeholder="采购日期"
                 style="width: 100%"
               />
@@ -111,12 +103,12 @@
           <a-col :span="12">
             <a-form-model-item
               label="商品总价"
-              prop="telephone"
+              prop="costCount"
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
               <a-input
-                v-model="formData.telephone"
+                v-model="formData.costCount"
                 placeholder="商品总价"
                 :disabled=true
               />
@@ -138,17 +130,21 @@
 </template>
 
 <script>
+import { listGoods, getStorage } from '@/api/warehouseStorage'
+
 export default {
   name: 'form2',
   data () {
     return {
-      showLine: true,
-      showIcon: false,
       formData: {
-        userName: '',
-        telephone: '',
-        comment: ''
+        goodsName: '',
+        goodsType: '',
+        goodsPrice: 0,
+        orderCount: 0,
+        orderTime: '',
+        costCount: 0
       },
+      goodsList: [],
       rules: {},
       labelCol: {
         xs: { span: 24 },
@@ -160,6 +156,11 @@ export default {
       }
     }
   },
+  mounted () {
+    listGoods().then(res => {
+      this.goodsList = res.data
+    })
+  },
   methods: {
     next (data) {
       this.$refs.modelForm.validate(valid => {
@@ -167,6 +168,15 @@ export default {
           this.$emit('changeData', data)
         }
       })
+    },
+    onClick (keys) {
+      getStorage(keys[0]).then(res => {
+        this.formData = res.data
+      })
+    },
+    onChange () {
+      const _count = Number(this.formData.orderCount) * Number(this.formData.goodsPrice)
+      this.formData.costCount = _count
     }
   }
 }

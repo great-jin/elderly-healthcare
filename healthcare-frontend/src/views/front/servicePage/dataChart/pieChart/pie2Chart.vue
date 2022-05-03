@@ -28,7 +28,7 @@ export default {
       const graph = this.$echarts.init(document.getElementById('pie2'))
       const option = {
         title: {
-          text: '病人分布',
+          text: '医护人员',
           left: 'center',
           top: 'bottom',
           textStyle: {
@@ -61,10 +61,8 @@ export default {
               show: false
             },
             data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' }
+              { value: 1048, name: '医师' },
+              { value: 735, name: '护士' }
             ]
           }
         ]
