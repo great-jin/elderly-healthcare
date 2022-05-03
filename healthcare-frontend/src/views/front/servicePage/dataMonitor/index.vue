@@ -1,18 +1,70 @@
 <template>
   <div>
-    <a-row style="margin-bottom: 15px; font-weight: 600">
-      <a-col :span="24" style="text-align: center"><h2>数据详情</h2></a-col>
-    </a-row>
+    <div style="background-color: #ececec; padding: 15px;">
+      <a-row :gutter="16">
+        <a-col :span="6">
+          <a-card title="体温监控" :bordered="false" size="small">
+            <a-tag color="green">
+              正常: {{ normal.temp }}
+            </a-tag>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a-tag color="pink" @click="clickOption('temp')">
+              异常: {{ warning.temp }}
+            </a-tag>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card title="心率监控" :bordered="false" size="small">
+            <a-tag color="green">
+              正常: {{ normal.heart }}
+            </a-tag>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a-tag color="pink" @click="clickOption('heart')">
+              异常: {{ warning.heart }}
+            </a-tag>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card title="血压监控" :bordered="false" size="small">
+            <a-tag color="green">
+              正常: {{ normal.pleasure }}
+            </a-tag>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a-tag color="pink" @click="clickOption('pleasure')">
+              异常: {{ warning.pleasure }}
+            </a-tag>
+          </a-card>
+        </a-col>
+        <a-col :span="6">
+          <a-card title="血糖监控" :bordered="false" size="small">
+            <a-tag color="green">
+              正常: {{ normal.glucose }}
+            </a-tag>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a-tag color="pink" @click="clickOption('glucose')">
+              异常: {{ warning.glucose }}
+            </a-tag>
+          </a-card>
+        </a-col>
+
+        <WarningModal ref="warningModal"/>
+      </a-row>
+    </div>
     <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
-      <a-col :span="12"><pieChart /></a-col>
-      <a-col :span="12"><lineChart /></a-col>
+      <a-col :span="12">
+        <pieChart/>
+      </a-col>
+      <a-col :span="12">
+        <lineChart/>
+      </a-col>
     </a-row>
   </div>
 </template>
 
 <script>
-import pieChart from './pieChart'
-import lineChart from './lineChart'
+import pieChart from './chart/pieChart'
+import lineChart from './chart/lineChart'
+import WarningModal from './warningModal'
 
 export default {
   name: 'DataChart',
@@ -26,9 +78,31 @@ export default {
       default: null
     }
   },
+  data () {
+    return {
+      normal: {
+        temp: 0,
+        heart: 0,
+        pleasure: 0,
+        glucose: 0
+      },
+      warning: {
+        temp: 0,
+        heart: 0,
+        pleasure: 0,
+        glucose: 0
+      }
+    }
+  },
   components: {
     pieChart,
-    lineChart
+    lineChart,
+    WarningModal
+  },
+  methods: {
+    clickOption (type) {
+      this.$refs.warningModal.paramReceive(type)
+    }
   }
 }
 </script>

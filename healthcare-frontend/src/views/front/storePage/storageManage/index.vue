@@ -2,17 +2,35 @@
   <div :style="{padding: '10px 20px'}">
     <a-row :style="{marginBottom: '20px'}">
       <a-col :span="14">
-        <h3>产品类别</h3>
+        <h3>产品类别:&nbsp;
+          <a-select
+            v-model="goodsType"
+            :allowClear="true"
+            placeholder="请选择产品类别"
+            style="width: 130px"
+          >
+            <a-select-option
+              v-for="item in typeList"
+              :key="item"
+              :value="item"
+            >{{ item }}
+            </a-select-option>
+          </a-select>
+        </h3>
       </a-col>
       <a-col :span="10">
         <a-button
           type="primary"
+          @click="clickOption('reset',null)"
           style="z-index: 1; float: right; margin-left: 10px"
-        >重置</a-button>
+        >重置
+        </a-button>
         <a-button
           type="primary"
+          @click="clickOption('search',null)"
           style="z-index: 1; float: right"
-        >查询</a-button>
+        >查询
+        </a-button>
       </a-col>
     </a-row>
     <a-row>
@@ -25,7 +43,7 @@
         <template slot="action" slot-scope="record">
           <a-button type="link" @click="clickOption('more', record)">详情</a-button>
           <a-button type="link" @click="clickOption('edit', record)">更新</a-button>
-          <GoodsModal ref="goodsModal" />
+          <GoodsModal ref="goodsModal"/>
         </template>
       </a-table>
     </a-row>
@@ -45,6 +63,9 @@ export default {
   data () {
     return {
       data: [],
+      goodsType: undefined,
+      typeList: [],
+      allData: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -64,13 +85,25 @@ export default {
     this.getData()
   },
   methods: {
-    getData () {
-      listGoods().then(res => {
-        this.data = res.data
+    async getData () {
+      await listGoods().then(res => {
+        this.allData = res.data
       })
+      this.data = this.allData
+      const _types = this.allData.map(item => item.goodsType)
+      const result = _types.filter(function (element, index, array) {
+        return array.indexOf(element) === index
+      })
+      this.typeList = result
     },
     clickOption (type, data) {
       switch (type) {
+        case 'reset':
+          this.data = this.allData
+          break
+        case 'search':
+          this.data = this.allData.filter(item => item.goodsType === this.goodsType)
+          break
         case 'more':
           this.$refs.goodsModal.paramReceive('more', data)
           break

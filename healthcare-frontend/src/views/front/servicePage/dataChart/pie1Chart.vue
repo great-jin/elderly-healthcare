@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import {getCharDate} from '@/api/patientInfo'
+import moment from "_moment@2.29.1@moment";
+
 export default {
   name: 'pie1Chart',
   props: {
@@ -15,16 +18,32 @@ export default {
       default: null
     }
   },
-  mounted () {
-    setTimeout(() => {
+  data() {
+    return {
+      ageData: {},
+      charData: []
+    }
+  },
+  mounted() {
+    /*setTimeout(() => {
       this.pie1Chart()
     })
     window.onresize = () => {
       this.pie1Chart()
-    }
+    }*/
+    this.getData()
   },
   methods: {
-    pie1Chart () {
+    async getData() {
+      await getCharDate().then(res => {
+        this.ageData = res.data
+        this.$nextTick(() => {
+          this.$echarts.init(document.getElementById('pie1')).dispose()
+          this.pie1Chart()
+        })
+      })
+    },
+    pie1Chart() {
       const graph = this.$echarts.init(document.getElementById('pie1'))
       const option = {
         title: {
@@ -44,15 +63,10 @@ export default {
         },
         series: [
           {
-            name: 'Access From',
+            name: '年龄分布',
             type: 'pie',
             radius: '45%',
-            data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' }
-            ],
+            data: this.ageData,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,

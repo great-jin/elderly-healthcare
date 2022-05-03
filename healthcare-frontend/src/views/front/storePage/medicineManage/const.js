@@ -6,6 +6,7 @@ export const columns = (cxt) => {
   return [
     {
       title: '编号',
+      width: 100,
       fixed: 'left',
       align: 'center',
       dataIndex: 'drugId',
@@ -15,6 +16,7 @@ export const columns = (cxt) => {
     },
     {
       title: '药品名',
+      width: 100,
       fixed: 'left',
       align: 'center',
       dataIndex: 'drugName'

@@ -2,17 +2,18 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientContact;
 import com.budailad.entity.PatientInfo;
+import com.budailad.entity.dto.JsonData;
 import com.budailad.service.PatientContactService;
 import com.budailad.service.PatientInfoService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * (PatientInfo)表控制层
@@ -64,6 +65,40 @@ public class PatientInfoController {
     @GetMapping("/get")
     public ResponseEntity<PatientInfo> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.patientInfoService.queryById(id));
+    }
+
+    @GetMapping("/getChar")
+    public ResponseEntity<List<JsonData>> getChar() {
+        List<PatientInfo> patientInfoList = patientInfoService.conditionQuery(new PatientInfo());
+        List<Integer> ageList = new ArrayList<>();
+        patientInfoList.forEach(item -> {
+            ageList.add(item.getPatientAge());
+        });
+        // age < 40
+        AtomicInteger age_40 = new AtomicInteger(0);
+        // 40< age < 50
+        AtomicInteger age_50 = new AtomicInteger(0);
+        // 50< age < 60
+        AtomicInteger age_60 = new AtomicInteger(0);
+        // 60 < age
+        AtomicInteger age_70 = new AtomicInteger(0);
+        ageList.forEach(item -> {
+            if (item <= 40) {
+                age_40.getAndIncrement();
+            } else if (item <= 50) {
+                age_50.getAndIncrement();
+            } else if (item <= 60) {
+                age_60.getAndIncrement();
+            } else {
+                age_70.getAndIncrement();
+            }
+        });
+        List<JsonData> charList = new ArrayList<>();
+        charList.add(new JsonData("0~40",age_40));
+        charList.add(new JsonData("40~55",age_50));
+        charList.add(new JsonData("55~65",age_60));
+        charList.add(new JsonData("65~100",age_70));
+        return ResponseEntity.ok(charList);
     }
 
     /**

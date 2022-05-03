@@ -65,6 +65,28 @@ public class PatientBodyInfoController {
         return resultList;
     }
 
+
+    /**
+     * 获取近 n 天的病人身体信息
+     *
+     * @return
+     */
+    @GetMapping("/getWarning")
+    public List<PatientBodyInfo> getWarning(int day) {
+        // 获取当天用户身体信息
+        List<PatientBodyInfo> infoList = patientBodyInfoService.conditionQuery(new PatientBodyInfo());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - day);
+        Date yesterday = calendar.getTime();
+        List<PatientBodyInfo> resultList = new ArrayList<>();
+        infoList.forEach(item -> {
+            if ((item.getInTime()).after(yesterday)) {
+                resultList.add(item);
+            }
+        });
+        return resultList;
+    }
+
     /**
      * 分页查询
      *

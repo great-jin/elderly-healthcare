@@ -24,6 +24,13 @@ export function getCharData (params) {
   })
 }
 
+export function getWarning (params) {
+  return request({
+    url: `${prefix}/getWarning?day=${params}`,
+    method: 'get'
+  })
+}
+
 export function addBodyInfo (params) {
   return request({
     url: `${prefix}/add`,

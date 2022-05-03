@@ -107,7 +107,7 @@ export const columns = (cxt) => {
     {
       title: '操作',
       fixed: 'right',
-      width: 165,
+      width: 160,
       align: 'center',
       scopedSlots: { customRender: 'action' }
     }

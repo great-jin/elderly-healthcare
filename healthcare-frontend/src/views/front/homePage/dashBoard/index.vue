@@ -268,6 +268,7 @@ export default {
                 this.taskData.push(task)
               }
             })
+            this.taskData = this.taskData.slice(0, 10)
             break
         }
       })

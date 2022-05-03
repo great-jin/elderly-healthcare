@@ -35,14 +35,14 @@ import ServerFaild from '@/views/front/errorPage/500'
 // 后台管理
 import Root from '@/views/root/index'
 // 审批管理
-import Process from '@/views/root/humanManage/index'
-import Audit from '@/views/root/humanManage/auditManage/index'
-import User from '@/views/root/humanManage/userManage/index'
+import Process from '@/views/root/humanPage/index'
+import Audit from '@/views/root/humanPage/auditManage/index'
+import User from '@/views/root/humanPage/userManage/index'
 // 系统管理
-import System from '@/views/root/systemManage/index'
-import SystemLog from '@/views/root/systemManage/systemLogs/index'
-import Minio from '@/views/root/systemManage/minioConfig/index'
-import Router from '@/views/root/systemManage/routerConfig/index'
+import System from '@/views/root/systemPage/index'
+import SystemLog from '@/views/root/systemPage/systemLogs/index'
+import Minio from '@/views/root/systemPage/minioConfig/index'
+import Router from '@/views/root/systemPage/routerConfig/index'
 
 export const RouteInfo = [
   {

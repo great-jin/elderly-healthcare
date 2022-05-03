@@ -8,7 +8,6 @@
     <div style="margin-top: 20px">
       <a-button @click="download()">下载</a-button>
     </div>
-
   </div>
 </template>
 
