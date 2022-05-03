@@ -14,27 +14,18 @@
     >
       <Apply />
     </a-tab-pane>
-      <a-tab-pane
-        key="3"
-        tab="采购审核"
-        :style="{padding: '0 10px'}"
-      >
-      <Order />
-    </a-tab-pane>
   </a-tabs>
 </template>
 
 <script>
 import Vacate from './vacate/index'
 import Apply from './apply/index'
-import Order from './order/index'
 
 export default {
   name: 'index',
   components: {
     Vacate,
-    Apply,
-    Order
+    Apply
   }
 }
 </script>

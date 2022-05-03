@@ -7,10 +7,14 @@
       <a-button
         type="link"
         slot="actions"
-        @click="ClickOption('view', item)"
+        @click="ClickOption(item)"
       >查看</a-button>
-      <a-list-item-meta :description="item.vacateReason">
-        <span slot="title">{{ item.vacateType }}</span>
+      <a-list-item-meta>
+        <span slot="title">
+          编号：{{ (item.applyId).substring(0,8) }}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          申请人编号：{{ item.staffId }}
+        </span>
       </a-list-item-meta>
 
       <ProcessModal ref="processModal" />
@@ -20,7 +24,7 @@
 
 <script>
 import ProcessModal from './processModal'
-import { listVacateInfo } from '@/api/vacateInfo'
+import { listApplyInfo } from '@/api/assetApplyInfo'
 
 export default {
   components: {
@@ -36,12 +40,12 @@ export default {
   },
   methods: {
     getData () {
-      listVacateInfo().then(res => {
-        this.data = res.data.filter(item => item.isApprove === 0)
+      listApplyInfo().then(res => {
+        this.data = res.data.filter(item => item.currentState === 0)
       })
     },
-    ClickOption (type, data) {
-      this.$refs.processModal.paramReceive(type, data)
+    ClickOption (data) {
+      this.$refs.processModal.paramReceive(data)
     }
   }
 }

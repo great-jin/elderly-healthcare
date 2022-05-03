@@ -28,31 +28,23 @@
     <div>
       <div class="process-content">
         <a-descriptions>
-          <a-descriptions-item label="员工编号">
-            {{ vacateInfo.staffId }}
+          <a-descriptions-item label="申请部门">
+            {{ applyInfo.organizeName }}
           </a-descriptions-item>
-          <a-descriptions-item label="员工姓名">
-            {{ vacateInfo.staffName }}
+          <a-descriptions-item label="申请人">
+            {{ applyInfo.staffId }}
           </a-descriptions-item>
-          <a-descriptions-item label="部门名">
-            {{ vacateInfo.organizeName }}
+          <a-descriptions-item label="申请时间">
+            {{ applyInfo.applyTime }}
           </a-descriptions-item>
-          <a-descriptions-item label="请假类别">
-            {{ vacateInfo.vacateType }}
-          </a-descriptions-item>
-          <a-descriptions-item label="开始时间">
-            {{ vacateInfo.startTime }}
-          </a-descriptions-item>
-          <a-descriptions-item label="请假天数">
-            {{ vacateInfo.countTime }} 天
-          </a-descriptions-item>
-          <a-descriptions-item label="请假原因" :span="3">
-            {{ vacateInfo.vacateReason }}
-          </a-descriptions-item>
-          <a-descriptions-item label="备注" :span="3">
-            {{ vacateInfo.comment }}
+          <a-descriptions-item label="申请原因" :span="12">
+            {{ applyInfo.applyReason }}
           </a-descriptions-item>
         </a-descriptions>
+        <a-table
+          :columns="columns"
+          :data-source="data"
+        />
       </div>
       <div class="process-step">
         <a-steps :current="current" v-if="true">
@@ -67,49 +59,58 @@
 
 <script>
 import moment from 'moment'
-import { updateVacateInfo } from '@/api/vacateInfo'
+import { columns } from './const'
+import { listApplyGoods } from '@/api/assetApplyGoods'
+import { updateApplyInfo } from '@/api/assetApplyInfo'
 
 export default {
   name: 'ProcessModal',
   data () {
     return {
-      type: '',
-      vacateId: '',
+      data: [],
+      columns,
+      applyId: '',
       visible: false,
       current: 1,
       result: '等待审核',
-      vacateInfo: {}
+      applyInfo: {}
     }
   },
   methods: {
-    paramReceive (type, data) {
-      this.type = type
+    paramReceive (data) {
       this.visible = true
-      this.vacateId = data.id
-      this.transData(data)
+      this.applyInfo = data
+      this.applyId = data.applyId
+      this.getData(data)
     },
-    transData (data) {
-      const _data = data
-      this.vacateInfo = _data
-      this.vacateInfo.startTime = moment(_data.startTime).format('YYYY-MM-DD')
+    getData (data) {
+      // 转换时间格式
+      this.applyInfo.applyTime = moment(data.applyTime).format('YYYY-MM-DD')
+      // 查询相关申请设备信息
+      const _apply = {
+        applyId: this.applyId
+      }
+      listApplyGoods(_apply).then(res => {
+        this.data = res.data
+      })
     },
     ok (type) {
-      let _vacate = {}
+      let _apply = {}
       switch (type) {
         case 'ok':
-          _vacate = {
+          _apply = {
             id: this.vacateId,
-            isApprove: 1
+            currentState: 1
           }
           break
         case 'cancel':
-          _vacate = {
-            id: this.vacateId,
-            isApprove: 2
+          _apply = {
+            id: this.applyId,
+            currentState: 2
           }
           break
       }
-      updateVacateInfo(_vacate).then(res => {
+      updateApplyInfo(_apply).then(res => {
         if (res.data) {
           this.$message.success('操作成功')
         } else {

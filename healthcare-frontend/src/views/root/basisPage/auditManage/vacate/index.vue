@@ -7,7 +7,7 @@
       <a-button
         type="link"
         slot="actions"
-        @click="ClickOption('view', item)"
+        @click="ClickOption(item)"
       >查看</a-button>
       <a-list-item-meta :description="item.vacateReason">
         <span slot="title">{{ item.vacateType }}</span>
@@ -40,8 +40,8 @@ export default {
         this.data = res.data.filter(item => item.isApprove === 0)
       })
     },
-    ClickOption (type, data) {
-      this.$refs.processModal.paramReceive(type, data)
+    ClickOption (data) {
+      this.$refs.processModal.paramReceive(data)
     }
   }
 }

@@ -47,7 +47,7 @@
         </div>
       </a-col>
       <a-col :span="7" class="calendar">
-        <a-calendar :fullscreen="false" />
+        <a-calendar :fullscreen="false"/>
       </a-col>
     </a-row>
     <a-row>
@@ -104,60 +104,85 @@
         </div>
       </a-col>
       <a-col class="process" :span="11">
-        <a-card
-          title="进行中流程"
-          :body-style="{padding: 0}"
-          :style="{marginTop: '5px', minHeight: '250px'}"
-        >
-          <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
-          <a-card-grid
-            style="width:33.33%; text-align:center"
-            v-for="(item, i) in (processList.filter(item => item.isApprove !== 1)).slice(0, 6)"
-            :key="i"
+        <template v-if="isRoot">
+          <a-card
+            title="待审批流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '5px', minHeight: '250px'}"
           >
-            <a-card
-              :bordered="false"
-              :body-style="{padding: 0}"
-              @click="clickOption('process', item, '0')"
+            <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
+            <a-card-grid
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in unAuditProcess"
+              :key="i"
             >
-              <a-card-meta
-                :description="item.vacateReason"
+              <a-card
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '1')"
               >
-                <div slot="title">
-                  <span>{{ item.vacateType }} 申请</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
-          <processModal ref="processModal"/>
-        </a-card>
-        <a-card
-          title="待审批流程"
-          :body-style="{padding: 0}"
-          :style="{marginTop: '15px', minHeight: '250px'}"
-        >
-          <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
-          <a-card-grid
-            style="width:33.33%; text-align:center"
-            v-for="(item, i) in (processList.filter(item => item.isApprove === 0)).slice(0, 6)"
-            :key="i"
+                <a-card-meta :description="item.vacateReason">
+                  <div slot="title">
+                    <span>{{ item.vacateType }} 申请</span>
+                  </div>
+                </a-card-meta>
+              </a-card>
+            </a-card-grid>
+            <processModal ref="processModal"/>
+          </a-card>
+          <a-card
+            title="进行中流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '15px', minHeight: '250px'}"
           >
-            <a-card
-              :bordered="false"
-              :body-style="{padding: 0}"
-              @click="clickOption('process', item, '1')"
+            <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
+            <a-card-grid
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in acticityProcess"
+              :key="i"
             >
-              <a-card-meta
-                :description="item.vacateReason"
+              <a-card
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '0')"
               >
-                <div slot="title">
-                  <span>{{ item.vacateType }} 申请</span>
-                </div>
-              </a-card-meta>
-            </a-card>
-          </a-card-grid>
-          <processModal ref="processModal"/>
-        </a-card>
+                <a-card-meta :description="item.vacateReason">
+                  <div slot="title">
+                    <span>{{ item.vacateType }} 申请</span>
+                  </div>
+                </a-card-meta>
+              </a-card>
+            </a-card-grid>
+            <processModal ref="processModal"/>
+          </a-card>
+        </template>
+        <template v-else>
+          <a-card
+            title="进行中流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '5px', minHeight: '510px'}"
+          >
+            <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
+            <a-card-grid
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in acticityProcess"
+              :key="i"
+            >
+              <a-card
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '0')"
+              >
+                <a-card-meta :description="item.vacateReason">
+                  <div slot="title">
+                    <span>{{ item.vacateType }} 申请</span>
+                  </div>
+                </a-card-meta>
+              </a-card>
+            </a-card-grid>
+            <processModal ref="processModal"/>
+          </a-card>
+        </template>
       </a-col>
     </a-row>
     <a-row :span="24">
@@ -173,8 +198,8 @@
 <script>
 import taskModal from './taskModal'
 import processModal from './processModal'
-import { listTask } from '@/api/dailyTask'
-import { listVacateInfo } from '@/api/vacateInfo'
+import {listTask} from '@/api/dailyTask'
+import {listVacateInfo} from '@/api/vacateInfo'
 
 export default {
   name: 'HomePage',
@@ -182,7 +207,7 @@ export default {
     taskModal,
     processModal
   },
-  data () {
+  data() {
     return {
       imgUrl: '',
       count: {
@@ -190,29 +215,45 @@ export default {
         delay: '',
         done: ''
       },
+      isRoot: false,
       loginUser: {},
       taskData: [],
-      processList: []
+      acticityProcess:[],
+      unAuditProcess: []
     }
   },
-  mounted () {
+  mounted() {
     // 获取头像地址
     this.imgUrl = localStorage.getItem('avatar')
-    this.loginUser = JSON.parse(localStorage.getItem('loginUser'))
+    const _loginUser = JSON.parse(localStorage.getItem('loginUser'))
+    // 根用户显示审批
+    if (_loginUser.userPower === 0) {
+      this.isRoot = true
+    }
+    this.loginUser = _loginUser
     this.getData()
     this.taskCount()
     this.taskState('0')
   },
   methods: {
-    getData () {
+    async getData() {
       const _data = {
         staffId: this.loginUser.staffId
       }
-      listVacateInfo(_data).then(res => {
-        this.processList = res.data
+      let _unDone = []
+      // 当前用户未审核流程
+      await listVacateInfo(_data).then(res => {
+        _unDone = res.data
       })
+      this.acticityProcess = (_unDone.filter(item => item.isApprove === 0)).slice(0, 6)
+      // 所有待审批流程
+      let _unAudit = []
+      await listVacateInfo().then(res => {
+        _unAudit = res.data
+      })
+      this.unAuditProcess = (_unAudit.filter(item => item.isApprove === 0)).slice(0, 6)
     },
-    taskCount () {
+    taskCount() {
       this.count.act = 0
       this.count.done = 0
       this.count.delay = 0
@@ -231,7 +272,7 @@ export default {
         })
       })
     },
-    jump (data) {
+    jump(data) {
       switch (data) {
         case 'unFinish' :
           this.$router.push('/elderlyHealthcare/service/task')
@@ -241,7 +282,7 @@ export default {
           break
       }
     },
-    taskState (state) {
+    taskState(state) {
       this.taskData = []
       const staff = {
         nurseId: this.loginUser.staffId
@@ -273,7 +314,7 @@ export default {
         }
       })
     },
-    clickOption (type, data, topic) {
+    clickOption(type, data, topic) {
       switch (type) {
         case 'person':
           this.$router.push('/elderlyHealthcare/setting/personal')

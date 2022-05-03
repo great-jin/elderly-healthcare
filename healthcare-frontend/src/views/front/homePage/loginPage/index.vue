@@ -2,7 +2,7 @@
   <div id="login-container">
     <a-row :style="{textAlign: 'center'}">
       <a-col :span="24">
-        <h2 class="home-title">Elderly Healthcare</h2>
+        <h2 class="home-title">疗养及养老一体化系统</h2>
       </a-col>
     </a-row>
 

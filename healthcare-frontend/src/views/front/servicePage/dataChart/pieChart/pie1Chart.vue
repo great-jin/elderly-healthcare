@@ -1,5 +1,33 @@
 <template>
-  <div id="pie1" style="width: 100%; height: 300px;"/>
+  <a-row>
+    <a-col :span="12">
+      <div id="pie1" style="width: 100%; height: 300px;"/>
+    </a-col>
+    <a-col :span="12">
+      <a-row :style="{textAlign:'center', marginBottom:'15px'}">
+        <h3>病人年龄分布</h3>
+      </a-row>
+      <a-row>
+        <a-descriptions
+            :column="{ xxl: 4, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }"
+            bordered
+        >
+          <a-descriptions-item label="40岁以下" :span="4">
+            {{ ageData[0].value }} 人
+          </a-descriptions-item>
+          <a-descriptions-item label="40岁~55岁" :span="4">
+            {{ ageData[1].value }} 人
+          </a-descriptions-item>
+          <a-descriptions-item label="55岁~65岁" :span="4">
+            {{ ageData[2].value }} 人
+          </a-descriptions-item>
+          <a-descriptions-item label="65岁~100岁" :span="4">
+            {{ ageData[3].value }} 人
+          </a-descriptions-item>
+        </a-descriptions>
+      </a-row>
+    </a-col>
+  </a-row>
 </template>
 
 <script>
@@ -37,6 +65,7 @@ export default {
     async getData() {
       await getCharDate().then(res => {
         this.ageData = res.data
+        console.log(this.ageData)
         this.$nextTick(() => {
           this.$echarts.init(document.getElementById('pie1')).dispose()
           this.pie1Chart()

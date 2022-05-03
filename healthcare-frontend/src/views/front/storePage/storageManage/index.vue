@@ -2,7 +2,8 @@
   <div :style="{padding: '10px 20px'}">
     <a-row :style="{marginBottom: '20px'}">
       <a-col :span="14">
-        <h3>产品类别:&nbsp;
+        <h4 style="padding-left: 10px">
+          <strong>产品类别:&nbsp;</strong>
           <a-select
             v-model="goodsType"
             :allowClear="true"
@@ -16,7 +17,7 @@
             >{{ item }}
             </a-select-option>
           </a-select>
-        </h3>
+        </h4>
       </a-col>
       <a-col :span="10">
         <a-button
@@ -98,6 +99,7 @@ export default {
     clickOption (type, data) {
       switch (type) {
         case 'reset':
+          this.goodsType = undefined
           this.data = this.allData
           break
         case 'search':

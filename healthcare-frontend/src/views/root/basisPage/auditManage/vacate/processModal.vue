@@ -82,8 +82,7 @@ export default {
     }
   },
   methods: {
-    paramReceive (type, data) {
-      this.type = type
+    paramReceive (data) {
       this.visible = true
       this.vacateId = data.id
       this.transData(data)
