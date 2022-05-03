@@ -17,7 +17,7 @@
           @click="() => (collapsed = !collapsed)"
         />
         <a-menu-item
-          v-for="option in menuData.filter(item => item.menuType === 'store')"
+          v-for="option in menus"
           :key="option.menuKey"
           @click="routePage(option.routerName)"
         >
@@ -62,6 +62,7 @@ export default {
   name: 'Storage',
   data () {
     return {
+      menus: [],
       menuData: [],
       collapsed: false,
       newTabIndex: 0,
@@ -79,6 +80,7 @@ export default {
   created () {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
     this.menuData = _menu.filter(item => item.isShow === 1)
+    this.menus = this.menuData.filter(item => item.menuType === 'store')
     this.routePage('/elderlyHealthcare/store/order')
   },
   methods: {

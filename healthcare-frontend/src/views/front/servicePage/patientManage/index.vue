@@ -43,7 +43,7 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="option in (patientCaseData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                v-for="option in nurses"
                 :key="option"
                 :value="option"
               >{{ option }}
@@ -65,7 +65,7 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="option in (patientCaseData.map(item => item.doctorName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                v-for="option in doctors"
                 :key="option"
                 :value="option"
               >{{ option }}
@@ -127,6 +127,8 @@ export default {
   },
   data () {
     return {
+      nurses: [],
+      doctors: [],
       searchData: {
         patientId: undefined,
         nurseName: undefined,
@@ -160,9 +162,19 @@ export default {
     this.getData()
   },
   methods: {
-    getData () {
-      listCaseInfo().then(res => {
+    async getData () {
+      await listCaseInfo().then(res => {
         this.patientCaseData = res.data
+      })
+      // 过滤重复护士
+      const _nurseMap = this.patientCaseData.map(item => item.nurseName)
+      this.nurses = _nurseMap.filter(function (element, index, array) {
+        return array.indexOf(element) === index
+      })
+      // 过滤重复医师
+      const _doctorMap = this.patientCaseData.map(item => item.doctorName)
+      this.doctors = _doctorMap.filter(function (element, index, array) {
+        return array.indexOf(element) === index
       })
     },
     searchOk () {

@@ -55,11 +55,11 @@
 
 <script>
 const panes = [
-  { title: '费用缴纳', key: 'payment', closable: false }
+  { title: '薪资管理', key: 'salary', closable: false }
 ]
 
 export default {
-  name: 'AssetPage',
+  name: 'SystemConfig',
   data () {
     return {
       menus: [],
@@ -79,9 +79,11 @@ export default {
   },
   created () {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
-    this.menuData = _menu.filter(item => item.isShow === 1)
-    this.menus = this.menuData.filter(item => item.menuType === 'asset')
-    this.routePage('/elderlyHealthcare/asset/payment')
+    // 获取管理员页面系统菜单
+    this.menuData = _menu.filter(item => item.isShow === 2)
+    // 获取侧边栏菜单
+    this.menus = this.menuData.filter(item => item.menuType === 'staff')
+    this.routePage('/elderlyHealthcare/root/staff/user')
   },
   methods: {
     reload () {
@@ -109,7 +111,7 @@ export default {
       })
       if (flag === false) {
         // 获取 Tab 标题
-        const tabArr = this.menuData.filter(item => item.menuType === 'asset')
+        const tabArr = this.menuData.filter(item => item.menuType === 'staff')
         const tabTitle = (tabArr.filter(item => item.routerName === data))[0].menuTitle
         const panes = this.panes
         panes.push({
@@ -128,7 +130,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('/elderlyHealthcare/asset/payment')
+        this.routePage('/elderlyHealthcare/root/staff/salary')
       }
       let activeKey = this.activeKey
       let lastIndex
@@ -153,24 +155,24 @@ export default {
 </script>
 
 <style scoped>
-  .side-bar{
-    height: 100%;
-  }
-  .side-bar .trigger {
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 30px;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-  .side-bar .trigger:hover {
-    color: #1890ff;
-  }
-  .layout-content {
-    margin: 0px 16px 24px 16px;
-    padding: 15px;
-    background: #fff;
-    overflow-y: auto;
-    overflow-x: hidden
-  }
+.side-bar{
+  height: 100%;
+}
+.side-bar .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.side-bar .trigger:hover {
+  color: #1890ff;
+}
+.layout-content {
+  margin: 0px 16px 24px 16px;
+  padding: 15px;
+  background: #fff;
+  overflow-y: auto;
+  overflow-x: hidden
+}
 </style>

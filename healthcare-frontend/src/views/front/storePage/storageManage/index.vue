@@ -91,10 +91,9 @@ export default {
       })
       this.data = this.allData
       const _types = this.allData.map(item => item.goodsType)
-      const result = _types.filter(function (element, index, array) {
+      this.typeList = _types.filter(function (element, index, array) {
         return array.indexOf(element) === index
       })
-      this.typeList = result
     },
     clickOption (type, data) {
       switch (type) {

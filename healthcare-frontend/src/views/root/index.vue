@@ -46,7 +46,7 @@ export default {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
     this.menuData = _menu.filter(item => item.isShow === 2)
     this.imgUrl = localStorage.getItem('avatar')
-    this.$router.push('/elderlyHealthcare/root/process/audit')
+    this.$router.push('/elderlyHealthcare/root/process/task')
   },
   methods: {
     routeMenu (data) {

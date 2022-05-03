@@ -17,7 +17,7 @@
           </a-card-meta>
           <template slot="actions" class="ant-card-actions">
             <span key="setting" @click="clickOption('person', null)">个人信息</span>
-            <span key="edit" @click="clickOption('back', null)">系统后台</span>
+            <span key="edit" @click="clickOption('back', null)">更多功能</span>
             <span key="ellipsis" @click="clickOption('quit', null)">退出登录</span>
           </template>
         </a-card>

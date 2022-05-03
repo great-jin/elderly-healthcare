@@ -9,7 +9,6 @@ import DataMonitor from '@/views/front/servicePage/dataMonitor/index'
 import DataAccess from '@/views/front/servicePage/dataAccess/index'
 import PatientInfo from '@/views/front/servicePage/patientManage/index'
 import CostAccess from '@/views/front/servicePage/costAccess/index'
-import Task from '@/views/front/servicePage/taskManage/index'
 // 人力资源
 import Human from '@/views/front/humanPage/index'
 import Staff from '@/views/front/humanPage/staffManage/index'
@@ -17,7 +16,6 @@ import Vacate from '@/views/front/humanPage/vacateManage/index'
 // 资产中心
 import Asset from '@/views/front/assetPage/index'
 import Apply from '@/views/front/assetPage/applyManage/index'
-import Salary from '@/views/front/assetPage/salaryManage/index'
 import Payment from '@/views/front/assetPage/paymentManage/index'
 // 仓储管理
 import Store from '@/views/front/storePage/index'
@@ -34,10 +32,15 @@ import ServerFaild from '@/views/front/errorPage/500'
 
 // 后台管理
 import Root from '@/views/root/index'
-// 审批管理
-import Process from '@/views/root/humanPage/index'
-import Audit from '@/views/root/humanPage/auditManage/index'
-import User from '@/views/root/humanPage/userManage/index'
+// 基本管理
+import Process from '@/views/root/basisPage/index'
+import Task from '@/views/root/basisPage/taskManage/index'
+import Audit from '@/views/root/basisPage/auditManage/index'
+// 人员管理
+import Employee from '@/views/root/staffPage/index'
+import User from '@/views/root/staffPage/userManage/index'
+import Salary from '@/views/root/staffPage/salaryManage/index'
+import Dispatch from '@/views/root/staffPage/dispatchManage/index'
 // 系统管理
 import System from '@/views/root/systemPage/index'
 import SystemLog from '@/views/root/systemPage/systemLogs/index'
@@ -89,9 +92,6 @@ export const RouteInfo = [
           }, {
             path: '/elderlyHealthcare/service/cost',
             component: CostAccess
-          }, {
-            path: '/elderlyHealthcare/service/task',
-            component: Task
           }
         ]
       }, {
@@ -120,9 +120,6 @@ export const RouteInfo = [
           }, {
             path: '/elderlyHealthcare/asset/payment',
             component: Payment
-          }, {
-            path: '/elderlyHealthcare/asset/salary',
-            component: Salary
           }
         ]
       }, {
@@ -158,12 +155,32 @@ export const RouteInfo = [
         component: Process,
         children: [
           {
-            path: '/elderlyHealthcare/root/process/audit',
-            component: Audit
+            path: '/elderlyHealthcare/root/process/task',
+            component: Task
           },
           {
-            path: '/elderlyHealthcare/root/process/user',
+            path: '/elderlyHealthcare/root/process/audit',
+            component: Audit
+          }
+        ]
+      },
+      {
+        // 流程审批
+        path: '/elderlyHealthcare/root/staff',
+        name: 'Employee',
+        component: Employee,
+        children: [
+          {
+            path: '/elderlyHealthcare/root/staff/user',
             component: User
+          },
+          {
+            path: '/elderlyHealthcare/root/staff/dispatch',
+            component: Dispatch
+          },
+          {
+            path: '/elderlyHealthcare/root/staff/salary',
+            component: Salary
           }
         ]
       },

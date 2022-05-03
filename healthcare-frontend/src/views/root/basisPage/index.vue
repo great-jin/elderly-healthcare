@@ -55,7 +55,7 @@
 
 <script>
 const panes = [
-  { title: '流程审批', key: 'audit', closable: false }
+  { title: '任务发布', key: 'task', closable: false }
 ]
 
 export default {
@@ -79,7 +79,7 @@ export default {
   created () {
     const _menu = JSON.parse(localStorage.getItem('routerInfo'))
     this.menuData = _menu.filter(item => item.isShow === 2)
-    this.routePage('/elderlyHealthcare/root/process/audit')
+    this.routePage('/elderlyHealthcare/root/process/task')
   },
   methods: {
     reload () {
@@ -126,7 +126,7 @@ export default {
     remove (targetKey) {
       // 删除自身回到第一个标签
       if (targetKey === this.activeKey) {
-        this.routePage('/elderlyHealthcare/root/process/audit')
+        this.routePage('/elderlyHealthcare/root/process/task')
       }
       let activeKey = this.activeKey
       let lastIndex

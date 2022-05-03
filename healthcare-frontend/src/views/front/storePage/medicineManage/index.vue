@@ -83,9 +83,14 @@ export default {
     this.getData()
   },
   methods: {
-    getData () {
-      listMedicineCatalog().then(res => {
-        this.data = res.data
+    async getData () {
+      await listMedicineCatalog().then(res => {
+        this.allData = res.data
+      })
+      this.data = this.allData
+      const _types = this.data.map(item => item.drugType)
+      this.typeList = _types.filter(function (element, index, array) {
+        return array.indexOf(element) === index
       })
     },
     clickOption (type, data) {

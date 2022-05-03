@@ -3,20 +3,23 @@
     <a-col :span="14" :style="{paddingLeft: '10px'}">
       <a-row :style="{marginBottom: '20px'}">
         <a-col>
-          <a-select
-            v-model="patientId"
-            :allowClear="true"
-            placeholder="请选择病人"
-            @change="onchange"
-            style="padding: 0 5px; width: 170px"
-          >
-            <a-select-option
-              v-for="cases in patientList"
-              :key="cases.patientId"
-              :value="cases.patientId"
-            >{{ cases.patientName }}
-            </a-select-option>
-          </a-select>
+          <h4>
+            <strong>病人名： </strong>
+            <a-select
+              v-model="patientId"
+              :allowClear="true"
+              placeholder="请选择病人"
+              @change="onchange"
+              style="padding: 0 5px; width: 170px"
+            >
+              <a-select-option
+                v-for="cases in patientList"
+                :key="cases.patientId"
+                :value="cases.patientId"
+              >{{ cases.patientName }}
+              </a-select-option>
+            </a-select>
+          </h4>
         </a-col>
       </a-row>
       <a-row>

@@ -21,7 +21,7 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="option in (taskData.map(item => item.patientName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                v-for="option in patientList"
                 :key="option"
                 :value="option"
               >{{ option }}
@@ -43,7 +43,7 @@
               style="padding: 0 5px"
             >
               <a-select-option
-                v-for="option in (taskData.map(item => item.nurseName)).filter(function (element, index, array) { return array.indexOf(element) === index })"
+                v-for="option in nurseList"
                 :key="option"
                 :value="option"
               >{{ option }}
@@ -125,6 +125,8 @@ export default {
         patientName: undefined,
         isFinished: undefined
       },
+      patientList: [],
+      nurseList: [],
       pagination: {
         total: 0,
         defaultPageSize: 5,
@@ -135,7 +137,7 @@ export default {
       },
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 7 }
+        sm: { span: 6 }
       },
       wrapperCol: {
         xs: { span: 24 },
@@ -152,9 +154,18 @@ export default {
     this.getData()
   },
   methods: {
-    getData () {
-      listTask().then(res => {
+    async getData () {
+      await listTask().then(res => {
         this.taskData = res.data
+      })
+      // 遍历结果获取搜索值，过滤重复元素
+      const patients = this.taskData.map(item => item.patientName)
+      this.patientList = patients.filter(function (element, index, array) {
+        return array.indexOf(element) === index
+      })
+      const nurses = this.taskData.map(item => item.nurseName)
+      this.nurseList = nurses.filter(function (element, index, array) {
+        return array.indexOf(element) === index
       })
     },
     searchOk () {
