@@ -161,7 +161,6 @@ export default {
     ok () {
       this.$refs.modelForm.validate(valid => {
         if (valid) {
-          console.log(this.formData)
           if (this.formData.userPwd === this.formData.userPwd1) {
             this.formData.userPwd = Encrypt(this.formData.userPwd)
             this.formData.userPwd1 = this.formData.userPwd

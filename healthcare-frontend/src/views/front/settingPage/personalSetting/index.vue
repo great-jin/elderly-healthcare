@@ -140,7 +140,7 @@ export default {
   },
   methods: {
     quit () {
-      this.$router.go(-1)
+      this.$router.push('/elderlyHealthcare/home')
     },
     ok () {
       this.$refs.registerForm.validate(valid => {

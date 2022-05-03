@@ -110,7 +110,7 @@
               <a-input
                 v-model="formData.costCount"
                 placeholder="商品总价"
-                :disabled=true
+                :disabled="true"
               />
             </a-form-model-item>
           </a-col>
@@ -131,6 +131,7 @@
 
 <script>
 import { listGoods, getStorage } from '@/api/warehouseStorage'
+import { addOrderGoods } from '@/api/orderGoods'
 
 export default {
   name: 'form2',
@@ -145,7 +146,14 @@ export default {
         costCount: 0
       },
       goodsList: [],
-      rules: {},
+      rules: {
+        orderCount: [
+          { required: true, message: '不能为空', trigger: 'change' }
+        ],
+        orderTime: [
+          { required: true, message: '不能为空', trigger: 'change' }
+        ]
+      },
       labelCol: {
         xs: { span: 24 },
         sm: { span: 7 }
@@ -165,7 +173,13 @@ export default {
     next (data) {
       this.$refs.modelForm.validate(valid => {
         if (valid) {
-          this.$emit('changeData', data)
+          addOrderGoods(this.formData).then(res => {
+            if (res.data) {
+              this.$emit('changeData', data)
+            } else {
+              this.$message.error('提交失败，请重试')
+            }
+          })
         }
       })
     },

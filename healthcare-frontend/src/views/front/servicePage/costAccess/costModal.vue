@@ -106,7 +106,6 @@ export default {
   methods: {
     paramReceive (data) {
       this.visible = true
-      console.log(data)
       getCostDetail(data).then(res => {
         this.costInfo = res.data
       })

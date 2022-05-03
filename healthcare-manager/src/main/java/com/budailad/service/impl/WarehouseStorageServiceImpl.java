@@ -76,9 +76,8 @@ public class WarehouseStorageServiceImpl implements WarehouseStorageService {
      * @return 实例对象
      */
     @Override
-    public WarehouseStorage update(WarehouseStorage warehouseStorage) {
-        this.warehouseStorageDao.update(warehouseStorage);
-        return this.queryById(warehouseStorage.getGoodsId());
+    public int update(WarehouseStorage warehouseStorage) {
+        return this.warehouseStorageDao.update(warehouseStorage);
     }
 
     /**

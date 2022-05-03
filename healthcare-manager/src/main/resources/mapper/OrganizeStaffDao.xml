@@ -183,11 +183,16 @@
         </where>
     </select>
 
+    <!-- 查询用户绑定邮箱 -->
+    <select id="getStaffEmail" resultType="java.lang.String">
+
+    </select>
+
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into organize_staff(staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone,
+        insert into organize_staff(id, staff_id, staff_name, staff_gender, is_resigned, resign_time, staff_age, staff_phone,
                                    staff_email, staff_address, organize_id, staff_position, entry_time)
-        values (#{staffId}, #{staffName}, #{staffGender}, #{isResigned}, #{resignTime}, #{staffAge}, #{staffPhone},
+        values (#{id}, #{staffId}, #{staffName}, #{staffGender}, #{isResigned}, #{resignTime}, #{staffAge}, #{staffPhone},
                 #{staffEmail}, #{staffAddress}, #{organizeId}, #{staffPosition}, #{entryTime})
     </insert>
 

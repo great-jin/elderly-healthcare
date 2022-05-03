@@ -57,7 +57,6 @@ export default {
   methods: {
     paramReceive (data) {
       this.visible = true
-      console.log(data)
     },
     cancel () {
       this.visible = false

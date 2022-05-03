@@ -53,7 +53,7 @@ public interface MedicineCatalogService {
      * @param medicineCatalog 实例对象
      * @return 实例对象
      */
-    MedicineCatalog update(MedicineCatalog medicineCatalog);
+    int update(MedicineCatalog medicineCatalog);
 
     /**
      * 通过主键删除数据

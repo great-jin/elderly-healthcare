@@ -85,9 +85,8 @@ public class MedicineCatalogServiceImpl implements MedicineCatalogService {
     @Caching(evict = {
             @CacheEvict(key = "#medicineCatalog.drugId")
     })
-    public MedicineCatalog update(MedicineCatalog medicineCatalog) {
-        this.medicineCatalogDao.update(medicineCatalog);
-        return this.queryById(medicineCatalog.getDrugId());
+    public int update(MedicineCatalog medicineCatalog) {
+        return this.medicineCatalogDao.update(medicineCatalog);
     }
 
     /**

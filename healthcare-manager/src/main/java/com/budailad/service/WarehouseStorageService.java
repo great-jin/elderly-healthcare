@@ -54,7 +54,7 @@ public interface WarehouseStorageService {
      * @param warehouseStorage 实例对象
      * @return 实例对象
      */
-    WarehouseStorage update(WarehouseStorage warehouseStorage);
+    int update(WarehouseStorage warehouseStorage);
 
     /**
      * 通过主键删除数据

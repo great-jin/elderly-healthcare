@@ -39,6 +39,11 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
         return this.organizeStaffDao.queryById(id);
     }
 
+    @Override
+    public String getStaffEmail(String staffId) {
+        return this.organizeStaffDao.getStaffEmail(staffId);
+    }
+
     /**
      * 条件查询
      *
@@ -70,9 +75,8 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
      * @return 实例对象
      */
     @Override
-    public OrganizeStaff insert(OrganizeStaff organizeStaff) {
-        this.organizeStaffDao.insert(organizeStaff);
-        return organizeStaff;
+    public int insert(OrganizeStaff organizeStaff) {
+        return this.organizeStaffDao.insert(organizeStaff);
     }
 
     /**

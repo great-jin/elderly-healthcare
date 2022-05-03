@@ -25,6 +25,12 @@ public interface OrganizeStaffDao {
     OrganizeStaff queryById(Integer id);
 
     /**
+     *
+     * @return
+     */
+    String getStaffEmail(String staffId);
+
+    /**
      * 条件查询
      *
      * @param organizeStaff 筛选条件

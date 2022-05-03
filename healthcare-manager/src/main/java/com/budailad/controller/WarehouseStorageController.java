@@ -3,6 +3,7 @@ package com.budailad.controller;
 import com.budailad.entity.SysFileConfig;
 import com.budailad.entity.WarehouseStorage;
 import com.budailad.service.WarehouseStorageService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -78,8 +79,8 @@ public class WarehouseStorageController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<WarehouseStorage> edit(@RequestBody WarehouseStorage warehouseStorage) {
-        return ResponseEntity.ok(this.warehouseStorageService.update(warehouseStorage));
+    public ResponseEntity<Boolean> edit(@RequestBody WarehouseStorage warehouseStorage) {
+        return ResponseEntity.ok(this.warehouseStorageService.update(warehouseStorage) > 0);
     }
 
     /**

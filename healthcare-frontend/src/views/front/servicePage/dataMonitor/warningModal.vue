@@ -61,7 +61,6 @@ export default {
           break
       }
       this.data = _data
-      console.log(this.data)
     },
     cancel() {
       this.visible = false

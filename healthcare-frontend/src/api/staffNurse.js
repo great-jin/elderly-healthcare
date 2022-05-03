@@ -17,6 +17,13 @@ export function getNurse (params) {
   })
 }
 
+export function getCount (params) {
+  return request({
+    url: `${prefix}/getCount`,
+    method: 'get'
+  })
+}
+
 export function addNurse (params) {
   return request({
     url: `${prefix}/add`,

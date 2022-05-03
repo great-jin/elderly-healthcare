@@ -1,7 +1,9 @@
 package com.budailad.controller;
 
 import com.budailad.entity.LoginUser;
+import com.budailad.entity.OrganizeStaff;
 import com.budailad.service.LoginUserService;
+import com.budailad.service.OrganizeStaffService;
 import com.budailad.utils.MinioUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import static com.budailad.utils.AESUtil.desEncrypt;
@@ -34,6 +37,9 @@ public class LoginUserController {
 
     @Autowired
     private MinioUtil minioUtil;
+
+    @Autowired
+    private OrganizeStaffService organizeStaffService;
 
     /**
      * 服务对象
@@ -110,9 +116,27 @@ public class LoginUserController {
             loginUser.setDestroyTime(null);
             loginUser.setComment(null);
 
-            tag =  loginUserService.insert(loginUser) > 0;
+            tag = loginUserService.insert(loginUser) > 0;
         }
         return tag;
+    }
+
+    /**
+     * 忘记密码
+     *
+     * @param staffId
+     * @return
+     */
+    @GetMapping("/foreget")
+    public String getAllStaff(@RequestParam(value = "staffId") String staffId) {
+        LoginUser loginUser = new LoginUser();
+        loginUser.setStaffId(staffId);
+        List<LoginUser> loginUserList = loginUserService.conditionQuery(loginUser);
+        if (loginUserList.size() > 0) {
+            // 查询用户邮箱
+            String email = organizeStaffService.getStaffEmail(staffId);
+        }
+        return "email";
     }
 
     /**
@@ -125,6 +149,7 @@ public class LoginUserController {
     public ResponseEntity<LoginUser> edit(@RequestBody LoginUser loginUser) {
         return ResponseEntity.ok(this.loginUserService.update(loginUser));
     }
+
 
     /**
      * 删除数据

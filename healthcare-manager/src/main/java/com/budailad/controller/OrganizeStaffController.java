@@ -66,8 +66,8 @@ public class OrganizeStaffController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<OrganizeStaff> add(@RequestBody OrganizeStaff organizeStaff) {
-        return ResponseEntity.ok(this.organizeStaffService.insert(organizeStaff));
+    public ResponseEntity<Boolean> add(@RequestBody OrganizeStaff organizeStaff) {
+        return ResponseEntity.ok(this.organizeStaffService.insert(organizeStaff) > 0);
     }
 
     /**

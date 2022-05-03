@@ -17,7 +17,7 @@
       </a-row>
       <a-row :style="{marginTop: '8px'}">
         <a-col :span="24">
-          <a-form-item >
+          <a-form-item>
             <a-input
               placeholder="请输入账号"
               v-decorator="[
@@ -25,7 +25,7 @@
             { rules: [{ required: true, message: '账号不能为空!' }] }
           ]"
             >
-              <a-icon slot="prefix" type="user" />
+              <a-icon slot="prefix" type="user"/>
             </a-input>
           </a-form-item>
         </a-col>
@@ -40,7 +40,7 @@
                 { rules: [{ required: true, message: '密码不能为空!' }] }
               ]"
             >
-              <a-icon slot="prefix" type="lock" />
+              <a-icon slot="prefix" type="lock"/>
             </a-input-password>
           </a-form-item>
         </a-col>
@@ -56,13 +56,13 @@
                 { rules: [{ required: true, message: '验证码不能为空!' }] }
               ]"
             >
-              <a-icon slot="prefix" type="lock" />
+              <a-icon slot="prefix" type="lock"/>
             </a-input>
           </a-form-item>
         </a-col>
         <a-col :span="9">
           <span @click="refreshCode()">
-            <s-identify :identifyCode="generateCode" ></s-identify>
+            <s-identify :identifyCode="generateCode"></s-identify>
           </span>
         </a-col>
       </a-row>
@@ -73,34 +73,20 @@
             type="primary"
             :loading="loading"
             @click="submit"
-          >登录</a-button>
+          >登录
+          </a-button>
         </a-col>
       </a-row>
-      <a-row :style="{marginTop: '15px'}">
-        <a-col :span="12">
-          <a-button
-            type="link"
-            style="float: left; z-index: 1;"
-            @click="register"
-          >找回密码</a-button>
-        </a-col>
-        <a-col :span="12">
-          <a-button
-            type="link"
-            style="float: right; z-index: 1;"
-            @click="forget"
-          >修改密码</a-button>
-        </a-col>
+      <a-row :style="{marginTop: '15px',textAlign: 'center'}">
+        <a-button type="link" @click="forget">忘记密码</a-button>
       </a-row>
     </a-form>
 
-    <registerModal ref="registerModal"></registerModal>
     <forgetModal ref="forgetModal"></forgetModal>
   </div>
 </template>
 
 <script>
-import registerModal from './registerModal'
 import forgetModal from './forgetModal'
 import SIdentify from '@/views/utils/identify'
 import { Encrypt } from '@/utils/AES.js'
@@ -112,7 +98,6 @@ export default {
   name: 'LoginPage',
   components: {
     's-identify': SIdentify,
-    registerModal,
     forgetModal
   },
   data () {
@@ -182,9 +167,6 @@ export default {
         }
       })
     },
-    register () {
-      this.$refs.registerModal.paramReceive()
-    },
     forget () {
       this.$refs.forgetModal.paramReceive()
     },
@@ -200,7 +182,15 @@ export default {
         return alphabet.toUpperCase()
       }
     },
-    makeIdentifyCode ({ length = 4, typeMix = true, pureNumber = 'alphabet', randomTypeLen = false, capsLookMix = false, numLength = 2, uupperLength = 1 } = {}) {
+    makeIdentifyCode ({
+      length = 4,
+      typeMix = true,
+      pureNumber = 'alphabet',
+      randomTypeLen = false,
+      capsLookMix = false,
+      numLength = 2,
+      uupperLength = 1
+    } = {}) {
       this.makeCode = ''
       // 数字和字母混合
       if (typeMix) {
@@ -299,43 +289,47 @@ export default {
 </script>
 
 <style scoped>
-  /* 登录背景 */
-  #login-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url("./assets/back.png") no-repeat;
-    background-size: 100% 100%;
-  }
-  /* 首页标题 */
-  .home-title {
-    color: #fff;
-    margin-top: 5%;
-    font-size: 40px;
-    font-family: Microsoft Yahei;
-  }
-  /* 登录背景 */
-  .login-form {
-    width: 30%;
-    margin: 3% auto;
-    padding: 5px 20px;
-    border-radius: 25px;
-    background: url("./assets/logo.png") no-repeat;
-  }
-  /* 登陆标题 */
-  .login-form .title{
-    text-align: center;
-    margin: 10px auto;
-    color: #14C6CC;
-    font-weight: 700;
-    font-size: 24px;
-    font-family: Microsoft Yahei;
-  }
-  /* 登陆按钮 */
-  .login-form .submit{
-    width: 100%;
-    height: 45px;
-    font-size: 16px;
-    margin-top: 5px;
-  }
+/* 登录背景 */
+#login-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("./assets/back.png") no-repeat;
+  background-size: 100% 100%;
+}
+
+/* 首页标题 */
+.home-title {
+  color: #fff;
+  margin-top: 5%;
+  font-size: 40px;
+  font-family: Microsoft Yahei;
+}
+
+/* 登录背景 */
+.login-form {
+  width: 30%;
+  margin: 3% auto;
+  padding: 5px 20px;
+  border-radius: 25px;
+  background: url("./assets/logo.png") no-repeat;
+}
+
+/* 登陆标题 */
+.login-form .title {
+  text-align: center;
+  margin: 10px auto;
+  color: #14C6CC;
+  font-weight: 700;
+  font-size: 24px;
+  font-family: Microsoft Yahei;
+}
+
+/* 登陆按钮 */
+.login-form .submit {
+  width: 100%;
+  height: 45px;
+  font-size: 16px;
+  margin-top: 5px;
+}
 </style>

@@ -51,18 +51,12 @@
       </a-row>
     </div>
     <a-row style="width: 100%; height: 100%; margin-bottom: 70px">
-      <a-col :span="12">
-        <pieChart/>
-      </a-col>
-      <a-col :span="12">
-        <lineChart/>
-      </a-col>
+      <lineChart/>
     </a-row>
   </div>
 </template>
 
 <script>
-import pieChart from './chart/pieChart'
 import lineChart from './chart/lineChart'
 import WarningModal from './warningModal'
 
@@ -95,7 +89,6 @@ export default {
     }
   },
   components: {
-    pieChart,
     lineChart,
     WarningModal
   },

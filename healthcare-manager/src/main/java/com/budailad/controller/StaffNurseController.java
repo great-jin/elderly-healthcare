@@ -1,6 +1,9 @@
 package com.budailad.controller;
 
+import com.budailad.entity.StaffDoctor;
 import com.budailad.entity.StaffNurse;
+import com.budailad.entity.dto.JsonData;
+import com.budailad.service.StaffDoctorService;
 import com.budailad.service.StaffNurseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * (StaffNurse)表控制层
@@ -25,6 +30,9 @@ public class StaffNurseController {
     @Resource
     private StaffNurseService staffNurseService;
 
+    @Resource
+    private StaffDoctorService staffDoctorService;
+
     /**
      * 条件查询
      *
@@ -37,10 +45,25 @@ public class StaffNurseController {
         return ResponseEntity.ok(this.staffNurseService.conditionQuery(staffNurse));
     }
 
-
     @GetMapping("/getTree")
     public ResponseEntity<List<StaffNurse>> getTree(StaffNurse staffNurse) {
         return ResponseEntity.ok(this.staffNurseService.conditionQuery(staffNurse));
+    }
+
+    /**
+     * 医师比例
+     *
+     * @param staffNurse
+     * @return
+     */
+    @GetMapping("/getCount")
+    public ResponseEntity<List<JsonData>> getCount(StaffNurse staffNurse) {
+        int nurseNum = staffNurseService.conditionQuery(new StaffNurse()).size();
+        int doctorNum = staffDoctorService.conditionQuery(new StaffDoctor()).size();
+        List<JsonData> charList = new ArrayList<>();
+        charList.add(new JsonData("护士", new AtomicInteger(nurseNum)));
+        charList.add(new JsonData("医师", new AtomicInteger(doctorNum)));
+        return ResponseEntity.ok(charList);
     }
 
     /**

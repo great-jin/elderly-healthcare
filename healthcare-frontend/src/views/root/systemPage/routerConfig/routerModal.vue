@@ -6,8 +6,13 @@
     @cancel="cancel"
   >
     <template slot="footer">
-      <a-button key="submit" type="primary" @click="ok">确定</a-button>
       <a-button key="back" @click="cancel">取消</a-button>
+      <a-button
+        v-if="type==='edit'"
+        key="submit"
+        type="primary"
+        @click="ok"
+      >确定</a-button>
     </template>
 
     <a-form-model
@@ -59,7 +64,7 @@
               :key="icon"
               :value="icon"
             >
-              <a-icon :type="icon" />
+              <a-icon :type="icon"/>
               &nbsp;
               <span>{{ icon }}</span>
             </a-select-option>
@@ -99,13 +104,15 @@
 </template>
 
 <script>
+import { updateHomeMenu } from '@/api/homeMenu'
+
 export default {
   name: 'InfoModal',
   data () {
     return {
       type: '',
       visible: false,
-      iconList: ['question','plus-circle'],
+      iconList: ['question', 'plus-circle'],
       formData: {
         menuTitle: '',
         menuType: '',
@@ -150,7 +157,11 @@ export default {
     ok () {
       this.$refs.modelForm.validate(valid => {
         if (valid) {
-          console.log(this.formData)
+          updateHomeMenu(this.formData).then(res => {
+            if (res.data !== null) {
+              this.$message.success('更新成功')
+            }
+          })
         }
       })
     }

@@ -28,7 +28,7 @@ public class OrderGoodsController {
     /**
      * 条件查询
      *
-     * @param orderGoods  筛选条件
+     * @param orderGoods 筛选条件
      * @return 查询结果
      */
     @GetMapping("/list")
@@ -66,8 +66,8 @@ public class OrderGoodsController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<OrderGoods> add(@RequestBody OrderGoods orderGoods) {
-        return ResponseEntity.ok(this.orderGoodsService.insert(orderGoods));
+    public ResponseEntity<Boolean> add(@RequestBody OrderGoods orderGoods) {
+        return ResponseEntity.ok(this.orderGoodsService.insert(orderGoods) > 0);
     }
 
     /**

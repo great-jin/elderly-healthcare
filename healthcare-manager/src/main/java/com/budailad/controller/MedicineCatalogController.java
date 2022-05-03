@@ -77,8 +77,8 @@ public class MedicineCatalogController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<MedicineCatalog> edit(@RequestBody MedicineCatalog medicineCatalog) {
-        return ResponseEntity.ok(this.medicineCatalogService.update(medicineCatalog));
+    public ResponseEntity<Boolean> edit(@RequestBody MedicineCatalog medicineCatalog) {
+        return ResponseEntity.ok(this.medicineCatalogService.update(medicineCatalog) > 0);
     }
 
     /**

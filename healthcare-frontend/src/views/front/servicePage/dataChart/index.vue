@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <a-row style="width: 100%; height: 100%;">
-      <a-col :span="8"><pie2Chart /></a-col>
-      <a-col :span="16"><pie1Chart /></a-col>
+  <div :style="{padding:'10px 20px'}">
+    <a-row :style="{marginBottom:'30px'}">
+      <pie2Chart/>
+    </a-row>
+    <a-row>
+      <pie1Chart/>
     </a-row>
   </div>
 </template>

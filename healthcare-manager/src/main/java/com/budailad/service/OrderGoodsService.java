@@ -45,7 +45,7 @@ public interface OrderGoodsService {
      * @param orderGoods 实例对象
      * @return 实例对象
      */
-    OrderGoods insert(OrderGoods orderGoods);
+    int insert(OrderGoods orderGoods);
 
     /**
      * 修改数据

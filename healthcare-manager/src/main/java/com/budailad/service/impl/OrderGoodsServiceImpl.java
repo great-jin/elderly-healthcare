@@ -70,9 +70,8 @@ public class OrderGoodsServiceImpl implements OrderGoodsService {
      * @return 实例对象
      */
     @Override
-    public OrderGoods insert(OrderGoods orderGoods) {
-        this.orderGoodsDao.insert(orderGoods);
-        return orderGoods;
+    public int insert(OrderGoods orderGoods) {
+        return this.orderGoodsDao.insert(orderGoods);
     }
 
     /**

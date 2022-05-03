@@ -23,6 +23,13 @@ public interface OrganizeStaffService {
     OrganizeStaff queryById(Integer id);
 
     /**
+     * 获取所有用户数据
+     *
+     * @return
+     */
+    String getStaffEmail(String staffId);
+
+    /**
      * 条件查询
      *
      * @param organizeStaff 筛选条件
@@ -45,7 +52,7 @@ public interface OrganizeStaffService {
      * @param organizeStaff 实例对象
      * @return 实例对象
      */
-    OrganizeStaff insert(OrganizeStaff organizeStaff);
+    int insert(OrganizeStaff organizeStaff);
 
     /**
      * 修改数据

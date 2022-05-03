@@ -330,7 +330,6 @@ export default {
     },
     ok () {
       const _type = this.type
-      console.log(_type)
       switch (this.staffType) {
         case 'nurse':
           if (_type === 'add') {

@@ -1,8 +1,12 @@
 <template>
-  <div id="monitorLine" style="width: 100%; height: 400px;"/>
+  <a-row>
+    <div id="monitorLine" style="width: 100%; height: 400px;"/>
+  </a-row>
 </template>
 
 <script>
+import {getCharDate} from "@/api/patientInfo";
+
 export default {
   name: 'LineChart',
   props: {
@@ -15,28 +19,37 @@ export default {
       default: null
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.lineChart()
-    })
-    window.onresize = () => {
-      this.lineChart()
+  data() {
+    return {
+      ageData: []
     }
   },
+  mounted() {
+    this.getData()
+  },
   methods: {
-    lineChart () {
+    async getData() {
+      await getCharDate().then(res => {
+        this.ageData = res.data.map(item => item.value)
+      })
+      this.$nextTick(() => {
+        this.$echarts.init(document.getElementById('monitorLine')).dispose()
+        this.lineChart()
+      })
+    },
+    lineChart() {
       const graph = this.$echarts.init(document.getElementById('monitorLine'))
       const option = {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['0~40', '40~55', '55~65', '65-100']
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
+            data: this.ageData,
             type: 'bar',
             showBackground: true,
             backgroundStyle: {
