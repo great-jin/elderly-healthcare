@@ -16,19 +16,20 @@
           <span slot="title">{{ item.vacateType }} 申请</span>
         </a-list-item-meta>
         <a-button slot="actions" type="link" @click="showProcess(item)">审批进度</a-button>
-        <processModal ref="processModal"/>
       </a-list-item>
     </a-list>
+
+    <ProcessModal ref="processModal"/>
   </div>
 </template>
 
 <script>
-import processModal from './processModal'
+import ProcessModal from './processModal'
 import { listVacateInfo } from '@/api/vacateInfo'
 
 export default {
   components: {
-    processModal
+    ProcessModal
   },
   data () {
     return {

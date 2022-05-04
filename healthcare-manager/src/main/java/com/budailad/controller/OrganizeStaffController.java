@@ -36,6 +36,11 @@ public class OrganizeStaffController {
         return ResponseEntity.ok(this.organizeStaffService.conditionQuery(organizeStaff));
     }
 
+    @GetMapping("/allStaff")
+    public ResponseEntity<List<OrganizeStaff>> allStaff() {
+        return ResponseEntity.ok(this.organizeStaffService.getAllStaff());
+    }
+
     /**
      * 分页查询
      *

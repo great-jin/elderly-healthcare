@@ -23,6 +23,12 @@ public interface PatientInfoService {
     PatientInfo queryById(String patientId);
 
     /**
+     *
+     * @return
+     */
+    List<PatientInfo> getAdded();
+
+    /**
      * 条件查询
      *
      * @param patientInfo 筛选条件

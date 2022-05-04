@@ -39,6 +39,12 @@ public interface OrganizeStaffDao {
     List<OrganizeStaff> conditionQuery(OrganizeStaff organizeStaff);
 
     /**
+     *
+     * @return
+     */
+    List<OrganizeStaff> getAllStaff();
+
+    /**
      * 查询指定行数据
      *
      * @param organizeStaff 查询条件

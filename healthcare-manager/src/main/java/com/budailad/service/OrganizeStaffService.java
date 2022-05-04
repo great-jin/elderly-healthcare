@@ -38,6 +38,12 @@ public interface OrganizeStaffService {
     List<OrganizeStaff> conditionQuery(OrganizeStaff organizeStaff);
 
     /**
+     *
+     * @return
+     */
+    List<OrganizeStaff> getAllStaff();
+
+    /**
      * 分页查询
      *
      * @param organizeStaff 筛选条件

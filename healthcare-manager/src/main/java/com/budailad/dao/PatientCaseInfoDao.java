@@ -1,6 +1,7 @@
 package com.budailad.dao;
 
 import com.budailad.entity.PatientCaseInfo;
+import com.budailad.entity.PatientInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;

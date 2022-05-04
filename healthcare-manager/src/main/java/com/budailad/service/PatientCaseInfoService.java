@@ -1,6 +1,7 @@
 package com.budailad.service;
 
 import com.budailad.entity.PatientCaseInfo;
+import com.budailad.entity.PatientInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 

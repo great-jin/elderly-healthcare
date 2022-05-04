@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-tabs type="card">
+    <a-tabs type="card" @change="callback">
       <a-tab-pane key="1" tab="登记信息">
         <a-form-model
           ref="searchForm"
@@ -109,6 +109,12 @@ export default {
     this.getData()
   },
   methods: {
+    callback (key) {
+      // 页面缓存刷新
+      if (key === '1') {
+        this.getData()
+      }
+    },
     getData () {
       listPatientInfo().then(res => {
         this.accessData = res.data

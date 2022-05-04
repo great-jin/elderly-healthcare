@@ -87,12 +87,13 @@ public class PatientCostDetailController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public boolean add(@RequestParam(value = "patientId") String patientId,
-                       @RequestBody PatientCostDetail patientCostDetail) {
+    public boolean add(@RequestBody PatientCostDetail patientCostDetail) {
+        // 根据病人Id查询消费记录编号
         PatientCostInfo costInfo = new PatientCostInfo();
-        costInfo.setPatientId(patientId);
+        costInfo.setPatientId(patientCostDetail.getPatientId());
         costInfo = (patientCostInfoService.conditionQuery(costInfo)).get(0);
         String costID = costInfo.getCostId();
+        // 新增消费记录
         patientCostDetail.setId(UUID.randomUUID().toString());
         patientCostDetail.setCostId(costID);
         int i = patientCostDetailService.insert(patientCostDetail);

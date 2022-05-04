@@ -70,9 +70,8 @@ public class EmployeeSalaryServiceImpl implements EmployeeSalaryService {
      * @return 实例对象
      */
     @Override
-    public EmployeeSalary insert(EmployeeSalary employeeSalary) {
-        this.employeeSalaryDao.insert(employeeSalary);
-        return employeeSalary;
+    public int insert(EmployeeSalary employeeSalary) {
+        return this.employeeSalaryDao.insert(employeeSalary);
     }
 
     /**

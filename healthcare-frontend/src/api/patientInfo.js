@@ -17,6 +17,13 @@ export function getPatientInfo (params) {
   })
 }
 
+export function getAddedPatient () {
+  return request({
+    url: `${prefix}/getAdded`,
+    method: 'get'
+  })
+}
+
 export function getCharDate () {
   return request({
     url: `${prefix}/getChar`,

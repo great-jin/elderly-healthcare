@@ -22,11 +22,6 @@ export const columns = (cxt) => {
       dataIndex: 'organizeId'
     },
     {
-      title: '职位',
-      align: 'center',
-      dataIndex: 'staffPosition'
-    },
-    {
       title: '月份',
       align: 'center',
       dataIndex: 'workDate'
@@ -64,7 +59,7 @@ export const columns = (cxt) => {
     {
       title: '操作',
       fixed: 'right',
-      width: 170,
+      width: 100,
       align: 'center',
       scopedSlots: { customRender: 'action' }
     }

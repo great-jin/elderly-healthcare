@@ -200,7 +200,7 @@
 <script>
 import { listNurse } from '@/api/staffNurse.js'
 import { listDoctor } from '@/api/staffDoctor.js'
-import { listPatientInfo } from '@/api/patientInfo.js'
+import { getAddedPatient } from '@/api/patientInfo'
 import { addCaseInfo, updateCaseInfo } from '@/api/patientCaseInfo'
 
 export default {
@@ -268,7 +268,7 @@ export default {
       this.getData()
     },
     getData () {
-      listPatientInfo().then(res => {
+      getAddedPatient().then(res => {
         this.patientList = res.data
       })
       listNurse().then(res => {
@@ -330,5 +330,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

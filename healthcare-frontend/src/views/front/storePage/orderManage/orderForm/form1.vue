@@ -35,7 +35,7 @@
       <a-textarea
         v-model="formData.comment"
         type="text"
-        :rows="6"
+        :rows="3"
       />
     </a-form-model-item>
     <a-form-model-item>

@@ -10,6 +10,9 @@ import java.io.Serializable;
  */
 public class PatientCostDetail implements Serializable {
     private static final long serialVersionUID = -99623317379843838L;
+
+    private String patientId;
+
     /**
      * 主键ID
      */
@@ -43,6 +46,13 @@ public class PatientCostDetail implements Serializable {
      */
     private String comment;
 
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
 
     public String getId() {
         return id;

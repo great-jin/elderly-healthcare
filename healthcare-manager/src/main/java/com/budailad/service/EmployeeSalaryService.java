@@ -45,7 +45,7 @@ public interface EmployeeSalaryService {
      * @param employeeSalary 实例对象
      * @return 实例对象
      */
-    EmployeeSalary insert(EmployeeSalary employeeSalary);
+    int insert(EmployeeSalary employeeSalary);
 
     /**
      * 修改数据

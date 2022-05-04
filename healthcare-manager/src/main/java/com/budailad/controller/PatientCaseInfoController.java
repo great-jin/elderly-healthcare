@@ -2,6 +2,7 @@ package com.budailad.controller;
 
 import com.budailad.entity.PatientCaseInfo;
 import com.budailad.entity.PatientCostInfo;
+import com.budailad.entity.PatientInfo;
 import com.budailad.service.PatientCaseInfoService;
 import com.budailad.service.PatientCostInfoService;
 import org.springframework.data.domain.Page;

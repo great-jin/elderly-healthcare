@@ -16,6 +16,12 @@ export function getOrganizeStaff (params) {
     method: 'get'
   })
 }
+export function getAllStaff () {
+  return request({
+    url: `${prefix}/allStaff`,
+    method: 'get'
+  })
+}
 
 export function addOrganizeStaff (params) {
   return request({

@@ -187,6 +187,13 @@
     <select id="getStaffEmail" resultType="java.lang.String">
 
     </select>
+    <select id="getAllStaff" resultMap="OrganizeStaffMap">
+        SELECT * from organize_staff
+        UNION all
+        SELECT * from staff_nurse
+        UNION all
+        SELECT * from staff_doctor
+    </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

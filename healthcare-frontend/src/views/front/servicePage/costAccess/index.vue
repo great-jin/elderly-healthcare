@@ -54,7 +54,7 @@
       <a-row :style="{marginBottom: '25px'}">
         <span><strong>数量：</strong>
           <a-input-number
-            v-model="goodsInfo.orderNum"
+            v-model="goodsInfo.goodsNumber"
             :min="0"
             :disabled="goodsInfo.goodsName===''"
             @change="changeCount"
@@ -65,7 +65,7 @@
       <a-row :style="{marginBottom: '25px'}">
         <span><strong>合计：</strong>
           <a-input-number
-            v-model="goodsInfo.orderCount"
+            v-model="goodsInfo.costCount"
             :disabled="true"
             style="width: 82%"
           />
@@ -153,8 +153,8 @@ export default {
         goodsName: '',
         goodsType: '',
         goodsPrice: '',
-        orderNum: 0,
-        orderCount: 0
+        goodsNumber: 0,
+        costCount: 0
       },
       pagination: {
         total: 0,
@@ -189,7 +189,7 @@ export default {
       })
     },
     changeCount (value) {
-      this.goodsInfo.orderCount = Number(this.goodsInfo.goodsPrice) * Number(value)
+      this.goodsInfo.costCount = Number(this.goodsInfo.goodsPrice) * Number(value)
     },
     search () {
       // 按产品类别过滤数据
@@ -201,12 +201,12 @@ export default {
     },
     ok () {
       if (this.patientId !== undefined) {
-        if (Number.isFinite(this.goodsInfo.orderCount) && this.goodsInfo.orderCount > 0) {
+        if (Number.isFinite(this.goodsInfo.costCount) && this.goodsInfo.costCount > 0) {
           // 提交新消费记录
           this.goodsInfo.patientId = this.patientId
           addCostDetail(this.goodsInfo).then(res => {
             if (res.data !== null) {
-              this.$message.success('ok')
+              this.$message.success('登记成功')
               this.goodsInfo = {}
             }
           })

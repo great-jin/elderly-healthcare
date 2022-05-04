@@ -128,8 +128,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into patient_cost_detail(cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment)
-        values (#{costId}, #{goodsType}, #{goodsName}, #{goodsPrice}, #{goodsNumber}, #{costCount}, #{comment})
+        insert into patient_cost_detail(id, cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment)
+        values (#{id}, #{costId}, #{goodsType}, #{goodsName}, #{goodsPrice}, #{goodsNumber}, #{costCount}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">

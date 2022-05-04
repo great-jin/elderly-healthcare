@@ -251,11 +251,9 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
-            <a-input-number
+            <a-input
               v-model="form.eyeLeft"
               placeholder="请输入左眼视力"
-              :min="30"
-              :max="200"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -269,11 +267,9 @@
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
-            <a-input-number
+            <a-input
               v-model="form.eyeRight"
               placeholder="请输入右眼视力"
-              :min="30"
-              :max="200"
               style="width: 100%"
             />
           </a-form-model-item>
@@ -477,6 +473,7 @@ export default {
       }
     },
     cancel () {
+      this.form.contactList = []
       this.$refs.registerForm.resetFields()
     },
     addContact () {

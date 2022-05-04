@@ -1,5 +1,7 @@
 package com.budailad.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -13,50 +15,62 @@ public class EmployeeSalary implements Serializable {
     /**
      * 主键ID
      */
+    @ExcelProperty(value = "薪资编号", index = 0)
     private String salaryId;
-    /**
-     * 部门编号
-     */
-    private String organizeId;
-    /**
-     * 部门名
-     */
-    private String organizeName;
     /**
      * 员工编号
      */
+    @ExcelProperty(value = "员工编号", index = 1)
     private String staffId;
     /**
      * 员工姓名
      */
+    @ExcelProperty(value = "员工姓名", index = 2)
     private String staffName;
     /**
-     * 月份
+     * 部门编号
      */
+    @ExcelProperty(value = "部门编号", index = 3)
+    private String organizeId;
+    /**
+     * 部门名
+     */
+    @ExcelProperty(value = "部门名", index = 4)
+    private String organizeName;
+    /**
+     * 工作月份
+     */
+    @ExcelProperty(value = "工作月份", index = 5)
     private String workDate;
     /**
      * 工作天数
      */
+    @ExcelProperty(value = "工作天数", index = 6)
     private Double workDays;
     /**
      * 请假天数
      */
+    @ExcelProperty(value = "请假天数", index = 7)
     private Double offDays;
     /**
-     * 罚款
+     * 罚款金额
      */
+    @ExcelProperty(value = "罚款金额", index = 8)
     private Double deductCount;
     /**
-     * 保险
+     * 保险金额
      */
+    @ExcelProperty(value = "保险金额", index = 9)
     private Double insuranceCount;
     /**
-     * 补贴
+     * 补贴金额
      */
+    @ExcelProperty(value = "补贴金额", index = 10)
     private Double allowanceCount;
     /**
-     * 总数
+     * 薪资总额
      */
+    @ExcelProperty(value = "薪资总额", index = 11)
     private Double salaryCount;
     /**
      * 备注

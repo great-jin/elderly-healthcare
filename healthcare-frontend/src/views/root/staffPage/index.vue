@@ -83,7 +83,7 @@ export default {
     this.menuData = _menu.filter(item => item.isShow === 2)
     // 获取侧边栏菜单
     this.menus = this.menuData.filter(item => item.menuType === 'staff')
-    this.routePage('/elderlyHealthcare/root/staff/user')
+    this.routePage('/elderlyHealthcare/root/staff/salary')
   },
   methods: {
     reload () {

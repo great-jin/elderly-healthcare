@@ -56,6 +56,15 @@ public class OrganizeStaffServiceImpl implements OrganizeStaffService {
     }
 
     /**
+     *
+     * @return
+     */
+    @Override
+    public List<OrganizeStaff> getAllStaff() {
+        return this.organizeStaffDao.getAllStaff();
+    }
+
+    /**
      * 分页查询
      *
      * @param organizeStaff 筛选条件

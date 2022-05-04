@@ -79,7 +79,7 @@ public class PatientInfo implements Serializable {
     /**
      * 籍贯住址，联动控件
      */
-    private String patientaddress;
+    private String patientAddress;
     /**
      * 备注
      */
@@ -225,12 +225,12 @@ public class PatientInfo implements Serializable {
         this.patientPhone = patientPhone;
     }
 
-    public String getPatientaddress() {
-        return patientaddress;
+    public String getPatientAddress() {
+        return patientAddress;
     }
 
-    public void setPatientaddress(String patientaddress) {
-        this.patientaddress = patientaddress;
+    public void setPatientAddress(String patientaddress) {
+        this.patientAddress = patientaddress;
     }
 
     public String getComment() {

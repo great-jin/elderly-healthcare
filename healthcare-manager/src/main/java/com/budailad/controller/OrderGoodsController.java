@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (OrderGoods)表控制层
@@ -67,6 +68,7 @@ public class OrderGoodsController {
      */
     @PostMapping("/add")
     public ResponseEntity<Boolean> add(@RequestBody OrderGoods orderGoods) {
+        orderGoods.setOrderId(UUID.randomUUID().toString());
         return ResponseEntity.ok(this.orderGoodsService.insert(orderGoods) > 0);
     }
 

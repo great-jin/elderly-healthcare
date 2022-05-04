@@ -19,7 +19,7 @@
         <result property="bloodFat" column="blood_fat" jdbcType="VARCHAR"/>
         <result property="bodyDetail" column="body_detail" jdbcType="VARCHAR"/>
         <result property="patientPhone" column="patient_phone" jdbcType="VARCHAR"/>
-        <result property="patientaddress" column="patient_address" jdbcType="VARCHAR"/>
+        <result property="patientAddress" column="patient_address" jdbcType="VARCHAR"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -45,6 +45,11 @@
                comment
         from patient_info
         where patient_id = #{patientId}
+    </select>
+
+    <select id="getAdded" resultMap="PatientInfoMap">
+        SELECT * FROM patient_info
+        WHERE patient_id not in(SELECT patient_id from patient_case_info)
     </select>
 
     <!--查询指定行数据-->
@@ -103,8 +108,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientaddress != null and patientaddress != ''">
-                and patient_address = #{patientaddress}
+            <if test="patientAddress != null and patientAddress != ''">
+                and patient_address = #{patientAddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -169,8 +174,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientaddress != null and patientaddress != ''">
-                and patient_address = #{patientaddress}
+            <if test="patientAddress != null and patientAddress != ''">
+                and patient_address = #{patientAddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -231,8 +236,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 and patient_phone = #{patientPhone}
             </if>
-            <if test="patientaddress != null and patientaddress != ''">
-                and patient_address = #{patientaddress}
+            <if test="patientAddress != null and patientAddress != ''">
+                and patient_address = #{patientAddress}
             </if>
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
@@ -247,7 +252,7 @@
                                  body_detail, patient_phone, patient_address, comment)
         values (#{patientId}, #{patientName}, #{inTime}, #{patientGender}, #{patientAge}, #{patientHeight}, #{patientWeight},
                 #{eyeLeft}, #{eyeRight}, #{bodyTemper}, #{heartBeat}, #{bloodPressure}, #{bloodGlucose}, #{bloodFat},
-                #{bodyDetail}, #{patientPhone}, #{patientaddress}, #{comment})
+                #{bodyDetail}, #{patientPhone}, #{patientAddress}, #{comment})
     </insert>
 
     <insert id="insertBatch" keyProperty="patientId" useGeneratedKeys="true">
@@ -259,7 +264,7 @@
             (#{entity.patientName}, #{entity.inTime}, #{entity.patientGender}, #{entity.patientAge},
             #{entity.patientHeight}, #{entity.patientWeight}, #{entity.eyeLeft}, #{entity.eyeRight},
             #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure}, #{entity.bloodGlucose},
-            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientaddress},
+            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAddress},
             #{entity.comment})
         </foreach>
     </insert>
@@ -273,7 +278,7 @@
             (#{entity.patientName}, #{entity.inTime}, #{entity.patientGender}, #{entity.patientAge},
             #{entity.patientHeight}, #{entity.patientWeight}, #{entity.eyeLeft}, #{entity.eyeRight},
             #{entity.bodyTemper}, #{entity.heartBeat}, #{entity.bloodPressure}, #{entity.bloodGlucose},
-            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientaddress},
+            #{entity.bloodFat}, #{entity.bodyDetail}, #{entity.patientPhone}, #{entity.patientAddress},
             #{entity.comment})
         </foreach>
         on duplicate key update
@@ -345,8 +350,8 @@
             <if test="patientPhone != null and patientPhone != ''">
                 patient_phone = #{patientPhone},
             </if>
-            <if test="patientaddress != null and patientaddress != ''">
-                patient_address = #{patientaddress},
+            <if test="patientAddress != null and patientAddress != ''">
+                patient_address = #{patientAddress},
             </if>
             <if test="comment != null and comment != ''">
                 comment = #{comment},

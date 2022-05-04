@@ -174,9 +174,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="orderId" useGeneratedKeys="true">
-        insert into order_goods(order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time,
+        insert into order_goods(order_id, order_name, goods_name, goods_type, goods_price, order_count, cost_count, order_time,
                                 staff_id, staff_name, delivery_time, comment)
-        values (#{orderName}, #{goodsName}, #{goodsType}, #{goodsPrice}, #{orderCount}, #{costCount}, #{orderTime},
+        values (#{orderId}, #{orderName}, #{goodsName}, #{goodsType}, #{goodsPrice}, #{orderCount}, #{costCount}, #{orderTime},
                 #{staffId}, #{staffName}, #{deliveryTime}, #{comment})
     </insert>
 

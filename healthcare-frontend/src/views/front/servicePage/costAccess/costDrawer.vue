@@ -1,7 +1,7 @@
 <template>
   <a-drawer
     title="消费记录"
-    width="45%"
+    width="55%"
     placement="right"
     :visible="visible"
     @close="cancel"

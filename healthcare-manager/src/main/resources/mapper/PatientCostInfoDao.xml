@@ -164,9 +164,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="costId" useGeneratedKeys="true">
-        insert into patient_cost_info(patient_id, patient_name, doctor_id, doctor_name, in_time, out_time, cost_count,
+        insert into patient_cost_info(cost_id, patient_id, patient_name, doctor_id, doctor_name, in_time, out_time, cost_count,
                                       is_pay, pay_time, comment)
-        values (#{patientId}, #{patientName}, #{doctorId}, #{doctorName}, #{inTime}, #{outTime}, #{costCount}, #{isPay},
+        values (#{costId}, #{patientId}, #{patientName}, #{doctorId}, #{doctorName}, #{inTime}, #{outTime}, #{costCount}, #{isPay},
                 #{payTime}, #{comment})
     </insert>
 

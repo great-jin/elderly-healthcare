@@ -45,6 +45,15 @@ public class PatientInfoController {
     }
 
     /**
+     *
+     * @return
+     */
+    @GetMapping("/getAdded")
+    public ResponseEntity<List<PatientInfo>> getAdded() {
+        return ResponseEntity.ok(this.patientInfoService.getAdded());
+    }
+
+    /**
      * 分页查询
      *
      * @param patientInfo 筛选条件

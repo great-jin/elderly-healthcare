@@ -12,6 +12,7 @@
       :model="form"
       :rules="rules"
       :disabled="isMore"
+      style="overflow-x: hidden"
     >
       <a-divider orientation="center">
         基本信息
@@ -496,14 +497,14 @@ export default {
       this.visible = true
       this.getData(data.patientId)
     },
-    getData (data) {
+    async getData (data) {
       const object = {
         patientId: data
       }
-      listPatientInfo(object).then(res => {
+      await listPatientInfo(object).then(res => {
         this.form = res.data[0]
       })
-      listPatientContact(object).then(res => {
+      await listPatientContact(object).then(res => {
         this.form.contactList = res.data
       })
     },

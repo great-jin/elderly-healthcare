@@ -185,9 +185,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="salaryId" useGeneratedKeys="true">
-        insert into employee_salary(organize_id, organize_name, staff_id, staff_name, work_date, work_days, off_days,
+        insert into employee_salary(salary_id, organize_id, organize_name, staff_id, staff_name, work_date, work_days, off_days,
                                     deduct_count, insurance_count, allowance_count, salary_count, comment)
-        values (#{organizeId}, #{organizeName}, #{staffId}, #{staffName}, #{workDate}, #{workDays}, #{offDays},
+        values (#{salaryId}, #{organizeId}, #{organizeName}, #{staffId}, #{staffName}, #{workDate}, #{workDays}, #{offDays},
                 #{deductCount}, #{insuranceCount}, #{allowanceCount}, #{salaryCount}, #{comment})
     </insert>
 

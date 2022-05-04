@@ -2,6 +2,7 @@ package com.budailad.service.impl;
 
 import com.budailad.entity.PatientCaseInfo;
 import com.budailad.dao.PatientCaseInfoDao;
+import com.budailad.entity.PatientInfo;
 import com.budailad.service.PatientCaseInfoService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;

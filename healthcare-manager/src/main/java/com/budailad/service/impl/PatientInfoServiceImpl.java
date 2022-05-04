@@ -64,6 +64,16 @@ public class PatientInfoServiceImpl implements PatientInfoService {
     }
 
     /**
+     *
+     * @return
+     */
+    @Override
+    public List<PatientInfo> getAdded() {
+        return this.patientInfoDao.getAdded();
+    }
+
+
+    /**
      * 新增数据
      *
      * @param patientInfo 实例对象

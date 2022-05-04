@@ -99,13 +99,13 @@ export default {
       switch (type) {
         case 'ok':
           _apply = {
-            id: this.vacateId,
+            applyId: this.applyId,
             currentState: 1
           }
           break
         case 'cancel':
           _apply = {
-            id: this.applyId,
+            applyId: this.applyId,
             currentState: 2
           }
           break
