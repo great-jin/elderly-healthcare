@@ -37,7 +37,7 @@ export const columns = cxt => {
       scopedSlots: { customRender: 'nurseName' }
     },
     {
-      title: '主治医师',
+      title: '监护医师',
       dataIndex: 'doctorName',
       align: 'center',
       scopedSlots: { customRender: 'doctorName' }

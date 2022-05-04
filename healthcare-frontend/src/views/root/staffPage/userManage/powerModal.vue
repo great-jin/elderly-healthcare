@@ -165,9 +165,11 @@ export default {
             this.formData.userPwd = Encrypt(this.formData.userPwd)
             this.formData.userPwd1 = this.formData.userPwd
             addUser(this.formData).then(res => {
-              if (res.data === 1) {
+              if (res.data) {
                 this.$message.success('账号开通成功')
                 this.cancel()
+              } else {
+                this.$message.error('开通失败，请稍后重试')
               }
             })
           } else {

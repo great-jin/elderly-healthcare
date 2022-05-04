@@ -128,6 +128,9 @@ public class LoginUserController {
             loginUser.setUpdateTime(null);
             loginUser.setDestroyTime(null);
             loginUser.setComment(null);
+            // 设置默认头像
+            loginUser.setUserAvatar("default-avatar.jpg");
+            loginUser.setBucketAvatar("avatar");
 
             tag = loginUserService.insert(loginUser) > 0;
         }

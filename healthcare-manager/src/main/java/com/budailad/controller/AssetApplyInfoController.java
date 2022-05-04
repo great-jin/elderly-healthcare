@@ -77,6 +77,8 @@ public class AssetApplyInfoController {
     @PostMapping("/add")
     public ResponseEntity<Boolean> add(@RequestBody AssetApplyInfo assetApplyInfo) {
         assetApplyInfo.setApplyId(UUID.randomUUID().toString());
+        assetApplyInfo.setCurrentState(0);
+        assetApplyInfo.setIsFinished(0);
         List<AssetApplyGoods> applyGoodsList = assetApplyInfo.getApplyGoodsList();
         // 申请货物关联申请表
         applyGoodsList.forEach(item -> {

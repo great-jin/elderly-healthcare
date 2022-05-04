@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="异常病人信息"
+    :title="title"
     :visible="visible"
     width="40%"
     @cancel="cancel"
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       type: '',
+      title: '',
       visible: false,
       data: [],
       infoList: []
@@ -49,15 +50,19 @@ export default {
       switch (type) {
         case 'temp':
           _data = this.infoList.filter(item => Number(item.bodyTemper) > 37)
+          this.title = '体温异常病人信息'
           break
         case 'heart':
           _data = this.infoList.filter(item => Number(item.heartBeat) > 70)
+          this.title = '心率异常病人信息'
           break
         case 'pleasure':
           _data = this.infoList.filter(item => Number(item.bloodPressure) > 120)
+          this.title = '血压异常病人信息'
           break
         case 'glucose':
           _data = this.infoList.filter(item => Number(item.bloodGlucose) > 37)
+          this.title = '血糖异常病人信息'
           break
       }
       this.data = _data

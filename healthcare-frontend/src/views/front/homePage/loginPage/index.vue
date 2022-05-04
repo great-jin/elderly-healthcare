@@ -73,11 +73,10 @@
             type="primary"
             :loading="loading"
             @click="submit"
-          >登录
-          </a-button>
+          >登录</a-button>
         </a-col>
       </a-row>
-      <a-row :style="{marginTop: '15px',textAlign: 'center'}">
+      <a-row :style="{textAlign: 'right', marginTop: '10px'}">
         <a-button type="link" @click="forget">忘记密码</a-button>
       </a-row>
     </a-form>

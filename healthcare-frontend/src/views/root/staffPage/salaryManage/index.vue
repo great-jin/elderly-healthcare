@@ -89,16 +89,16 @@ export default {
       let result = []
       switch (keys[0]) {
         case 'doctor':
-          result = this.salaryList.filter(item => item.organizeId === 'doctor')
+          result = this.salaryList.filter(item => item.organizeId === 'd01')
           break
         case 'nurse':
-          result = this.salaryList.filter(item => item.organizeId === 'nurse')
+          result = this.salaryList.filter(item => item.organizeId === 'n01')
           break
         case 'human':
-          result = this.salaryList.filter(item => item.organizeId === 'human')
+          result = this.salaryList.filter(item => item.organizeId === 'h01')
           break
         case 'logistics':
-          result = this.salaryList.filter(item => item.organizeId === 'logistics')
+          result = this.salaryList.filter(item => item.organizeId === 'l01')
           break
         case 'other':
           result = this.salaryList

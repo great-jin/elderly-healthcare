@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    :title="type === 'add' ? '新增病人' : '信息修改'"
+    :title="type === 'add' ? '病人分配' : '信息修改'"
     :visible="visible"
     width="55%"
     @cancel="cancel"
@@ -76,14 +76,14 @@
         </a-col>
         <a-col :span="12">
           <a-form-model-item
-            label="主治医师"
+            label="监护医师"
             prop="doctorName"
             :labelCol="formLayout.labelCol"
             :wrapperCol="formLayout.wrapperCol"
           >
             <a-select
               v-model="form.doctorName"
-              placeholder="请选择主治医师"
+              placeholder="请选择监护医师"
               :allowClear="true"
               @change="changeSelect('doctor', form.doctorName)"
             >
@@ -206,10 +206,10 @@ export default {
           { required: true, message: '请选择护理员', trigger: 'change' }
         ],
         doctorId: [
-          { required: true, message: '请输入主治医师', trigger: 'change' }
+          { required: true, message: '请输入监护医师', trigger: 'change' }
         ],
         doctorName: [
-          { required: true, message: '请输入主治医师', trigger: 'change' }
+          { required: true, message: '请输入监护医师', trigger: 'change' }
         ],
         inTime: [
           { required: true, message: '请选择入住时间', trigger: 'change' }

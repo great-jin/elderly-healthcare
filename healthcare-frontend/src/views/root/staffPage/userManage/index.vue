@@ -6,7 +6,7 @@
           @select="treeSelect"
           default-expand-all
         >
-          <a-tree-node key="0" title="医护部门">
+          <a-tree-node key="0" title="单位部门">
             <a-tree-node key="doctor" title="医师" is-leaf/>
             <a-tree-node key="nurse" title="护理员" is-leaf/>
             <a-tree-node key="human" title="人事" is-leaf/>
