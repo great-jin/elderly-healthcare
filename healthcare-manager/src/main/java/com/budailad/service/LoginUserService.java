@@ -1,6 +1,7 @@
 package com.budailad.service;
 
 import com.budailad.entity.LoginUser;
+import com.budailad.entity.dto.LoginUserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -21,6 +22,13 @@ public interface LoginUserService {
      * @return 实例对象
      */
     LoginUser queryById(String id);
+
+    /**
+     *
+     * @param staffId
+     * @return
+     */
+    LoginUserDTO getInfo(String staffId);
 
     /**
      * 条件查询

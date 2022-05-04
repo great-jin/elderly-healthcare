@@ -2,16 +2,22 @@ package com.budailad.controller;
 
 import com.budailad.entity.LoginUser;
 import com.budailad.entity.OrganizeStaff;
+import com.budailad.entity.dto.LoginUserDTO;
+import com.budailad.model.MinioRespond;
 import com.budailad.service.LoginUserService;
 import com.budailad.service.OrganizeStaffService;
 import com.budailad.utils.MinioUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +34,8 @@ import static com.budailad.utils.AESUtil.encrypt;
 @RestController
 @RequestMapping(value = "/api/healthcare/loginUser")
 public class LoginUserController {
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     private final static String KEY_FRONT = "byouthinvincible";
     private final static String IV_FRONT = "byouthinvincible";
@@ -68,6 +76,11 @@ public class LoginUserController {
     @GetMapping("/get")
     public ResponseEntity<LoginUser> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.loginUserService.queryById(id));
+    }
+
+    @GetMapping("/getInfo")
+    public ResponseEntity<LoginUserDTO> getInfo(@RequestParam(value = "staffId") String staffId) {
+        return ResponseEntity.ok(this.loginUserService.getInfo(staffId));
     }
 
     @PostMapping("/login")
@@ -181,11 +194,26 @@ public class LoginUserController {
      * @throws Exception
      */
     @GetMapping("/updateAvatar")
-    public String updateAvatar(@RequestParam(name = "staffId") String ID) {
-        // TODO: 2022/3/28 更换头像
-
-        return "1";
+    public boolean updateAvatar(@RequestParam(name = "staffId") String ID,
+                               @RequestParam(name = "files") MultipartFile file) {
+        boolean tag = false;
+        if (file.isEmpty()) {
+            return tag;
+        }
+        LoginUser loginUser = loginUserService.queryById(ID);
+        MinioRespond minioRespond = null;
+        String bucketName = loginUser.getBucketAvatar();
+        try {
+            minioRespond = minioUtil.uploadFile(file, bucketName);
+            if (minioRespond.getObjectWriteResponse() != null) {
+                tag = true;
+                loginUser.setUserAvatar(file.getName());
+                loginUserService.update(loginUser);
+            }
+        } catch (Exception e) {
+            logger.error("上传失败 : [{}]", Arrays.asList(e.getStackTrace()));
+        }
+        return tag;
     }
-
 }
 

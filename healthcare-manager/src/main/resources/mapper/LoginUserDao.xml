@@ -37,6 +37,14 @@
         where staff_id = #{staffId}
     </select>
 
+    <select id="getInfo" resultType="com.budailad.entity.dto.LoginUserDTO">
+        SELECT *
+        FROM staff_doctor d
+        left join login_user l
+        on l.staff_id = d.staff_id
+        where d.staff_id = #{staffId}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="LoginUserMap">
         select

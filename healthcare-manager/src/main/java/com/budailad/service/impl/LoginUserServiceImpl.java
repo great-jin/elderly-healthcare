@@ -2,6 +2,7 @@ package com.budailad.service.impl;
 
 import com.budailad.entity.LoginUser;
 import com.budailad.dao.LoginUserDao;
+import com.budailad.entity.dto.LoginUserDTO;
 import com.budailad.service.LoginUserService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -35,6 +36,15 @@ public class LoginUserServiceImpl implements LoginUserService {
     @Override
     public LoginUser queryById(String id) {
         return this.loginUserDao.queryById(id);
+    }
+
+    /**
+     * @param staffId
+     * @return
+     */
+    @Override
+    public LoginUserDTO getInfo(String staffId) {
+        return this.loginUserDao.getInfo(staffId);
     }
 
     /**

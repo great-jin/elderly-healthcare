@@ -9,6 +9,13 @@ export function getUser (params) {
   })
 }
 
+export function getInfo (params) {
+  return request({
+    url: `${prefix}/getInfo?staffId=${params}`,
+    method: 'get'
+  })
+}
+
 export function Login (params) {
   return request({
     url: `${prefix}/login`,

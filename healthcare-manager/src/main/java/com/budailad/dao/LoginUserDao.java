@@ -1,6 +1,7 @@
 package com.budailad.dao;
 
 import com.budailad.entity.LoginUser;
+import com.budailad.entity.dto.LoginUserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,13 @@ public interface LoginUserDao {
      * @return 实例对象
      */
     LoginUser queryById(String id);
+
+    /**
+     *
+     * @param staffId
+     * @return
+     */
+    LoginUserDTO getInfo(String staffId);
 
     /**
      * 条件查询

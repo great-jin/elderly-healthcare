@@ -75,15 +75,15 @@ export default {
   data () {
     return {
       normal: {
-        temp: 0,
-        heart: 0,
-        pleasure: 0,
-        glucose: 0
+        temp: 5,
+        heart: 3,
+        pleasure: 3,
+        glucose: 6
       },
       warning: {
-        temp: 0,
+        temp: 2,
         heart: 0,
-        pleasure: 0,
+        pleasure: 1,
         glucose: 0
       }
     }
