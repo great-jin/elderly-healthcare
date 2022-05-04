@@ -54,6 +54,7 @@
         <a-col :span="5">
           <a-form-model-item
             label="是否完成"
+            prop="isFinished"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
@@ -75,8 +76,7 @@
             type="primary"
             class="task-search-button"
             :style="{marginRight: '15px'}"
-          >查询
-          </a-button>
+          >查询</a-button>
         </a-col>
       </a-row>
     </a-form-model>

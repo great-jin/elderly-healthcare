@@ -9,7 +9,6 @@
       <a-button key="back" @click="cancel">取消</a-button>
       <a-button key="submit" type="primary" @click="ok">确定</a-button>
     </template>
-
     <a-form-model
       :model="form"
       :rules="rules"
@@ -72,12 +71,12 @@
         <a-col :span="12">
           <a-form-model-item
             label="护理人员"
-            prop="staffName"
+            prop="nurseName"
             :labelCol="labelCol"
             :wrapperCol="wrapperCol"
           >
             <a-select
-              v-model="form.staffName"
+              v-model="form.nurseName"
               placeholder="请选择负责人"
               :allowClear="true"
               style="width: 100%; min-width: 100px"
@@ -164,6 +163,7 @@
 </template>
 
 <script>
+import { addTask } from '@/api/dailyTask'
 import { listNurse } from '@/api/staffNurse.js'
 import { listCaseInfo } from '@/api/patientCaseInfo.js'
 
@@ -178,8 +178,10 @@ export default {
       form: {
         taskId: '',
         taskName: '',
+        patientId: '',
         patientName: undefined,
-        staffName: undefined,
+        nurseId: '',
+        nurseName: undefined,
         createdTime: '',
         isFinished: 0,
         taskContent: '',
@@ -195,7 +197,7 @@ export default {
         patientName: [
           { required: true, message: '请选择病人', trigger: 'change' }
         ],
-        staffName: [
+        nurseName: [
           { required: true, message: '请选择负责人', trigger: 'change' }
         ],
         createdTime: [
@@ -244,12 +246,24 @@ export default {
     ok () {
       this.$refs.taskForm.validate(valid => {
         if (valid) {
-          console.log(this.form)
+          const _nurseId = (this.nurseList.filter(item => item.staffName === this.form.nurseName))[0].staffId
+          this.form.nurseId = _nurseId
+          const _patientId = (this.patientList.filter(item => item.patientName === this.form.patientName))[0].patientId
+          this.form.patientId = _patientId
+          addTask(this.form).then(res => {
+            if (res.data) {
+              this.$message.success('任务新增成功')
+              this.cancel()
+            } else {
+              this.$message.error('新增失败，请稍后重试')
+            }
+          })
         }
       })
     },
     cancel () {
       this.visible = false
+      this.$refs.taskForm.resetFields()
     },
     guid () {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

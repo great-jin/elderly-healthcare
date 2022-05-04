@@ -45,7 +45,7 @@ public interface DailyTaskService {
      * @param dailyTask 实例对象
      * @return 实例对象
      */
-    DailyTask insert(DailyTask dailyTask);
+    int insert(DailyTask dailyTask);
 
     /**
      * 修改数据

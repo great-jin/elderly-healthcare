@@ -70,9 +70,8 @@ public class DailyTaskServiceImpl implements DailyTaskService {
      * @return 实例对象
      */
     @Override
-    public DailyTask insert(DailyTask dailyTask) {
-        this.dailyTaskDao.insert(dailyTask);
-        return dailyTask;
+    public int insert(DailyTask dailyTask) {
+        return this.dailyTaskDao.insert(dailyTask);
     }
 
     /**

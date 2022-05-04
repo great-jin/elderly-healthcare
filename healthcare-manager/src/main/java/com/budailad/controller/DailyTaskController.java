@@ -29,7 +29,7 @@ public class DailyTaskController {
     /**
      * 条件查询
      *
-     * @param dailyTask   筛选条件
+     * @param dailyTask 筛选条件
      * @return 查询结果
      */
     @GetMapping("/list")
@@ -67,8 +67,9 @@ public class DailyTaskController {
      * @return 新增结果
      */
     @PostMapping("/add")
-    public ResponseEntity<DailyTask> add(@RequestBody DailyTask dailyTask) {
-        return ResponseEntity.ok(this.dailyTaskService.insert(dailyTask));
+    public ResponseEntity<Boolean> add(@RequestBody DailyTask dailyTask) {
+        dailyTask.setIsDelay(0);
+        return ResponseEntity.ok(this.dailyTaskService.insert(dailyTask) > 0);
     }
 
     /**

@@ -56,20 +56,6 @@
       <a-row>
         <a-col :span="12">
           <a-form-model-item
-            label="部门编号"
-            prop="organizeId"
-            :labelCol="labelCol"
-            :wrapperCol="wrapperCol"
-          >
-            <a-input
-              v-model="formData.organizeId"
-              :disabled="true"
-              placeholder="请选择部门"
-            />
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-model-item
             label="部门名称"
             prop="organizeName"
             :labelCol="labelCol"
@@ -91,8 +77,6 @@
             </a-select>
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="工作月份"
@@ -106,6 +90,8 @@
             />
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="工作天数"
@@ -121,8 +107,6 @@
             />
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="请假天数"
@@ -137,6 +121,8 @@
             />
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="罚款金额"
@@ -150,8 +136,6 @@
             />
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="保险金额"
@@ -165,6 +149,8 @@
             />
           </a-form-model-item>
         </a-col>
+      </a-row>
+      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="补贴金额"
@@ -178,8 +164,6 @@
             />
           </a-form-model-item>
         </a-col>
-      </a-row>
-      <a-row>
         <a-col :span="12">
           <a-form-model-item
             label="合计金额"

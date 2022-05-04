@@ -55,20 +55,6 @@
       <a-row>
         <a-col :span="12">
           <a-form-model-item
-            label="护理编号"
-            prop="nurseId"
-            :labelCol="formLayout.labelCol"
-            :wrapperCol="formLayout.wrapperCol"
-          >
-            <a-input
-              v-model="form.nurseId"
-              placeholder="自动识别"
-              :disabled="true"
-            />
-          </a-form-model-item>
-        </a-col>
-        <a-col :span="12">
-          <a-form-model-item
             label="护理人员"
             prop="nurseName"
             :labelCol="formLayout.labelCol"
@@ -86,22 +72,6 @@
                 :value="cases.staffName"
               >{{ cases.staffName }}</a-select-option>
             </a-select>
-          </a-form-model-item>
-        </a-col>
-      </a-row>
-      <a-row>
-        <a-col :span="12">
-          <a-form-model-item
-            label="医师编号"
-            prop="doctorId"
-            :labelCol="formLayout.labelCol"
-            :wrapperCol="formLayout.wrapperCol"
-          >
-            <a-input
-              v-model="form.doctorId"
-              placeholder="自动识别"
-              :disabled="true"
-            />
           </a-form-model-item>
         </a-col>
         <a-col :span="12">

@@ -185,9 +185,9 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="taskId" useGeneratedKeys="true">
-        insert into daily_task(task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time,
+        insert into daily_task(task_id, task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time,
                                is_delay, update_time, is_finished, finish_time, comment)
-        values (#{taskName}, #{patientId}, #{patientName}, #{nurseId}, #{nurseName}, #{taskContent}, #{createdTime},
+        values (#{taskId}, #{taskName}, #{patientId}, #{patientName}, #{nurseId}, #{nurseName}, #{taskContent}, #{createdTime},
                 #{isDelay}, #{updateTime}, #{isFinished}, #{finishTime}, #{comment})
     </insert>
 
