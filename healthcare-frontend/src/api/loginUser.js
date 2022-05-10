@@ -9,13 +9,6 @@ export function getUser (params) {
   })
 }
 
-export function getInfo (params) {
-  return request({
-    url: `${prefix}/getInfo?staffId=${params}`,
-    method: 'get'
-  })
-}
-
 export function Login (params) {
   return request({
     url: `${prefix}/login`,
@@ -58,6 +51,29 @@ export function getAvatar (params) {
 export function updateAvatar (params) {
   return request({
     url: `${prefix}/updateAvatar`,
+    method: 'post',
+    data: params
+  })
+}
+
+export function getInfo (params) {
+  return request({
+    url: `${prefix}/getInfo?staffId=${params}`,
+    method: 'get'
+  })
+}
+
+export function sendMail (params) {
+  return request({
+    url: `${prefix}/sendMail`,
+    method: 'post',
+    data: params
+  })
+}
+
+export function forgetPwd (params) {
+  return request({
+    url: `${prefix}/forget`,
     method: 'post',
     data: params
   })

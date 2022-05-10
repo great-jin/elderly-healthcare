@@ -6,7 +6,6 @@ import com.budailad.entity.dto.LoginUserDTO;
 import com.budailad.service.LoginUserService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -44,7 +43,7 @@ public class LoginUserServiceImpl implements LoginUserService {
      */
     @Override
     public LoginUserDTO getInfo(String staffId) {
-        return this.loginUserDao.getInfo(staffId);
+        return loginUserDao.getInfo(staffId);
     }
 
     /**
@@ -90,9 +89,8 @@ public class LoginUserServiceImpl implements LoginUserService {
      */
     @Override
     @CacheEvict(key = "#loginUser.staffId")
-    public LoginUser update(LoginUser loginUser) {
-        this.loginUserDao.update(loginUser);
-        return this.queryById(loginUser.getId());
+    public int update(LoginUser loginUser) {
+        return this.loginUserDao.update(loginUser);
     }
 
     /**

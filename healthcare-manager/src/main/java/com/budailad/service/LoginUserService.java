@@ -61,7 +61,7 @@ public interface LoginUserService {
      * @param loginUser 实例对象
      * @return 实例对象
      */
-    LoginUser update(LoginUser loginUser);
+    int update(LoginUser loginUser);
 
     /**
      * 通过主键删除数据

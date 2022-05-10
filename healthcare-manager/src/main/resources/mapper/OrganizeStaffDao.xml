@@ -183,10 +183,6 @@
         </where>
     </select>
 
-    <!-- 查询用户绑定邮箱 -->
-    <select id="getStaffEmail" resultType="java.lang.String">
-
-    </select>
     <select id="getAllStaff" resultMap="OrganizeStaffMap">
         SELECT * from organize_staff
         UNION all

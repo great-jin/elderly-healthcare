@@ -1,11 +1,9 @@
 package com.budailad.controller;
 
 import com.budailad.entity.LoginUser;
-import com.budailad.entity.OrganizeStaff;
 import com.budailad.entity.dto.LoginUserDTO;
 import com.budailad.model.MinioRespond;
 import com.budailad.service.LoginUserService;
-import com.budailad.service.OrganizeStaffService;
 import com.budailad.utils.MinioUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +47,7 @@ public class LoginUserController {
     private MinioUtil minioUtil;
 
     @Autowired
-    private OrganizeStaffService organizeStaffService;
+    private JavaMailSender mailSender;
 
     /**
      * 服务对象
@@ -76,11 +76,6 @@ public class LoginUserController {
     @GetMapping("/get")
     public ResponseEntity<LoginUser> queryById(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(this.loginUserService.queryById(id));
-    }
-
-    @GetMapping("/getInfo")
-    public ResponseEntity<LoginUserDTO> getInfo(@RequestParam(value = "staffId") String staffId) {
-        return ResponseEntity.ok(this.loginUserService.getInfo(staffId));
     }
 
     @PostMapping("/login")
@@ -138,21 +133,55 @@ public class LoginUserController {
     }
 
     /**
-     * 忘记密码
+     * 联表查询用户信息
      *
      * @param staffId
      * @return
      */
-    @GetMapping("/foreget")
-    public String getAllStaff(@RequestParam(value = "staffId") String staffId) {
-        LoginUser loginUser = new LoginUser();
-        loginUser.setStaffId(staffId);
-        List<LoginUser> loginUserList = loginUserService.conditionQuery(loginUser);
-        if (loginUserList.size() > 0) {
-            // 查询用户邮箱
-            String email = organizeStaffService.getStaffEmail(staffId);
-        }
-        return "email";
+    @GetMapping("/getInfo")
+    public ResponseEntity<LoginUserDTO> getInfo(@RequestParam(value = "staffId") String staffId) {
+        return ResponseEntity.ok(loginUserService.getInfo(staffId));
+    }
+
+    /**
+     * 邮件发送
+     *
+     * @param mailStr
+     */
+    @PostMapping("/sendMail")
+    public String SendMail(@RequestParam("email") String mailStr) {
+        // 生成邮件内容
+        StringBuilder msgText = new StringBuilder();
+        String code = String.valueOf((int) ((Math.random() * 9 + 1) * Math.pow(10, 5)));
+        msgText.append("【疗养一体化系统】验证码：");
+        msgText.append(code);
+        msgText.append("，尊敬的用户，您正在使用邮箱找回密码[验证码告知他人将导致帐号被盗，请勿泄露]");
+        // 发送邮件
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("budai_youth@163.com");
+        message.setTo(mailStr);
+        message.setSubject("【疗养一体化系统】验证码");
+        message.setText(msgText.toString());
+
+        mailSender.send(message);
+        return code;
+    }
+
+    /**
+     * @param loginUser
+     * @return
+     */
+    @PostMapping("/forget")
+    public ResponseEntity<Boolean> forget(@RequestBody LoginUser loginUser) throws Exception {
+        // 获取前端加密数据进行解密
+        String frontEnPwd = loginUser.getUserPwd();
+        String frontDePwd = desEncrypt(frontEnPwd, KEY_FRONT, IV_FRONT).trim();
+        // 对解密数据二次加密
+        String backByte = new String(frontDePwd.getBytes(), "UTF-8");
+        String backEnPwd = encrypt(backByte, KEY_BACK, IV_BACK);
+        // 更新用户密码
+        loginUser.setUserPwd(backEnPwd);
+        return ResponseEntity.ok(this.loginUserService.update(loginUser) > 0);
     }
 
     /**
@@ -162,8 +191,8 @@ public class LoginUserController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<LoginUser> edit(@RequestBody LoginUser loginUser) {
-        return ResponseEntity.ok(this.loginUserService.update(loginUser));
+    public ResponseEntity<Boolean> edit(@RequestBody LoginUser loginUser) {
+        return ResponseEntity.ok(this.loginUserService.update(loginUser) > 0);
     }
 
 
@@ -198,7 +227,7 @@ public class LoginUserController {
      */
     @GetMapping("/updateAvatar")
     public boolean updateAvatar(@RequestParam(name = "staffId") String ID,
-                               @RequestParam(name = "files") MultipartFile file) {
+                                @RequestParam(name = "files") MultipartFile file) {
         boolean tag = false;
         if (file.isEmpty()) {
             return tag;

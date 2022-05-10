@@ -38,11 +38,18 @@
     </select>
 
     <select id="getInfo" resultType="com.budailad.entity.dto.LoginUserDTO">
-        SELECT *
-        FROM staff_doctor d
-        left join login_user l
-        on l.staff_id = d.staff_id
-        where d.staff_id = #{staffId}
+        SELECT staff_id as staffId, staff_email as staffEmail
+        from (
+                 SELECT s.staff_id, s.staff_email
+                 from organize_staff s
+                 UNION all
+                 SELECT n.staff_id, n.staff_email
+                 from staff_nurse n
+                 UNION all
+                 SELECT d.staff_id, d.staff_email
+                 from staff_doctor d
+             ) as t
+        where t.staff_id = #{staffId}
     </select>
 
     <!--查询指定行数据-->
@@ -238,9 +245,6 @@
     <update id="update">
         update login_user
         <set>
-            <if test="staffId != null and staffId != ''">
-                staff_id = #{staffId},
-            </if>
             <if test="userName != null and userName != ''">
                 user_name = #{userName},
             </if>
@@ -275,7 +279,7 @@
                 bucket_avatar = #{bucketAvatar},
             </if>
         </set>
-        where id = #{id}
+        where staff_id = #{staffId}
     </update>
 
     <!--通过主键删除-->

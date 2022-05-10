@@ -21,9 +21,9 @@
             <a-input
               placeholder="请输入账号"
               v-decorator="[
-            'staffId',
-            { rules: [{ required: true, message: '账号不能为空!' }] }
-          ]"
+                'staffId',
+                { rules: [{ required: true, message: '账号不能为空!' }] }
+              ]"
             >
               <a-icon slot="prefix" type="user"/>
             </a-input>
@@ -36,10 +36,10 @@
             <a-input-password
               placeholder="请输入密码"
               v-decorator="[
-                'userPwd',
-                { rules: [{ required: true, message: '密码不能为空!' }] }
-              ]"
-            >
+                  'userPwd',
+                  { rules: [{ required: true, message: '密码不能为空!' }] }
+                ]"
+              >
               <a-icon slot="prefix" type="lock"/>
             </a-input-password>
           </a-form-item>
@@ -52,10 +52,10 @@
               style="width: 100%;"
               placeholder="请输入验证码"
               v-decorator="[
-                'authCode',
-                { rules: [{ required: true, message: '验证码不能为空!' }] }
-              ]"
-            >
+                  'authCode',
+                  { rules: [{ required: true, message: '验证码不能为空!' }] }
+                ]"
+              >
               <a-icon slot="prefix" type="lock"/>
             </a-input>
           </a-form-item>
@@ -132,7 +132,6 @@ export default {
             values.userPwd = Encrypt(values.userPwd)
             Login(values).then(res => {
               if (res.data === 1) {
-                this.loading = false
                 getUser(values.staffId).then(res => {
                   // 记录登录用户
                   res.data.startTime = new Date().getTime()
@@ -151,9 +150,11 @@ export default {
                   }
                 })
               } else {
+                this.refreshCode()
                 this.$message.error('信息有误，请重试！')
                 this.form.resetFields()
               }
+              this.loading = false
             })
           } else {
             this.loading = false

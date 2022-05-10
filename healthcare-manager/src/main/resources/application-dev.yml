@@ -42,8 +42,8 @@ spring:
   # 邮件配置
   mail:
     host: smtp.163.com
-    username: great__jin@163.com
-    password: JJVYCNBXFEBFDBIU
+    username: budai_youth@163.com
+    password: ZJBPEJGNGJIRIDGY
     properties:
       mail:
         smtp:
