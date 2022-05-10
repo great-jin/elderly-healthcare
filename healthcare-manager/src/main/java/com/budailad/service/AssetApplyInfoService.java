@@ -53,7 +53,7 @@ public interface AssetApplyInfoService {
      * @param assetApplyInfo 实例对象
      * @return 实例对象
      */
-    AssetApplyInfo update(AssetApplyInfo assetApplyInfo);
+    int update(AssetApplyInfo assetApplyInfo);
 
     /**
      * 通过主键删除数据

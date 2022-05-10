@@ -11,7 +11,7 @@
         title="确认拒绝该申请"
         ok-text="是"
         cancel-text="否"
-        @confirm="ok('cancel')"
+        @confirm="ok('reject')"
         style="background-color: red"
       >
         <a-button key="submit" type="primary">拒绝</a-button>
@@ -101,13 +101,16 @@ export default {
             isApprove: 1
           }
           break
-        case 'cancel':
+        case 'reject':
           _vacate = {
             id: this.vacateId,
             isApprove: 2
           }
           break
       }
+      const loginUser = JSON.parse(localStorage.getItem('loginUser'))
+      _vacate.auditorId = loginUser.staffId
+      _vacate.auditorName = loginUser.userName
       updateVacateInfo(_vacate).then(res => {
         if (res.data) {
           this.$message.success('操作成功')

@@ -172,7 +172,6 @@ export default {
             const _form = new FormData()
             _form.append('email', _email)
             await sendMail(_form).then(res => {
-              console.log(res);
               this.emailCode = res.data
               this.$message.success('发送成功，请注意查收')
             })
@@ -184,9 +183,7 @@ export default {
     },
     updatePwd() {
       // 修改用户密码
-      console.log('11111111111')
       this.$refs.modelForm.validate(valid => {
-        console.log(this.formData)
         if (valid) {
           // 比对验证码
           if (this.emailCode.toString() === this.formData.verifyCode) {
@@ -198,7 +195,6 @@ export default {
                 staffId: this.formData.staffId,
                 userPwd: Encrypt(_pwd)
               }
-              console.log('update user', _user)
               forgetPwd(_user).then(res => {
                 if (res.data) {
                   this.$message.success('密码修改成功')

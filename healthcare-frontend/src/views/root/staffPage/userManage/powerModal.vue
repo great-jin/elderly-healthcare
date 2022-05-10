@@ -69,8 +69,8 @@
           v-model="formData.isDisabled"
           :default-value="0"
         >
-          <a-radio :value="0">否</a-radio>
-          <a-radio :value="1">是</a-radio>
+          <a-radio :value="0">是</a-radio>
+          <a-radio :value="1">否</a-radio>
         </a-radio-group>
       </a-form-model-item>
       <a-form-model-item

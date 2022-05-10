@@ -59,6 +59,7 @@ export default {
           removeApplyInfo(_data).then(res => {
             if (res.data) {
               this.$message.success('成功撤销申请')
+              this.getData()
             } else {
               this.$message.error('撤销失败，请重试')
             }

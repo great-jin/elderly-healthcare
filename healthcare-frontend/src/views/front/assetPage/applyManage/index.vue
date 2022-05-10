@@ -176,16 +176,16 @@
 <script>
 import moment from 'moment'
 import MyApply from "./applyInfp/myApply";
-import { listOrg } from '@/api/organizeInfo'
-import { listGoods } from '@/api/warehouseStorage'
-import { addApplyInfo } from '@/api/assetApplyInfo'
+import {listOrg} from '@/api/organizeInfo'
+import {listGoods} from '@/api/warehouseStorage'
+import {addApplyInfo} from '@/api/assetApplyInfo'
 
 export default {
   name: 'ApplyManage',
-  components:{
+  components: {
     MyApply
   },
-  data () {
+  data() {
     return {
       organize: [],
       goodsList: [],
@@ -194,11 +194,11 @@ export default {
       }
     }
   },
-  mounted () {
+  mounted() {
     this.getData()
   },
   methods: {
-    async getData () {
+    async getData() {
       await listOrg().then(res => {
         this.organize = res.data
       })
@@ -206,10 +206,10 @@ export default {
         this.goodsList = res.data
       })
     },
-    disabledDate (current) {
+    disabledDate(current) {
       return current && current < moment().endOf('day')
     },
-    ok () {
+    ok() {
       addApplyInfo(this.applyInfo).then(res => {
         if (res.data) {
           this.$message.success('提交成功')
@@ -219,7 +219,7 @@ export default {
         }
       })
     },
-    onChange (type, index) {
+    onChange(type, index) {
       switch (type) {
         case 'goods':
           const goods = (this.goodsList.filter(item => item.goodsName === this.applyInfo.applyGoodsList[index].goodsName))[0]
@@ -232,7 +232,7 @@ export default {
           break
       }
     },
-    addDevice () {
+    addDevice() {
       this.applyInfo.applyGoodsList.push({
         uuid: this.guid(),
         goodsName: undefined,
@@ -243,10 +243,10 @@ export default {
         comment: ''
       })
     },
-    remove (item) {
+    remove(item) {
       this.applyInfo.applyGoodsList = this.applyInfo.applyGoodsList.filter(op => (op.uuid !== item.uuid))
     },
-    guid () {
+    guid() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         const r = Math.random() * 16 | 0
         const v = c === 'x' ? r : (r & 0x3 | 0x8)
@@ -258,23 +258,27 @@ export default {
 </script>
 
 <style scoped>
-  input::-ms-input-placeholder{
-    text-align: center;
-  }
-  input::-webkit-input-placeholder{
-    text-align: center;
-  }
-  .apply-index{
-    text-align: center;
-    margin-top: 3px;
-    border: lightgray 2px solid;
-  }
-  .apply-title{
-    padding: 0px 5px;
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  .apply-manage-remove{
-    margin-top: 10px;
-  }
+input::-ms-input-placeholder {
+  text-align: center;
+}
+
+input::-webkit-input-placeholder {
+  text-align: center;
+}
+
+.apply-index {
+  text-align: center;
+  margin-top: 3px;
+  border: lightgray 2px solid;
+}
+
+.apply-title {
+  padding: 0px 5px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.apply-manage-remove {
+  margin-top: 10px;
+}
 </style>

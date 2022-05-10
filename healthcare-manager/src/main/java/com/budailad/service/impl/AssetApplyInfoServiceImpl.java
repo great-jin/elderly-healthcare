@@ -85,9 +85,8 @@ public class AssetApplyInfoServiceImpl implements AssetApplyInfoService {
     @Caching(evict = {
             @CacheEvict(key = "#assetApplyInfo.applyId")
     })
-    public AssetApplyInfo update(AssetApplyInfo assetApplyInfo) {
-        this.assetApplyInfoDao.update(assetApplyInfo);
-        return this.queryById(assetApplyInfo.getApplyId());
+    public int update(AssetApplyInfo assetApplyInfo) {
+        return this.assetApplyInfoDao.update(assetApplyInfo);
     }
 
     /**

@@ -11,7 +11,7 @@
         title="确认拒绝该申请"
         ok-text="是"
         cancel-text="否"
-        @confirm="ok('cancel')"
+        @confirm="ok('reject')"
         style="background-color: red"
       >
         <a-button key="submit" type="primary">拒绝</a-button>
@@ -103,7 +103,7 @@ export default {
             currentState: 1
           }
           break
-        case 'cancel':
+        case 'reject':
           _apply = {
             applyId: this.applyId,
             currentState: 2

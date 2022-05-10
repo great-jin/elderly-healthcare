@@ -102,8 +102,8 @@ public class AssetApplyInfoController {
      * @return 编辑结果
      */
     @PostMapping("/update")
-    public ResponseEntity<AssetApplyInfo> edit(@RequestBody AssetApplyInfo assetApplyInfo) {
-        return ResponseEntity.ok(this.assetApplyInfoService.update(assetApplyInfo));
+    public ResponseEntity<Boolean> edit(@RequestBody AssetApplyInfo assetApplyInfo) {
+        return ResponseEntity.ok(this.assetApplyInfoService.update(assetApplyInfo) > 0);
     }
 
     /**

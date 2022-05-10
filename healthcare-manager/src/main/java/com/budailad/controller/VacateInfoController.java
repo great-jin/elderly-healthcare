@@ -70,6 +70,7 @@ public class VacateInfoController {
     public ResponseEntity<Boolean> add(@RequestBody VacateInfo vacateInfo) {
         boolean tag = false;
         vacateInfo.setId(UUID.randomUUID().toString());
+        vacateInfo.setIsApprove(0);
         if (vacateInfoService.insert(vacateInfo) != null) {
             tag = true;
         }

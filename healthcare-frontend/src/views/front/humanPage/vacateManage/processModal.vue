@@ -79,6 +79,9 @@ export default {
     },
     cancel () {
       this.visible = false
+      this.current = 1
+      this.result = '等待审核'
+      this.vacateInfo = {}
     }
   }
 }
