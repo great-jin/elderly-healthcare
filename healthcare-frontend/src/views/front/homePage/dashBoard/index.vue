@@ -3,16 +3,16 @@
     <a-row style="margin-right: 15px">
       <a-col class="head-workspace" :span="17">
         <a-card
-            title="我的工作台"
-            style="width: 100%"
-            :bordered="false"
-            hoverable
+          title="我的工作台"
+          style="width: 100%"
+          :bordered="false"
+          hoverable
         >
           <a-card-meta :title="loginUser.userName" description="欢迎登录系统">
             <a-avatar
-                size="large"
-                slot="avatar"
-                :src="imgUrl"
+              size="large"
+              slot="avatar"
+              :src="imgUrl"
             />
           </a-card-meta>
           <template slot="actions" class="ant-card-actions">
@@ -55,9 +55,9 @@
         <div style="padding: 5px;">
           <a-card title="代办任务" size="default" style="width: 100%">
             <a-radio-group
-                default-value="代办"
-                style="margin-bottom: 10px"
-                defaultValue="0"
+              default-value="代办"
+              style="margin-bottom: 10px"
+              defaultValue="0"
             >
               <a-radio-button value="0" @click="taskState('0')">
                 代办({{ count.act }})
@@ -70,9 +70,9 @@
               </a-radio-button>
             </a-radio-group>
             <a-list
-                class="task-list"
-                item-layout="horizontal"
-                :data-source="taskData"
+              class="task-list"
+              item-layout="horizontal"
+              :data-source="taskData"
             >
               <a-list-item slot="renderItem" slot-scope="item" style="padding: 5px">
                 <a-tooltip>
@@ -80,8 +80,8 @@
                     {{ item.taskName }} : {{ item.taskContent }}
                   </template>
                   <a-list-item-meta
-                      :description="item.taskContent.length"
-                      :data-tips="item.taskContent"
+                    :description="item.taskContent"
+                    :data-tips="item.taskContent"
                   >
                     <a slot="title">{{ item.taskName }}</a>
                   </a-list-item-meta>
@@ -89,10 +89,10 @@
                 <template slot="actions">
                   <a-button type="link" @click="clickOption('detail', item)">查看</a-button>
                   <a-popconfirm
-                      title="确认关闭任务"
-                      ok-text="是"
-                      cancel-text="否"
-                      @confirm="clickOption('done', item)"
+                    title="确认关闭任务"
+                    ok-text="是"
+                    cancel-text="否"
+                    @confirm="clickOption('done', item)"
                   >
                     <a-button type="link">完成</a-button>
                   </a-popconfirm>
@@ -106,20 +106,20 @@
       <a-col class="process" :span="11">
         <template v-if="isRoot">
           <a-card
-              title="待审批流程"
-              :body-style="{padding: 0}"
-              :style="{marginTop: '5px', minHeight: '250px'}"
+            title="待审批流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '5px', minHeight: '250px'}"
           >
             <a-button slot="extra" type="link" @click="jump('unAudit')">全部流程</a-button>
             <a-card-grid
-                style="width:33.33%; text-align:center"
-                v-for="(item, i) in unAuditProcess"
-                :key="i"
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in unAuditProcess"
+              :key="i"
             >
               <a-card
-                  :bordered="false"
-                  :body-style="{padding: 0}"
-                  @click="clickOption('process', item, '1')"
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '1')"
               >
                 <a-card-meta :description="item.vacateReason">
                   <div slot="title">
@@ -131,20 +131,20 @@
             <processModal ref="processModal"/>
           </a-card>
           <a-card
-              title="进行中流程"
-              :body-style="{padding: 0}"
-              :style="{marginTop: '15px', minHeight: '250px'}"
+            title="进行中流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '15px', minHeight: '250px'}"
           >
             <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
             <a-card-grid
-                style="width:33.33%; text-align:center"
-                v-for="(item, i) in acticityProcess"
-                :key="i"
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in acticityProcess"
+              :key="i"
             >
               <a-card
-                  :bordered="false"
-                  :body-style="{padding: 0}"
-                  @click="clickOption('process', item, '0')"
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '0')"
               >
                 <a-card-meta :description="item.vacateReason">
                   <div slot="title">
@@ -158,20 +158,20 @@
         </template>
         <template v-else>
           <a-card
-              title="进行中流程"
-              :body-style="{padding: 0}"
-              :style="{marginTop: '5px', minHeight: '510px'}"
+            title="进行中流程"
+            :body-style="{padding: 0}"
+            :style="{marginTop: '5px', minHeight: '510px'}"
           >
             <a-button slot="extra" type="link" @click="jump('unFinish')">全部流程</a-button>
             <a-card-grid
-                style="width:33.33%; text-align:center"
-                v-for="(item, i) in acticityProcess"
-                :key="i"
+              style="width:33.33%; text-align:center"
+              v-for="(item, i) in acticityProcess"
+              :key="i"
             >
               <a-card
-                  :bordered="false"
-                  :body-style="{padding: 0}"
-                  @click="clickOption('process', item, '0')"
+                :bordered="false"
+                :body-style="{padding: 0}"
+                @click="clickOption('process', item, '0')"
               >
                 <a-card-meta :description="item.vacateReason">
                   <div slot="title">
@@ -201,6 +201,7 @@ import processModal from './processModal'
 import {listTask} from '@/api/dailyTask'
 import {listVacateInfo} from '@/api/vacateInfo'
 import {listPatientInfo} from "@/api/patientInfo";
+import {updateTask} from "@/api/dailyTask";
 
 export default {
   name: 'HomePage',
@@ -334,7 +335,16 @@ export default {
           this.$router.push('/elderlyHealthcare/login')
           break
         case 'done':
-          this.$message.success('完成')
+          this.$message.success('任务完成成功')
+          /*const _task = {
+            id: data.id,
+            finish_time: 1
+          }
+          updateTask(_task).then(res => {
+            if (res.data) {
+              this.$message.success('任务完成成功')
+            }
+          })*/
           break
         case 'detail':
           this.$refs.taskModal.paramReceive(data)
