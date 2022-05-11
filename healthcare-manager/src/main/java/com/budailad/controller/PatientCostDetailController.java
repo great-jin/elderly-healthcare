@@ -117,7 +117,7 @@ public class PatientCostDetailController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @PostMapping("/delete")
+    @GetMapping("/delete")
     public ResponseEntity<Boolean> deleteById(String id) {
         return ResponseEntity.ok(this.patientCostDetailService.deleteById(id));
     }

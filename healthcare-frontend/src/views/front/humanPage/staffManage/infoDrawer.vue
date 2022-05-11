@@ -62,7 +62,6 @@
                 placeholder="请输入部门"
                 :disabled="isMore"
                 :allowClear="true"
-                style="padding: 0 5px"
               >
                 <a-select-option
                   v-for="cases in orgList"

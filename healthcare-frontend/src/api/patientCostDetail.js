@@ -42,8 +42,7 @@ export function updateCostDetail (params) {
 
 export function removeCostDetail (params) {
   return request({
-    url: `${prefix}/delete`,
-    method: 'post',
-    data: params
+    url: `${prefix}/delete?id=${params}`,
+    method: 'get'
   })
 }

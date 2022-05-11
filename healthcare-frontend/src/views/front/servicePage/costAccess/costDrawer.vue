@@ -49,7 +49,7 @@
 import Empty from '@/views/utils/empty'
 import CostModal from './costModal'
 import { costColumns } from './const'
-import { getCost } from '@/api/patientCostDetail'
+import { getCost, removeCostDetail } from '@/api/patientCostDetail'
 import { listCostInfo } from '@/api/patientCostInfo'
 
 export default {
@@ -111,7 +111,13 @@ export default {
           this.$refs.costModal.paramReceive(data.id)
           break
         case 'delete':
-          this.$message.success('delete')
+          removeCostDetail(data.id).then(res => {
+            if (res.data) {
+              this.$message.success('删除成功')
+            } else {
+              this.$message.error('删除失败')
+            }
+          })
           break
       }
     }
