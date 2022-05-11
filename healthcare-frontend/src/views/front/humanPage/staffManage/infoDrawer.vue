@@ -8,7 +8,7 @@
     @close="cancel"
   >
     <template v-if="!isMore">
-      <a-button type="primary" style="float: right; z-index: 1">保存</a-button>
+      <a-button type="primary" @click="ok" style="float: right; z-index: 1">保存</a-button>
     </template>
     <a-row>
       <a-form-model
@@ -57,11 +57,20 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input
+              <a-select
                 v-model="form.organizeId"
                 placeholder="请输入部门"
                 :disabled="isMore"
-              />
+                :allowClear="true"
+                style="padding: 0 5px"
+              >
+                <a-select-option
+                  v-for="cases in orgList"
+                  :key="cases.organizeId"
+                  :value="cases.organizeId"
+                >{{ cases.organizeName }}
+                </a-select-option>
+              </a-select>
             </a-form-model-item>
           </a-col>
           <a-col :span="12">
@@ -71,12 +80,16 @@
               :labelCol="labelCol"
               :wrapperCol="wrapperCol"
             >
-              <a-input
+              <a-select
                 v-model="form.staffPosition"
                 placeholder="请选择职位"
                 :disabled="isMore"
                 style="width: 100%"
-              />
+              >
+                <a-select-option value="护理员">护理员</a-select-option>
+                <a-select-option value="监护医师">监护医师</a-select-option>
+                <a-select-option value="普通员工">普通员工</a-select-option>
+              </a-select>
             </a-form-model-item>
           </a-col>
         </a-row>
@@ -221,6 +234,7 @@
 import { listNurse, addNurse, updateNurse } from '@/api/staffNurse'
 import { listDoctor, addDoctor, updateDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff, addOrganizeStaff, updateOrganizeStaff } from '@/api/organizeStaff'
+import { listOrg } from '@/api/organizeInfo'
 
 export default {
   name: 'InfoDrawer',
@@ -230,11 +244,12 @@ export default {
       visible: false,
       isMore: false,
       staffType: '',
+      orgList: [],
       form: {
         staffId: '',
         staffName: '',
-        organizeId: '',
-        staffPosition: '',
+        organizeId: undefined,
+        staffPosition: undefined,
         staffGender: undefined,
         staffAge: '',
         staffPhone: '',
@@ -300,6 +315,14 @@ export default {
         this.staffType = staffType
         this.getData(staffType, data)
       }
+      if (type === 'add') {
+        this.getOrgList()
+      }
+    },
+    getOrgList () {
+      listOrg().then(res => {
+        this.orgList = res.data
+      })
     },
     getData (staffType, data) {
       const _object = {
@@ -330,8 +353,8 @@ export default {
     },
     ok () {
       const _type = this.type
-      switch (this.staffType) {
-        case 'nurse':
+      switch (this.form.organizeId) {
+        case 'n01':
           if (_type === 'add') {
             addNurse(this.form).then(res => {
               if (res.data) {
@@ -347,7 +370,7 @@ export default {
             })
           }
           break
-        case 'doctor':
+        case 'd01':
           if (_type === 'add') {
             addDoctor(this.form).then(res => {
               if (res.data) {
@@ -380,6 +403,7 @@ export default {
           }
           break
       }
+      this.cancel()
     }
   }
 }

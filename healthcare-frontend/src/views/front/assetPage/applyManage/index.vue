@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-tabs type="card">
+    <a-tabs type="card" @change="callback">
       <a-tab-pane key="1" tab="申请提交">
         <a-descriptions
           style="padding: 0px 10px"
@@ -167,7 +167,7 @@
         </a-row>
       </a-tab-pane>
       <a-tab-pane key="2" tab="我的申请">
-        <MyApply />
+        <MyApply v-if="tag"/>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -187,6 +187,7 @@ export default {
   },
   data() {
     return {
+      tag: true,
       organize: [],
       goodsList: [],
       applyInfo: {
@@ -198,6 +199,12 @@ export default {
     this.getData()
   },
   methods: {
+    callback(key) {
+      if (key === '2') {
+        this.tag = false
+        this.tag = true
+      }
+    },
     async getData() {
       await listOrg().then(res => {
         this.organize = res.data

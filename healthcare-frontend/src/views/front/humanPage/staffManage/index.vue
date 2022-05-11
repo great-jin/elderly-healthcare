@@ -58,7 +58,7 @@ import { listDoctor } from '@/api/staffDoctor'
 import { listOrganizeStaff } from '@/api/organizeStaff'
 
 export default {
-  name: 'StaffManage',
+  name: 'StaffManage1',
   components: {
     InfoDrawer
   },
