@@ -51,27 +51,27 @@ npm run dev
 ```xml
 # MySQL 数据库
 datasource:
-  url: jdbc:mysql://localhost:3306/elderly_healthcare
-  username: root				# 替换为你的用户名
-  password: 123456				# 替换为你的密码
+  url: jdbc:mysql://127.0.0.1:3306/elderly_healthcare
+  username: root			      	# 替换为你的用户名
+  password: 123456			    	# 替换为你的密码
 
 # Redis 数据库
 redis:
-  host: 47.100.200.104			# 替换为你的用户名
+  host: 127.0.0.1		  	# 替换为你的用户名
   port: 6379					
-  password: budai7417..			# 替换为你的密码
+  password: 123456			# 替换为你的密码
 
 # Minio数据库
 minio:
-  endpoint: http://47.100.200.104:9000		# 替换地址
-  accessKey: budai							# 替换为你的用户名
-  secretKey: budai7417..					# 替换为你的密码
+  endpoint: http://127.0.0.1:9000		# 替换地址
+  accessKey: minioadmin							# 替换为你的用户名
+  secretKey: minioadmin			      	# 替换为你的密码
 
 # 邮件配置
 mail:
   host: smtp.163.com
-  username: budai_youth@163.com		# 替换为你的邮箱地址
-  password: ZJBPEJGNGJIRIDGY		# 替换为你的邮箱token
+  username: test_mail@163.com	   	# 替换为你的邮箱地址
+  password: mail_token      	  	# 替换为你的邮箱token
 ```
 
 
