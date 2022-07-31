@@ -64,7 +64,7 @@ redis:
 # Minio数据库
 minio:
   endpoint: http://127.0.0.1:9000		# 替换地址
-  accessKey: minioadmin							# 替换为你的用户名
+  accessKey: minioadmin             # 替换为你的用户名
   secretKey: minioadmin			      	# 替换为你的密码
 
 # 邮件配置
