@@ -16,13 +16,11 @@
 +-- healthcare-frontend				# 前端工程目录
 +-- healthcare-manager				# 后端工程目录
 |   +-- pom.xml
-+-- sql								# 项目SQL脚本
++-- sql								        # 项目SQL脚本
 |   +-- home_menu.sql
 |   +-- elderly_healthcare.sql
-+-- README.html 					# 项目说明文档
++-- README.html 					    # 项目说明文档
 ```
-
-
 
 
 
@@ -30,7 +28,7 @@
 
 #### 1. 前端启动
 
-前端启动只需在``healthcare-frontend``目录下直接编译即可。
+前端基于 ``Vue`` 需要安装 ``Node.js``, 启动只需在 ``healthcare-frontend`` 目录下直接编译即可。
 
 ```bash
 npm install
@@ -42,7 +40,7 @@ npm run dev
 
 #### 2. 后端启动
 
-后端启动需下载``Maven``依赖，IDEA安装``Maven Helper ``插件在``healthcare-manager``目录下右击``pom.xml``文件选择``clear install``。
+后端启动需下载 ``Maven`` 依赖，IDEA安装 ``Maven Helper `` 插件在 ``healthcare-manager`` 目录下右击 ``pom.xml`` 文件选择 ``clear install`` 。
 
 
 
@@ -71,16 +69,5 @@ minio:
 mail:
   host: smtp.163.com
   username: test_mail@163.com	   	# 替换为你的邮箱地址
-  password: mail_token      	  	# 替换为你的邮箱token
+  password: mail_token      	  	# 替换为你的邮箱 token
 ```
-
-
-
-
-
-
-
-
-
-
-
