@@ -24,14 +24,14 @@ public class MinioTest {
     public void init() throws Exception {
         minioClient = MinioClient.builder()
                 // 填入 Minio API
-                .endpoint("http://47.100.200.104:9000")
+                .endpoint("http://127.0.0.1:9000")
                 // 填入用户名、密码
-                .credentials("budai", "budai7417..")
+                .credentials("minioadmin", "minioadmin")
                 .build();
     }
 
     @Test
-    public void MinioUrl() throws Exception{
+    public void MinioUrl() throws Exception {
         String bucketName = "webtest";
         String objectName = "1.jpg";
         Integer expires = 7;

@@ -1,6 +1,4 @@
-# Server Config
-
-# 配置端口
+# 端口配置
 server:
   port: 9090
   tomcat:
@@ -10,9 +8,9 @@ spring:
   # MySQL 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.100.200.104:6565/elderly_healthcare?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/elderly_healthcare?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: budai7417..
+    password: 123456
     # 阿里连接池配置
     druid:
       initial-size: 5
@@ -28,9 +26,9 @@ spring:
       stat-view-servlet.login-password: admin
   # Redis 缓存
   redis:
-    host: 47.100.200.104
+    host: 127.0.0.1
     port: 6379
-    password: budai7417..
+    password: 123456
     timeout: 1800000
     lettuce:
       pool:
@@ -42,8 +40,8 @@ spring:
   # 邮件配置
   mail:
     host: smtp.163.com
-    username: budai_youth@163.com
-    password: ZJBPEJGNGJIRIDGY
+    username: ibudai56@163.com
+    password: your_token
     properties:
       mail:
         smtp:
@@ -54,7 +52,7 @@ spring:
 # 绑定mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: xyz.greatinvincible.entity
+  type-aliases-package: com.budailad.entity
   # 控制台打印 sql 语句
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -66,12 +64,12 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
 
-# Minio数据库
-minio:
-  endpoint: http://47.100.200.104:9000
-  accessKey: budai
-  secretKey: budai7417..
-
 # 日志配置文件
 logging:
   config: classpath:logback-spring.xml
+
+# Minio数据库
+minio:
+  endpoint: http://127.0.0.1:9000
+  accessKey: budai
+  secretKey: 123456
