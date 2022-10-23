@@ -40,7 +40,7 @@ npm run dev
 
 #### 2. 后端启动
 
-- ``MySQL`` 中新建数据库名为 ``elderly_healthcare`` ，依次将根目录 ``sql`` 目录下的 ``elderly_healthcare.sql`` 和 ``home_menu.sql``  脚本。
+- ``MySQL`` 中新建数据库名为 ``elderly_healthcare`` ，依次运行根目录 ``sql`` 目录下的 ``elderly_healthcare.sql`` 和 ``home_menu.sql``  脚本。
 
 - 后端启动需下载 ``Maven`` 依赖，IDEA安装 ``Maven Helper `` 插件在 ``healthcare-manager`` 目录下右击 ``pom.xml`` 文件选择 ``clear install`` 。
 
