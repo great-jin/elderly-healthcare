@@ -7,12 +7,12 @@ import static xyz.ibudai.utils.AESUtil.desEncrypt;
 
 class AESTest {
 
-    private static String IV = "byouthinvincible";
-    private static String KEY = "byouthinvincible";
+    private static String IV = "dyouthinvincible";
+    private static String KEY = "dyouthinvincible";
 
     @Test
     void Encrypt() {
-        String data = "123";
+        String data = "123456";
         try {
             String str = new String(data.getBytes(), "UTF-8");
 

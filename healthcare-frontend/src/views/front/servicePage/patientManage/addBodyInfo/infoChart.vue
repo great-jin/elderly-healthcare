@@ -3,8 +3,8 @@
 </template>
 
 <script>
+import moment from "moment";
 import { getCharData } from '@/api/patientBodyInfo'
-import moment from "_moment@2.29.1@moment";
 
 export default {
   name: 'line3Chart',
