@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.dao.DailyTaskDao">
+
+    <resultMap type="xyz.ibudai.entity.DailyTask" id="DailyTaskMap">
+        <result property="taskId" column="task_id" jdbcType="VARCHAR"/>
+        <result property="taskName" column="task_name" jdbcType="VARCHAR"/>
+        <result property="patientId" column="patient_id" jdbcType="VARCHAR"/>
+        <result property="patientName" column="patient_name" jdbcType="VARCHAR"/>
+        <result property="nurseId" column="nurse_id" jdbcType="VARCHAR"/>
+        <result property="nurseName" column="nurse_name" jdbcType="VARCHAR"/>
+        <result property="taskContent" column="task_content" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelay" column="is_delay" jdbcType="INTEGER"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isFinished" column="is_finished" jdbcType="INTEGER"/>
+        <result property="finishTime" column="finish_time" jdbcType="TIMESTAMP"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DailyTaskMap">
+        select task_id,
+               task_name,
+               patient_id,
+               patient_name,
+               nurse_id,
+               nurse_name,
+               task_content,
+               created_time,
+               is_delay,
+               update_time,
+               is_finished,
+               finish_time,
+               comment
+        from daily_task
+        where task_id = #{taskId}
+    </select>
+
+    <!--条件查询-->
+    <select id="conditionQuery" resultMap="DailyTaskMap">
+        select
+        task_id, task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time, is_delay,
+        update_time, is_finished, finish_time, comment
+        from daily_task
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and task_name = #{taskName}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="nurseId != null and nurseId != ''">
+                and nurse_id = #{nurseId}
+            </if>
+            <if test="nurseName != null and nurseName != ''">
+                and nurse_name = #{nurseName}
+            </if>
+            <if test="taskContent != null and taskContent != ''">
+                and task_content = #{taskContent}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="isDelay != null">
+                and is_delay = #{isDelay}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="finishTime != null">
+                and finish_time = #{finishTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DailyTaskMap">
+        select
+        task_id, task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time, is_delay,
+        update_time, is_finished, finish_time, comment
+        from daily_task
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and task_name = #{taskName}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="nurseId != null and nurseId != ''">
+                and nurse_id = #{nurseId}
+            </if>
+            <if test="nurseName != null and nurseName != ''">
+                and nurse_name = #{nurseName}
+            </if>
+            <if test="taskContent != null and taskContent != ''">
+                and task_content = #{taskContent}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="isDelay != null">
+                and is_delay = #{isDelay}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="finishTime != null">
+                and finish_time = #{finishTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from daily_task
+        <where>
+            <if test="taskId != null and taskId != ''">
+                and task_id = #{taskId}
+            </if>
+            <if test="taskName != null and taskName != ''">
+                and task_name = #{taskName}
+            </if>
+            <if test="patientId != null and patientId != ''">
+                and patient_id = #{patientId}
+            </if>
+            <if test="patientName != null and patientName != ''">
+                and patient_name = #{patientName}
+            </if>
+            <if test="nurseId != null and nurseId != ''">
+                and nurse_id = #{nurseId}
+            </if>
+            <if test="nurseName != null and nurseName != ''">
+                and nurse_name = #{nurseName}
+            </if>
+            <if test="taskContent != null and taskContent != ''">
+                and task_content = #{taskContent}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="isDelay != null">
+                and is_delay = #{isDelay}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="finishTime != null">
+                and finish_time = #{finishTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="taskId" useGeneratedKeys="true">
+        insert into daily_task(task_id, task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time,
+                               is_delay, update_time, is_finished, finish_time, comment)
+        values (#{taskId}, #{taskName}, #{patientId}, #{patientName}, #{nurseId}, #{nurseName}, #{taskContent}, #{createdTime},
+                #{isDelay}, #{updateTime}, #{isFinished}, #{finishTime}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="taskId" useGeneratedKeys="true">
+        insert into daily_task(task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time,
+        is_delay, update_time, is_finished, finish_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.taskName}, #{entity.patientId}, #{entity.patientName}, #{entity.nurseId}, #{entity.nurseName},
+            #{entity.taskContent}, #{entity.createdTime}, #{entity.isDelay}, #{entity.updateTime}, #{entity.isFinished},
+            #{entity.finishTime}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="taskId" useGeneratedKeys="true">
+        insert into daily_task(task_name, patient_id, patient_name, nurse_id, nurse_name, task_content, created_time,
+        is_delay, update_time, is_finished, finish_time, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.taskName}, #{entity.patientId}, #{entity.patientName}, #{entity.nurseId}, #{entity.nurseName},
+            #{entity.taskContent}, #{entity.createdTime}, #{entity.isDelay}, #{entity.updateTime}, #{entity.isFinished},
+            #{entity.finishTime}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        task_name = values(task_name),
+        patient_id = values(patient_id),
+        patient_name = values(patient_name),
+        nurse_id = values(nurse_id),
+        nurse_name = values(nurse_name),
+        task_content = values(task_content),
+        created_time = values(created_time),
+        is_delay = values(is_delay),
+        update_time = values(update_time),
+        is_finished = values(is_finished),
+        finish_time = values(finish_time),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update daily_task
+        <set>
+            <if test="taskName != null and taskName != ''">
+                task_name = #{taskName},
+            </if>
+            <if test="patientId != null and patientId != ''">
+                patient_id = #{patientId},
+            </if>
+            <if test="patientName != null and patientName != ''">
+                patient_name = #{patientName},
+            </if>
+            <if test="nurseId != null and nurseId != ''">
+                nurse_id = #{nurseId},
+            </if>
+            <if test="nurseName != null and nurseName != ''">
+                nurse_name = #{nurseName},
+            </if>
+            <if test="taskContent != null and taskContent != ''">
+                task_content = #{taskContent},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="isDelay != null">
+                is_delay = #{isDelay},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isFinished != null">
+                is_finished = #{isFinished},
+            </if>
+            <if test="finishTime != null">
+                finish_time = #{finishTime},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where task_id = #{taskId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from daily_task
+        where task_id = #{taskId}
+    </delete>
+
+</mapper>
+

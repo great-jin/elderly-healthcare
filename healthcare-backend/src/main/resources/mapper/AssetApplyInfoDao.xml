@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.dao.AssetApplyInfoDao">
+
+    <resultMap type="xyz.ibudai.entity.AssetApplyInfo" id="AssetApplyInfoMap">
+        <result property="applyId" column="apply_id" jdbcType="VARCHAR"/>
+        <result property="organizeUnit" column="organize_unit" jdbcType="VARCHAR"/>
+        <result property="organizeName" column="organize_name" jdbcType="VARCHAR"/>
+        <result property="staffId" column="staff_id" jdbcType="VARCHAR"/>
+        <result property="applyTime" column="apply_time" jdbcType="TIMESTAMP"/>
+        <result property="applyReason" column="apply_reason" jdbcType="TIMESTAMP"/>
+        <result property="receiveName" column="receive_name" jdbcType="VARCHAR"/>
+        <result property="receivePhone" column="receive_phone" jdbcType="VARCHAR"/>
+        <result property="receiveAddress" column="receive_address" jdbcType="VARCHAR"/>
+        <result property="costMoney" column="cost_money" jdbcType="VARCHAR"/>
+        <result property="currentState" column="current_state" jdbcType="INTEGER"/>
+        <result property="isFinished" column="is_finished" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AssetApplyInfoMap">
+        select apply_id,
+               organize_unit,
+               organize_name,
+               staff_id,
+               apply_time,
+               apply_reason,
+               receive_name,
+               receive_phone,
+               receive_address,
+               cost_money,
+               current_state,
+               is_finished,
+               comment
+        from asset_apply_info
+        where apply_id = #{applyId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AssetApplyInfoMap">
+        select
+        apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
+        receive_address, cost_money, current_state, is_finished, comment
+        from asset_apply_info
+        <where>
+            <if test="applyId != null and applyId != ''">
+                and apply_id = #{applyId}
+            </if>
+            <if test="organizeUnit != null and organizeUnit != ''">
+                and organize_unit = #{organizeUnit}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="applyReason != null">
+                and apply_reason = #{applyReason}
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                and receive_name = #{receiveName}
+            </if>
+            <if test="receivePhone != null and receivePhone != ''">
+                and receive_phone = #{receivePhone}
+            </if>
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
+            </if>
+            <if test="costMoney != null">
+                and cost_money = #{costMoney}
+            </if>
+            <if test="currentState != null">
+                and current_state = #{currentState}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="conditionQuery" resultMap="AssetApplyInfoMap">
+        select
+        apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name, receive_phone,
+        receive_address, cost_money, current_state, is_finished, comment
+        from asset_apply_info
+        <where>
+            <if test="applyId != null and applyId != ''">
+                and apply_id = #{applyId}
+            </if>
+            <if test="organizeUnit != null and organizeUnit != ''">
+                and organize_unit = #{organizeUnit}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="applyReason != null">
+                and apply_reason = #{applyReason}
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                and receive_name = #{receiveName}
+            </if>
+            <if test="receivePhone != null and receivePhone != ''">
+                and receive_phone = #{receivePhone}
+            </if>
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
+            </if>
+            <if test="costMoney != null">
+                and cost_money = #{costMoney}
+            </if>
+            <if test="currentState != null">
+                and current_state = #{currentState}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from asset_apply_info
+        <where>
+            <if test="applyId != null and applyId != ''">
+                and apply_id = #{applyId}
+            </if>
+            <if test="organizeUnit != null and organizeUnit != ''">
+                and organize_unit = #{organizeUnit}
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                and organize_name = #{organizeName}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="applyTime != null">
+                and apply_time = #{applyTime}
+            </if>
+            <if test="applyReason != null">
+                and apply_reason = #{applyReason}
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                and receive_name = #{receiveName}
+            </if>
+            <if test="receivePhone != null and receivePhone != ''">
+                and receive_phone = #{receivePhone}
+            </if>
+            <if test="receiveAddress != null and receiveAddress != ''">
+                and receive_address = #{receiveAddress}
+            </if>
+            <if test="costMoney != null">
+                and cost_money = #{costMoney}
+            </if>
+            <if test="currentState != null">
+                and current_state = #{currentState}
+            </if>
+            <if test="isFinished != null">
+                and is_finished = #{isFinished}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="applyId" useGeneratedKeys="true">
+        insert into asset_apply_info(apply_id, organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
+                                     receive_phone, receive_address, cost_money, current_state, is_finished, comment)
+        values (#{applyId}, #{organizeUnit}, #{organizeName}, #{staffId}, #{applyTime}, #{applyReason}, #{receiveName},
+                #{receivePhone}, #{receiveAddress}, #{costMoney}, #{currentState}, #{isFinished}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="applyId" useGeneratedKeys="true">
+        insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
+        receive_phone, receive_address, cost_money, current_state, is_finished, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.organizeUnit}, #{entity.organizeName}, #{entity.staffId}, #{entity.applyTime},
+            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAddress},
+            #{entity.costMoney}, #{entity.currentState}, #{entity.isFinished}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="applyId" useGeneratedKeys="true">
+        insert into asset_apply_info(organize_unit, organize_name, staff_id, apply_time, apply_reason, receive_name,
+        receive_phone, receive_address, cost_money, current_state, is_finished, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.organizeUnit}, #{entity.organizeName}, #{entity.staffId}, #{entity.applyTime},
+            #{entity.applyReason}, #{entity.receiveName}, #{entity.receivePhone}, #{entity.receiveAddress},
+            #{entity.costMoney}, #{entity.currentState}, #{entity.isFinished}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        organize_unit = values(organize_unit),
+        organize_name = values(organize_name),
+        staff_id = values(staff_id),
+        apply_time = values(apply_time),
+        apply_reason = values(apply_reason),
+        receive_name = values(receive_name),
+        receive_phone = values(receive_phone),
+        receive_address = values(receive_address),
+        cost_money = values(cost_money),
+        current_state = values(current_state),
+        is_finished = values(is_finished),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update asset_apply_info
+        <set>
+            <if test="organizeUnit != null and organizeUnit != ''">
+                organize_unit = #{organizeUnit},
+            </if>
+            <if test="organizeName != null and organizeName != ''">
+                organize_name = #{organizeName},
+            </if>
+            <if test="staffId != null and staffId != ''">
+                staff_id = #{staffId},
+            </if>
+            <if test="applyTime != null">
+                apply_time = #{applyTime},
+            </if>
+            <if test="applyReason != null">
+                apply_reason = #{applyReason},
+            </if>
+            <if test="receiveName != null and receiveName != ''">
+                receive_name = #{receiveName},
+            </if>
+            <if test="receivePhone != null and receivePhone != ''">
+                receive_phone = #{receivePhone},
+            </if>
+            <if test="receiveAddress != null and receiveAddress != ''">
+                receive_address = #{receiveAddress},
+            </if>
+            <if test="costMoney != null">
+                cost_money = #{costMoney},
+            </if>
+            <if test="currentState != null">
+                current_state = #{currentState},
+            </if>
+            <if test="isFinished != null">
+                is_finished = #{isFinished},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where apply_id = #{applyId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from asset_apply_info
+        where apply_id = #{applyId}
+    </delete>
+
+</mapper>
+

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.dao.PatientCostDetailDao">
+
+    <resultMap type="xyz.ibudai.entity.PatientCostDetail" id="PatientCostDetailMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="costId" column="cost_id" jdbcType="VARCHAR"/>
+        <result property="goodsType" column="goods_type" jdbcType="VARCHAR"/>
+        <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+        <result property="goodsPrice" column="goods_price" jdbcType="NUMERIC"/>
+        <result property="goodsNumber" column="goods_number" jdbcType="INTEGER"/>
+        <result property="costCount" column="cost_count" jdbcType="NUMERIC"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PatientCostDetailMap">
+        select id,
+               cost_id,
+               goods_type,
+               goods_name,
+               goods_price,
+               goods_number,
+               cost_count,
+               comment
+        from patient_cost_detail
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="conditionQuery" resultMap="PatientCostDetailMap">
+        select
+        id, cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment
+        from patient_cost_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="goodsNumber != null">
+                and goods_number = #{goodsNumber}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PatientCostDetailMap">
+        select
+        id, cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment
+        from patient_cost_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="goodsNumber != null">
+                and goods_number = #{goodsNumber}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from patient_cost_detail
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="costId != null and costId != ''">
+                and cost_id = #{costId}
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                and goods_type = #{goodsType}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and goods_name = #{goodsName}
+            </if>
+            <if test="goodsPrice != null">
+                and goods_price = #{goodsPrice}
+            </if>
+            <if test="goodsNumber != null">
+                and goods_number = #{goodsNumber}
+            </if>
+            <if test="costCount != null">
+                and cost_count = #{costCount}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_cost_detail(id, cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment)
+        values (#{id}, #{costId}, #{goodsType}, #{goodsName}, #{goodsPrice}, #{goodsNumber}, #{costCount}, #{comment})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_cost_detail(cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.costId}, #{entity.goodsType}, #{entity.goodsName}, #{entity.goodsPrice}, #{entity.goodsNumber},
+            #{entity.costCount}, #{entity.comment})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into patient_cost_detail(cost_id, goods_type, goods_name, goods_price, goods_number, cost_count, comment)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.costId}, #{entity.goodsType}, #{entity.goodsName}, #{entity.goodsPrice}, #{entity.goodsNumber},
+            #{entity.costCount}, #{entity.comment})
+        </foreach>
+        on duplicate key update
+        cost_id = values(cost_id),
+        goods_type = values(goods_type),
+        goods_name = values(goods_name),
+        goods_price = values(goods_price),
+        goods_number = values(goods_number),
+        cost_count = values(cost_count),
+        comment = values(comment)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update patient_cost_detail
+        <set>
+            <if test="costId != null and costId != ''">
+                cost_id = #{costId},
+            </if>
+            <if test="goodsType != null and goodsType != ''">
+                goods_type = #{goodsType},
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                goods_name = #{goodsName},
+            </if>
+            <if test="goodsPrice != null">
+                goods_price = #{goodsPrice},
+            </if>
+            <if test="goodsNumber != null">
+                goods_number = #{goodsNumber},
+            </if>
+            <if test="costCount != null">
+                cost_count = #{costCount},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from patient_cost_detail
+        where id = #{id}
+    </delete>
+
+</mapper>
+

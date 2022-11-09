@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.dao.IllnessCatalogDao">
+
+    <resultMap type="xyz.ibudai.entity.IllnessCatalog" id="IllnessCatalogMap">
+        <result property="illId" column="ill_id" jdbcType="VARCHAR"/>
+        <result property="illType" column="ill_type" jdbcType="VARCHAR"/>
+        <result property="illName" column="ill_name" jdbcType="VARCHAR"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="illDescribe" column="ill_describe" jdbcType="VARCHAR"/>
+        <result property="illIndex" column="ill_index" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="IllnessCatalogMap">
+        select ill_id,
+               ill_type,
+               ill_name,
+               comment,
+               ill_describe,
+               ill_index
+        from illness_catalog
+        where ill_id = #{illId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="IllnessCatalogMap">
+        select
+        ill_id, ill_type, ill_name, comment, ill_describe, ill_index
+        from illness_catalog
+        <where>
+            <if test="illId != null and illId != ''">
+                and ill_id = #{illId}
+            </if>
+            <if test="illType != null and illType != ''">
+                and ill_type = #{illType}
+            </if>
+            <if test="illName != null and illName != ''">
+                and ill_name = #{illName}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="illDescribe != null and illDescribe != ''">
+                and ill_describe = #{illDescribe}
+            </if>
+            <if test="illIndex != null and illIndex != ''">
+                and ill_index = #{illIndex}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="conditionQuery" resultMap="IllnessCatalogMap">
+        select
+        ill_id, ill_type, ill_name, comment, ill_describe, ill_index
+        from illness_catalog
+        <where>
+            <if test="illId != null and illId != ''">
+                and ill_id = #{illId}
+            </if>
+            <if test="illType != null and illType != ''">
+                and ill_type = #{illType}
+            </if>
+            <if test="illName != null and illName != ''">
+                and ill_name = #{illName}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="illDescribe != null and illDescribe != ''">
+                and ill_describe = #{illDescribe}
+            </if>
+            <if test="illIndex != null and illIndex != ''">
+                and ill_index = #{illIndex}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from illness_catalog
+        <where>
+            <if test="illId != null and illId != ''">
+                and ill_id = #{illId}
+            </if>
+            <if test="illType != null and illType != ''">
+                and ill_type = #{illType}
+            </if>
+            <if test="illName != null and illName != ''">
+                and ill_name = #{illName}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="illDescribe != null and illDescribe != ''">
+                and ill_describe = #{illDescribe}
+            </if>
+            <if test="illIndex != null and illIndex != ''">
+                and ill_index = #{illIndex}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="illId" useGeneratedKeys="true">
+        insert into illness_catalog(ill_type, ill_name, comment, ill_describe, ill_index)
+        values (#{illType}, #{illName}, #{comment}, #{illDescribe}, #{illIndex})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="illId" useGeneratedKeys="true">
+        insert into illness_catalog(ill_type, ill_name, comment, ill_describe, ill_index)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.illType}, #{entity.illName}, #{entity.comment}, #{entity.illDescribe}, #{entity.illIndex})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="illId" useGeneratedKeys="true">
+        insert into illness_catalog(ill_type, ill_name, comment, ill_describe, ill_index)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.illType}, #{entity.illName}, #{entity.comment}, #{entity.illDescribe}, #{entity.illIndex})
+        </foreach>
+        on duplicate key update
+        ill_type = values(ill_type),
+        ill_name = values(ill_name),
+        comment = values(comment),
+        ill_describe = values(ill_describe),
+        ill_index = values(ill_index)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update illness_catalog
+        <set>
+            <if test="illType != null and illType != ''">
+                ill_type = #{illType},
+            </if>
+            <if test="illName != null and illName != ''">
+                ill_name = #{illName},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+            <if test="illDescribe != null and illDescribe != ''">
+                ill_describe = #{illDescribe},
+            </if>
+            <if test="illIndex != null and illIndex != ''">
+                ill_index = #{illIndex},
+            </if>
+        </set>
+        where ill_id = #{illId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from illness_catalog
+        where ill_id = #{illId}
+    </delete>
+
+</mapper>
+

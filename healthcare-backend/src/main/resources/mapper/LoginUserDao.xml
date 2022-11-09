@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.ibudai.dao.LoginUserDao">
+
+    <resultMap type="xyz.ibudai.entity.LoginUser" id="LoginUserMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="staffId" column="staff_id" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userPwd" column="user_pwd" jdbcType="VARCHAR"/>
+        <result property="organizeId" column="organize_id" jdbcType="VARCHAR"/>
+        <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+        <result property="userPower" column="user_power" jdbcType="INTEGER"/>
+        <result property="isDisabled" column="is_disabled" jdbcType="INTEGER"/>
+        <result property="registerTime" column="register_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="destroyTime" column="destroy_time" jdbcType="TIMESTAMP"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="bucketAvatar" column="bucket_avatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LoginUserMap">
+        select id,
+               staff_id,
+               user_name,
+               user_pwd,
+               organize_id,
+               user_avatar,
+               user_power,
+               is_disabled,
+               register_time,
+               update_time,
+               destroy_time,
+               comment,
+               bucket_avatar
+        from login_user
+        where staff_id = #{staffId}
+    </select>
+
+    <select id="getInfo" resultType="xyz.ibudai.entity.dto.LoginUserDTO">
+        SELECT staff_id as staffId, staff_email as staffEmail
+        from (
+                 SELECT s.staff_id, s.staff_email
+                 from organize_staff s
+                 UNION all
+                 SELECT n.staff_id, n.staff_email
+                 from staff_nurse n
+                 UNION all
+                 SELECT d.staff_id, d.staff_email
+                 from staff_doctor d
+             ) as t
+        where t.staff_id = #{staffId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LoginUserMap">
+        select
+        id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled, register_time,
+        update_time, destroy_time, comment, bucket_avatar
+        from login_user
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="userAvatar != null and userAvatar != ''">
+                and user_avatar = #{userAvatar}
+            </if>
+            <if test="userPower != null">
+                and user_power = #{userPower}
+            </if>
+            <if test="isDisabled != null">
+                and is_disabled = #{isDisabled}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="destroyTime != null">
+                and destroy_time = #{destroyTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--条件查询-->
+    <select id="conditionQuery" resultMap="LoginUserMap">
+        select
+        id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled, register_time,
+        update_time, destroy_time, comment, bucket_avatar
+        from login_user
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="userAvatar != null and userAvatar != ''">
+                and user_avatar = #{userAvatar}
+            </if>
+            <if test="userPower != null">
+                and user_power = #{userPower}
+            </if>
+            <if test="isDisabled != null">
+                and is_disabled = #{isDisabled}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="destroyTime != null">
+                and destroy_time = #{destroyTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from login_user
+        <where>
+            <if test="id != null and id != ''">
+                and id = #{id}
+            </if>
+            <if test="staffId != null and staffId != ''">
+                and staff_id = #{staffId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                and user_pwd = #{userPwd}
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                and organize_id = #{organizeId}
+            </if>
+            <if test="userAvatar != null and userAvatar != ''">
+                and user_avatar = #{userAvatar}
+            </if>
+            <if test="userPower != null">
+                and user_power = #{userPower}
+            </if>
+            <if test="isDisabled != null">
+                and is_disabled = #{isDisabled}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="destroyTime != null">
+                and destroy_time = #{destroyTime}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                and bucket_avatar = #{bucketAvatar}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into login_user(id, staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
+                               register_time, update_time, destroy_time, comment, bucket_avatar)
+        values (#{id,}, #{staffId}, #{userName}, #{userPwd}, #{organizeId}, #{userAvatar}, #{userPower}, #{isDisabled},
+                #{registerTime}, #{updateTime}, #{destroyTime}, #{comment}, #{bucketAvatar})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
+        register_time, update_time, destroy_time, comment, bucket_avatar)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.staffId}, #{entity.userName}, #{entity.userPwd}, #{entity.organizeId}, #{entity.userAvatar},
+            #{entity.userPower}, #{entity.isDisabled}, #{entity.registerTime}, #{entity.updateTime},
+            #{entity.destroyTime}, #{entity.comment}, #{entity.bucketAvatar})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into login_user(staff_id, user_name, user_pwd, organize_id, user_avatar, user_power, is_disabled,
+        register_time, update_time, destroy_time, comment, bucket_avatar)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.staffId}, #{entity.userName}, #{entity.userPwd}, #{entity.organizeId}, #{entity.userAvatar},
+            #{entity.userPower}, #{entity.isDisabled}, #{entity.registerTime}, #{entity.updateTime},
+            #{entity.destroyTime}, #{entity.comment}, #{entity.bucketAvatar})
+        </foreach>
+        on duplicate key update
+        staff_id = values(staff_id),
+        user_name = values(user_name),
+        user_pwd = values(user_pwd),
+        organize_id = values(organize_id),
+        user_avatar = values(user_avatar),
+        user_power = values(user_power),
+        is_disabled = values(is_disabled),
+        register_time = values(register_time),
+        update_time = values(update_time),
+        destroy_time = values(destroy_time),
+        comment = values(comment),
+        bucket_avatar = values(bucket_avatar)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update login_user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userPwd != null and userPwd != ''">
+                user_pwd = #{userPwd},
+            </if>
+            <if test="organizeId != null and organizeId != ''">
+                organize_id = #{organizeId},
+            </if>
+            <if test="userAvatar != null and userAvatar != ''">
+                user_avatar = #{userAvatar},
+            </if>
+            <if test="userPower != null">
+                user_power = #{userPower},
+            </if>
+            <if test="isDisabled != null">
+                is_disabled = #{isDisabled},
+            </if>
+            <if test="registerTime != null">
+                register_time = #{registerTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="destroyTime != null">
+                destroy_time = #{destroyTime},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+            <if test="bucketAvatar != null and bucketAvatar != ''">
+                bucket_avatar = #{bucketAvatar},
+            </if>
+        </set>
+        where staff_id = #{staffId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from login_user
+        where id = #{id}
+    </delete>
+
+</mapper>
+
